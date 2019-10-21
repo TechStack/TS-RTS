@@ -3,18 +3,28 @@ package com.projectreddog.tsrts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.projectreddog.tsrts.init.ModBlocks;
+import com.projectreddog.tsrts.proxy.ClientProxy;
+import com.projectreddog.tsrts.proxy.IProxy;
+import com.projectreddog.tsrts.proxy.ServerProxy;
+import com.projectreddog.tsrts.reference.Reference;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod("tsrts")
+@Mod(Reference.MODID)
 public class TSRTS {
-	// Directly reference a log4j logger.
 
+	public static IProxy Prox = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+
+	// Directly reference a log4j logger.
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public TSRTS() {
@@ -34,9 +44,18 @@ public class TSRTS {
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 	public static class RegistryEvents {
 		@SubscribeEvent
-		public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+		public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
 			// register a new block here
 			LOGGER.info("HELLO from Register Block");
+			ModBlocks.RegisterBlocks(event);
+		}
+
+		@SubscribeEvent
+		public static void onItemRegistry(final RegistryEvent.Register<Item> event) {
+			// register a new block here
+			LOGGER.info("HELLO from Register ITEM");
+			ModBlocks.RegisterBlockItems(event);
+
 		}
 	}
 }
