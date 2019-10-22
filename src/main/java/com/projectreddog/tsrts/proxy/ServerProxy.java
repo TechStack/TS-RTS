@@ -9,4 +9,9 @@ public class ServerProxy implements IProxy {
 		throw new IllegalStateException("Only Run this on the Client!");
 	}
 
+	@Override
+	public void init() {
+
+	}
+
 }

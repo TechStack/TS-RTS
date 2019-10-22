@@ -4,13 +4,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.projectreddog.tsrts.init.ModBlocks;
+import com.projectreddog.tsrts.init.ModEntities;
+import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.proxy.ClientProxy;
 import com.projectreddog.tsrts.proxy.IProxy;
 import com.projectreddog.tsrts.proxy.ServerProxy;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,7 +24,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(Reference.MODID)
 public class TSRTS {
 
-	public static IProxy Prox = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
 	// Directly reference a log4j logger.
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -34,9 +36,8 @@ public class TSRTS {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
-		// some preinit code
-		LOGGER.info("HELLO FROM PREINIT");
-		LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+		proxy.init();
+
 	}
 
 	// You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -55,7 +56,16 @@ public class TSRTS {
 			// register a new block here
 			LOGGER.info("HELLO from Register ITEM");
 			ModBlocks.RegisterBlockItems(event);
+			ModItems.RegisterItems(event);
 
 		}
+
+		@SubscribeEvent
+		public static void onEntityRegistry(final RegistryEvent.Register<EntityType<?>> event) {
+			// register a new block here
+			LOGGER.info("HELLO from Register Enityt");
+			ModEntities.RegisterEntites(event);
+		}
+
 	}
 }

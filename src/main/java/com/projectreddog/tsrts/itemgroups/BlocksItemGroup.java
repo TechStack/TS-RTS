@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 public class BlocksItemGroup extends ItemGroup {
 
 	public BlocksItemGroup() {
-		super("TS RTS - Blocks");
+		super("blocks");
 
 	}
 

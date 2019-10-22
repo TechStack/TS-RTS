@@ -1,3 +1,14 @@
 {
-"block.tsrts.sampleblock":"Sample Block"
+"_comment":"Blocks here",
+"block.tsrts.sampleblock":"Sample Block",
+
+"_comment":"Creative Tabs",
+"itemGroup.blocks":"TS RTS - Blocks",
+"itemGroup.weapons":"TS RTS - Weapons",
+
+"_comment":"Items here",
+"item.tsrts.sampleitem":"Sample item",
+
+
+"_comment":"End here"
 }
