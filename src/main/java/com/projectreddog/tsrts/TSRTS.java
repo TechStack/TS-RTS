@@ -14,6 +14,7 @@ import com.projectreddog.tsrts.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -27,7 +28,7 @@ public class TSRTS {
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
 	// Directly reference a log4j logger.
-	private static final Logger LOGGER = LogManager.getLogger();
+	public static final Logger LOGGER = LogManager.getLogger();
 
 	public TSRTS() {
 		// Register the setup method for modloading
@@ -65,6 +66,14 @@ public class TSRTS {
 			// register a new block here
 			LOGGER.info("HELLO from Register Enityt");
 			ModEntities.RegisterEntites(event);
+		}
+
+		@SubscribeEvent
+		public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
+			// register a new block here
+			LOGGER.info("HELLO from Register Tile ENtity");
+			ModBlocks.RegisterTileEntities(event);
+
 		}
 
 	}
