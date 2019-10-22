@@ -1,6 +1,7 @@
 {
 "_comment":"Blocks here",
-"block.tsrts.sampleblock":"Sample Block",
+"block.tsrts.garrisonblock":"Garrison Block",
+"block.tsrts.archeryrangeblock":"Archery Range Block",
 
 "_comment":"Creative Tabs",
 "itemGroup.blocks":"TS RTS - Blocks",

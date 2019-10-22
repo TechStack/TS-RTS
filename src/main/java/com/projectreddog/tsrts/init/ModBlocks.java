@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.init;
 
-import com.projectreddog.tsrts.blocks.SampleBlock;
+import com.projectreddog.tsrts.blocks.ArcheryRangeBlock;
+import com.projectreddog.tsrts.blocks.GarrisonBlock;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.block.Block;
@@ -11,15 +12,22 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 public class ModBlocks {
-	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SAMPLE_BLOCK)
-	public static SampleBlock SAMPLEBLOCK = new SampleBlock();
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_GARRISON_BLOCK)
+	public static GarrisonBlock GARRISON_BLOCK = new GarrisonBlock();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARCHERY_RANGE_BLOCK)
+	public static ArcheryRangeBlock ARCHERY_RANGE_BLOCK = new ArcheryRangeBlock();
 
 	public static void RegisterBlocks(final RegistryEvent.Register<Block> event) {
-		event.getRegistry().register(ModBlocks.SAMPLEBLOCK);
+		event.getRegistry().register(ModBlocks.GARRISON_BLOCK);
+		event.getRegistry().register(ModBlocks.ARCHERY_RANGE_BLOCK);
+
 	}
 
 	public static void RegisterBlockItems(final RegistryEvent.Register<Item> event) {
-		RegisterBlockItem(event, ModBlocks.SAMPLEBLOCK);
+		RegisterBlockItem(event, ModBlocks.GARRISON_BLOCK);
+		RegisterBlockItem(event, ModBlocks.ARCHERY_RANGE_BLOCK);
+
 	}
 
 	// Use default BlockItem group

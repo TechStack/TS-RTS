@@ -15,7 +15,7 @@ public class BlocksItemGroup extends ItemGroup {
 
 	@Override
 	public ItemStack createIcon() {
-		return new ItemStack(Item.BLOCK_TO_ITEM.get(ModBlocks.SAMPLEBLOCK));
+		return new ItemStack(Item.BLOCK_TO_ITEM.get(ModBlocks.GARRISON_BLOCK));
 	}
 
 }
