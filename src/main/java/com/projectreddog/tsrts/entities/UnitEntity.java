@@ -19,7 +19,7 @@ public class UnitEntity extends CreatureEntity {
 
 	public void setOwnerName(String ownerName) {
 		// TODO REMOVE THE RNG next int as its only for testing here
-		this.ownerName = ownerName + this.getRNG().nextInt();
+		this.ownerName = ownerName;
 	}
 
 	public UnitEntity(EntityType<? extends CreatureEntity> type, World worldIn) {

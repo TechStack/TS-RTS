@@ -19,7 +19,7 @@ public class ModNetwork {
 	public static void init() {
 		int MessageId = 0;
 
-		simpleChannel.registerMessage(MessageId++, TeGuiButtonClickedPacket.class, TeGuiButtonClickedPacket::encode, TeGuiButtonClickedPacket::decode, TeGuiButtonClickedPacket::handle);
+		simpleChannel.registerMessage(MessageId++, TeGuiButtonClickedPacket.class, TeGuiButtonClickedPacket::encode, TeGuiButtonClickedPacket::new, TeGuiButtonClickedPacket::handle);
 	}
 
 	public static <MSG> void SendToPlayer(ServerPlayerEntity player, MSG message) {

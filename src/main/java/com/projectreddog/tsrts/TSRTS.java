@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.projectreddog.tsrts.init.ModBlocks;
+import com.projectreddog.tsrts.init.ModContainers;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
@@ -14,6 +15,7 @@ import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
@@ -75,6 +77,14 @@ public class TSRTS {
 			// register a new block here
 			LOGGER.info("HELLO from Register Tile ENtity");
 			ModBlocks.RegisterTileEntities(event);
+
+		}
+
+		@SubscribeEvent
+		public static void onContainerRegistry(final RegistryEvent.Register<ContainerType<?>> event) {
+			// register a new block here
+			LOGGER.info("HELLO from Register Tile ENtity");
+			ModContainers.RegisterContainers(event);
 
 		}
 
