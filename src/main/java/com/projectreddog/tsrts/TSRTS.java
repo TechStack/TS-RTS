@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
+import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.proxy.ClientProxy;
 import com.projectreddog.tsrts.proxy.IProxy;
 import com.projectreddog.tsrts.proxy.ServerProxy;
@@ -38,6 +39,7 @@ public class TSRTS {
 
 	private void setup(final FMLCommonSetupEvent event) {
 		proxy.init();
+		ModNetwork.init();
 
 	}
 
