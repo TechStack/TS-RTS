@@ -2,7 +2,7 @@ package com.projectreddog.tsrts.client.gui;
 
 import com.projectreddog.tsrts.containers.GarrisonContainer;
 import com.projectreddog.tsrts.init.ModNetwork;
-import com.projectreddog.tsrts.network.TeGuiButtonClickedPacket;
+import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -40,9 +40,20 @@ public class GarrisonScreen extends ContainerScreen<GarrisonContainer> {
 		int x = (this.width - this.xSize) / 2;
 
 		int y = (this.height - this.ySize) / 2;
-		addButton(new Button(x, y, 50, 10, "TEST", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacket(pos.getX(), pos.getY(), pos.getZ(), 1));
+		addButton(new Button(x, y, 50, 10, "Y", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERYELLOW));
 		}));
 
+		addButton(new Button(x, y + 10, 50, 10, "G", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERGREEN));
+		}));
+
+		addButton(new Button(x, y + 20, 50, 10, "R", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERRED));
+		}));
+
+		addButton(new Button(x, y + 30, 50, 10, "B", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERBLUE));
+		}));
 	}
 }

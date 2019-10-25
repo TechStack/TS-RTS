@@ -1,5 +1,8 @@
 package com.projectreddog.tsrts.entities;
 
+import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
+
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -20,6 +23,12 @@ public class UnitEntity extends CreatureEntity {
 	public void setOwnerName(String ownerName) {
 		// TODO REMOVE THE RNG next int as its only for testing here
 		this.ownerName = ownerName;
+
+		if (!world.isRemote) {
+			// from server send to others
+			ModNetwork.SendToALLPlayers(new EntityOwnerChangedPacketToClient(this.getEntityId(), this.ownerName));
+		}
+
 	}
 
 	public UnitEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
@@ -49,7 +58,7 @@ public class UnitEntity extends CreatureEntity {
 
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
-		ownerName = compound.getString("onwerName");
+		setOwnerName(compound.getString("onwerName"));
 	}
 
 	public void writeAdditional(CompoundNBT compound) {

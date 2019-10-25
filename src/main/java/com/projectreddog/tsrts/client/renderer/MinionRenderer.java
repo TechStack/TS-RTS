@@ -13,6 +13,10 @@ import net.minecraft.util.ResourceLocation;
 public class MinionRenderer extends MobRenderer<MinionEntity, MinionModel> {
 
 	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/minion.png");
+	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/minion_yellow.png");
+	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation(Reference.MODID, "textures/entity/minion_blue.png");
+	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation(Reference.MODID, "textures/entity/minion_green.png");
+	private static ResourceLocation TEXTURE_RED = new ResourceLocation(Reference.MODID, "textures/entity/minion_red.png");
 
 	public MinionRenderer(EntityRendererManager manager) {
 		super(manager, new MinionModel(), .5f);
@@ -22,14 +26,21 @@ public class MinionRenderer extends MobRenderer<MinionEntity, MinionModel> {
 	@Nullable
 	@Override
 	protected ResourceLocation getEntityTexture(MinionEntity entity) {
-		// if (TEXTURE == null) {
-//		AbstractClientPlayerEntity.getDownloadImageSkin(TEXTURE, "TechStack");
-		// TEXTURE = AbstractClientPlayerEntity.getLocationSkin(entity.getPlayer().getScoreboardName());
-		// }
-		return TEXTURE;
-		// ((AbstractClientPlayerEntity) Minecraft.getInstance().player.getLocationSkin(username)).getLocationSkin();
-
-		// Minecraft.getInstance().getConnection().getPlayerInfo("TechStack").getLocationSkin();
+		if (entity.getTeam() != null) {
+			if (entity.getTeam().getName().equals("red")) {
+				return TEXTURE_RED;
+			} else if (entity.getTeam().getName().equals("blue")) {
+				return TEXTURE_BLUE;
+			} else if (entity.getTeam().getName().equals("green")) {
+				return TEXTURE_GREEN;
+			} else if (entity.getTeam().getName().equals("yellow")) {
+				return TEXTURE_YELLOW;
+			} else {
+				return TEXTURE;
+			}
+		} else {
+			return TEXTURE;
+		}
 	}
 
 }

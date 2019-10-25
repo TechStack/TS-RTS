@@ -2,7 +2,9 @@ package com.projectreddog.tsrts.init;
 
 import java.util.function.Supplier;
 
-import com.projectreddog.tsrts.network.TeGuiButtonClickedPacket;
+import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -19,7 +21,10 @@ public class ModNetwork {
 	public static void init() {
 		int MessageId = 0;
 
-		simpleChannel.registerMessage(MessageId++, TeGuiButtonClickedPacket.class, TeGuiButtonClickedPacket::encode, TeGuiButtonClickedPacket::new, TeGuiButtonClickedPacket::handle);
+		simpleChannel.registerMessage(MessageId++, TeGuiButtonClickedPacketToServer.class, TeGuiButtonClickedPacketToServer::encode, TeGuiButtonClickedPacketToServer::new, TeGuiButtonClickedPacketToServer::handle);
+		simpleChannel.registerMessage(MessageId++, EntityOwnerChangedPacketToClient.class, EntityOwnerChangedPacketToClient::encode, EntityOwnerChangedPacketToClient::new, EntityOwnerChangedPacketToClient::handle);
+		simpleChannel.registerMessage(MessageId++, TEOwnerChangedPacketToClient.class, TEOwnerChangedPacketToClient::encode, TEOwnerChangedPacketToClient::new, TEOwnerChangedPacketToClient::handle);
+
 	}
 
 	public static <MSG> void SendToPlayer(ServerPlayerEntity player, MSG message) {

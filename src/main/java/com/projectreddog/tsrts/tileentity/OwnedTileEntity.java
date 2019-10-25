@@ -1,5 +1,8 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
+
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.tileentity.TileEntity;
@@ -21,6 +24,10 @@ public class OwnedTileEntity extends TileEntity {
 	public void setOwner(String onwersName) {
 		this.onwersName = onwersName;
 		this.markDirty();
+		if (!world.isRemote) {
+			// from server send to others
+			ModNetwork.SendToALLPlayers(new TEOwnerChangedPacketToClient(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.onwersName));
+		}
 	}
 
 	public ScorePlayerTeam getTeam() {
@@ -30,7 +37,11 @@ public class OwnedTileEntity extends TileEntity {
 	@Override
 	public CompoundNBT write(CompoundNBT compound) {
 		CompoundNBT nbt = super.write(compound);
-		nbt.putString("owner", onwersName);
+		if (onwersName != null) {
+			nbt.putString("owner", onwersName);
+		} else {
+			nbt.putString("owner", "");
+		}
 
 		return nbt;
 	}
@@ -39,6 +50,9 @@ public class OwnedTileEntity extends TileEntity {
 	public void read(CompoundNBT compound) {
 		super.read(compound);
 		onwersName = compound.getString("owner");
+		if (onwersName.contentEquals("")) {
+			onwersName = null;
+		}
 	}
 
 }

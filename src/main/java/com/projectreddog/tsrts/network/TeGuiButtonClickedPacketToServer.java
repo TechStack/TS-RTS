@@ -10,13 +10,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-public class TeGuiButtonClickedPacket {
+public class TeGuiButtonClickedPacketToServer {
 	public int posX;
 	public int posY;
 	public int posZ;
 	public int buttionid;
 
-	public TeGuiButtonClickedPacket(PacketBuffer buf) {
+	public TeGuiButtonClickedPacketToServer(PacketBuffer buf) {
 		// DECODE
 		this.posX = buf.readInt();
 		this.posY = buf.readInt();
@@ -24,7 +24,7 @@ public class TeGuiButtonClickedPacket {
 		this.buttionid = buf.readInt();
 	}
 
-	public TeGuiButtonClickedPacket(int posX, int posY, int posZ, int buttionid) {
+	public TeGuiButtonClickedPacketToServer(int posX, int posY, int posZ, int buttionid) {
 		super();
 		this.posX = posX;
 		this.posY = posY;

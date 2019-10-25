@@ -3,6 +3,7 @@ package com.projectreddog.tsrts.tileentity;
 import com.projectreddog.tsrts.containers.GarrisonContainer;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModEntities;
+import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -50,7 +51,16 @@ public class GarrisonTileEntity extends OwnedCooldownTileEntity implements IName
 	@Override
 	public void HandleGuiButton(int buttonId, PlayerEntity player) {
 		// TSRTS.LOGGER.info("button ID:" + buttonId);
-		this.setOwner(this.getOwner() + buttonId);
+
+		if (buttonId == Reference.GUI_BUTTON_DEBUG_TESTERYELLOW) {
+			this.setOwner("testeryellow");
+		} else if (buttonId == Reference.GUI_BUTTON_DEBUG_TESTERBLUE) {
+			this.setOwner("testerblue");
+		} else if (buttonId == Reference.GUI_BUTTON_DEBUG_TESTERGREEN) {
+			this.setOwner("testergreen");
+		} else if (buttonId == Reference.GUI_BUTTON_DEBUG_TESTERRED) {
+			this.setOwner("testerred");
+		}
 
 	}
 }
