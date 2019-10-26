@@ -2,11 +2,10 @@ package com.projectreddog.tsrts.blocks;
 
 import com.projectreddog.tsrts.reference.Reference;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 
-public class ArcheryRangeBlock extends Block {
+public class ArcheryRangeBlock extends OwnedBlock {
 
 	public ArcheryRangeBlock() {
 		super(Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0f));

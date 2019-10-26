@@ -3,7 +3,6 @@ package com.projectreddog.tsrts.blocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.GarrisonTileEntity;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -20,7 +19,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class GarrisonBlock extends Block {
+public class GarrisonBlock extends OwnedBlock {
 
 	public GarrisonBlock() {
 		super(Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0f));
@@ -41,7 +40,6 @@ public class GarrisonBlock extends Block {
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-
 		if (placer instanceof PlayerEntity) {
 
 			TileEntity te = worldIn.getTileEntity(pos);
@@ -52,6 +50,7 @@ public class GarrisonBlock extends Block {
 					gte.setOwner(((PlayerEntity) placer).getScoreboardName());
 				}
 			}
+
 		}
 	}
 

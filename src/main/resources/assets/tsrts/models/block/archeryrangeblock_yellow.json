@@ -1,6 +1,6 @@
 {
 "parent":"block/cube_all",
 "textures": {
-"all": "tsrts:block/archeryrangeblock"
+"all": "tsrts:block/archeryrangeblock_yellow"
 }
 }

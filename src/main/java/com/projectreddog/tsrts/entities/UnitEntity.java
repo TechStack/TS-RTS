@@ -6,8 +6,13 @@ import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -15,6 +20,21 @@ import net.minecraft.world.World;
 public class UnitEntity extends CreatureEntity {
 
 	private String ownerName;
+
+	public BlockPos owerControlledDestination;
+
+	public boolean isSelected;
+
+	@Override
+	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vec3d vec, Hand hand) {
+		if (player.getScoreboardName().equals(ownerName)) {
+			// TODO Debug why this is called twice and allow for UNselecting
+			isSelected = true;
+			return ActionResultType.PASS;
+		} else {
+			return ActionResultType.FAIL;
+		}
+	}
 
 	public String getOwnerName() {
 		return ownerName;

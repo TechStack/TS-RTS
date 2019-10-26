@@ -1,7 +1,9 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.utilities.TeamProperty;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.scoreboard.ScorePlayerTeam;
@@ -27,6 +29,10 @@ public class OwnedTileEntity extends TileEntity {
 		if (!world.isRemote) {
 			// from server send to others
 			ModNetwork.SendToALLPlayers(new TEOwnerChangedPacketToClient(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.onwersName));
+			if (this.onwersName != null) {
+
+				this.world.setBlockState(this.pos, world.getBlockState(pos).getBlockState().with(OwnedBlock.TEAM, TeamProperty.getTeamForName(getTeam().getName())), 3);
+			}
 		}
 	}
 
