@@ -2,13 +2,14 @@ package com.projectreddog.tsrts.entities.ai;
 
 import java.util.EnumSet;
 
-import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.UnitEntity;
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.pathfinding.Path;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorldReader;
 
 public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
@@ -33,8 +34,15 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 			return false;
 		} else {
 			this.runDelay = this.getRunDelay(this.creature);
-			return checkDestination();
+			return ShouldMove(ue.ownerControlledDestination);
+		}
+	}
 
+	public boolean ShouldMove(BlockPos bp) {
+		if (bp == null) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
@@ -42,35 +50,25 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-		return checkDestination();
+		return ShouldMove(ue.ownerControlledDestination);
 	}
 
 	protected int getRunDelay(CreatureEntity creatureIn) {
 		return 10;
 	}
 
-	public boolean checkDestination() {
-		if (ue != null) {
-			if (ue.owerControlledDestination != null) {
-				// desitnation is valid check if we are at it.
-				if (ue.owerControlledDestination.up().withinDistance(this.creature.getPositionVec(), this.getTargetDistanceSq())) {
-					this.isAboveDestination = true;
-
-					TSRTS.LOGGER.info("ARRIVED my Cords:" + this.creature.getPositionVec());
-					TSRTS.LOGGER.info("ARRIVED Target Cords:" + ue.owerControlledDestination);
-
-				}
-				if (this.isAboveDestination) {
-					ue.owerControlledDestination = null;
-					return false;
-				} else {
-					return true;
-				}
-			} else {
-				return false;
-			}
+	public boolean arrived(BlockPos bp, Vec3d entPos, double range) {
+		boolean result = false;
+		if (bp != null) {
+			double xdelta = ((double) bp.getX() + .5d) - entPos.getX();
+			double ydelta = ((double) bp.getY()) - entPos.getY();
+			double zdelta = ((double) bp.getZ() + .5d) - entPos.getZ();
+			result = ((xdelta * xdelta) + ydelta * ydelta + (zdelta * zdelta) <= range * range);
+		} else {
+			// NO target so arrived please
+			result = true;
 		}
-		return false;
+		return result;
 	}
 
 	public double getTargetDistanceSq() {
@@ -81,35 +79,21 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void tick() {
-		if (ue != null && ue.owerControlledDestination != null) {
-			if (!ue.owerControlledDestination.up().withinDistance(this.creature.getPositionVec(), this.getTargetDistanceSq())) {
-				this.isAboveDestination = false;
-
-				//
-
-				++this.timeoutCounter;
-				if (this.shouldMove()) {
-					this.creature.getNavigator().tryMoveToXYZ((double) ((float) ue.owerControlledDestination.getX()) + 0.5D, (double) (ue.owerControlledDestination.getY() + 1), (double) ((float) ue.owerControlledDestination.getZ()) + 0.5D, this.movementSpeed);
-				}
+		if (ue != null) {
+			if (!arrived(ue.ownerControlledDestination, this.creature.getPositionVec(), getTargetDistanceSq())) {
+				Path path = this.creature.getNavigator().getPathToPos(ue.ownerControlledDestination, 0);
+				this.creature.getNavigator().setPath(path, 1);
 			} else {
-				TSRTS.LOGGER.info("ARRIVED my Cords:" + this.creature.getPositionVec());
-				TSRTS.LOGGER.info("ARRIVED Target Cords:" + ue.owerControlledDestination);
+				ue.ownerControlledDestination = null;
 
-				this.isAboveDestination = true;
-				ue.owerControlledDestination = null;
-				--this.timeoutCounter;
 			}
 		}
 
 	}
 
-	public boolean shouldMove() {
-		return true;
-	}
-
 	@Override
 	protected boolean shouldMoveTo(IWorldReader worldIn, BlockPos pos) {
-		TSRTS.LOGGER.error("ShouldMOveTO is called CHeck if false is a valid for this case");
+		// TODO Auto-generated method stub
 		return false;
 	}
 

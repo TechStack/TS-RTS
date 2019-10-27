@@ -48,8 +48,8 @@ public class SampleItem extends Item {
 				for (Iterator iterator = unitentities.iterator(); iterator.hasNext();) {
 					UnitEntity ue = (UnitEntity) iterator.next();
 					if (ue.isSelected) {
-						ue.owerControlledDestination = lbp.get(i);/// context.getPos();
-						TSRTS.LOGGER.info("Destination set to:" + ue.owerControlledDestination);
+						ue.ownerControlledDestination = lbp.get(i);/// context.getPos();
+						TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
 
 						i++;
 					}

@@ -21,7 +21,7 @@ public class UnitEntity extends CreatureEntity {
 
 	private String ownerName;
 
-	public BlockPos owerControlledDestination;
+	public BlockPos ownerControlledDestination;
 
 	public boolean isSelected;
 
