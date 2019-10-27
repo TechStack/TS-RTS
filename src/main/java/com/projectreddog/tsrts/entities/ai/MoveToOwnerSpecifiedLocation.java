@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.entities.ai;
 
 import java.util.EnumSet;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.UnitEntity;
 
 import net.minecraft.entity.CreatureEntity;
@@ -37,6 +38,13 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 		}
 	}
 
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean shouldContinueExecuting() {
+		return checkDestination();
+	}
+
 	protected int getRunDelay(CreatureEntity creatureIn) {
 		return 10;
 	}
@@ -47,6 +55,10 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 				// desitnation is valid check if we are at it.
 				if (ue.owerControlledDestination.up().withinDistance(this.creature.getPositionVec(), this.getTargetDistanceSq())) {
 					this.isAboveDestination = true;
+
+					TSRTS.LOGGER.info("ARRIVED my Cords:" + this.creature.getPositionVec());
+					TSRTS.LOGGER.info("ARRIVED Target Cords:" + ue.owerControlledDestination);
+
 				}
 				if (this.isAboveDestination) {
 					ue.owerControlledDestination = null;
@@ -80,6 +92,9 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 					this.creature.getNavigator().tryMoveToXYZ((double) ((float) ue.owerControlledDestination.getX()) + 0.5D, (double) (ue.owerControlledDestination.getY() + 1), (double) ((float) ue.owerControlledDestination.getZ()) + 0.5D, this.movementSpeed);
 				}
 			} else {
+				TSRTS.LOGGER.info("ARRIVED my Cords:" + this.creature.getPositionVec());
+				TSRTS.LOGGER.info("ARRIVED Target Cords:" + ue.owerControlledDestination);
+
 				this.isAboveDestination = true;
 				ue.owerControlledDestination = null;
 				--this.timeoutCounter;
@@ -92,13 +107,9 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 		return true;
 	}
 
-	protected boolean getIsAboveDestination() {
-		return this.isAboveDestination;
-	}
-
 	@Override
 	protected boolean shouldMoveTo(IWorldReader worldIn, BlockPos pos) {
-		// TODO Auto-generated method stub
+		TSRTS.LOGGER.error("ShouldMOveTO is called CHeck if false is a valid for this case");
 		return false;
 	}
 
