@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.entities;
 
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -26,10 +27,20 @@ public class UnitEntity extends CreatureEntity {
 	public boolean isSelected;
 
 	@Override
+	public void tick() {
+
+		super.tick();
+
+	}
+
+	@Override
 	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vec3d vec, Hand hand) {
 		if (player.getScoreboardName().equals(ownerName)) {
 			// TODO Debug why this is called twice and allow for UNselecting
-			isSelected = true;
+			// isSelected = true;
+
+			Utilities.SelectUnit(player.getScoreboardName(), this.getEntityId());
+
 			return ActionResultType.PASS;
 		} else {
 			return ActionResultType.FAIL;

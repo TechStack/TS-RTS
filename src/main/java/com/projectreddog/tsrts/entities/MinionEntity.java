@@ -27,9 +27,9 @@ public class MinionEntity extends UnitEntity {
 		// this.goalSelector.addGoal(4, new ZombieEntity.AttackTurtleEggGoal(this, 1.0D, 3));
 		this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1D, true));
+		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1D, true));
 		// this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-		this.goalSelector.addGoal(1, new MoveToOwnerSpecifiedLocation(this, 1.1D, 32));
+		this.goalSelector.addGoal(2, new MoveToOwnerSpecifiedLocation(this, 1.1D, 32));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
 
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));

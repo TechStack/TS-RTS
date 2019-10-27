@@ -1,8 +1,11 @@
 package com.projectreddog.tsrts;
 
+import java.util.HashMap;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.projectreddog.tsrts.hanlder.EventHandler;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModContainers;
 import com.projectreddog.tsrts.init.ModEntities;
@@ -12,12 +15,14 @@ import com.projectreddog.tsrts.proxy.ClientProxy;
 import com.projectreddog.tsrts.proxy.IProxy;
 import com.projectreddog.tsrts.proxy.ServerProxy;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.utilities.PlayerSelections;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -27,7 +32,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Reference.MODID)
 public class TSRTS {
-
+	public static HashMap<String, PlayerSelections> playerSelections = new HashMap<String, PlayerSelections>();
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
 	// Directly reference a log4j logger.
@@ -43,6 +48,7 @@ public class TSRTS {
 		proxy.init();
 		ModNetwork.init();
 
+		MinecraftForge.EVENT_BUS.register(EventHandler.class);
 	}
 
 	// You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.utilities;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.UnitEntity;
 
 import net.minecraft.entity.Entity;
@@ -28,6 +29,19 @@ public class Utilities {
 
 		return e;
 
+	}
+
+	public static void SelectUnit(String playerScoreboardname, int entityId) {
+		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
+			if (TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
+				// already selected if we wanted this to be a toggle this is where we edit it be removed
+			} else {
+				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityId);
+			}
+		} else {
+			throw new IllegalStateException(" COuld not find the player in the hasmap used for selections !");
+
+		}
 	}
 
 }

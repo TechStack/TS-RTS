@@ -1,7 +1,6 @@
 package com.projectreddog.tsrts.items;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.projectreddog.tsrts.TSRTS;
@@ -9,11 +8,14 @@ import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -27,31 +29,26 @@ public class SampleItem extends Item {
 	@Override
 	public ActionResultType onItemUse(ItemUseContext context) {
 		TSRTS.LOGGER.info("CLICKED of:" + context.getPos().up());
-		int count = 0;
+
 		if (!context.getPlayer().world.isRemote) {
-//TODO need to consider if the player is on the same team as the entity or not !
-			List<UnitEntity> unitentities = context.getPlayer().world.getEntitiesWithinAABB(UnitEntity.class, new AxisAlignedBB(context.getPlayer().getPosition()).grow(256));
 
-			for (Iterator iterator = unitentities.iterator(); iterator.hasNext();) {
-				UnitEntity ue = (UnitEntity) iterator.next();
-				if (ue.isSelected) {
-					// ue.owerControlledDestination = context.getPos();
-					count++;
-				}
-			}
+			// TODO need to consider if the player is on the same team as the entity or not !
 
-			List<BlockPos> lbp = SetFormationPoint(context.getWorld(), context.getPos().up(), count, Direction.getFacingFromVector(context.getPlayer().getLookVec().getX(), 0, context.getPlayer().getLookVec().getZ()));
-			// unitentities = context.getPlayer().world.getEntitiesWithinAABB(UnitEntity.class, new AxisAlignedBB(context.getPlayer().getPosition()).grow(256));
+			if (TSRTS.playerSelections.containsKey(context.getPlayer().getScoreboardName())) {
+				// found the player in the hasmap get and loop thru the enitties 1
+				int count = TSRTS.playerSelections.get(context.getPlayer().getScoreboardName()).selectedUnits.size();
 
-			if (lbp != null && lbp.size() > 0) {
-				int i = 0;
-				for (Iterator iterator = unitentities.iterator(); iterator.hasNext();) {
-					UnitEntity ue = (UnitEntity) iterator.next();
-					if (ue.isSelected) {
-						ue.ownerControlledDestination = lbp.get(i);/// context.getPos();
-						TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
+				List<BlockPos> lbp = SetFormationPoint(context.getWorld(), context.getPos().up(), count, Direction.getFacingFromVector(context.getPlayer().getLookVec().getX(), 0, context.getPlayer().getLookVec().getZ()));
 
-						i++;
+				if (lbp != null && lbp.size() > 0) {
+					for (int i = 0; i < TSRTS.playerSelections.get(context.getPlayer().getScoreboardName()).selectedUnits.size(); i++) {
+						UnitEntity ue = (UnitEntity) context.getWorld().getEntityByID(TSRTS.playerSelections.get(context.getPlayer().getScoreboardName()).selectedUnits.get(i));
+
+						if (ue != null) {
+							ue.ownerControlledDestination = lbp.get(i);/// context.getPos();
+							TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
+
+						}
 					}
 				}
 			}
@@ -59,6 +56,33 @@ public class SampleItem extends Item {
 		}
 
 		return super.onItemUse(context);
+	}
+
+	@Override
+	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+
+		if (!playerIn.world.isRemote) {
+
+			// TODO need to consider if the player is on the same team as the entity or not !
+
+			if (TSRTS.playerSelections.containsKey(playerIn.getScoreboardName())) {
+				// found the player in the hasmap get and loop thru the enitties 1
+				int count = TSRTS.playerSelections.get(playerIn.getScoreboardName()).selectedUnits.size();
+
+				for (int i = 0; i < TSRTS.playerSelections.get(playerIn.getScoreboardName()).selectedUnits.size(); i++) {
+					UnitEntity ue = (UnitEntity) playerIn.world.getEntityByID(TSRTS.playerSelections.get(playerIn.getScoreboardName()).selectedUnits.get(i));
+
+					if (ue != null) {
+						// TODO check if target is on "Other" team
+						ue.setAttackTarget(target);
+					}
+
+				}
+			}
+
+		}
+
+		return true;
 	}
 
 	public List<BlockPos> SetFormationPoint(World world, BlockPos bp, int size, Direction direction) {

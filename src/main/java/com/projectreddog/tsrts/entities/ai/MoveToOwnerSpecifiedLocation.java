@@ -84,6 +84,7 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 				Path path = this.creature.getNavigator().getPathToPos(ue.ownerControlledDestination, 0);
 				this.creature.getNavigator().setPath(path, 1);
 			} else {
+				this.creature.getNavigator().clearPath();
 				ue.ownerControlledDestination = null;
 
 			}
