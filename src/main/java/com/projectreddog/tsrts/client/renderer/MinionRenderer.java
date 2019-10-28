@@ -6,11 +6,12 @@ import com.projectreddog.tsrts.client.model.MinionModel;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.reference.Reference;
 
+import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
 import net.minecraft.util.ResourceLocation;
 
-public class MinionRenderer extends MobRenderer<MinionEntity, MinionModel> {
+public class MinionRenderer extends BipedRenderer<MinionEntity, MinionModel> {
 
 	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/minion.png");
 	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/minion_yellow.png");
@@ -20,6 +21,8 @@ public class MinionRenderer extends MobRenderer<MinionEntity, MinionModel> {
 
 	public MinionRenderer(EntityRendererManager manager) {
 		super(manager, new MinionModel(), .5f);
+
+		this.addLayer(new BipedArmorLayer<>(this, new MinionModel(1f), new MinionModel(1f)));
 
 	}
 

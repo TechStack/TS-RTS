@@ -6,6 +6,9 @@ import com.projectreddog.tsrts.entities.UnitEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -25,6 +28,12 @@ public class Utilities {
 		if (e instanceof UnitEntity) {
 			UnitEntity ue = (UnitEntity) e;
 			ue.setOwnerName(Owner);
+
+			ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.CROSSBOW));
+			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
+			// ue.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.DIAMOND_HELMET));
+			ue.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.IRON_LEGGINGS));
+
 		}
 
 		return e;
