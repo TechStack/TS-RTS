@@ -16,6 +16,7 @@ import com.projectreddog.tsrts.proxy.IProxy;
 import com.projectreddog.tsrts.proxy.ServerProxy;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
+import com.projectreddog.tsrts.utilities.TeamInfo;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -33,6 +34,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(Reference.MODID)
 public class TSRTS {
 	public static HashMap<String, PlayerSelections> playerSelections = new HashMap<String, PlayerSelections>();
+	public static HashMap<String, TeamInfo> teamInfoMap = new HashMap<String, TeamInfo>();
+
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
 	// Directly reference a log4j logger.
@@ -49,6 +52,7 @@ public class TSRTS {
 		ModNetwork.init();
 
 		MinecraftForge.EVENT_BUS.register(EventHandler.class);
+
 	}
 
 	// You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

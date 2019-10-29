@@ -8,4 +8,5 @@ public interface IProxy {
 
 	World getClientWorld();
 
+	boolean isServer();
 }

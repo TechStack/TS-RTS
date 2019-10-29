@@ -14,4 +14,9 @@ public class ServerProxy implements IProxy {
 
 	}
 
+	@Override
+	public boolean isServer() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

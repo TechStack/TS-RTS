@@ -4,8 +4,10 @@ import java.util.function.Supplier;
 
 import com.projectreddog.tsrts.blocks.ArcheryRangeBlock;
 import com.projectreddog.tsrts.blocks.GarrisonBlock;
+import com.projectreddog.tsrts.blocks.MineSite;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.GarrisonTileEntity;
+import com.projectreddog.tsrts.tileentity.MineSiteTileEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -22,6 +24,9 @@ public class ModBlocks {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_GARRISON_BLOCK)
 	public static GarrisonBlock GARRISON_BLOCK = new GarrisonBlock();
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_BLOCK)
+	public static MineSite MINE_SITE_BLOCK = new MineSite();
+
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARCHERY_RANGE_BLOCK)
 	public static ArcheryRangeBlock ARCHERY_RANGE_BLOCK = new ArcheryRangeBlock();
 
@@ -29,15 +34,20 @@ public class ModBlocks {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_GARRISON_BLOCK)
 	public static TileEntityType<GarrisonTileEntity> GARRISON_TILE_ENTITY_TYPE;
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_BLOCK)
+	public static TileEntityType<MineSiteTileEntity> MINE_SITE_TILE_ENITTY_TYPE;
+
 	public static void RegisterBlocks(final RegistryEvent.Register<Block> event) {
 		event.getRegistry().register(ModBlocks.GARRISON_BLOCK);
 		event.getRegistry().register(ModBlocks.ARCHERY_RANGE_BLOCK);
+		event.getRegistry().register(ModBlocks.MINE_SITE_BLOCK);
 
 	}
 
 	public static void RegisterBlockItems(final RegistryEvent.Register<Item> event) {
 		RegisterBlockItem(event, ModBlocks.GARRISON_BLOCK);
 		RegisterBlockItem(event, ModBlocks.ARCHERY_RANGE_BLOCK);
+		RegisterBlockItem(event, ModBlocks.MINE_SITE_BLOCK);
 
 	}
 
@@ -53,6 +63,8 @@ public class ModBlocks {
 
 	public static void RegisterTileEntities(final RegistryEvent.Register<TileEntityType<?>> event) {
 		RegisterTileEntity(event, GarrisonTileEntity::new, ModBlocks.GARRISON_BLOCK);
+		RegisterTileEntity(event, MineSiteTileEntity::new, ModBlocks.MINE_SITE_BLOCK);
+
 	}
 
 	private static <T extends TileEntity> void RegisterTileEntity(final RegistryEvent.Register<TileEntityType<?>> event, Supplier<? extends T> factoryIn, Block block) {

@@ -3,6 +3,7 @@ package com.projectreddog.tsrts.init;
 import java.util.function.Supplier;
 
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
@@ -24,6 +25,7 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, TeGuiButtonClickedPacketToServer.class, TeGuiButtonClickedPacketToServer::encode, TeGuiButtonClickedPacketToServer::new, TeGuiButtonClickedPacketToServer::handle);
 		simpleChannel.registerMessage(MessageId++, EntityOwnerChangedPacketToClient.class, EntityOwnerChangedPacketToClient::encode, EntityOwnerChangedPacketToClient::new, EntityOwnerChangedPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, TEOwnerChangedPacketToClient.class, TEOwnerChangedPacketToClient::encode, TEOwnerChangedPacketToClient::new, TEOwnerChangedPacketToClient::handle);
+		simpleChannel.registerMessage(MessageId++, SendTeamInfoPacketToClient.class, SendTeamInfoPacketToClient::encode, SendTeamInfoPacketToClient::new, SendTeamInfoPacketToClient::handle);
 
 	}
 

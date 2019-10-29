@@ -2,6 +2,8 @@ package com.projectreddog.tsrts.utilities;
 
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -50,6 +52,26 @@ public class Utilities {
 		} else {
 			throw new IllegalStateException(" COuld not find the player in the hasmap used for selections !");
 
+		}
+	}
+
+	public static void SendTeamToClient(String teamName) {
+		if (TSRTS.teamInfoMap.containsKey(teamName)) {
+			ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoMap.get(teamName), teamName));
+		}
+
+	}
+
+	public static void AddResourcesToTeam(String teamName, TeamInfo.Resources res, int amt) {
+		if (TSRTS.teamInfoMap.containsKey(teamName)) {
+			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
+			ti.AddResource(res, amt);
+			TSRTS.teamInfoMap.put(teamName, ti);
+
+			SendTeamToClient(teamName);
+
+		} else {
+			throw new IllegalStateException(" Team not found :" + teamName);
 		}
 	}
 
