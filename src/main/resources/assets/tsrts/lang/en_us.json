@@ -2,6 +2,7 @@
 "_comment":"Blocks here",
 "block.tsrts.garrisonblock":"Garrison Block",
 "block.tsrts.archeryrangeblock":"Archery Range Block",
+"block.tsrts.minesiteblock":"Mine Site Block",
 
 "_comment":"Creative Tabs",
 "itemGroup.blocks":"TS RTS - Blocks",
