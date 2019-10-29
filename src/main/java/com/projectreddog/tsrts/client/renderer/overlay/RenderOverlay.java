@@ -65,6 +65,7 @@ public class RenderOverlay extends Screen {
 	}
 
 	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/overlay/overlay.png");
+	private ResourceLocation FRAMES_TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/overlay/frame.png");
 
 	@SubscribeEvent
 	public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
@@ -107,9 +108,25 @@ public class RenderOverlay extends Screen {
 
 			}
 
+			RenderUnitSelectionFrames();
+
 			GL11.glPopMatrix();
 		}
 
+	}
+
+	public void RenderUnitSelectionFrames() {
+		Minecraft.getInstance().textureManager.bindTexture(FRAMES_TEXTURE);
+		for (int i = 0; i < 9; i++) {
+
+			renderTexture(0, i * 32, 32, 32);
+
+		}
+		for (int i = 0; i < 9; i++) {
+
+			Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + (i + 1), 26, (i * 32) + 24, 14737632);
+
+		}
 	}
 
 	public void renderTexture(double left, double top, double width, double height) {
