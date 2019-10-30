@@ -32,12 +32,35 @@ public class SampleItem extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 
-		EntityRayTraceResult entityraytraceresult = ProjectileHelper.func_221273_a(playerIn, playerIn.getEyePosition(1), playerIn.getLook(1.0F).scale(32), playerIn.getBoundingBox().expand(32, 32, 32), (p_215312_0_) -> {
+		EntityRayTraceResult entityraytraceresult = ProjectileHelper.func_221273_a(playerIn, playerIn.getEyePosition(1), playerIn.getEyePosition(1).add(playerIn.getLook(1.0F).x * 32, playerIn.getLook(1.0F).y * 32, playerIn.getLook(1.0F).z * 32), playerIn.getBoundingBox().expand(playerIn.getLook(1.0F).scale(32)), (p_215312_0_) -> {
 			return !p_215312_0_.isSpectator() && p_215312_0_.canBeCollidedWith();
 		}, 0);
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		if (entityraytraceresult != null) {
-			TSRTS.LOGGER.info("FOUND");
+			TSRTS.LOGGER.info("FOUND" + entityraytraceresult.getEntity().getName());
+			if (entityraytraceresult.getEntity() instanceof LivingEntity) {
+				LivingEntity le = (LivingEntity) entityraytraceresult.getEntity();
+				if (!playerIn.world.isRemote) {
+
+					// TODO need to consider if the player is on the same team as the entity or not !
+
+					if (TSRTS.playerSelections.containsKey(playerIn.getScoreboardName())) {
+						// found the player in the hasmap get and loop thru the enitties 1
+						int count = TSRTS.playerSelections.get(playerIn.getScoreboardName()).selectedUnits.size();
+
+						for (int i = 0; i < TSRTS.playerSelections.get(playerIn.getScoreboardName()).selectedUnits.size(); i++) {
+							UnitEntity ue = (UnitEntity) playerIn.world.getEntityByID(TSRTS.playerSelections.get(playerIn.getScoreboardName()).selectedUnits.get(i));
+
+							if (ue != null) {
+								// TODO check if target is on "Other" team
+								ue.setAttackTarget(le);
+							}
+
+						}
+					}
+
+				}
+			}
 		}
 		return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 	}
