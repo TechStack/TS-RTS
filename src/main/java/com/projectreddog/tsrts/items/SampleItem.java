@@ -10,13 +10,16 @@ import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
 
 public class SampleItem extends Item {
@@ -24,6 +27,19 @@ public class SampleItem extends Item {
 	public SampleItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
 		setRegistryName(Reference.REIGSTRY_NAME_SAMPLE_ITEM);
+	}
+
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+
+		EntityRayTraceResult entityraytraceresult = ProjectileHelper.func_221273_a(playerIn, playerIn.getEyePosition(1), playerIn.getLook(1.0F).scale(32), playerIn.getBoundingBox().expand(32, 32, 32), (p_215312_0_) -> {
+			return !p_215312_0_.isSpectator() && p_215312_0_.canBeCollidedWith();
+		}, 0);
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
+		if (entityraytraceresult != null) {
+			TSRTS.LOGGER.info("FOUND");
+		}
+		return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 	}
 
 	@Override

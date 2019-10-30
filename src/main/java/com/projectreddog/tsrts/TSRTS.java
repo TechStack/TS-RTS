@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.projectreddog.tsrts.hanlder.ClientEvents;
 import com.projectreddog.tsrts.hanlder.EventHandler;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModContainers;
@@ -52,7 +53,7 @@ public class TSRTS {
 		ModNetwork.init();
 
 		MinecraftForge.EVENT_BUS.register(EventHandler.class);
-
+		MinecraftForge.EVENT_BUS.register(ClientEvents.class);
 	}
 
 	// You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

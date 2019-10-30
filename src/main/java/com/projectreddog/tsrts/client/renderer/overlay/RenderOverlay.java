@@ -78,36 +78,43 @@ public class RenderOverlay extends Screen {
 
 			GL11.glPushMatrix();
 			GL11.glScalef(.5f, .5f, .5f);
-			String team = minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(minecraft.getInstance().player.getScoreboardName()).getName();
-			if (TSRTS.teamInfoMap.containsKey(team)) {
-				TeamInfo ti = TSRTS.teamInfoMap.get(team);
-				TeamInfo.Resources[] res = TeamInfo.Resources.values();
-				int x = 5;
-				int y = 5;
-				int yItemOffset = 30;
-				int xItemOffset = 30;
-				int ytextOffset = 5;
-				int xtextOffset = 20;
-				int xTextWidth = 55;
 
-				x = (500 - (res.length * (xtextOffset + xTextWidth)) / 2);
+			if (minecraft.getInstance().player.world != null) {
+				if (minecraft.getInstance().player.world.getScoreboard() != null) {
+					if (minecraft.getInstance().player.getScoreboardName() != null) {
+						if (minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(minecraft.getInstance().player.getScoreboardName()) != null) {
+							String team = minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(minecraft.getInstance().player.getScoreboardName()).getName();
+							if (TSRTS.teamInfoMap.containsKey(team)) {
+								TeamInfo ti = TSRTS.teamInfoMap.get(team);
+								TeamInfo.Resources[] res = TeamInfo.Resources.values();
+								int x = 5;
+								int y = 5;
+								int yItemOffset = 30;
+								int xItemOffset = 30;
+								int ytextOffset = 5;
+								int xtextOffset = 20;
+								int xTextWidth = 55;
 
-				Minecraft.getInstance().textureManager.bindTexture(TEXTURE);
-				// this.blit(x - 10, 5, 0, 0, 256, 18);
-				renderTexture(x - 50, 4, 512, 18);
-				RenderHelper.enableGUIStandardItemLighting();
-				for (int i = 0; i < res.length; i++) {
-					int amt = ti.GetResource(res[i]);
+								x = (500 - (res.length * (xtextOffset + xTextWidth)) / 2);
 
-					Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
-					x = x + xtextOffset;
-					// TODO add amt back instaed of the hardcoded value
-					Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + amt, x, y + ytextOffset, 14737632);
-					x = x + xTextWidth;
+								Minecraft.getInstance().textureManager.bindTexture(TEXTURE);
+								// this.blit(x - 10, 5, 0, 0, 256, 18);
+								renderTexture(x - 50, 4, 512, 18);
+								RenderHelper.enableGUIStandardItemLighting();
+								for (int i = 0; i < res.length; i++) {
+									int amt = ti.GetResource(res[i]);
+
+									Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
+									x = x + xtextOffset;
+									// TODO add amt back instaed of the hardcoded value
+									Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + amt, x, y + ytextOffset, 14737632);
+									x = x + xTextWidth;
+								}
+							}
+						}
+					}
 				}
-
 			}
-
 			RenderUnitSelectionFrames();
 
 			GL11.glPopMatrix();
@@ -116,7 +123,9 @@ public class RenderOverlay extends Screen {
 	}
 
 	public void RenderUnitSelectionFrames() {
+
 		Minecraft.getInstance().textureManager.bindTexture(FRAMES_TEXTURE);
+
 		for (int i = 0; i < 9; i++) {
 
 			renderTexture(0, i * 32, 32, 32);

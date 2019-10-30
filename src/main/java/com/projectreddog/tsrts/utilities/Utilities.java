@@ -71,7 +71,11 @@ public class Utilities {
 			SendTeamToClient(teamName);
 
 		} else {
-			throw new IllegalStateException(" Team not found :" + teamName);
+			try {
+				throw new IllegalStateException(" Team not found :" + teamName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
