@@ -4,13 +4,18 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.world.WorldEvent.Load;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -70,4 +75,65 @@ public class EventHandler {
 		}
 
 	}
+
+	@SubscribeEvent
+	public static void onArrowImpactEvent(Arrow event) {
+		Entity shooter = event.getArrow().getShooter();
+		boolean shouldCancel = false;
+		if (shooter instanceof UnitEntity) {
+			RayTraceResult rtr = event.getRayTraceResult();
+			if (rtr instanceof EntityRayTraceResult) {
+				EntityRayTraceResult ertr = (EntityRayTraceResult) rtr;
+				Entity hitEntity = ertr.getEntity();
+				if (hitEntity instanceof UnitEntity) {
+					// Unit hit unit
+					UnitEntity hitUnit = (UnitEntity) hitEntity;
+					if (hitEntity.getTeam().isSameTeam(((UnitEntity) shooter).getTeam())) {
+						// SAME TEAM CANCEL !
+						shouldCancel = true;
+					}
+
+				} else if (hitEntity instanceof PlayerEntity) {
+					// unit hit player
+					PlayerEntity hitUnit = (PlayerEntity) hitEntity;
+					if (hitEntity.getTeam().isSameTeam(((UnitEntity) shooter).getTeam())) {
+						// SAME TEAM CANCEL !
+						shouldCancel = true;
+					}
+				}
+
+			}
+
+		} else if (shooter instanceof PlayerEntity) {
+
+			// PV P
+
+			RayTraceResult rtr = event.getRayTraceResult();
+			if (rtr instanceof EntityRayTraceResult) {
+				EntityRayTraceResult ertr = (EntityRayTraceResult) rtr;
+				Entity hitEntity = ertr.getEntity();
+				if (hitEntity instanceof UnitEntity) {
+					// Unit hit unit
+					UnitEntity hitUnit = (UnitEntity) hitEntity;
+					if (hitEntity.getTeam().isSameTeam(((PlayerEntity) shooter).getTeam())) {
+						// PVU
+						// SAME TEAM CANCEL !
+						shouldCancel = true;
+					}
+
+				} else if (hitEntity instanceof PlayerEntity) {
+					// unit hit player
+					PlayerEntity hitUnit = (PlayerEntity) hitEntity;
+					if (hitEntity.getTeam().isSameTeam(((PlayerEntity) shooter).getTeam())) {
+						// PV P
+						// SAME TEAM CANCEL !
+						shouldCancel = true;
+					}
+				}
+
+			}
+		}
+		event.setCanceled(shouldCancel);
+	}
+
 }

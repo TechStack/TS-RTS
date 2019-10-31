@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class ArcherMinionEntity extends UnitEntity implements IRangedAttackMob {
@@ -72,4 +73,21 @@ public class ArcherMinionEntity extends UnitEntity implements IRangedAttackMob {
 		this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
 		this.world.addEntity(abstractarrowentity);
 	}
+
+	@Override
+	public void tick() {
+		if (this.getAttackTarget() != null) {
+			if (!this.getAttackTarget().isAlive()) {
+				this.setAttackTarget(null);
+				this.setMoveStrafing(0);
+				Vec3d v = this.getMotion();
+				Vec3d v2 = new Vec3d(0, v.y, 0);
+
+				this.setMotion(v2);
+			}
+		}
+		super.tick();
+
+	}
+
 }
