@@ -1,8 +1,10 @@
 package com.projectreddog.tsrts.proxy;
 
 import com.projectreddog.tsrts.client.gui.GarrisonScreen;
+import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MinionRenderer;
 import com.projectreddog.tsrts.client.renderer.overlay.RenderOverlay;
+import com.projectreddog.tsrts.entities.ArcherMinionEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.hanlder.ClientEvents;
 import com.projectreddog.tsrts.init.ModContainers;
@@ -25,6 +27,8 @@ public class ClientProxy implements IProxy {
 	public void init() {
 		// Entity Rendereers
 		RenderingRegistry.registerEntityRenderingHandler(MinionEntity.class, MinionRenderer::new);
+
+		RenderingRegistry.registerEntityRenderingHandler(ArcherMinionEntity.class, ArcherMinionRenderer::new);
 
 		// Client Gui
 		ScreenManager.registerFactory(ModContainers.GARRISON_CONTAINER, GarrisonScreen::new);

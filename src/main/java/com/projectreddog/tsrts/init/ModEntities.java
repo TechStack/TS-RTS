@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.init;
 
+import com.projectreddog.tsrts.entities.ArcherMinionEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -13,9 +14,14 @@ public class ModEntities {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINION_ENTITY)
 	public static EntityType<MinionEntity> MINION;
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARCHER_MINION_ENTITY)
+	public static EntityType<MinionEntity> ARCHER_MINION;
+
 	public static void RegisterEntites(final RegistryEvent.Register<EntityType<?>> event) {
 
 		event.getRegistry().register(EntityType.Builder.create(MinionEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_MINION_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_MINION_ENTITY));
+		event.getRegistry().register(EntityType.Builder.create(ArcherMinionEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_ARCHER_MINION_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_ARCHER_MINION_ENTITY));
+
 	}
 
 }

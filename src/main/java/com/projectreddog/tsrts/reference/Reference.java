@@ -14,6 +14,7 @@ public class Reference {
 
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";
+	public static final String REIGSTRY_NAME_ARCHER_MINION_ENTITY = "archerminion";
 
 	public static final int GUI_BUTTON_DEBUG_TESTERYELLOW = 99999;
 	public static final int GUI_BUTTON_DEBUG_TESTERGREEN = 99998;

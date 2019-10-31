@@ -4,9 +4,9 @@ import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.utilities.Utilities;
 
-import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.scoreboard.ScorePlayerTeam;
@@ -18,7 +18,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
-public class UnitEntity extends CreatureEntity {
+public class UnitEntity extends MonsterEntity {
 
 	private String ownerName;
 
@@ -62,7 +62,7 @@ public class UnitEntity extends CreatureEntity {
 
 	}
 
-	public UnitEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
+	public UnitEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
 
 	}

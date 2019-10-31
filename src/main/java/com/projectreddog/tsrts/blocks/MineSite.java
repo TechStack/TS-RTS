@@ -6,11 +6,9 @@ import com.projectreddog.tsrts.tileentity.MineSiteTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -35,23 +33,6 @@ public class MineSite extends OwnedBlock {
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
 
 		return new MineSiteTileEntity();
-	}
-
-	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		if (placer instanceof PlayerEntity) {
-
-			TileEntity te = worldIn.getTileEntity(pos);
-
-			if (te != null) {
-				if (te instanceof MineSiteTileEntity) {
-					MineSiteTileEntity gte = (MineSiteTileEntity) te;
-					gte.setOwner(((PlayerEntity) placer).getScoreboardName());
-				}
-			}
-
-		}
 	}
 
 	@Override

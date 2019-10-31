@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.blocks.ArcheryRangeBlock;
 import com.projectreddog.tsrts.blocks.GarrisonBlock;
 import com.projectreddog.tsrts.blocks.MineSite;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.tileentity.ArcheryRangeTileEntity;
 import com.projectreddog.tsrts.tileentity.GarrisonTileEntity;
 import com.projectreddog.tsrts.tileentity.MineSiteTileEntity;
 
@@ -33,6 +34,9 @@ public class ModBlocks {
 	// TILE ENTITIES
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_GARRISON_BLOCK)
 	public static TileEntityType<GarrisonTileEntity> GARRISON_TILE_ENTITY_TYPE;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARCHERY_RANGE_BLOCK)
+	public static TileEntityType<ArcheryRangeTileEntity> ARCHERY_RANGE_TILE_ENTITY_TYPE;
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_BLOCK)
 	public static TileEntityType<MineSiteTileEntity> MINE_SITE_TILE_ENITTY_TYPE;
@@ -64,6 +68,7 @@ public class ModBlocks {
 	public static void RegisterTileEntities(final RegistryEvent.Register<TileEntityType<?>> event) {
 		RegisterTileEntity(event, GarrisonTileEntity::new, ModBlocks.GARRISON_BLOCK);
 		RegisterTileEntity(event, MineSiteTileEntity::new, ModBlocks.MINE_SITE_BLOCK);
+		RegisterTileEntity(event, ArcheryRangeTileEntity::new, ModBlocks.ARCHERY_RANGE_BLOCK);
 
 	}
 
