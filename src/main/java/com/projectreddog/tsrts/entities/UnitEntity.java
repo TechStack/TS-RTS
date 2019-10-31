@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.entities;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -24,13 +25,25 @@ public class UnitEntity extends MonsterEntity {
 
 	public BlockPos ownerControlledDestination;
 
-	public boolean isSelected;
-
 	@Override
 	public void tick() {
 
 		super.tick();
 
+	}
+
+	@Override
+	public boolean isGlowing() {
+		// TODO Auto-generated method stub
+		if (TSRTS.playerSelections.containsKey(ownerName)) {
+			for (int i = 0; i < TSRTS.playerSelections.get(ownerName).selectedUnits.size(); i++) {
+				if (TSRTS.playerSelections.get(ownerName).selectedUnits.get(i) == this.getEntityId()) {
+					return true;
+				}
+			}
+
+		}
+		return false;
 	}
 
 	@Override
