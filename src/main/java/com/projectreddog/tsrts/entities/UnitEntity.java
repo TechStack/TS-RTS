@@ -33,6 +33,11 @@ public class UnitEntity extends MonsterEntity {
 	}
 
 	@Override
+	public boolean canDespawn(double distanceToClosestPlayer) {
+		return false;
+	}
+
+	@Override
 	public boolean isGlowing() {
 		// TODO Auto-generated method stub
 		if (TSRTS.playerSelections.containsKey(ownerName)) {
