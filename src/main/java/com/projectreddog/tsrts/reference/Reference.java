@@ -15,6 +15,7 @@ public class Reference {
 
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
+	public static final String REIGSTRY_NAME_TOWN_CENTER_BUILDER_ITEM = "towncenterbuilderitem";
 
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";
