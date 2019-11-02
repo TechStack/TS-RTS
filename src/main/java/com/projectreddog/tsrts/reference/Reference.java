@@ -8,6 +8,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_GARRISON_BLOCK = "garrisonblock";
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BLOCK = "archeryrangeblock";
 	public static final String REIGSTRY_NAME_MINE_SITE_BLOCK = "minesiteblock";
+	public static final String REIGSTRY_NAME_TOWN_CENTER_BLOCK = "towncenterblock";
 
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
