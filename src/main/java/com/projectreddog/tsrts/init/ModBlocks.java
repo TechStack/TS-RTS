@@ -5,11 +5,15 @@ import java.util.function.Supplier;
 import com.projectreddog.tsrts.blocks.ArcheryRangeBlock;
 import com.projectreddog.tsrts.blocks.GarrisonBlock;
 import com.projectreddog.tsrts.blocks.MineSite;
+import com.projectreddog.tsrts.blocks.ResearchCenterBlock;
+import com.projectreddog.tsrts.blocks.StablesBlock;
 import com.projectreddog.tsrts.blocks.TownCenterBlock;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.ArcheryRangeTileEntity;
 import com.projectreddog.tsrts.tileentity.GarrisonTileEntity;
 import com.projectreddog.tsrts.tileentity.MineSiteTileEntity;
+import com.projectreddog.tsrts.tileentity.ResearchCenterTileEntity;
+import com.projectreddog.tsrts.tileentity.StablesTileEntity;
 import com.projectreddog.tsrts.tileentity.TownCenterTileEntity;
 
 import net.minecraft.block.Block;
@@ -36,6 +40,12 @@ public class ModBlocks {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_CENTER_BLOCK)
 	public static TownCenterBlock TOWN_CENTER_BLOCK = new TownCenterBlock();
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RESERACH_CENTER_BLOCK)
+	public static ResearchCenterBlock RESEARCH_CENTER_BLOCK = new ResearchCenterBlock();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_STABLES_BLOCK)
+	public static StablesBlock STABLES_BLOCK = new StablesBlock();
+
 	// TILE ENTITIES
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_GARRISON_BLOCK)
 	public static TileEntityType<GarrisonTileEntity> GARRISON_TILE_ENTITY_TYPE;
@@ -49,12 +59,19 @@ public class ModBlocks {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_CENTER_BLOCK)
 	public static TileEntityType<TownCenterTileEntity> TOWN_CENTER_ENTITY_TYPE;
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RESERACH_CENTER_BLOCK)
+	public static TileEntityType<ResearchCenterTileEntity> RESEARCH_CENTER_ENTITY_TYPE;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_STABLES_BLOCK)
+	public static TileEntityType<StablesTileEntity> STABLES_ENTITY_ENTITY_TYPE;
+
 	public static void RegisterBlocks(final RegistryEvent.Register<Block> event) {
 		event.getRegistry().register(ModBlocks.GARRISON_BLOCK);
 		event.getRegistry().register(ModBlocks.ARCHERY_RANGE_BLOCK);
 		event.getRegistry().register(ModBlocks.MINE_SITE_BLOCK);
 		event.getRegistry().register(ModBlocks.TOWN_CENTER_BLOCK);
-
+		event.getRegistry().register(ModBlocks.RESEARCH_CENTER_BLOCK);
+		event.getRegistry().register(ModBlocks.STABLES_BLOCK);
 	}
 
 	public static void RegisterBlockItems(final RegistryEvent.Register<Item> event) {
@@ -62,6 +79,8 @@ public class ModBlocks {
 		RegisterBlockItem(event, ModBlocks.ARCHERY_RANGE_BLOCK);
 		RegisterBlockItem(event, ModBlocks.MINE_SITE_BLOCK);
 		RegisterBlockItem(event, ModBlocks.TOWN_CENTER_BLOCK);
+		RegisterBlockItem(event, ModBlocks.RESEARCH_CENTER_BLOCK);
+		RegisterBlockItem(event, ModBlocks.STABLES_BLOCK);
 
 	}
 
@@ -80,7 +99,8 @@ public class ModBlocks {
 		RegisterTileEntity(event, MineSiteTileEntity::new, ModBlocks.MINE_SITE_BLOCK);
 		RegisterTileEntity(event, ArcheryRangeTileEntity::new, ModBlocks.ARCHERY_RANGE_BLOCK);
 		RegisterTileEntity(event, TownCenterTileEntity::new, ModBlocks.TOWN_CENTER_BLOCK);
-
+		RegisterTileEntity(event, ResearchCenterTileEntity::new, ModBlocks.RESEARCH_CENTER_BLOCK);
+		RegisterTileEntity(event, StablesTileEntity::new, ModBlocks.STABLES_BLOCK);
 	}
 
 	private static <T extends TileEntity> void RegisterTileEntity(final RegistryEvent.Register<TileEntityType<?>> event, Supplier<? extends T> factoryIn, Block block) {

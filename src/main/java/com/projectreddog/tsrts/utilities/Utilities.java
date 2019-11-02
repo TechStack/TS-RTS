@@ -23,10 +23,33 @@ import net.minecraft.world.World;
 
 public class Utilities {
 
+	public static void PlayerBuysItem(PlayerEntity player, ItemStack itemStack) {
+		// EntityType.ITEM.spawn(player.world, itemSTack, playerIn, pos, reason, p_220331_6_, p_220331_7_)
+
+		boolean result = player.inventory.addItemStackToInventory(itemStack);
+
+		if (!result) {
+			player.dropItem(itemStack, false);
+
+		}
+		player.container.detectAndSendChanges();
+	}
+
 	public static void SpawnUnitForTeam(EntityType entityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team) {
 		Entity e = SpawnUnit(entityType, Owner, world, pos);
 		if (team != null) {
 			world.getScoreboard().addPlayerToTeam(e.getCachedUniqueIdString(), team);
+		}
+
+	}
+
+	public static void SpawnMountedUnitForTeam(EntityType entityType, EntityType mountEntityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team) {
+		Entity mount = mountEntityType.spawn(world, null, null, pos, SpawnReason.TRIGGERED, true, true);
+		Entity e = SpawnUnit(entityType, Owner, world, pos);
+		e.startRiding(mount);
+		if (team != null) {
+			world.getScoreboard().addPlayerToTeam(e.getCachedUniqueIdString(), team);
+			world.getScoreboard().addPlayerToTeam(mount.getCachedUniqueIdString(), team);
 		}
 
 	}
