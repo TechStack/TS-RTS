@@ -28,7 +28,7 @@ public class StablesTileEntity extends OwnedCooldownTileEntity implements INamed
 
 		if (getOwner() != null) {
 
-			Utilities.SpawnMountedUnitForTeam(ModEntities.MINION, EntityType.HORSE, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam());
+			Utilities.SpawnMountedUnitForTeam(ModEntities.MINION, EntityType.HORSE, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
 
 		}
 	}

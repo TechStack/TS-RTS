@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.math.BlockPos;
 
 public class OwnedTileEntity extends TileEntity {
 
@@ -18,6 +19,16 @@ public class OwnedTileEntity extends TileEntity {
 	}
 
 	private String onwersName;
+
+	private BlockPos rallyPoint;
+
+	public BlockPos getRallyPoint() {
+		return rallyPoint;
+	}
+
+	public void setRallyPoint(BlockPos rallyPoint) {
+		this.rallyPoint = rallyPoint;
+	}
 
 	public String getOwner() {
 		return onwersName;

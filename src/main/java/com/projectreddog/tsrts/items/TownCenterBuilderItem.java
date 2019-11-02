@@ -1,11 +1,14 @@
 package com.projectreddog.tsrts.items;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -20,7 +23,7 @@ import net.minecraft.world.server.ServerWorld;
 
 public class TownCenterBuilderItem extends Item {
 
-	private ResourceLocation templateName = new ResourceLocation(Reference.MODID + ":" + "townhall_red_2");
+	private ResourceLocation templateName = new ResourceLocation(Reference.MODID + ":" + "garrison_red_2");
 
 	public TownCenterBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
@@ -77,6 +80,14 @@ public class TownCenterBuilderItem extends Item {
 					for (int y = 0; y < ySize; y++) {
 						for (int z = 0; z < zSize; z++) {
 							context.getWorld().notifyBlockUpdate(bp.add(x, y, z), context.getWorld().getBlockState(bp.add(x, y, z)), context.getWorld().getBlockState(bp.add(x, y, z)), 3);
+
+							if (context.getWorld().getBlockState(bp.add(x, y, z)).getBlock() instanceof OwnedBlock) {
+								TileEntity te = context.getWorld().getTileEntity(bp.add(x, y, z));
+								if (te instanceof OwnedTileEntity) {
+									// its ours so we can set the rally point.
+									((OwnedTileEntity) te).setRallyPoint(context.getPos().up());
+								}
+							}
 						}
 					}
 

@@ -28,7 +28,7 @@ public class ArcheryRangeTileEntity extends OwnedCooldownTileEntity implements I
 		if (getOwner() != null) {
 			// ModEntities.MINION.spawn(world, null, null, this.pos, SpawnReason.TRIGGERED, true, true);
 
-			Utilities.SpawnUnitForTeam(ModEntities.ARCHER_MINION, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam());
+			Utilities.SpawnUnitForTeam(ModEntities.ARCHER_MINION, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
 
 		}
 	}

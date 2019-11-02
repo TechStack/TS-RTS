@@ -28,7 +28,7 @@ public class GarrisonTileEntity extends OwnedCooldownTileEntity implements IName
 		if (getOwner() != null) {
 			// ModEntities.MINION.spawn(world, null, null, this.pos, SpawnReason.TRIGGERED, true, true);
 
-			Utilities.SpawnUnitForTeam(ModEntities.MINION, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam());
+			Utilities.SpawnUnitForTeam(ModEntities.MINION, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
 
 //
 //			MinionEntity me = new MinionEntity(null, world);

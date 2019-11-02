@@ -3,6 +3,8 @@ package com.projectreddog.tsrts.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModNetwork;
@@ -35,17 +37,17 @@ public class Utilities {
 		player.container.detectAndSendChanges();
 	}
 
-	public static void SpawnUnitForTeam(EntityType entityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team) {
-		Entity e = SpawnUnit(entityType, Owner, world, pos);
+	public static void SpawnUnitForTeam(EntityType entityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
+		Entity e = SpawnUnit(entityType, Owner, world, pos, rallyPoint);
 		if (team != null) {
 			world.getScoreboard().addPlayerToTeam(e.getCachedUniqueIdString(), team);
 		}
 
 	}
 
-	public static void SpawnMountedUnitForTeam(EntityType entityType, EntityType mountEntityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team) {
+	public static void SpawnMountedUnitForTeam(EntityType entityType, EntityType mountEntityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
 		Entity mount = mountEntityType.spawn(world, null, null, pos, SpawnReason.TRIGGERED, true, true);
-		Entity e = SpawnUnit(entityType, Owner, world, pos);
+		Entity e = SpawnUnit(entityType, Owner, world, pos, rallyPoint);
 		e.startRiding(mount);
 		if (team != null) {
 			world.getScoreboard().addPlayerToTeam(e.getCachedUniqueIdString(), team);
@@ -54,11 +56,14 @@ public class Utilities {
 
 	}
 
-	public static Entity SpawnUnit(EntityType entityType, String Owner, World world, BlockPos pos) {
+	public static Entity SpawnUnit(EntityType entityType, String Owner, World world, BlockPos pos, BlockPos rallyPoint) {
 		Entity e = entityType.spawn(world, null, null, pos, SpawnReason.TRIGGERED, true, true);
 		if (e instanceof UnitEntity) {
 			UnitEntity ue = (UnitEntity) e;
 			ue.setOwnerName(Owner);
+			if (rallyPoint != null) {
+				ue.ownerControlledDestination = rallyPoint;
+			}
 
 			ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
 			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
