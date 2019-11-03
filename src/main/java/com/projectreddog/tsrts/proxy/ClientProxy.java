@@ -4,9 +4,11 @@ import com.projectreddog.tsrts.client.gui.GarrisonScreen;
 import com.projectreddog.tsrts.client.gui.TownCenterScreen;
 import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MinionRenderer;
+import com.projectreddog.tsrts.client.renderer.TargetRenderer;
 import com.projectreddog.tsrts.client.renderer.overlay.RenderOverlay;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
+import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.hanlder.ClientEvents;
 import com.projectreddog.tsrts.init.ModContainers;
 
@@ -30,6 +32,7 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(MinionEntity.class, MinionRenderer::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(ArcherMinionEntity.class, ArcherMinionRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(TargetEntity.class, TargetRenderer::new);
 
 		// Client Gui
 		ScreenManager.registerFactory(ModContainers.GARRISON_CONTAINER, GarrisonScreen::new);

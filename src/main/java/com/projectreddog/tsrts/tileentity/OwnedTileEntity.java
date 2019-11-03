@@ -60,6 +60,10 @@ public class OwnedTileEntity extends TileEntity {
 			nbt.putString("owner", "");
 		}
 
+		nbt.putInt("rallypointx", rallyPoint.getX());
+		nbt.putInt("rallypointy", rallyPoint.getY());
+		nbt.putInt("rallypointz", rallyPoint.getZ());
+
 		return nbt;
 	}
 
@@ -70,6 +74,11 @@ public class OwnedTileEntity extends TileEntity {
 		if (onwersName.contentEquals("")) {
 			onwersName = null;
 		}
+
+		int x = compound.getInt("rallypointx");
+		int y = compound.getInt("rallypointy");
+		int z = compound.getInt("rallypointz");
+		rallyPoint = new BlockPos(x, y, z);
 	}
 
 }

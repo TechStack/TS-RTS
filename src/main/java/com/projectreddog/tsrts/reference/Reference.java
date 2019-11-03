@@ -20,6 +20,7 @@ public class Reference {
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";
 	public static final String REIGSTRY_NAME_ARCHER_MINION_ENTITY = "archerminion";
+	public static final String REIGSTRY_NAME_TARGET_ENTITY = "targetentity";
 
 	// GUI BUTTONS
 
