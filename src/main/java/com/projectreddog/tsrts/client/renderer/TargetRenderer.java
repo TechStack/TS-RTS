@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.client.renderer;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.projectreddog.tsrts.client.model.TargetModel;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.reference.Reference;
@@ -11,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class TargetRenderer<T extends TargetEntity> extends EntityRenderer {
 
-	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/minion.png");
+	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/targetentity_yellow.png");
 	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/targetentity_yellow.png");
 	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation(Reference.MODID, "textures/entity/targetentity_blue.png");
 	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation(Reference.MODID, "textures/entity/targetentity_green.png");
@@ -28,8 +29,11 @@ public class TargetRenderer<T extends TargetEntity> extends EntityRenderer {
 	public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 		this.bindEntityTexture(entity);
-
+		GlStateManager.pushMatrix();
+		GlStateManager.translatef((float) x, (float) y, (float) z);
 		model.render((TargetEntity) entity, 1, 1, 1, 1, 1, 1);
+
+		GlStateManager.popMatrix();
 	}
 
 	@Override

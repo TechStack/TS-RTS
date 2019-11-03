@@ -12,7 +12,7 @@ public class TargetModel extends EntityModel<TargetEntity> {
 		this.textureWidth = 16;
 		this.textureHeight = 16;
 		box = new RendererModel(this, 0, 0);
-		box.addBox(-4, -4, -4, 8, 8, 8, 32);
+		box.addBox(-.5f, 0f, -.5f, 1, 1, 1, 0f);
 
 		box.setRotationPoint(0.0F, 0.0F, 0.0F);
 	}
