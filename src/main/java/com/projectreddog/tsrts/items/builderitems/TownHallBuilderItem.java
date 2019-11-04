@@ -7,13 +7,13 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3i;
 
-public class TownCenterBuilderItem extends BuilderItem {
+public class TownHallBuilderItem extends BuilderItem {
 
-	private ResourceLocation templateName = new ResourceLocation(Reference.MODID + ":" + "garrison_red_2");
+	private ResourceLocation templateName = new ResourceLocation(Reference.MODID + ":" + "barracks_red_2");
 
-	public TownCenterBuilderItem() {
+	public TownHallBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
-		setRegistryName(Reference.REIGSTRY_NAME_TOWN_CENTER_BUILDER_ITEM);
+		setRegistryName(Reference.REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM);
 	}
 
 	public ResourceLocation getTemplateName() {

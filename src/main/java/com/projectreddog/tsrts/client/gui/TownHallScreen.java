@@ -1,6 +1,6 @@
 package com.projectreddog.tsrts.client.gui;
 
-import com.projectreddog.tsrts.containers.TownCenterContainer;
+import com.projectreddog.tsrts.containers.TownHallContainer;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
@@ -12,12 +12,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 
-public class TownCenterScreen extends ContainerScreen<TownCenterContainer> {
+public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 
-	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/garrison_gui.png");
+	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/barracks_gui.png");
 	BlockPos pos;
 
-	public TownCenterScreen(TownCenterContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+	public TownHallScreen(TownHallContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
 		pos = screenContainer.pos;
 	}
@@ -40,8 +40,8 @@ public class TownCenterScreen extends ContainerScreen<TownCenterContainer> {
 
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
-		addButton(new Button(x, y, 50, 10, "Garrison", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_GARRISON));
+		addButton(new Button(x, y, 50, 10, "Barracks", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_BARRACKS));
 			this.onClose();
 		}));
 

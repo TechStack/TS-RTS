@@ -1,7 +1,7 @@
 package com.projectreddog.tsrts.blocks;
 
 import com.projectreddog.tsrts.reference.Reference;
-import com.projectreddog.tsrts.tileentity.GarrisonTileEntity;
+import com.projectreddog.tsrts.tileentity.BarracksTileEntity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -17,11 +17,11 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class GarrisonBlock extends OwnedBlock {
+public class BarracksBlock extends OwnedBlock {
 
-	public GarrisonBlock() {
+	public BarracksBlock() {
 		super(Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0f));
-		setRegistryName(Reference.REIGSTRY_NAME_GARRISON_BLOCK);
+		setRegistryName(Reference.REIGSTRY_NAME_BARRACKS_BLOCK);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class GarrisonBlock extends OwnedBlock {
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
 
-		return new GarrisonTileEntity();
+		return new BarracksTileEntity();
 	}
 
 	@Override

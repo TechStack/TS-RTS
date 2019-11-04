@@ -1,7 +1,7 @@
 package com.projectreddog.tsrts.init;
 
 import com.projectreddog.tsrts.items.SampleItem;
-import com.projectreddog.tsrts.items.builderitems.TownCenterBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.TownHallBuilderItem;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.item.Item;
@@ -12,12 +12,12 @@ public class ModItems {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SAMPLE_ITEM)
 	public static SampleItem SAMPLEITEM = new SampleItem();
 
-	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_CENTER_BUILDER_ITEM)
-	public static TownCenterBuilderItem TOWNCENTERBUILDERITEM = new TownCenterBuilderItem();
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM)
+	public static TownHallBuilderItem TOWNHALLBUILDERITEM = new TownHallBuilderItem();
 
 	public static void RegisterItems(final RegistryEvent.Register<Item> event) {
 		RegisterItem(event, ModItems.SAMPLEITEM);
-		RegisterItem(event, ModItems.TOWNCENTERBUILDERITEM);
+		RegisterItem(event, ModItems.TOWNHALLBUILDERITEM);
 
 	}
 

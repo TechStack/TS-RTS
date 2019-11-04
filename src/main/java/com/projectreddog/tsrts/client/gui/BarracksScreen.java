@@ -1,6 +1,6 @@
 package com.projectreddog.tsrts.client.gui;
 
-import com.projectreddog.tsrts.containers.GarrisonContainer;
+import com.projectreddog.tsrts.containers.BarracksContainer;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
@@ -12,12 +12,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 
-public class GarrisonScreen extends ContainerScreen<GarrisonContainer> {
+public class BarracksScreen extends ContainerScreen<BarracksContainer> {
 
-	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/garrison_gui.png");
+	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/barracks_gui.png");
 	BlockPos pos;
 
-	public GarrisonScreen(GarrisonContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+	public BarracksScreen(BarracksContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
 		pos = screenContainer.pos;
 	}

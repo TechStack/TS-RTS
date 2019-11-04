@@ -1,6 +1,6 @@
 {
 "parent":"block/cube_all",
 "textures": {
-"all": "tsrts:block/garrisonblock_yellow"
+"all": "tsrts:block/barracksblock_blue"
 }
 }

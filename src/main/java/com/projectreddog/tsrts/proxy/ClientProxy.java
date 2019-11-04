@@ -1,7 +1,7 @@
 package com.projectreddog.tsrts.proxy;
 
-import com.projectreddog.tsrts.client.gui.GarrisonScreen;
-import com.projectreddog.tsrts.client.gui.TownCenterScreen;
+import com.projectreddog.tsrts.client.gui.BarracksScreen;
+import com.projectreddog.tsrts.client.gui.TownHallScreen;
 import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MinionRenderer;
 import com.projectreddog.tsrts.client.renderer.TargetRenderer;
@@ -35,8 +35,8 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(TargetEntity.class, TargetRenderer::new);
 
 		// Client Gui
-		ScreenManager.registerFactory(ModContainers.GARRISON_CONTAINER, GarrisonScreen::new);
-		ScreenManager.registerFactory(ModContainers.TOWN_CENTER_CONTAINER, TownCenterScreen::new);
+		ScreenManager.registerFactory(ModContainers.BARRACKS_CONTAINER, BarracksScreen::new);
+		ScreenManager.registerFactory(ModContainers.TOWN_HALL_CONTAINER, TownHallScreen::new);
 
 		MinecraftForge.EVENT_BUS.register(new RenderOverlay());
 		KeyBindings();

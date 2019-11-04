@@ -1,7 +1,7 @@
 package com.projectreddog.tsrts.blocks;
 
 import com.projectreddog.tsrts.reference.Reference;
-import com.projectreddog.tsrts.tileentity.TownCenterTileEntity;
+import com.projectreddog.tsrts.tileentity.TownHallTileEntity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -17,11 +17,11 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class TownCenterBlock extends OwnedBlock {
+public class TownHallBlock extends OwnedBlock {
 
-	public TownCenterBlock() {
+	public TownHallBlock() {
 		super(Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0f));
-		setRegistryName(Reference.REIGSTRY_NAME_TOWN_CENTER_BLOCK);
+		setRegistryName(Reference.REIGSTRY_NAME_TOWN_HALL_BLOCK);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class TownCenterBlock extends OwnedBlock {
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
 
-		return new TownCenterTileEntity();
+		return new TownHallTileEntity();
 	}
 
 	@Override
