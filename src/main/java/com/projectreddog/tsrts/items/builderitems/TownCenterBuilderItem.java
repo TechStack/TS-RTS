@@ -1,12 +1,13 @@
-package com.projectreddog.tsrts.items;
+package com.projectreddog.tsrts.items.builderitems;
 
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec3i;
 
-public class TownCenterBuilderItem extends GenericBuilderItem {
+public class TownCenterBuilderItem extends BuilderItem {
 
 	private ResourceLocation templateName = new ResourceLocation(Reference.MODID + ":" + "garrison_red_2");
 
@@ -17,6 +18,11 @@ public class TownCenterBuilderItem extends GenericBuilderItem {
 
 	public ResourceLocation getTemplateName() {
 		return this.templateName;
+	}
+
+	public Vec3i getSize() {
+
+		return new Vec3i(9, 9, 9);
 	}
 
 }

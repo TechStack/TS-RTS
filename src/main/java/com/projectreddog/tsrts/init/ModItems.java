@@ -1,7 +1,7 @@
 package com.projectreddog.tsrts.init;
 
 import com.projectreddog.tsrts.items.SampleItem;
-import com.projectreddog.tsrts.items.TownCenterBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.TownCenterBuilderItem;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.item.Item;

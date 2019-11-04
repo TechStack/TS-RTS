@@ -38,6 +38,18 @@ public class UnitEntity extends MonsterEntity {
 	}
 
 	@Override
+	protected int getExperiencePoints(PlayerEntity player) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected boolean canDropLoot() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public boolean isGlowing() {
 		// TODO Auto-generated method stub
 		if (TSRTS.playerSelections.containsKey(ownerName)) {

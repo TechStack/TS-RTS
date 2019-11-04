@@ -43,6 +43,7 @@ public class ArcherMinionEntity extends UnitEntity implements IRangedAttackMob {
 
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, UnitEntity.class, true));
+		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, TargetEntity.class, true));
 
 	}
 
@@ -66,7 +67,15 @@ public class ArcherMinionEntity extends UnitEntity implements IRangedAttackMob {
 		if (this.getHeldItemMainhand().getItem() instanceof net.minecraft.item.BowItem)
 			abstractarrowentity = ((net.minecraft.item.BowItem) this.getHeldItemMainhand().getItem()).customeArrow(abstractarrowentity);
 		double d0 = target.posX - this.posX;
-		double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F) - abstractarrowentity.posY;
+		double d1 = 0;
+		if (target instanceof TargetEntity) {
+			d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 4.0F) - abstractarrowentity.posY;
+		} else if (target instanceof UnitEntity) {
+			d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 5.0F) - abstractarrowentity.posY;
+		} else {
+			d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F) - abstractarrowentity.posY;
+		}
+
 		double d2 = target.posZ - this.posZ;
 		double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
 		abstractarrowentity.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (0));

@@ -115,10 +115,12 @@ public class EventHandler {
 				if (hitEntity instanceof UnitEntity) {
 					// Unit hit unit
 					UnitEntity hitUnit = (UnitEntity) hitEntity;
-					if (hitEntity.getTeam().isSameTeam(((PlayerEntity) shooter).getTeam())) {
-						// PVU
-						// SAME TEAM CANCEL !
-						shouldCancel = true;
+					if (hitEntity.getTeam() != null) {
+						if (hitEntity.getTeam().isSameTeam(((PlayerEntity) shooter).getTeam())) {
+							// PVU
+							// SAME TEAM CANCEL !
+							shouldCancel = true;
+						}
 					}
 
 				} else if (hitEntity instanceof PlayerEntity) {

@@ -34,6 +34,7 @@ public class MinionEntity extends UnitEntity {
 
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, UnitEntity.class, true));
+		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, TargetEntity.class, true));
 
 	}
 
