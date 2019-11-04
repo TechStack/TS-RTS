@@ -59,11 +59,14 @@ public class OwnedTileEntity extends TileEntity {
 		} else {
 			nbt.putString("owner", "");
 		}
-
-		nbt.putInt("rallypointx", rallyPoint.getX());
-		nbt.putInt("rallypointy", rallyPoint.getY());
-		nbt.putInt("rallypointz", rallyPoint.getZ());
-
+		boolean hasRallyPoint = false;
+		if (rallyPoint != null) {
+			hasRallyPoint = true;
+			nbt.putInt("rallypointx", rallyPoint.getX());
+			nbt.putInt("rallypointy", rallyPoint.getY());
+			nbt.putInt("rallypointz", rallyPoint.getZ());
+		}
+		nbt.putBoolean("hasRallyPoint", hasRallyPoint);
 		return nbt;
 	}
 
@@ -75,10 +78,14 @@ public class OwnedTileEntity extends TileEntity {
 			onwersName = null;
 		}
 
-		int x = compound.getInt("rallypointx");
-		int y = compound.getInt("rallypointy");
-		int z = compound.getInt("rallypointz");
-		rallyPoint = new BlockPos(x, y, z);
+		boolean hasRallyPoint = compound.getBoolean("hasRallyPoint");
+
+		if (hasRallyPoint) {
+			int x = compound.getInt("rallypointx");
+			int y = compound.getInt("rallypointy");
+			int z = compound.getInt("rallypointz");
+			rallyPoint = new BlockPos(x, y, z);
+		}
 	}
 
 }
