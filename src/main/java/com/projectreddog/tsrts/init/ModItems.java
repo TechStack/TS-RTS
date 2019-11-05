@@ -37,7 +37,7 @@ public class ModItems {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_GOLD_BUILDER_ITEM)
 	public static MinesiteGoldBuilderItem MINESITEGOLDBUILDERITEM = new MinesiteGoldBuilderItem();
 
-	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_GOLD_BUILDER_ITEM)
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_IRON_BUILDER_ITEM)
 	public static MinesiteIronBuilderItem MINESITEIRONBUILDERITEM = new MinesiteIronBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_STONE_BUILDER_ITEM)
