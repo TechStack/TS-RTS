@@ -3,13 +3,9 @@ package com.projectreddog.tsrts.network;
 import java.nio.charset.Charset;
 import java.util.function.Supplier;
 
-import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+import com.projectreddog.tsrts.client.network.ClientPacketHandler;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class TEOwnerChangedPacketToClient {
@@ -47,14 +43,8 @@ public class TEOwnerChangedPacketToClient {
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		// TODO Auto-generated method stub
 		ctx.get().enqueueWork(() -> {
-			PlayerEntity player = Minecraft.getInstance().player;
-			if (player != null) {
-				TileEntity te = player.world.getTileEntity(new BlockPos(this.posX, this.posY, this.posZ));
-				if (te instanceof OwnedTileEntity) {
-					OwnedTileEntity ote = (OwnedTileEntity) te;
-					ote.setOwner(this.ownerName);
-				}
-			}
+
+			ClientPacketHandler.TEOwnerChangedPacketToClient(posX, posY, posZ, ownerName);
 
 		});
 		ctx.get().setPacketHandled(true);

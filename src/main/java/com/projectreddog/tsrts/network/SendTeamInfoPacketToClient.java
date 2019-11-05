@@ -3,11 +3,9 @@ package com.projectreddog.tsrts.network;
 import java.nio.charset.Charset;
 import java.util.function.Supplier;
 
-import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.client.network.ClientPacketHandler;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -52,14 +50,7 @@ public class SendTeamInfoPacketToClient {
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		// TODO Auto-generated method stub
 		ctx.get().enqueueWork(() -> {
-			PlayerEntity player = Minecraft.getInstance().player;
-			if (player != null) {
-				// should be on CLIENT !
-				TeamInfo ti = new TeamInfo();
-				ti.SetResourceArray(resourceAmt);
-				TSRTS.teamInfoMap.put(teamName, ti);
-
-			}
+			ClientPacketHandler.SendTeamInfoPacketToClient(resourceAmt, teamName);
 
 		});
 		ctx.get().setPacketHandled(true);

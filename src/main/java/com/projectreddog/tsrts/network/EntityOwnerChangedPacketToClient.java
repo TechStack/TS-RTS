@@ -3,11 +3,8 @@ package com.projectreddog.tsrts.network;
 import java.nio.charset.Charset;
 import java.util.function.Supplier;
 
-import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.client.network.ClientPacketHandler;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -39,16 +36,9 @@ public class EntityOwnerChangedPacketToClient {
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		// TODO Auto-generated method stub
-		ctx.get().enqueueWork(() -> {
-			PlayerEntity player = Minecraft.getInstance().player;
-			if (player != null) {
-				Entity e = player.world.getEntityByID(this.entityID);
-				if (e instanceof UnitEntity) {
-					UnitEntity ue = (UnitEntity) e;
-					ue.setOwnerName(this.ownerName);
-				}
-			}
 
+		ctx.get().enqueueWork(() -> {
+			ClientPacketHandler.EntityOwnerChangedPacketToClient(this.entityID, this.ownerName);
 		});
 		ctx.get().setPacketHandled(true);
 	}
