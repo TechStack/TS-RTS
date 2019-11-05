@@ -7,13 +7,13 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3i;
 
-public class TownHallBuilderItem extends BuilderItem {
+public class BarracksBuilderItem extends BuilderItem {
 
-	private ResourceLocation templateName = new ResourceLocation(Reference.MODID + ":" + "townhall_red_2");
+	private ResourceLocation templateName = new ResourceLocation(Reference.MODID + ":" + "barracks_red_2");
 
-	public TownHallBuilderItem() {
+	public BarracksBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
-		setRegistryName(Reference.REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM);
+		setRegistryName(Reference.REIGSTRY_NAME_BARRACKS_BUILDER_ITEM);
 	}
 
 	public ResourceLocation getTemplateName() {
@@ -22,7 +22,7 @@ public class TownHallBuilderItem extends BuilderItem {
 
 	public Vec3i getSize() {
 
-		return new Vec3i(17, 25, 17);
+		return new Vec3i(13, 10, 13);
 	}
 
 }

@@ -16,6 +16,16 @@ public class Reference {
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
+	public static final String REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM = "lumberyardbuilderitem";
+
+	public static final String REIGSTRY_NAME_MINE_SITE_STONE_BUILDER_ITEM = "minesitestonebuilderitem";
+	public static final String REIGSTRY_NAME_MINE_SITE_IRON_BUILDER_ITEM = "minesiteironbuilderitem";
+	public static final String REIGSTRY_NAME_MINE_SITE_GOLD_BUILDER_ITEM = "minesitegoldbuilderitem";
+	public static final String REIGSTRY_NAME_MINE_SITE_DIAMOND_BUILDER_ITEM = "minesitediamondbuilderitem";
+	public static final String REIGSTRY_NAME_MINE_SITE_EMERALD_BUILDER_ITEM = "minesiteemeraldbuilderitem";
+
+	public static final String REIGSTRY_NAME_BARRACKS_BUILDER_ITEM = "barracksbuilderitem";
+	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BUILDER_ITEM = "archeryrangebuilderitem";
 
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";

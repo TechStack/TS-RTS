@@ -48,8 +48,7 @@ public abstract class BuilderItem extends Item {
 
 		Rotation r = Rotation.NONE;
 		if (d == Direction.NORTH) {
-			bp2 = bp;
-
+			bp2 = bp.up().offset(d.rotateYCCW(), (xSize / 2)).offset(d, zSize).offset(d, (-1));
 		}
 		if (d == Direction.SOUTH) {
 			r = Rotation.CLOCKWISE_180;
@@ -59,13 +58,13 @@ public abstract class BuilderItem extends Item {
 		if (d == Direction.WEST) {
 			r = Rotation.COUNTERCLOCKWISE_90;
 
-			bp2 = bp.up().offset(d.rotateYCCW(), -(ySize / 2)).offset(d, (xSize));
+			bp2 = bp.up().offset(d.rotateYCCW(), -(zSize / 2)).offset(d, (xSize)).offset(d, (-1));
 
 		}
 
 		if (d == Direction.EAST) {
 			r = Rotation.CLOCKWISE_90;
-			bp2 = bp.up().offset(d.rotateYCCW(), (ySize / 2)).offset(d, (1));
+			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2));
 		}
 
 		for (int x = 0; x < xSize; x++) {
@@ -124,7 +123,7 @@ public abstract class BuilderItem extends Item {
 					int ySize = template.getSize().getY();
 					int zSize = template.getSize().getZ();
 
-					BlockPos bp = context.getPos().up().offset(d.rotateYCCW(), (xSize / 2)).offset(d, ySize);
+					BlockPos bp = context.getPos().up().offset(d.rotateYCCW(), (xSize / 2)).offset(d, zSize);
 					BlockPos bp2 = bp;
 					Rotation r = Rotation.NONE;
 					if (d == Direction.NORTH) {
@@ -133,19 +132,19 @@ public abstract class BuilderItem extends Item {
 					}
 					if (d == Direction.SOUTH) {
 						r = Rotation.CLOCKWISE_180;
-						bp2 = context.getPos().up().offset(d.rotateYCCW(), -(xSize / 2));
+						bp2 = context.getPos().up().offset(d.rotateYCCW(), -(xSize / 2)).offset(d, (1));
 					}
 
 					if (d == Direction.WEST) {
 						r = Rotation.COUNTERCLOCKWISE_90;
 
-						bp2 = context.getPos().up().offset(d.rotateYCCW(), -(ySize / 2)).offset(d, (xSize));
+						bp2 = context.getPos().up().offset(d.rotateYCCW(), -(zSize / 2)).offset(d, (xSize));
 
 					}
 
 					if (d == Direction.EAST) {
 						r = Rotation.CLOCKWISE_90;
-						bp2 = context.getPos().up().offset(d.rotateYCCW(), (ySize / 2)).offset(d, (1));
+						bp2 = context.getPos().up().offset(d.rotateYCCW(), (zSize / 2)).offset(d, (1));
 					}
 
 					PlacementSettings ps = (new PlacementSettings()).setRotation(r).setIgnoreEntities(true).setChunk((ChunkPos) null);
