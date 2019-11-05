@@ -81,9 +81,18 @@ public class TargetEntity extends CreatureEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		this.posX = ((int) this.posX) + .5f;
+
+		if (this.posX >= 0) {
+			this.posX = ((int) this.posX) + .5f;
+		} else if (this.posX < 0) {
+			this.posX = ((int) this.posX) - .5f;
+		}
 		this.posY = ((int) this.posY);
-		this.posZ = ((int) this.posZ) + .5f;
+		if (this.posZ >= 0) {
+			this.posZ = ((int) this.posZ) + .5f;
+		} else if (this.posZ < 0) {
+			this.posZ = ((int) this.posZ) - .5f;
+		}
 		this.setBoundingBox((new AxisAlignedBB(this.posX - 0.5D, this.posY, this.posZ - 0.5D, this.posX + 0.5D, this.posY + 1.0D, this.posZ + 0.5D)));
 
 	}
