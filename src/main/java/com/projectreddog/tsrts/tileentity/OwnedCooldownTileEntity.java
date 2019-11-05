@@ -1,5 +1,7 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.hanlder.Config;
+
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -22,8 +24,9 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		if (!world.isRemote) {
 			coolDownRemainig = coolDownRemainig - 1;
 			if (coolDownRemainig <= 0) {
-
-				ActionAfterCooldown();
+				if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
+					ActionAfterCooldown();
+				}
 				coolDownRemainig = coolDownReset;
 			}
 		}
