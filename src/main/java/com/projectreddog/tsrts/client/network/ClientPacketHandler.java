@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.client.network;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.TeamInfo;
@@ -21,6 +22,9 @@ public class ClientPacketHandler {
 			if (e instanceof UnitEntity) {
 				UnitEntity ue = (UnitEntity) e;
 				ue.setOwnerName(ownerName);
+			} else if (e instanceof TargetEntity) {
+				TargetEntity te = (TargetEntity) e;
+				te.setOwnerName(ownerName);
 			}
 		}
 	}
