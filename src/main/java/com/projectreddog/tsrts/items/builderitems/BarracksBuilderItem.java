@@ -9,7 +9,7 @@ import net.minecraft.util.math.Vec3i;
 
 public class BarracksBuilderItem extends BuilderItem {
 
-	private ResourceLocation templateName = new ResourceLocation(Reference.MODID + ":" + "barracks_red_2");
+	private ResourceLocation templateName = new ResourceLocation(Reference.MODID + ":" + "barracks_red_2ts");
 
 	public BarracksBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));

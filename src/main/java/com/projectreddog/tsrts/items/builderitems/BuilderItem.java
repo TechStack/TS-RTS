@@ -147,7 +147,7 @@ public abstract class BuilderItem extends Item {
 						bp2 = context.getPos().up().offset(d.rotateYCCW(), (zSize / 2)).offset(d, (1));
 					}
 
-					PlacementSettings ps = (new PlacementSettings()).setRotation(r).setIgnoreEntities(true).setChunk((ChunkPos) null);
+					PlacementSettings ps = (new PlacementSettings()).setRotation(r).setIgnoreEntities(false).setChunk((ChunkPos) null);
 					template.addBlocksToWorldChunk(context.getWorld(), bp, ps);
 
 					for (int x = 0; x < xSize; x++) {

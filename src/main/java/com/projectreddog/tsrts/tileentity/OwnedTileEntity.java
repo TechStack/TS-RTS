@@ -18,6 +18,8 @@ public class OwnedTileEntity extends TileEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	private int[] targetEntityIds;
+
 	private String onwersName;
 
 	private BlockPos rallyPoint;
@@ -86,6 +88,14 @@ public class OwnedTileEntity extends TileEntity {
 			int z = compound.getInt("rallypointz");
 			rallyPoint = new BlockPos(x, y, z);
 		}
+	}
+
+	public int[] getTargetEntityIds() {
+		return targetEntityIds;
+	}
+
+	public void setTargetEntityIds(int[] targetEntityIds) {
+		this.targetEntityIds = targetEntityIds;
 	}
 
 }
