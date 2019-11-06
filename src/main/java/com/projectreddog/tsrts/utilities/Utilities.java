@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.utilities;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -239,6 +241,69 @@ public class Utilities {
 			lbp.add(bp.offset(direction.getOpposite(), (depth - 1) + 1));
 		}
 		return lbp;
+	}
+
+	public static void clearAreaTELast(World world, BlockPos bp, Direction d, Vec3i size) {
+		BlockPos bp2 = bp;
+
+		int xSize = size.getX();
+		int ySize = size.getY();
+		int zSize = size.getZ();
+
+		Rotation r = Rotation.NONE;
+		if (d == Direction.NORTH) {
+			bp2 = bp.up().offset(d.rotateYCCW(), (xSize / 2)).offset(d, zSize).offset(d, (-1));
+		}
+		if (d == Direction.SOUTH) {
+			r = Rotation.CLOCKWISE_180;
+			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2));
+		}
+
+		if (d == Direction.WEST) {
+			r = Rotation.COUNTERCLOCKWISE_90;
+
+			bp2 = bp.up().offset(d.rotateYCCW(), -(zSize / 2)).offset(d, (xSize)).offset(d, (-1));
+
+		}
+
+		if (d == Direction.EAST) {
+			r = Rotation.CLOCKWISE_90;
+			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2));
+		}
+
+		List<BlockPos> tePos = new ArrayList<BlockPos>();
+		for (int x = 0; x < xSize; x++) {
+			for (int y = 0; y < ySize; y++) {
+
+				for (int z = 0; z < zSize; z++) {
+					BlockPos currentbp = bp2.add(x, y, z);
+					if (!world.getBlockState(currentbp).getBlock().isAir(world.getBlockState(currentbp))) {
+						// FOUND A BLOCK check if its a TE we care about
+						if (world.getTileEntity(currentbp) != null) {
+							tePos.add(currentbp);
+						} else {
+							// NOT A TE so destroy it now
+
+							world.setBlockState(currentbp, Blocks.AIR.getDefaultState());
+							world.notifyBlockUpdate(currentbp, world.getBlockState(currentbp), world.getBlockState(currentbp), 3);
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+// Destroy any TE locations after to avoid miss-ordered Killing of it
+		for (Iterator iterator = tePos.iterator(); iterator.hasNext();) {
+			BlockPos currentbp = (BlockPos) iterator.next();
+			world.setBlockState(currentbp, Blocks.AIR.getDefaultState());
+			world.notifyBlockUpdate(currentbp, world.getBlockState(currentbp), world.getBlockState(currentbp), 3);
+
+		}
+
 	}
 
 	public static boolean isValidLocation(World world, BlockPos bp, Direction d, Vec3i size) {
