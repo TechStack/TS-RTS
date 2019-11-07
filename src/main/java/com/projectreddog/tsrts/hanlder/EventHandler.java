@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.TSRTS.GAMESTATE;
+import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamInfo;
@@ -11,6 +13,8 @@ import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -19,6 +23,7 @@ import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.world.WorldEvent.Load;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class EventHandler {
 	@SubscribeEvent
@@ -32,6 +37,14 @@ public class EventHandler {
 				Utilities.SendTeamToClient("green");
 				Utilities.SendTeamToClient("yellow");
 			}
+
+			if (!pe.world.isRemote) {
+				if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.LOBBY) {
+					NetworkHooks.openGui((ServerPlayerEntity) pe, (INamedContainerProvider) new LobbyContinerProvider());
+
+				}
+			}
+
 		}
 	}
 
@@ -54,6 +67,10 @@ public class EventHandler {
 	@SubscribeEvent
 	public static void onLoad(Load event) {
 		TSRTS.playerSelections.clear();
+
+		if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
+			TSRTS.CURRENT_GAME_STATE = GAMESTATE.LOBBY;
+		}
 
 		World world = (World) event.getWorld();
 		TSRTS.teamInfoMap.clear();

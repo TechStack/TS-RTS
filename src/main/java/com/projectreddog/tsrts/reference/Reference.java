@@ -10,6 +10,9 @@ public class Reference {
 	public static final String REIGSTRY_NAME_MINE_SITE_BLOCK = "minesiteblock";
 	public static final String REIGSTRY_NAME_TOWN_HALL_BLOCK = "townhallblock";
 
+	// CONTAINER ONLY NO BLOCK
+	public static final String REIGSTRY_NAME_LOBBY_CONTAINER = "lobbycontiner";
+
 	public static final String REIGSTRY_NAME_STABLES_BLOCK = "stablesblock";
 	public static final String REIGSTRY_NAME_RESERACH_CENTER_BLOCK = "researchcenter";
 

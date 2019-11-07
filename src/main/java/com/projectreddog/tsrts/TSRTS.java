@@ -46,6 +46,8 @@ public class TSRTS {
 	// Directly reference a log4j logger.
 	public static final Logger LOGGER = LogManager.getLogger();
 
+	public static GAMESTATE CURRENT_GAME_STATE = GAMESTATE.STARTUP;
+
 	public TSRTS() {
 		// Register the setup method for modloading
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
@@ -108,5 +110,10 @@ public class TSRTS {
 
 		}
 
+	}
+
+	public enum GAMESTATE {
+
+		STARTUP, LOBBY, COUNTDOWN, RUNNINNG, GAME_OVER
 	}
 }

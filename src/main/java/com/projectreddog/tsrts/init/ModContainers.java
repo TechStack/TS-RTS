@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.init;
 
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.containers.BarracksContainer;
+import com.projectreddog.tsrts.containers.LobbyContainer;
 import com.projectreddog.tsrts.containers.TownHallContainer;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -19,6 +20,9 @@ public class ModContainers {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_HALL_BLOCK)
 	public static ContainerType<TownHallContainer> TOWN_HALL_CONTAINER;
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LOBBY_CONTAINER)
+	public static ContainerType<LobbyContainer> LOBBY_CONTAINER;
+
 	public static void RegisterContainers(final RegistryEvent.Register<ContainerType<?>> event) {
 
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
@@ -30,6 +34,10 @@ public class ModContainers {
 			BlockPos pos = data.readBlockPos();
 			return new TownHallContainer(windowId, TSRTS.proxy.getClientWorld(), pos, inv);
 		}).setRegistryName(Reference.REIGSTRY_NAME_TOWN_HALL_BLOCK));
+
+		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+			return new LobbyContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
+		}).setRegistryName(Reference.REIGSTRY_NAME_LOBBY_CONTAINER));
 
 	}
 }
