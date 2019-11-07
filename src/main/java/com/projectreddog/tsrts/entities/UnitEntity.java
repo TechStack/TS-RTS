@@ -98,12 +98,19 @@ public class UnitEntity extends MonsterEntity {
 	}
 
 	@Override
-	public boolean canAttack(EntityType<?> typeIn) {
+	public boolean canAttack(EntityType<?> target) {
+
 		return true;
 	}
 
 	@Override
 	public boolean canAttack(LivingEntity target) {
+		if (target != null && target.getTeam() != null && getTeam() != null) {
+
+			if (target.getTeam().isSameTeam(getTeam())) {
+				return false;
+			}
+		}
 		return true;
 	}
 
