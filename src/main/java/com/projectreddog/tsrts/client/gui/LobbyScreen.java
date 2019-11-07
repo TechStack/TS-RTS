@@ -4,9 +4,11 @@ import java.util.Collection;
 
 import com.projectreddog.tsrts.containers.LobbyContainer;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.utilities.ClientUtilities;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.client.network.play.ClientPlayNetHandler;
 import net.minecraft.client.network.play.NetworkPlayerInfo;
 import net.minecraft.entity.player.PlayerInventory;
@@ -19,6 +21,8 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 
 	public LobbyScreen(LobbyContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
+
+		setSize(256, 256);
 	}
 
 	@Override
@@ -29,6 +33,7 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 
 		int y = (this.height - this.ySize) / 2;
 
+		ClientUtilities.renderTexture(x, y, 256, 256);
 		this.blit(x, y, 0, 0, this.xSize, this.ySize);
 
 		ClientPlayNetHandler clientplaynethandler = Minecraft.getInstance().player.connection;
@@ -37,6 +42,10 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 		for (NetworkPlayerInfo networkplayerinfo : list) {
 			if (networkplayerinfo != null && networkplayerinfo.getGameProfile() != null) {
 				Minecraft.getInstance().fontRenderer.drawString(networkplayerinfo.getGameProfile().getName(), x + 5, y + 5, 4210752);
+				if (networkplayerinfo.getPlayerTeam() != null) {
+					Minecraft.getInstance().fontRenderer.drawString(networkplayerinfo.getPlayerTeam().getName(), x + 50, y + 5, 4210752);
+				}
+
 			}
 
 		}
@@ -48,6 +57,10 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 		super.init();
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
+
+		addButton(new ImageButton(0, y, 0, 0, 0, 0, 0, TEXTURE, (button) -> {
+
+		}));
 
 //		addButton(new Button(x, y, 50, 10, "Y", (button) -> {
 //			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERYELLOW));

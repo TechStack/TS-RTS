@@ -7,14 +7,12 @@ import org.lwjgl.opengl.GL11;
 
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.utilities.ClientUtilities;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
@@ -99,7 +97,7 @@ public class RenderOverlay extends Screen {
 
 								Minecraft.getInstance().textureManager.bindTexture(TEXTURE);
 								// this.blit(x - 10, 5, 0, 0, 256, 18);
-								renderTexture(x - 50, 4, 512, 18);
+								ClientUtilities.renderTexture(x - 50, 4, 512, 18);
 								RenderHelper.enableGUIStandardItemLighting();
 								for (int i = 0; i < res.length; i++) {
 									int amt = ti.GetResource(res[i]);
@@ -128,7 +126,7 @@ public class RenderOverlay extends Screen {
 
 		for (int i = 0; i < 9; i++) {
 
-			renderTexture(0, i * 32, 32, 32);
+			ClientUtilities.renderTexture(0, i * 32, 32, 32);
 
 		}
 		for (int i = 0; i < 9; i++) {
@@ -138,17 +136,4 @@ public class RenderOverlay extends Screen {
 		}
 	}
 
-	public void renderTexture(double left, double top, double width, double height) {
-		double right = left + width;
-		double bottom = top + height;
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		bufferbuilder.pos(left, bottom, 0).tex(0, 1).endVertex();
-		bufferbuilder.pos(right, bottom, 0).tex(1, 1).endVertex();
-		bufferbuilder.pos(right, top, 0).tex(1, 0).endVertex();
-		bufferbuilder.pos(left, top, 0).tex(0, 0).endVertex();
-
-		tessellator.draw();
-	}
 }
