@@ -50,25 +50,28 @@ public class Utilities {
 			case Reference.GUI_BUTTON_LOBBY_RED:
 
 				team = player.world.getScoreboard().getTeam("red");
-				player.world.getScoreboard().addPlayerToTeam(player.getCachedUniqueIdString(), team);
+				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
 				break;
 			case Reference.GUI_BUTTON_LOBBY_BLUE:
 
 				team = player.world.getScoreboard().getTeam("blue");
-				player.world.getScoreboard().addPlayerToTeam(player.getCachedUniqueIdString(), team);
+				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
 				break;
 
 			case Reference.GUI_BUTTON_LOBBY_GREEN:
 				team = player.world.getScoreboard().getTeam("green");
-				player.world.getScoreboard().addPlayerToTeam(player.getCachedUniqueIdString(), team);
+				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
 				break;
 			case Reference.GUI_BUTTON_LOBBY_YELLOW:
 				team = player.world.getScoreboard().getTeam("yellow");
-				player.world.getScoreboard().addPlayerToTeam(player.getCachedUniqueIdString(), team);
+				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
 				break;
 			case Reference.GUI_BUTTON_LOBBY_READY:
 				break;
+
 		}
+		TSRTS.LOGGER.info("TEAM:" + player.getTeam().getName());
+
 	}
 
 

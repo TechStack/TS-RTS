@@ -46,9 +46,10 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 				String playerName = networkplayerinfo.getGameProfile().getName();
 
 
-				Minecraft.getInstance().fontRenderer.drawString(playerName + "TST", x + 5, y + 5, 4210752);
+				Minecraft.getInstance().fontRenderer.drawString(playerName, x + 5, y + 5, 4210752);
 				if (networkplayerinfo.getPlayerTeam() != null) {
 					Minecraft.getInstance().fontRenderer.drawString(networkplayerinfo.getPlayerTeam().getName(), x + 50, y + 5, 4210752);
+
 				}
 
 			}
