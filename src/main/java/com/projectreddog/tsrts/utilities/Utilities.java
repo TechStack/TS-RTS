@@ -1,11 +1,5 @@
 package com.projectreddog.tsrts.utilities;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.data.StructureData;
@@ -13,14 +7,15 @@ import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
+import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
-
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -40,7 +35,42 @@ import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class Utilities {
+
+
+	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
+		ScorePlayerTeam team;
+		switch (buttonID) {
+
+			case Reference.GUI_BUTTON_LOBBY_RED:
+
+				team = player.world.getScoreboard().getTeam("red");
+				player.world.getScoreboard().addPlayerToTeam(player.getCachedUniqueIdString(), team);
+				break;
+			case Reference.GUI_BUTTON_LOBBY_BLUE:
+
+				team = player.world.getScoreboard().getTeam("blue");
+				player.world.getScoreboard().addPlayerToTeam(player.getCachedUniqueIdString(), team);
+				break;
+
+			case Reference.GUI_BUTTON_LOBBY_GREEN:
+				team = player.world.getScoreboard().getTeam("green");
+				player.world.getScoreboard().addPlayerToTeam(player.getCachedUniqueIdString(), team);
+				break;
+			case Reference.GUI_BUTTON_LOBBY_YELLOW:
+				team = player.world.getScoreboard().getTeam("yellow");
+				player.world.getScoreboard().addPlayerToTeam(player.getCachedUniqueIdString(), team);
+				break;
+			case Reference.GUI_BUTTON_LOBBY_READY:
+				break;
+		}
+	}
+
 
 	public static void PlayerBuysItem(PlayerEntity player, ItemStack itemStack) {
 		// EntityType.ITEM.spawn(player.world, itemSTack, playerIn, pos, reason, p_220331_6_, p_220331_7_)
@@ -297,7 +327,7 @@ public class Utilities {
 
 		}
 // Destroy any TE locations after to avoid miss-ordered Killing of it
-		for (Iterator iterator = tePos.iterator(); iterator.hasNext();) {
+		for (Iterator iterator = tePos.iterator(); iterator.hasNext(); ) {
 			BlockPos currentbp = (BlockPos) iterator.next();
 			world.setBlockState(currentbp, Blocks.AIR.getDefaultState());
 			world.notifyBlockUpdate(currentbp, world.getBlockState(currentbp), world.getBlockState(currentbp), 3);
