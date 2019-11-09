@@ -175,6 +175,104 @@ public class Utilities {
 		}
 	}
 
+
+	public static void controlGroupToSelectedUnits(String playerScoreboardname, int controlGroupNumber) {
+		switch (controlGroupNumber) {
+			case 1:
+				if (TSRTS.playerSelectionsControlGroup1.containsKey(playerScoreboardname)) {
+					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup1.get(playerScoreboardname));
+				}
+				break;
+			case 2:
+				if (TSRTS.playerSelectionsControlGroup2.containsKey(playerScoreboardname)) {
+
+					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup2.get(playerScoreboardname));
+				}
+				break;
+			case 3:
+				if (TSRTS.playerSelectionsControlGroup3.containsKey(playerScoreboardname)) {
+
+					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup3.get(playerScoreboardname));
+				}
+				break;
+			case 4:
+				if (TSRTS.playerSelectionsControlGroup4.containsKey(playerScoreboardname)) {
+
+					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup4.get(playerScoreboardname));
+				}
+				break;
+			case 5:
+				if (TSRTS.playerSelectionsControlGroup5.containsKey(playerScoreboardname)) {
+
+					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup5.get(playerScoreboardname));
+				}
+				break;
+			case 6:
+				if (TSRTS.playerSelectionsControlGroup6.containsKey(playerScoreboardname)) {
+
+					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup6.get(playerScoreboardname));
+				}
+				break;
+			case 7:
+				if (TSRTS.playerSelectionsControlGroup7.containsKey(playerScoreboardname)) {
+
+					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup7.get(playerScoreboardname));
+				}
+				break;
+			case 8:
+				if (TSRTS.playerSelectionsControlGroup8.containsKey(playerScoreboardname)) {
+
+					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup8.get(playerScoreboardname));
+				}
+				break;
+			case 9:
+				if (TSRTS.playerSelectionsControlGroup9.containsKey(playerScoreboardname)) {
+
+					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup9.get(playerScoreboardname));
+				}
+				break;
+		}
+
+	}
+
+
+	public static void selectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
+		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
+			// already selected if we wanted this to be a toggle this is where we edit it be removed
+
+			switch (controlGroupNumber) {
+				case 1:
+					TSRTS.playerSelectionsControlGroup1.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					break;
+				case 2:
+					TSRTS.playerSelectionsControlGroup2.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					break;
+				case 3:
+					TSRTS.playerSelectionsControlGroup3.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					break;
+				case 4:
+					TSRTS.playerSelectionsControlGroup4.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					break;
+				case 5:
+					TSRTS.playerSelectionsControlGroup5.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					break;
+				case 6:
+					TSRTS.playerSelectionsControlGroup6.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					break;
+				case 7:
+					TSRTS.playerSelectionsControlGroup7.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					break;
+				case 8:
+					TSRTS.playerSelectionsControlGroup8.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					break;
+				case 9:
+					TSRTS.playerSelectionsControlGroup9.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					break;
+			}
+		}
+
+	}
+
 	public static void SendTeamToClient(String teamName) {
 		if (TSRTS.teamInfoMap.containsKey(teamName)) {
 			ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoMap.get(teamName), teamName));

@@ -33,6 +33,18 @@ import java.util.HashMap;
 @Mod(Reference.MODID)
 public class TSRTS {
 	public static HashMap<String, PlayerSelections> playerSelections = new HashMap<String, PlayerSelections>();
+
+	public static HashMap<String, PlayerSelections> playerSelectionsControlGroup1 = new HashMap<String, PlayerSelections>();
+	public static HashMap<String, PlayerSelections> playerSelectionsControlGroup2 = new HashMap<String, PlayerSelections>();
+	public static HashMap<String, PlayerSelections> playerSelectionsControlGroup3 = new HashMap<String, PlayerSelections>();
+	public static HashMap<String, PlayerSelections> playerSelectionsControlGroup4 = new HashMap<String, PlayerSelections>();
+	public static HashMap<String, PlayerSelections> playerSelectionsControlGroup5 = new HashMap<String, PlayerSelections>();
+	public static HashMap<String, PlayerSelections> playerSelectionsControlGroup6 = new HashMap<String, PlayerSelections>();
+	public static HashMap<String, PlayerSelections> playerSelectionsControlGroup7 = new HashMap<String, PlayerSelections>();
+	public static HashMap<String, PlayerSelections> playerSelectionsControlGroup8 = new HashMap<String, PlayerSelections>();
+	public static HashMap<String, PlayerSelections> playerSelectionsControlGroup9 = new HashMap<String, PlayerSelections>();
+
+
 	public static HashMap<String, TeamInfo> teamInfoMap = new HashMap<String, TeamInfo>();
 	public static HashMap<String, Boolean> isPlayerReadyMap = new HashMap<>();
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
