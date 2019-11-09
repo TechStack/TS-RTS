@@ -1,12 +1,13 @@
 {
-    "parent": "tsrts:block/cube",
-    "textures": {
-        "particle": "tsrts:block/barrackstsrts:block_down",
-        "down": "tsrts:block/barrackstsrts:block_down",
-        "up": "tsrts:block/barrackstsrts:block_red_top",
-        "north": "tsrts:block/barrackstsrts:block_front",
-        "east": "tsrts:block/barrackstsrts:block_side",
-        "south": "tsrts:block/barrackstsrts:block_side",
-        "west": "tsrts:block/barrackstsrts:block_front"
-    }
+
+  "parent": "block/cube",
+  "textures": {
+    "particle": "tsrts:block/barracksblock_down",
+    "down": "tsrts:block/barracksblock_down",
+    "up": "tsrts:block/barracksblock_red_top",
+    "north": "tsrts:block/barracksblock_red_front",
+    "east": "tsrts:block/barracksblock_red_side",
+    "south": "tsrts:block/barracksblock_red_side",
+    "west": "tsrts:block/barracksblock_red_front"
+  }
 }

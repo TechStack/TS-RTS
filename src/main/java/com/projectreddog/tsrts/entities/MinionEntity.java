@@ -1,7 +1,9 @@
 package com.projectreddog.tsrts.entities;
 
 import com.projectreddog.tsrts.entities.ai.MoveToOwnerSpecifiedLocation;
+import com.projectreddog.tsrts.entities.ai.NearestAttackableVisionNotRequiredTargetGoal;
 
+import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Pose;
@@ -17,10 +19,13 @@ import net.minecraft.world.World;
 
 public class MinionEntity extends UnitEntity {
 
+	public static final EntityPredicate VISION_NOT_REQUIRED = new EntityPredicate().setLineOfSiteRequired();
+
 	public MinionEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
 		// this.world.getScoreboard().addPlayerToTeam(this.getCachedUniqueIdString(), scoreplayerteam);
 		// Minecraft.getInstance().player.getTeam()
+
 	}
 
 	protected void registerGoals() {
@@ -32,9 +37,9 @@ public class MinionEntity extends UnitEntity {
 		this.goalSelector.addGoal(2, new MoveToOwnerSpecifiedLocation(this, 1.1D, 32));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
 
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, UnitEntity.class, true));
-		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, TargetEntity.class, true));
+		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, UnitEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableVisionNotRequiredTargetGoal<>(this, TargetEntity.class, false));
 
 	}
 
