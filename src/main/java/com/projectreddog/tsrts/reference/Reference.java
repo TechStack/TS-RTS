@@ -10,6 +10,9 @@ public class Reference {
 	public static final String REIGSTRY_NAME_MINE_SITE_BLOCK = "minesiteblock";
 	public static final String REIGSTRY_NAME_TOWN_HALL_BLOCK = "townhallblock";
 
+	// CONTAINER ONLY NO BLOCK
+	public static final String REIGSTRY_NAME_LOBBY_CONTAINER = "lobbycontiner";
+
 	public static final String REIGSTRY_NAME_STABLES_BLOCK = "stablesblock";
 	public static final String REIGSTRY_NAME_RESERACH_CENTER_BLOCK = "researchcenter";
 
@@ -38,8 +41,16 @@ public class Reference {
 	public static final int GUI_BUTTON_DEBUG_TESTERGREEN = 99998;
 	public static final int GUI_BUTTON_DEBUG_TESTERBLUE = 99997;
 	public static final int GUI_BUTTON_DEBUG_TESTERRED = 99996;
-// TOWN HALLba GUI BUTTONS
+	// TOWN HALLba GUI BUTTONS
 	public static final int GUI_BUTTON_BUY_BARRACKS = 1;
 	public static final int GUI_BUTTON_BUY_ARCHERY_RANGE = 2;
 	public static final int GUI_BUTTON_BUY_MINE_SITE = 3;
+
+	public static final int GUI_BUTTON_LOBBY_RED = 4;
+	public static final int GUI_BUTTON_LOBBY_BLUE = 5;
+	public static final int GUI_BUTTON_LOBBY_GREEN = 6;
+	public static final int GUI_BUTTON_LOBBY_YELLOW = 7;
+	public static final int GUI_BUTTON_LOBBY_READY = 8;
+
+
 }

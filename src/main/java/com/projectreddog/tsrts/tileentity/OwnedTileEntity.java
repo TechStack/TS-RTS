@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.tileentity;
 
 import com.projectreddog.tsrts.blocks.OwnedBlock;
+import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.utilities.TeamProperty;
@@ -18,9 +19,18 @@ public class OwnedTileEntity extends TileEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	private int[] targetEntityIds;
+	protected int[] targetEntityIds;
 
 	private String onwersName;
+	private StructureData structureData;
+
+	public StructureData getStructureData() {
+		return structureData;
+	}
+
+	public void setStructureData(StructureData structureData) {
+		this.structureData = structureData;
+	}
 
 	private BlockPos rallyPoint;
 

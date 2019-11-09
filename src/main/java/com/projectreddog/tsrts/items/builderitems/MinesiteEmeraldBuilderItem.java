@@ -9,15 +9,25 @@ import net.minecraft.util.math.Vec3i;
 
 public class MinesiteEmeraldBuilderItem extends BuilderItem {
 
-	private ResourceLocation templateName = new ResourceLocation(Reference.MODID + ":" + "emerald_red_2");
+	private ResourceLocation templateName100 = new ResourceLocation(Reference.MODID + ":" + "emerald_red_2");
+	private ResourceLocation templateName50 = new ResourceLocation(Reference.MODID + ":" + "emerald_red_2");
+	private ResourceLocation templateName0 = new ResourceLocation(Reference.MODID + ":" + "emerald_red_2");
 
 	public MinesiteEmeraldBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
 		setRegistryName(Reference.REIGSTRY_NAME_MINE_SITE_EMERALD_BUILDER_ITEM);
 	}
 
-	public ResourceLocation getTemplateName() {
-		return this.templateName;
+	public ResourceLocation getTemplateName100() {
+		return this.templateName100;
+	}
+
+	public ResourceLocation getTemplateName50() {
+		return this.templateName50;
+	}
+
+	public ResourceLocation getTemplateName0() {
+		return this.templateName0;
 	}
 
 	public Vec3i getSize() {
