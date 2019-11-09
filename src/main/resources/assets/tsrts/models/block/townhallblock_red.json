@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "block/townhallblock_red_front",
+        "down": "block/townhallblock_bottom",
+        "up": "block/townhallblock_red_top",
+        "north": "block/townhallblock_red_front",
+        "east": "block/townhallblock_red_side",
+        "south": "block/townhallblock_red_side",
+        "west": "block/townhallblock_red_front"
+    }
+}
