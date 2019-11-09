@@ -1,25 +1,15 @@
 package com.projectreddog.tsrts;
 
-import java.util.HashMap;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.projectreddog.tsrts.hanlder.ClientEvents;
 import com.projectreddog.tsrts.hanlder.Config;
 import com.projectreddog.tsrts.hanlder.EventHandler;
-import com.projectreddog.tsrts.init.ModBlocks;
-import com.projectreddog.tsrts.init.ModContainers;
-import com.projectreddog.tsrts.init.ModEntities;
-import com.projectreddog.tsrts.init.ModItems;
-import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.init.*;
 import com.projectreddog.tsrts.proxy.ClientProxy;
 import com.projectreddog.tsrts.proxy.IProxy;
 import com.projectreddog.tsrts.proxy.ServerProxy;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamInfo;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
@@ -35,12 +25,16 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.HashMap;
 
 @Mod(Reference.MODID)
 public class TSRTS {
 	public static HashMap<String, PlayerSelections> playerSelections = new HashMap<String, PlayerSelections>();
 	public static HashMap<String, TeamInfo> teamInfoMap = new HashMap<String, TeamInfo>();
-
+	public static HashMap<String, Boolean> isPlayerReadyMap = new HashMap<>();
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
 	// Directly reference a log4j logger.

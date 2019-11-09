@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
@@ -42,6 +43,39 @@ import java.util.List;
 
 public class Utilities {
 
+	public static void setPlayerReady(World world, PlayerEntity player, Boolean isReady) {
+		if (!world.isRemote) {
+			// server
+			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
+
+			//TODO: SEND PACKET FROM SERVER TO CLIENT!
+			ModNetwork.SendToALLPlayers(new PlayerReadyUpPacketToClient(player.getEntityId(), isReady));
+
+
+		} else {
+			//client
+			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
+			// do not send packet here to avoid looping between client and server
+		}
+	}
+
+	public static boolean getPlayerReady(PlayerEntity player) {
+
+		if (TSRTS.isPlayerReadyMap.containsKey(player.getScoreboardName())) {
+			return TSRTS.isPlayerReadyMap.get(player.getScoreboardName());
+		}
+		return false;
+	}
+
+
+	public static boolean getPlayerReady(String playerScoreboardName) {
+
+		if (TSRTS.isPlayerReadyMap.containsKey(playerScoreboardName)) {
+			return TSRTS.isPlayerReadyMap.get(playerScoreboardName);
+		}
+		return false;
+	}
+
 
 	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
 		ScorePlayerTeam team;
@@ -67,6 +101,8 @@ public class Utilities {
 				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
 				break;
 			case Reference.GUI_BUTTON_LOBBY_READY:
+				Utilities.setPlayerReady(player.world, player, !Utilities.getPlayerReady(player));
+
 				break;
 
 		}

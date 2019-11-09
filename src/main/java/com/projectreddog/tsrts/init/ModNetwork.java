@@ -23,6 +23,7 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, TEOwnerChangedPacketToClient.class, TEOwnerChangedPacketToClient::encode, TEOwnerChangedPacketToClient::new, TEOwnerChangedPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, SendTeamInfoPacketToClient.class, SendTeamInfoPacketToClient::encode, SendTeamInfoPacketToClient::new, SendTeamInfoPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, LobbyGuiButtonClickedPacketToServer.class, LobbyGuiButtonClickedPacketToServer::encode, LobbyGuiButtonClickedPacketToServer::new, LobbyGuiButtonClickedPacketToServer::handle);
+		simpleChannel.registerMessage(MessageId++, PlayerReadyUpPacketToClient.class, PlayerReadyUpPacketToClient::encode, PlayerReadyUpPacketToClient::new, PlayerReadyUpPacketToClient::handle);
 
 	}
 

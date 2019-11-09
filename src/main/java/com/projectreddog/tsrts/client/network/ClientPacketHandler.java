@@ -5,12 +5,13 @@ import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.TeamInfo;
-
+import com.projectreddog.tsrts.utilities.Utilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class ClientPacketHandler {
 
@@ -50,4 +51,16 @@ public class ClientPacketHandler {
 			}
 		}
 	}
+
+
+	public static void PlayerReadyUpPacketToClient(int playerEntityID, Boolean isReady) {
+		World world = Minecraft.getInstance().player.world;
+		Entity e = world.getEntityByID(playerEntityID);
+		if (e instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) e;
+
+			Utilities.setPlayerReady(world, player, isReady);
+		}
+	}
+
 }
