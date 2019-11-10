@@ -2,7 +2,7 @@
     "parent": "block/cube",
     "textures": {
         "particle": "tsrts:block/townhallblock_yellow_front",
-        "down": "tsrts:block/townhallblock_bottom",
+        "down": "tsrts:block/townhallblock_down",
         "up": "tsrts:block/townhallblock_yellow_top",
         "north": "tsrts:block/townhallblock_yellow_front",
         "east": "tsrts:block/townhallblock_yellow_side",
