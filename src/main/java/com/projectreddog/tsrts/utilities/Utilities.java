@@ -1,5 +1,11 @@
 package com.projectreddog.tsrts.utilities;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.data.StructureData;
@@ -7,9 +13,13 @@ import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
+import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
+import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -17,9 +27,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -36,11 +44,6 @@ import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ServerWorld;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 public class Utilities {
 
 	public static void setPlayerReady(World world, PlayerEntity player, Boolean isReady) {
@@ -48,12 +51,11 @@ public class Utilities {
 			// server
 			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
 
-			//TODO: SEND PACKET FROM SERVER TO CLIENT!
+			// TODO: SEND PACKET FROM SERVER TO CLIENT!
 			ModNetwork.SendToALLPlayers(new PlayerReadyUpPacketToClient(player.getEntityId(), isReady));
 
-
 		} else {
-			//client
+			// client
 			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
 			// do not send packet here to avoid looping between client and server
 		}
@@ -67,7 +69,6 @@ public class Utilities {
 		return false;
 	}
 
-
 	public static boolean getPlayerReady(String playerScoreboardName) {
 
 		if (TSRTS.isPlayerReadyMap.containsKey(playerScoreboardName)) {
@@ -76,40 +77,38 @@ public class Utilities {
 		return false;
 	}
 
-
 	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
 		ScorePlayerTeam team;
 		switch (buttonID) {
 
-			case Reference.GUI_BUTTON_LOBBY_RED:
+		case Reference.GUI_BUTTON_LOBBY_RED:
 
-				team = player.world.getScoreboard().getTeam("red");
-				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
-				break;
-			case Reference.GUI_BUTTON_LOBBY_BLUE:
+			team = player.world.getScoreboard().getTeam("red");
+			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
+			break;
+		case Reference.GUI_BUTTON_LOBBY_BLUE:
 
-				team = player.world.getScoreboard().getTeam("blue");
-				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
-				break;
+			team = player.world.getScoreboard().getTeam("blue");
+			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
+			break;
 
-			case Reference.GUI_BUTTON_LOBBY_GREEN:
-				team = player.world.getScoreboard().getTeam("green");
-				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
-				break;
-			case Reference.GUI_BUTTON_LOBBY_YELLOW:
-				team = player.world.getScoreboard().getTeam("yellow");
-				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
-				break;
-			case Reference.GUI_BUTTON_LOBBY_READY:
-				Utilities.setPlayerReady(player.world, player, !Utilities.getPlayerReady(player));
+		case Reference.GUI_BUTTON_LOBBY_GREEN:
+			team = player.world.getScoreboard().getTeam("green");
+			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
+			break;
+		case Reference.GUI_BUTTON_LOBBY_YELLOW:
+			team = player.world.getScoreboard().getTeam("yellow");
+			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
+			break;
+		case Reference.GUI_BUTTON_LOBBY_READY:
+			Utilities.setPlayerReady(player.world, player, !Utilities.getPlayerReady(player));
 
-				break;
+			break;
 
 		}
 		TSRTS.LOGGER.info("TEAM:" + player.getTeam().getName());
 
 	}
-
 
 	public static void PlayerBuysItem(PlayerEntity player, ItemStack itemStack) {
 		// EntityType.ITEM.spawn(player.world, itemSTack, playerIn, pos, reason, p_220331_6_, p_220331_7_)
@@ -151,10 +150,10 @@ public class Utilities {
 				ue.ownerControlledDestination = rallyPoint;
 			}
 
-			ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
-			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
+			// ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+//			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
 			// ue.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.DIAMOND_HELMET));
-			ue.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.IRON_LEGGINGS));
+//			ue.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.IRON_LEGGINGS));
 
 		}
 
@@ -162,17 +161,200 @@ public class Utilities {
 
 	}
 
-	public static void SelectUnit(String playerScoreboardname, int entityId) {
+	public static void serverDeSelectUnit(PlayerEntity player, String playerScoreboardname, int entityId) {
+		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
+			if (TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
+				TSRTS.LOGGER.info("DE-Select");
+				final Iterator<Integer> it = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.iterator();
+				while (it.hasNext()) {
+					int currentID = it.next();
+					if (currentID == entityId) {
+						it.remove();
+					}
+				}
+				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < tmpids.length; i++) {
+					tmpids[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
+
+				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
+			}
+		}
+	}
+
+	public static void serverSelectUnit(PlayerEntity player, String playerScoreboardname, int entityId) {
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			if (TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
 				// already selected if we wanted this to be a toggle this is where we edit it be removed
+
 			} else {
+
+				TSRTS.LOGGER.info("Select");
 				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityId);
+				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < tmpids.length; i++) {
+					tmpids[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
+
+				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
 			}
 		} else {
 			throw new IllegalStateException(" COuld not find the player in the hasmap used for selections !");
 
 		}
+
+	}
+
+	public static void ServerControlGroupToSelectedUnits(ServerPlayerEntity player, String playerScoreboardname, int[] entityIds) {
+		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
+			TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.clear();
+			for (int i = 0; i < entityIds.length; i++) {
+				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityIds[i]);
+
+			}
+		}
+
+		ModNetwork.SendToPlayer(player, new PlayerSelectionChangedPacketToClient(entityIds));
+
+	}
+
+	public static void clientControlGroupToSelectedUnits(String playerScoreboardname, int controlGroupNumber) {
+
+		int[] activeSelections = null;
+		switch (controlGroupNumber) {
+		case 1:
+			activeSelections = TSRTS.playerSelectionsControlGroup1;
+
+			break;
+		case 2:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup2;
+			break;
+		case 3:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup3;
+			break;
+		case 4:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup4;
+			break;
+		case 5:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup5;
+			break;
+		case 6:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup6;
+			break;
+		case 7:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup7;
+			break;
+		case 8:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup8;
+			break;
+		case 9:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup9;
+			break;
+
+		}
+		// TSRTS.playerSelections.put(playerScoreboardname, activeSelections);
+		if (activeSelections != null) {
+
+			ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(activeSelections));
+		}
+
+	}
+
+	public static int GetSelectedCountForControlGroup(int controlGroupNumber) {
+		switch (controlGroupNumber) {
+		case 1:
+
+			if (TSRTS.playerSelectionsControlGroup1 != null) {
+				return TSRTS.playerSelectionsControlGroup1.length;
+			}
+
+		case 2:
+			if (TSRTS.playerSelectionsControlGroup2 != null) {
+				return TSRTS.playerSelectionsControlGroup2.length;
+			}
+
+		case 3:
+			if (TSRTS.playerSelectionsControlGroup3 != null) {
+				return TSRTS.playerSelectionsControlGroup3.length;
+			}
+		case 4:
+			if (TSRTS.playerSelectionsControlGroup4 != null) {
+				return TSRTS.playerSelectionsControlGroup4.length;
+			}
+
+		case 5:
+			if (TSRTS.playerSelectionsControlGroup5 != null) {
+				return TSRTS.playerSelectionsControlGroup5.length;
+			}
+		case 6:
+			if (TSRTS.playerSelectionsControlGroup6 != null) {
+				return TSRTS.playerSelectionsControlGroup6.length;
+			}
+		case 7:
+			if (TSRTS.playerSelectionsControlGroup7 != null) {
+				return TSRTS.playerSelectionsControlGroup7.length;
+			}
+		case 8:
+			if (TSRTS.playerSelectionsControlGroup8 != null) {
+				return TSRTS.playerSelectionsControlGroup8.length;
+			}
+		case 9:
+			if (TSRTS.playerSelectionsControlGroup9 != null) {
+				return TSRTS.playerSelectionsControlGroup9.length;
+			}
+		}
+		return 0;
+	}
+
+	public static void clientSelectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
+		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
+			// already selected if we wanted this to be a toggle this is where we edit it be removed
+
+			int[] activeSelections = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+
+			for (int i = 0; i < activeSelections.length; i++) {
+				activeSelections[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+			}
+
+			switch (controlGroupNumber) {
+			case 1:
+				TSRTS.playerSelectionsControlGroup1 = activeSelections;
+				break;
+			case 2:
+				TSRTS.playerSelectionsControlGroup2 = activeSelections;
+				break;
+			case 3:
+				TSRTS.playerSelectionsControlGroup3 = activeSelections;
+				break;
+			case 4:
+				TSRTS.playerSelectionsControlGroup4 = activeSelections;
+				break;
+			case 5:
+				TSRTS.playerSelectionsControlGroup5 = activeSelections;
+				break;
+			case 6:
+				TSRTS.playerSelectionsControlGroup6 = activeSelections;
+				break;
+			case 7:
+				TSRTS.playerSelectionsControlGroup7 = activeSelections;
+				break;
+			case 8:
+				TSRTS.playerSelectionsControlGroup8 = activeSelections;
+				break;
+			case 9:
+				TSRTS.playerSelectionsControlGroup9 = activeSelections;
+				break;
+			}
+		}
+
 	}
 
 	public static void SendTeamToClient(String teamName) {
@@ -366,7 +548,7 @@ public class Utilities {
 
 		}
 // Destroy any TE locations after to avoid miss-ordered Killing of it
-		for (Iterator iterator = tePos.iterator(); iterator.hasNext(); ) {
+		for (Iterator iterator = tePos.iterator(); iterator.hasNext();) {
 			BlockPos currentbp = (BlockPos) iterator.next();
 			world.setBlockState(currentbp, Blocks.AIR.getDefaultState());
 			world.notifyBlockUpdate(currentbp, world.getBlockState(currentbp), world.getBlockState(currentbp), 3);
@@ -503,6 +685,11 @@ public class Utilities {
 									((OwnedTileEntity) te).setOwner(ownerName);
 									controllerTE = ((OwnedTileEntity) te);
 									controllerTE.setStructureData(structureData);
+
+									if (te instanceof ResourceGenerator) {
+										ResourceGenerator rg = (ResourceGenerator) te;
+										rg.setResource(TeamInfo.GetResoureceForBlock(world.getBlockState(pos).getBlock()));
+									}
 								}
 							}
 						}
@@ -529,6 +716,192 @@ public class Utilities {
 		}
 
 		return false;
+	}
+
+	public static void removeDeadEntityFromControlGroups(int entityId) {
+		boolean found = false;
+		if (TSRTS.playerSelectionsControlGroup1 != null) {
+			if (TSRTS.playerSelectionsControlGroup1.length > 0) {
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup1.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup1.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup1[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup1[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup1 = tmp;
+				}
+
+			}
+		}
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup2 != null) {
+			if (TSRTS.playerSelectionsControlGroup2.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup2.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup2.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup2[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup2[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup2 = tmp;
+				}
+
+			}
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup3 != null) {
+			if (TSRTS.playerSelectionsControlGroup3.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup3.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup3.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup3[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup3[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup3 = tmp;
+				}
+			}
+
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup4 != null) {
+			if (TSRTS.playerSelectionsControlGroup4.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup4.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup4.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup4[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup4[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup4 = tmp;
+				}
+			}
+
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup5 != null) {
+			if (TSRTS.playerSelectionsControlGroup5.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup5.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup5.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup5[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup5[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup5 = tmp;
+				}
+			}
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup6 != null) {
+			if (TSRTS.playerSelectionsControlGroup6.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup6.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup6.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup6[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup6[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup6 = tmp;
+				}
+
+			}
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup7 != null) {
+			if (TSRTS.playerSelectionsControlGroup7.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup7.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup7.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup7[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup7[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup7 = tmp;
+				}
+			}
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup8 != null) {
+			if (TSRTS.playerSelectionsControlGroup8.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup8.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup8.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup8[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup8[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup8 = tmp;
+				}
+			}
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup9 != null) {
+			if (TSRTS.playerSelectionsControlGroup9.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup9.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup9.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup9[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup9[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup9 = tmp;
+				}
+			}
+		}
+
 	}
 
 }

@@ -1,6 +1,13 @@
 {
-"parent":"block/cube_all",
-"textures": {
-"all": "tsrts:block/barracksblock_red"
-}
+  "parent": "block/cube",
+  "textures": {
+    "particle": "tsrts:block/townhallblock_down",
+    "down": "tsrts:block/townhallblock_down",
+    "up": "tsrts:block/barracksblock_red_top",
+    "north": "tsrts:block/townhallblock_red_front",
+    "east": "tsrts:block/townhallblock_red_side",
+    "south": "tsrts:block/townhallblock_red_side",
+    "west": "tsrts:block/townhallblock_red_front"
+  }
+
 }

@@ -26,8 +26,8 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 	Button btnBlue;
 	Button btnGreen;
 	Button btnYellow;
-
 	Button btnReady;
+	Button btnStart;
 
 	PlayerEntity playerEntity;
 
@@ -53,8 +53,8 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 
 		int playerNameColumnPosition = x + 5;
 		int playerTeamColumnPosition = playerNameColumnPosition + 100;
-		int playerReadyColumnPostion = playerTeamColumnPosition + 50;
-
+		int playerReadyColumnPosition = playerTeamColumnPosition + 50;
+		Boolean isEveryoneReady = true;
 		for (NetworkPlayerInfo networkplayerinfo : list) {
 			if (networkplayerinfo != null && networkplayerinfo.getGameProfile() != null) {
 				String playerName = networkplayerinfo.getGameProfile().getName();
@@ -66,12 +66,21 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 
 				}
 
-				Minecraft.getInstance().fontRenderer.drawString(Utilities.getPlayerReady(playerName) ? "Ready!" : "Not Ready", playerReadyColumnPostion, y + 5, 4210752);
-
+				Minecraft.getInstance().fontRenderer.drawString(Utilities.getPlayerReady(playerName) ? "Ready!" : "Not Ready", playerReadyColumnPosition, y + 5, 4210752);
+				if (!Utilities.getPlayerReady(playerName)) {
+					isEveryoneReady = false;
+				}
 			}
 			y = y + 15;
 
 		}
+
+		if (isEveryoneReady) {
+			btnStart.active = true;
+		} else {
+			btnStart.active = false;
+		}
+
 
 	}
 
@@ -83,7 +92,7 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 		int y = (this.height - this.ySize) / 2;
 
 
-		y = y + 190;
+		y = y + 170;
 
 
 		btnReady = addButton(new Button(x + 200, y, 50, 20, "Ready", (button) -> {
@@ -129,6 +138,13 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 			btnReady.active = true;
 
 		}));
+
+
+		btnStart = addButton(new Button(x + 200, y + 20, 50, 20, "Start", (button) -> {
+			ModNetwork.SendToServer(new LobbyGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_START));
+
+		}));
+		btnStart.active = false;
 
 
 //		addButton(new Button(x, y, 50, 10, "Y", (button) -> {

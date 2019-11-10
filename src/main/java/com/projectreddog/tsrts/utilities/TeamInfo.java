@@ -8,11 +8,13 @@ import net.minecraft.item.Items;
 public class TeamInfo {
 
 	public static enum Resources {
-		WOOD, STONE, IRON, GOLD, DIAMOND, EMERALD
+		FOOD, WOOD, STONE, IRON, GOLD, DIAMOND, EMERALD
 	}
 
 	public static ItemStack GetRenderItemStack(Resources res) {
 		switch (res) {
+		case FOOD:
+			return new ItemStack(Items.WHEAT);
 		case WOOD:
 			return new ItemStack(Items.OAK_LOG);
 		case STONE:
@@ -31,6 +33,12 @@ public class TeamInfo {
 	}
 
 	public static Resources GetResoureceForBlock(Block block) {
+		if (block == Blocks.OAK_LOG) {
+			return Resources.WOOD;
+		}
+		if (block == Blocks.GRASS_BLOCK) {
+			return Resources.FOOD;
+		}
 		if (block == Blocks.STONE) {
 			return Resources.STONE;
 		}
