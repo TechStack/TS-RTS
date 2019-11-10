@@ -267,6 +267,52 @@ public class Utilities {
 
 	}
 
+	public static int GetSelectedCountForControlGroup(int controlGroupNumber) {
+		switch (controlGroupNumber) {
+		case 1:
+
+			if (TSRTS.playerSelectionsControlGroup1 != null) {
+				return TSRTS.playerSelectionsControlGroup1.length;
+			}
+
+		case 2:
+			if (TSRTS.playerSelectionsControlGroup2 != null) {
+				return TSRTS.playerSelectionsControlGroup2.length;
+			}
+
+		case 3:
+			if (TSRTS.playerSelectionsControlGroup3 != null) {
+				return TSRTS.playerSelectionsControlGroup3.length;
+			}
+		case 4:
+			if (TSRTS.playerSelectionsControlGroup4 != null) {
+				return TSRTS.playerSelectionsControlGroup4.length;
+			}
+
+		case 5:
+			if (TSRTS.playerSelectionsControlGroup5 != null) {
+				return TSRTS.playerSelectionsControlGroup5.length;
+			}
+		case 6:
+			if (TSRTS.playerSelectionsControlGroup6 != null) {
+				return TSRTS.playerSelectionsControlGroup6.length;
+			}
+		case 7:
+			if (TSRTS.playerSelectionsControlGroup7 != null) {
+				return TSRTS.playerSelectionsControlGroup7.length;
+			}
+		case 8:
+			if (TSRTS.playerSelectionsControlGroup8 != null) {
+				return TSRTS.playerSelectionsControlGroup8.length;
+			}
+		case 9:
+			if (TSRTS.playerSelectionsControlGroup9 != null) {
+				return TSRTS.playerSelectionsControlGroup9.length;
+			}
+		}
+		return 0;
+	}
+
 	public static void clientSelectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			// already selected if we wanted this to be a toggle this is where we edit it be removed
@@ -664,6 +710,192 @@ public class Utilities {
 		}
 
 		return false;
+	}
+
+	public static void removeDeadEntityFromControlGroups(int entityId) {
+		boolean found = false;
+		if (TSRTS.playerSelectionsControlGroup1 != null) {
+			if (TSRTS.playerSelectionsControlGroup1.length > 0) {
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup1.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup1.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup1[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup1[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup1 = tmp;
+				}
+
+			}
+		}
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup2 != null) {
+			if (TSRTS.playerSelectionsControlGroup2.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup2.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup2.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup2[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup2[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup2 = tmp;
+				}
+
+			}
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup3 != null) {
+			if (TSRTS.playerSelectionsControlGroup3.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup3.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup3.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup3[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup3[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup3 = tmp;
+				}
+			}
+
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup4 != null) {
+			if (TSRTS.playerSelectionsControlGroup4.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup4.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup4.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup4[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup4[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup4 = tmp;
+				}
+			}
+
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup5 != null) {
+			if (TSRTS.playerSelectionsControlGroup5.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup5.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup5.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup5[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup5[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup5 = tmp;
+				}
+			}
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup6 != null) {
+			if (TSRTS.playerSelectionsControlGroup6.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup6.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup6.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup6[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup6[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup6 = tmp;
+				}
+
+			}
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup7 != null) {
+			if (TSRTS.playerSelectionsControlGroup7.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup7.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup7.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup7[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup7[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup7 = tmp;
+				}
+			}
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup8 != null) {
+			if (TSRTS.playerSelectionsControlGroup8.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup8.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup8.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup8[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup8[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup8 = tmp;
+				}
+			}
+		}
+
+		found = false;
+		if (TSRTS.playerSelectionsControlGroup9 != null) {
+			if (TSRTS.playerSelectionsControlGroup9.length > 0) {
+
+				int[] tmp = new int[TSRTS.playerSelectionsControlGroup9.length - 1];
+				int j = 0;
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup9.length; i++) {
+					if (TSRTS.playerSelectionsControlGroup9[i] == entityId) {
+						found = true;
+					} else {
+						tmp[j] = TSRTS.playerSelectionsControlGroup9[i];
+						j++;
+					}
+				}
+				if (found) {
+					TSRTS.playerSelectionsControlGroup9 = tmp;
+				}
+			}
+		}
+
 	}
 
 }

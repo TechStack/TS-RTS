@@ -62,6 +62,8 @@ public class EventHandler {
 				}
 			}
 		}
+
+		Utilities.removeDeadEntityFromControlGroups(event.getEntity().getEntityId());
 	}
 
 	@SubscribeEvent
