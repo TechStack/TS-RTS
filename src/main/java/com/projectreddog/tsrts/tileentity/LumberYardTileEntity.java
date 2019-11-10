@@ -4,6 +4,9 @@ import com.projectreddog.tsrts.containers.BarracksContainer;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.TeamInfo;
+import com.projectreddog.tsrts.utilities.Utilities;
+
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -23,14 +26,14 @@ public class LumberYardTileEntity extends OwnedCooldownTileEntity implements INa
 		super.ActionAfterCooldown();
 
 		if (getOwner() != null) {
-			// ModEntities.MINION.spawn(world, null, null, this.pos, SpawnReason.TRIGGERED, true, true);
 
-			//	Utilities.SpawnUnitForTeam(ModEntities.MINION, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+			TeamInfo.Resources res = TeamInfo.Resources.WOOD;
 
-//
-//			MinionEntity me = new MinionEntity(null, world);
-//
-//			world.addEntity(me);
+			if (res != null) {
+
+				Utilities.AddResourcesToTeam(this.getTeam().getName(), res, 1);
+			}
+
 		}
 	}
 
