@@ -2,15 +2,15 @@ package com.projectreddog.tsrts.network;
 
 import java.util.function.Supplier;
 
-import com.projectreddog.tsrts.client.network.ClientPacketHandler;
+import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-public class PlayerSelectionChangedPacketToClient {
+public class PlayerSelectionChangedPacketToServer {
 	public int[] entityIds;
 
-	public PlayerSelectionChangedPacketToClient(PacketBuffer buf) {
+	public PlayerSelectionChangedPacketToServer(PacketBuffer buf) {
 		// DECODE
 		int length = buf.readInt();
 		entityIds = new int[length];
@@ -20,7 +20,7 @@ public class PlayerSelectionChangedPacketToClient {
 
 	}
 
-	public PlayerSelectionChangedPacketToClient(int[] entityIds) {
+	public PlayerSelectionChangedPacketToServer(int[] entityIds) {
 		super();
 		this.entityIds = entityIds;
 	}
@@ -36,8 +36,9 @@ public class PlayerSelectionChangedPacketToClient {
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 
 		ctx.get().enqueueWork(() -> {
+			String playerScoreboardname = ctx.get().getSender().getScoreboardName();
+			Utilities.ServerControlGroupToSelectedUnits(ctx.get().getSender(), playerScoreboardname, entityIds);
 
-			ClientPacketHandler.PlayerSelectionChangedPacketToClient(entityIds);
 		});
 		ctx.get().setPacketHandled(true);
 	}
