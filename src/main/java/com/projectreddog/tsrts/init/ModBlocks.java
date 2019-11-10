@@ -1,21 +1,8 @@
 package com.projectreddog.tsrts.init;
 
-import java.util.function.Supplier;
-
-import com.projectreddog.tsrts.blocks.ArcheryRangeBlock;
-import com.projectreddog.tsrts.blocks.BarracksBlock;
-import com.projectreddog.tsrts.blocks.MineSite;
-import com.projectreddog.tsrts.blocks.ResearchCenterBlock;
-import com.projectreddog.tsrts.blocks.StablesBlock;
-import com.projectreddog.tsrts.blocks.TownHallBlock;
+import com.projectreddog.tsrts.blocks.*;
 import com.projectreddog.tsrts.reference.Reference;
-import com.projectreddog.tsrts.tileentity.ArcheryRangeTileEntity;
-import com.projectreddog.tsrts.tileentity.BarracksTileEntity;
-import com.projectreddog.tsrts.tileentity.MineSiteTileEntity;
-import com.projectreddog.tsrts.tileentity.ResearchCenterTileEntity;
-import com.projectreddog.tsrts.tileentity.StablesTileEntity;
-import com.projectreddog.tsrts.tileentity.TownHallTileEntity;
-
+import com.projectreddog.tsrts.tileentity.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -25,11 +12,21 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
+import java.util.function.Supplier;
+
 public class ModBlocks {
 
 	// BLOCKS
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_BARRACKS_BLOCK)
 	public static BarracksBlock BARRACKS_BLOCK = new BarracksBlock();
+
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_FARM_BLOCK)
+	public static FarmBlock FARM_BLOCK = new FarmBlock();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LUMBER_YARD_BLOCK)
+	public static LumberYardBlock LUMBER_YARD_BLOCK = new LumberYardBlock();
+
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_BLOCK)
 	public static MineSite MINE_SITE_BLOCK = new MineSite();
@@ -56,6 +53,15 @@ public class ModBlocks {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_BLOCK)
 	public static TileEntityType<MineSiteTileEntity> MINE_SITE_TILE_ENITTY_TYPE;
 
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_FARM_BLOCK)
+	public static TileEntityType<FarmTileEntity> FARM_TILE_ENITTY_TYPE;
+
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LUMBER_YARD_BLOCK)
+	public static TileEntityType<LumberYardTileEntity> LUMBER_YARD_TILE_ENITTY_TYPE;
+
+
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_HALL_BLOCK)
 	public static TileEntityType<TownHallTileEntity> TOWN_HALL_ENTITY_TYPE;
 
@@ -72,6 +78,8 @@ public class ModBlocks {
 		event.getRegistry().register(ModBlocks.TOWN_HALL_BLOCK);
 		event.getRegistry().register(ModBlocks.RESEARCH_CENTER_BLOCK);
 		event.getRegistry().register(ModBlocks.STABLES_BLOCK);
+		event.getRegistry().register(ModBlocks.FARM_BLOCK);
+		event.getRegistry().register(ModBlocks.LUMBER_YARD_BLOCK);
 	}
 
 	public static void RegisterBlockItems(final RegistryEvent.Register<Item> event) {
@@ -81,6 +89,8 @@ public class ModBlocks {
 		RegisterBlockItem(event, ModBlocks.TOWN_HALL_BLOCK);
 		RegisterBlockItem(event, ModBlocks.RESEARCH_CENTER_BLOCK);
 		RegisterBlockItem(event, ModBlocks.STABLES_BLOCK);
+		RegisterBlockItem(event, ModBlocks.FARM_BLOCK);
+		RegisterBlockItem(event, ModBlocks.LUMBER_YARD_BLOCK);
 
 	}
 
@@ -101,6 +111,9 @@ public class ModBlocks {
 		RegisterTileEntity(event, TownHallTileEntity::new, ModBlocks.TOWN_HALL_BLOCK);
 		RegisterTileEntity(event, ResearchCenterTileEntity::new, ModBlocks.RESEARCH_CENTER_BLOCK);
 		RegisterTileEntity(event, StablesTileEntity::new, ModBlocks.STABLES_BLOCK);
+
+		RegisterTileEntity(event, FarmTileEntity::new, ModBlocks.FARM_BLOCK);
+		RegisterTileEntity(event, LumberYardTileEntity::new, ModBlocks.LUMBER_YARD_BLOCK);
 	}
 
 	private static <T extends TileEntity> void RegisterTileEntity(final RegistryEvent.Register<TileEntityType<?>> event, Supplier<? extends T> factoryIn, Block block) {
