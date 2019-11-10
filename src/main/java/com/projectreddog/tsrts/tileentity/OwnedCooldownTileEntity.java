@@ -50,7 +50,9 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 					priorStage = currentStage;
 					if (getStructureData() != null) {
 						if (currentStage == Stage.HALF_DESTROYED) {
-							Utilities.LoadStructure(this.world, getStructureData().getTemplate50(), getStructureData(), getOwner(), false);
+							if (getStructureData().getTemplate50() != null) {
+								Utilities.LoadStructure(this.world, getStructureData().getTemplate50(), getStructureData(), getOwner(), false);
+							}
 						}
 						if (currentStage == Stage.RUBBLE) {
 							Utilities.LoadStructure(this.world, getStructureData().getTemplate0(), getStructureData(), getOwner(), false);
