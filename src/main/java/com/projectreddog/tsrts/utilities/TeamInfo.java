@@ -33,7 +33,12 @@ public class TeamInfo {
 	}
 
 	public static Resources GetResoureceForBlock(Block block) {
-
+		if (block == Blocks.OAK_LOG) {
+			return Resources.WOOD;
+		}
+		if (block == Blocks.GRASS_BLOCK) {
+			return Resources.FOOD;
+		}
 		if (block == Blocks.STONE) {
 			return Resources.STONE;
 		}

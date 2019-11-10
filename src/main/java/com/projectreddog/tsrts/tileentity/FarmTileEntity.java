@@ -4,6 +4,7 @@ import com.projectreddog.tsrts.containers.BarracksContainer;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -14,7 +15,17 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
-public class FarmTileEntity extends OwnedCooldownTileEntity implements INamedContainerProvider, ITEGuiButtonHandler {
+public class FarmTileEntity extends OwnedCooldownTileEntity implements INamedContainerProvider, ITEGuiButtonHandler, ResourceGenerator {
+
+	private TeamInfo.Resources resource;
+
+	public TeamInfo.Resources getResource() {
+		return resource;
+	}
+
+	public void setResource(TeamInfo.Resources resource) {
+		this.resource = resource;
+	}
 
 	public FarmTileEntity() {
 		super(ModBlocks.FARM_TILE_ENITTY_TYPE);
@@ -27,7 +38,7 @@ public class FarmTileEntity extends OwnedCooldownTileEntity implements INamedCon
 
 		if (getOwner() != null) {
 
-			TeamInfo.Resources res = TeamInfo.Resources.FOOD;
+			TeamInfo.Resources res = getResource();
 
 			if (res != null) {
 
@@ -63,4 +74,5 @@ public class FarmTileEntity extends OwnedCooldownTileEntity implements INamedCon
 		}
 
 	}
+
 }

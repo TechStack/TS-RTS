@@ -3,6 +3,8 @@ package com.projectreddog.tsrts.items.builderitems;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3i;
@@ -33,6 +35,11 @@ public class LumberYardBuilderItem extends BuilderItem {
 	public Vec3i getSize() {
 
 		return new Vec3i(15, 4, 15);
+	}
+
+	@Override
+	public boolean CanPlaceOn(Block block) {
+		return block == Blocks.OAK_LOG;
 	}
 
 }

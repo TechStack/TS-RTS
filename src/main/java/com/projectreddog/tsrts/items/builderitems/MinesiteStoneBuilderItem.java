@@ -3,6 +3,8 @@ package com.projectreddog.tsrts.items.builderitems;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3i;
@@ -35,4 +37,8 @@ public class MinesiteStoneBuilderItem extends BuilderItem {
 		return new Vec3i(9, 6, 9);
 	}
 
+	@Override
+	public boolean CanPlaceOn(Block block) {
+		return block == Blocks.STONE;
+	}
 }

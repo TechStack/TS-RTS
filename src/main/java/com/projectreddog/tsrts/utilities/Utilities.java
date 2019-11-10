@@ -18,6 +18,7 @@ import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -684,6 +685,11 @@ public class Utilities {
 									((OwnedTileEntity) te).setOwner(ownerName);
 									controllerTE = ((OwnedTileEntity) te);
 									controllerTE.setStructureData(structureData);
+
+									if (te instanceof ResourceGenerator) {
+										ResourceGenerator rg = (ResourceGenerator) te;
+										rg.setResource(TeamInfo.GetResoureceForBlock(world.getBlockState(pos).getBlock()));
+									}
 								}
 							}
 						}

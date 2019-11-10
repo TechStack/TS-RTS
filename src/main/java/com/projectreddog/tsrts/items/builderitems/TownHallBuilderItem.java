@@ -3,6 +3,7 @@ package com.projectreddog.tsrts.items.builderitems;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3i;
@@ -33,6 +34,12 @@ public class TownHallBuilderItem extends BuilderItem {
 	public Vec3i getSize() {
 
 		return new Vec3i(17, 25, 17);
+	}
+
+	@Override
+	public boolean CanPlaceOn(Block block) {
+
+		return true;
 	}
 
 }

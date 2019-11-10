@@ -3,6 +3,7 @@ package com.projectreddog.tsrts.items.builderitems;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.utilities.Utilities;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
@@ -49,18 +50,23 @@ public abstract class BuilderItem extends Item {
 
 			Direction d = Direction.getFacingFromVector(context.getPlayer().getLookVec().getX(), 0, context.getPlayer().getLookVec().getZ());
 
-			if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(), new StructureData(getTemplateName100(), getTemplateName50(), getTemplateName0(), context.getPos(), d, getSize()), context.getPlayer().getScoreboardName(), true)) {
+			if (CanPlaceOn(context.getPlayer().world.getBlockState(context.getPos()).getBlock())) {
+				if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(), new StructureData(getTemplateName100(), getTemplateName50(), getTemplateName0(), context.getPos(), d, getSize()), context.getPlayer().getScoreboardName(), true)) {
 
-				context.getItem().shrink(1);
+					context.getItem().shrink(1);
 
-			} else {
-				return ActionResultType.FAIL;
+				} else {
+					return ActionResultType.FAIL;
 
+				}
 			}
+			return ActionResultType.FAIL;
 
 		}
 
 		return super.onItemUse(context);
 	}
+
+	public abstract boolean CanPlaceOn(Block block);
 
 }
