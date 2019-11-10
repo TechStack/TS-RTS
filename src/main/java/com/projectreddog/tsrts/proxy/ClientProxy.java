@@ -12,7 +12,6 @@ import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.hanlder.ClientEvents;
 import com.projectreddog.tsrts.init.ModContainers;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.world.World;
@@ -54,6 +53,7 @@ public class ClientProxy implements IProxy {
 		ClientRegistry.registerKeyBinding(ClientEvents.controlGroup7);
 		ClientRegistry.registerKeyBinding(ClientEvents.controlGroup8);
 		ClientRegistry.registerKeyBinding(ClientEvents.controlGroup9);
+		ClientRegistry.registerKeyBinding(ClientEvents.controlModifier);
 
 	}
 

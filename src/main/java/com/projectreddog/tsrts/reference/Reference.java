@@ -9,6 +9,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BLOCK = "archeryrangeblock";
 	public static final String REIGSTRY_NAME_MINE_SITE_BLOCK = "minesiteblock";
 	public static final String REIGSTRY_NAME_TOWN_HALL_BLOCK = "townhallblock";
+	public static final String REIGSTRY_NAME_FARM_BLOCK = "farmblock";
+	public static final String REIGSTRY_NAME_LUMBER_YARD_BLOCK = "lumberyardblock";
 
 	// CONTAINER ONLY NO BLOCK
 	public static final String REIGSTRY_NAME_LOBBY_CONTAINER = "lobbycontiner";
@@ -20,6 +22,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM = "lumberyardbuilderitem";
+	public static final String REIGSTRY_NAME_FARM_BUILDER_ITEM = "farmbuilderitem";
 
 	public static final String REIGSTRY_NAME_MINE_SITE_STONE_BUILDER_ITEM = "minesitestonebuilderitem";
 	public static final String REIGSTRY_NAME_MINE_SITE_IRON_BUILDER_ITEM = "minesiteironbuilderitem";
@@ -51,6 +54,6 @@ public class Reference {
 	public static final int GUI_BUTTON_LOBBY_GREEN = 6;
 	public static final int GUI_BUTTON_LOBBY_YELLOW = 7;
 	public static final int GUI_BUTTON_LOBBY_READY = 8;
-
+	public static final int GUI_BUTTON_LOBBY_START = 9;
 
 }

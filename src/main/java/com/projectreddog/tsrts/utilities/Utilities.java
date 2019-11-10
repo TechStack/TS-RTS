@@ -1,5 +1,11 @@
 package com.projectreddog.tsrts.utilities;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.data.StructureData;
@@ -7,9 +13,12 @@ import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
+import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
+import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -34,11 +43,6 @@ import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ServerWorld;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 public class Utilities {
 
 	public static void setPlayerReady(World world, PlayerEntity player, Boolean isReady) {
@@ -46,12 +50,11 @@ public class Utilities {
 			// server
 			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
 
-			//TODO: SEND PACKET FROM SERVER TO CLIENT!
+			// TODO: SEND PACKET FROM SERVER TO CLIENT!
 			ModNetwork.SendToALLPlayers(new PlayerReadyUpPacketToClient(player.getEntityId(), isReady));
 
-
 		} else {
-			//client
+			// client
 			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
 			// do not send packet here to avoid looping between client and server
 		}
@@ -65,7 +68,6 @@ public class Utilities {
 		return false;
 	}
 
-
 	public static boolean getPlayerReady(String playerScoreboardName) {
 
 		if (TSRTS.isPlayerReadyMap.containsKey(playerScoreboardName)) {
@@ -74,40 +76,38 @@ public class Utilities {
 		return false;
 	}
 
-
 	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
 		ScorePlayerTeam team;
 		switch (buttonID) {
 
-			case Reference.GUI_BUTTON_LOBBY_RED:
+		case Reference.GUI_BUTTON_LOBBY_RED:
 
-				team = player.world.getScoreboard().getTeam("red");
-				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
-				break;
-			case Reference.GUI_BUTTON_LOBBY_BLUE:
+			team = player.world.getScoreboard().getTeam("red");
+			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
+			break;
+		case Reference.GUI_BUTTON_LOBBY_BLUE:
 
-				team = player.world.getScoreboard().getTeam("blue");
-				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
-				break;
+			team = player.world.getScoreboard().getTeam("blue");
+			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
+			break;
 
-			case Reference.GUI_BUTTON_LOBBY_GREEN:
-				team = player.world.getScoreboard().getTeam("green");
-				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
-				break;
-			case Reference.GUI_BUTTON_LOBBY_YELLOW:
-				team = player.world.getScoreboard().getTeam("yellow");
-				player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
-				break;
-			case Reference.GUI_BUTTON_LOBBY_READY:
-				Utilities.setPlayerReady(player.world, player, !Utilities.getPlayerReady(player));
+		case Reference.GUI_BUTTON_LOBBY_GREEN:
+			team = player.world.getScoreboard().getTeam("green");
+			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
+			break;
+		case Reference.GUI_BUTTON_LOBBY_YELLOW:
+			team = player.world.getScoreboard().getTeam("yellow");
+			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
+			break;
+		case Reference.GUI_BUTTON_LOBBY_READY:
+			Utilities.setPlayerReady(player.world, player, !Utilities.getPlayerReady(player));
 
-				break;
+			break;
 
 		}
 		TSRTS.LOGGER.info("TEAM:" + player.getTeam().getName());
 
 	}
-
 
 	public static void PlayerBuysItem(PlayerEntity player, ItemStack itemStack) {
 		// EntityType.ITEM.spawn(player.world, itemSTack, playerIn, pos, reason, p_220331_6_, p_220331_7_)
@@ -149,7 +149,7 @@ public class Utilities {
 				ue.ownerControlledDestination = rallyPoint;
 			}
 
-			//	ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+			// ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
 //			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
 			// ue.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.DIAMOND_HELMET));
 //			ue.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.IRON_LEGGINGS));
@@ -160,17 +160,154 @@ public class Utilities {
 
 	}
 
-	public static void SelectUnit(String playerScoreboardname, int entityId) {
+	public static void serverDeSelectUnit(PlayerEntity player, String playerScoreboardname, int entityId) {
+		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
+			if (TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
+				TSRTS.LOGGER.info("DE-Select");
+				final Iterator<Integer> it = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.iterator();
+				while (it.hasNext()) {
+					int currentID = it.next();
+					if (currentID == entityId) {
+						it.remove();
+					}
+				}
+				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < tmpids.length; i++) {
+					tmpids[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
+
+				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
+			}
+		}
+	}
+
+	public static void serverSelectUnit(PlayerEntity player, String playerScoreboardname, int entityId) {
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			if (TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
 				// already selected if we wanted this to be a toggle this is where we edit it be removed
+
 			} else {
+
+				TSRTS.LOGGER.info("Select");
 				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityId);
+				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < tmpids.length; i++) {
+					tmpids[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
+
+				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
 			}
 		} else {
 			throw new IllegalStateException(" COuld not find the player in the hasmap used for selections !");
 
 		}
+
+	}
+
+	public static void ServerControlGroupToSelectedUnits(ServerPlayerEntity player, String playerScoreboardname, int[] entityIds) {
+		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
+			TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.clear();
+			for (int i = 0; i < entityIds.length; i++) {
+				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityIds[i]);
+
+			}
+		}
+
+		ModNetwork.SendToPlayer(player, new PlayerSelectionChangedPacketToClient(entityIds));
+
+	}
+
+	public static void clientControlGroupToSelectedUnits(String playerScoreboardname, int controlGroupNumber) {
+
+		int[] activeSelections = null;
+		switch (controlGroupNumber) {
+		case 1:
+			activeSelections = TSRTS.playerSelectionsControlGroup1;
+
+			break;
+		case 2:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup2;
+			break;
+		case 3:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup3;
+			break;
+		case 4:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup4;
+			break;
+		case 5:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup5;
+			break;
+		case 6:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup6;
+			break;
+		case 7:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup7;
+			break;
+		case 8:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup8;
+			break;
+		case 9:
+
+			activeSelections = TSRTS.playerSelectionsControlGroup9;
+			break;
+
+		}
+		// TSRTS.playerSelections.put(playerScoreboardname, activeSelections);
+		if (activeSelections != null) {
+
+			ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(activeSelections));
+		}
+
+	}
+
+	public static void clientSelectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
+		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
+			// already selected if we wanted this to be a toggle this is where we edit it be removed
+
+			int[] activeSelections = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+
+			for (int i = 0; i < activeSelections.length; i++) {
+				activeSelections[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+			}
+
+			switch (controlGroupNumber) {
+			case 1:
+				TSRTS.playerSelectionsControlGroup1 = activeSelections;
+				break;
+			case 2:
+				TSRTS.playerSelectionsControlGroup2 = activeSelections;
+				break;
+			case 3:
+				TSRTS.playerSelectionsControlGroup3 = activeSelections;
+				break;
+			case 4:
+				TSRTS.playerSelectionsControlGroup4 = activeSelections;
+				break;
+			case 5:
+				TSRTS.playerSelectionsControlGroup5 = activeSelections;
+				break;
+			case 6:
+				TSRTS.playerSelectionsControlGroup6 = activeSelections;
+				break;
+			case 7:
+				TSRTS.playerSelectionsControlGroup7 = activeSelections;
+				break;
+			case 8:
+				TSRTS.playerSelectionsControlGroup8 = activeSelections;
+				break;
+			case 9:
+				TSRTS.playerSelectionsControlGroup9 = activeSelections;
+				break;
+			}
+		}
+
 	}
 
 	public static void SendTeamToClient(String teamName) {
@@ -364,7 +501,7 @@ public class Utilities {
 
 		}
 // Destroy any TE locations after to avoid miss-ordered Killing of it
-		for (Iterator iterator = tePos.iterator(); iterator.hasNext(); ) {
+		for (Iterator iterator = tePos.iterator(); iterator.hasNext();) {
 			BlockPos currentbp = (BlockPos) iterator.next();
 			world.setBlockState(currentbp, Blocks.AIR.getDefaultState());
 			world.notifyBlockUpdate(currentbp, world.getBlockState(currentbp), world.getBlockState(currentbp), 3);
