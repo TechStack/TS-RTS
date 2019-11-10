@@ -35,14 +35,6 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	public void tick() {
 		if (!world.isRemote) {
 
-			coolDownRemainig = coolDownRemainig - 1;
-			if (coolDownRemainig <= 0) {
-				if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
-					ActionAfterCooldown();
-				}
-				coolDownRemainig = coolDownReset;
-			}
-
 			if (priorHealth != getHealth()) {
 				priorHealth = getHealth();
 
@@ -75,6 +67,15 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 						Utilities.clearAreaTELast(world, getStructureData().getSpawnPoint(), getStructureData().getDirection(), getStructureData().getSize());
 					}
 				}
+			}
+			coolDownRemainig = coolDownRemainig - 1;
+			if (coolDownRemainig <= 0) {
+				if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
+					if (getHealth() > 0) {
+						ActionAfterCooldown();
+					}
+				}
+				coolDownRemainig = coolDownReset;
 			}
 		}
 
