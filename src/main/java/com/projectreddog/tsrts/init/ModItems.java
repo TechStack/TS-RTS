@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.init;
 
 import com.projectreddog.tsrts.items.SampleItem;
 import com.projectreddog.tsrts.items.builderitems.BarracksBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.FarmBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.LumberYardBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteDiamondBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteEmeraldBuilderItem;
@@ -28,6 +29,9 @@ public class ModItems {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM)
 	public static LumberYardBuilderItem LUMBERYARDBUILDERITEM = new LumberYardBuilderItem();
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_FARM_BUILDER_ITEM)
+	public static FarmBuilderItem FARMBUILDERITEM = new FarmBuilderItem();
+
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_DIAMOND_BUILDER_ITEM)
 	public static MinesiteDiamondBuilderItem MINESITEDIAMONDBUILDERITEM = new MinesiteDiamondBuilderItem();
 
@@ -53,6 +57,7 @@ public class ModItems {
 		RegisterItem(event, ModItems.MINESITEGOLDBUILDERITEM);
 		RegisterItem(event, ModItems.MINESITEIRONBUILDERITEM);
 		RegisterItem(event, ModItems.MINESITESTONEBUILDERITEM);
+		RegisterItem(event, ModItems.FARMBUILDERITEM);
 
 	}
 
