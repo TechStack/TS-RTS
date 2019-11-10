@@ -38,74 +38,74 @@ public class ClientEvents {
 					// DO STUFF HERE
 
 					if (controlModifier.isKeyDown()) {
-						Utilities.selectedUnitsToControlGroup(playerScoreboardName, 1);
+						Utilities.clientSelectedUnitsToControlGroup(playerScoreboardName, 1);
 					} else {
-						Utilities.controlGroupToSelectedUnits(playerScoreboardName, 1);
+						Utilities.clientControlGroupToSelectedUnits(playerScoreboardName, 1);
 					}
 
 				}
 				if (controlGroup2.isPressed()) {
 					// DO STUFF HERE
 					if (controlModifier.isKeyDown()) {
-						Utilities.selectedUnitsToControlGroup(playerScoreboardName, 2);
+						Utilities.clientSelectedUnitsToControlGroup(playerScoreboardName, 2);
 					} else {
-						Utilities.controlGroupToSelectedUnits(playerScoreboardName, 2);
+						Utilities.clientControlGroupToSelectedUnits(playerScoreboardName, 2);
 					}
 				}
 				if (controlGroup3.isPressed()) {
 					// DO STUFF HERE
 					if (controlModifier.isKeyDown()) {
-						Utilities.selectedUnitsToControlGroup(playerScoreboardName, 3);
+						Utilities.clientSelectedUnitsToControlGroup(playerScoreboardName, 3);
 					} else {
-						Utilities.controlGroupToSelectedUnits(playerScoreboardName, 3);
+						Utilities.clientControlGroupToSelectedUnits(playerScoreboardName, 3);
 					}
 				}
 				if (controlGroup4.isPressed()) {
 					// DO STUFF HERE
 					if (controlModifier.isKeyDown()) {
-						Utilities.selectedUnitsToControlGroup(playerScoreboardName, 4);
+						Utilities.clientSelectedUnitsToControlGroup(playerScoreboardName, 4);
 					} else {
-						Utilities.controlGroupToSelectedUnits(playerScoreboardName, 4);
+						Utilities.clientControlGroupToSelectedUnits(playerScoreboardName, 4);
 					}
 				}
 				if (controlGroup5.isPressed()) {
 					// DO STUFF HERE
 					if (controlModifier.isKeyDown()) {
-						Utilities.selectedUnitsToControlGroup(playerScoreboardName, 5);
+						Utilities.clientSelectedUnitsToControlGroup(playerScoreboardName, 5);
 					} else {
-						Utilities.controlGroupToSelectedUnits(playerScoreboardName, 5);
+						Utilities.clientControlGroupToSelectedUnits(playerScoreboardName, 5);
 					}
 				}
 				if (controlGroup6.isPressed()) {
 					// DO STUFF HERE
 					if (controlModifier.isKeyDown()) {
-						Utilities.selectedUnitsToControlGroup(playerScoreboardName, 6);
+						Utilities.clientSelectedUnitsToControlGroup(playerScoreboardName, 6);
 					} else {
-						Utilities.controlGroupToSelectedUnits(playerScoreboardName, 6);
+						Utilities.clientControlGroupToSelectedUnits(playerScoreboardName, 6);
 					}
 				}
 				if (controlGroup7.isPressed()) {
 					// DO STUFF HERE
 					if (controlModifier.isKeyDown()) {
-						Utilities.selectedUnitsToControlGroup(playerScoreboardName, 7);
+						Utilities.clientSelectedUnitsToControlGroup(playerScoreboardName, 7);
 					} else {
-						Utilities.controlGroupToSelectedUnits(playerScoreboardName, 7);
+						Utilities.clientControlGroupToSelectedUnits(playerScoreboardName, 7);
 					}
 				}
 				if (controlGroup8.isPressed()) {
 					// DO STUFF HERE
 					if (controlModifier.isKeyDown()) {
-						Utilities.selectedUnitsToControlGroup(playerScoreboardName, 8);
+						Utilities.clientSelectedUnitsToControlGroup(playerScoreboardName, 8);
 					} else {
-						Utilities.controlGroupToSelectedUnits(playerScoreboardName, 8);
+						Utilities.clientControlGroupToSelectedUnits(playerScoreboardName, 8);
 					}
 				}
 				if (controlGroup9.isPressed()) {
 					// DO STUFF HERE
 					if (controlModifier.isKeyDown()) {
-						Utilities.selectedUnitsToControlGroup(playerScoreboardName, 9);
+						Utilities.clientSelectedUnitsToControlGroup(playerScoreboardName, 9);
 					} else {
-						Utilities.controlGroupToSelectedUnits(playerScoreboardName, 9);
+						Utilities.clientControlGroupToSelectedUnits(playerScoreboardName, 9);
 					}
 				}
 			}

@@ -7,6 +7,7 @@ import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
+import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
@@ -160,111 +161,149 @@ public class Utilities {
 
 	}
 
-	public static void SelectUnit(String playerScoreboardname, int entityId) {
+
+	public static void serverDeSelectUnit(PlayerEntity player, String playerScoreboardname, int entityId) {
+		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
+			if (TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
+				TSRTS.LOGGER.info("DE-Select");
+				final Iterator<Integer> it = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.iterator();
+				while (it.hasNext()) {
+					int currentID = it.next();
+					if (currentID == entityId) {
+						it.remove();
+					}
+				}
+				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < tmpids.length; i++) {
+					tmpids[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
+
+				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
+			}
+		}
+	}
+
+	public static void serverSelectUnit(PlayerEntity player, String playerScoreboardname, int entityId) {
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			if (TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
 				// already selected if we wanted this to be a toggle this is where we edit it be removed
+
 			} else {
+
+				TSRTS.LOGGER.info("Select");
 				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityId);
+				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < tmpids.length; i++) {
+					tmpids[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
+
+				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
 			}
 		} else {
 			throw new IllegalStateException(" COuld not find the player in the hasmap used for selections !");
 
 		}
+
+
 	}
 
 
-	public static void controlGroupToSelectedUnits(String playerScoreboardname, int controlGroupNumber) {
+	public static void clientControlGroupToSelectedUnits(String playerScoreboardname, int controlGroupNumber) {
+
+		PlayerSelections activeSelections = null;
 		switch (controlGroupNumber) {
 			case 1:
 				if (TSRTS.playerSelectionsControlGroup1.containsKey(playerScoreboardname)) {
-					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup1.get(playerScoreboardname));
+					activeSelections = TSRTS.playerSelectionsControlGroup1.get(playerScoreboardname);
 				}
 				break;
 			case 2:
 				if (TSRTS.playerSelectionsControlGroup2.containsKey(playerScoreboardname)) {
 
-					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup2.get(playerScoreboardname));
+					activeSelections = TSRTS.playerSelectionsControlGroup2.get(playerScoreboardname);
 				}
 				break;
 			case 3:
 				if (TSRTS.playerSelectionsControlGroup3.containsKey(playerScoreboardname)) {
 
-					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup3.get(playerScoreboardname));
+					activeSelections = TSRTS.playerSelectionsControlGroup3.get(playerScoreboardname);
 				}
 				break;
 			case 4:
 				if (TSRTS.playerSelectionsControlGroup4.containsKey(playerScoreboardname)) {
 
-					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup4.get(playerScoreboardname));
+					activeSelections = TSRTS.playerSelectionsControlGroup4.get(playerScoreboardname);
 				}
 				break;
 			case 5:
 				if (TSRTS.playerSelectionsControlGroup5.containsKey(playerScoreboardname)) {
 
-					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup5.get(playerScoreboardname));
+					activeSelections = TSRTS.playerSelectionsControlGroup5.get(playerScoreboardname);
 				}
 				break;
 			case 6:
 				if (TSRTS.playerSelectionsControlGroup6.containsKey(playerScoreboardname)) {
 
-					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup6.get(playerScoreboardname));
+					activeSelections = TSRTS.playerSelectionsControlGroup6.get(playerScoreboardname);
 				}
 				break;
 			case 7:
 				if (TSRTS.playerSelectionsControlGroup7.containsKey(playerScoreboardname)) {
 
-					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup7.get(playerScoreboardname));
+					activeSelections = TSRTS.playerSelectionsControlGroup7.get(playerScoreboardname);
 				}
 				break;
 			case 8:
 				if (TSRTS.playerSelectionsControlGroup8.containsKey(playerScoreboardname)) {
 
-					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup8.get(playerScoreboardname));
+					activeSelections = TSRTS.playerSelectionsControlGroup8.get(playerScoreboardname);
 				}
 				break;
 			case 9:
 				if (TSRTS.playerSelectionsControlGroup9.containsKey(playerScoreboardname)) {
 
-					TSRTS.playerSelections.put(playerScoreboardname, TSRTS.playerSelectionsControlGroup9.get(playerScoreboardname));
+					activeSelections = TSRTS.playerSelectionsControlGroup9.get(playerScoreboardname);
 				}
 				break;
+
+
 		}
+		TSRTS.playerSelections.put(playerScoreboardname, activeSelections);
 
 	}
 
 
-	public static void selectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
+	public static void clientSelectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			// already selected if we wanted this to be a toggle this is where we edit it be removed
-
+			PlayerSelections activeSelections = TSRTS.playerSelections.get(playerScoreboardname);
 			switch (controlGroupNumber) {
 				case 1:
-					TSRTS.playerSelectionsControlGroup1.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					TSRTS.playerSelectionsControlGroup1.put(playerScoreboardname, activeSelections);
 					break;
 				case 2:
-					TSRTS.playerSelectionsControlGroup2.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					TSRTS.playerSelectionsControlGroup2.put(playerScoreboardname, activeSelections);
 					break;
 				case 3:
-					TSRTS.playerSelectionsControlGroup3.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					TSRTS.playerSelectionsControlGroup3.put(playerScoreboardname, activeSelections);
 					break;
 				case 4:
-					TSRTS.playerSelectionsControlGroup4.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					TSRTS.playerSelectionsControlGroup4.put(playerScoreboardname, activeSelections);
 					break;
 				case 5:
-					TSRTS.playerSelectionsControlGroup5.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					TSRTS.playerSelectionsControlGroup5.put(playerScoreboardname, activeSelections);
 					break;
 				case 6:
-					TSRTS.playerSelectionsControlGroup6.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					TSRTS.playerSelectionsControlGroup6.put(playerScoreboardname, activeSelections);
 					break;
 				case 7:
-					TSRTS.playerSelectionsControlGroup7.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					TSRTS.playerSelectionsControlGroup7.put(playerScoreboardname, activeSelections);
 					break;
 				case 8:
-					TSRTS.playerSelectionsControlGroup8.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					TSRTS.playerSelectionsControlGroup8.put(playerScoreboardname, activeSelections);
 					break;
 				case 9:
-					TSRTS.playerSelectionsControlGroup9.put(playerScoreboardname, TSRTS.playerSelections.get(playerScoreboardname));
+					TSRTS.playerSelectionsControlGroup9.put(playerScoreboardname, activeSelections);
 					break;
 			}
 		}
