@@ -9,6 +9,7 @@ import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.ClientUtilities;
 import com.projectreddog.tsrts.utilities.TeamInfo;
+import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -97,7 +98,7 @@ public class RenderOverlay extends Screen {
 
 								Minecraft.getInstance().textureManager.bindTexture(TEXTURE);
 								// this.blit(x - 10, 5, 0, 0, 256, 18);
-								ClientUtilities.renderTexture(x - 50, 4, 512, 18);
+								ClientUtilities.renderTexture(x - 10, 4, 512, 18);
 								RenderHelper.enableGUIStandardItemLighting();
 								for (int i = 0; i < res.length; i++) {
 									int amt = ti.GetResource(res[i]);
@@ -132,6 +133,8 @@ public class RenderOverlay extends Screen {
 		for (int i = 0; i < 9; i++) {
 
 			Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + (i + 1), 26, (i * 32) + 24, 14737632);
+
+			Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + Utilities.GetSelectedCountForControlGroup(i + 1), 12, (i * 32) + 12, 14737632);
 
 		}
 	}
