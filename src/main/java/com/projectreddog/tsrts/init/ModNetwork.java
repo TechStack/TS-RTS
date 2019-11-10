@@ -1,14 +1,21 @@
 package com.projectreddog.tsrts.init;
 
-import com.projectreddog.tsrts.network.*;
+import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.network.LobbyGuiButtonClickedPacketToServer;
+import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
+import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
+import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
+import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
+import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
+
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-
-import java.util.function.Supplier;
 
 public class ModNetwork {
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
@@ -26,11 +33,15 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, PlayerReadyUpPacketToClient.class, PlayerReadyUpPacketToClient::encode, PlayerReadyUpPacketToClient::new, PlayerReadyUpPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, PlayerSelectionChangedPacketToClient.class, PlayerSelectionChangedPacketToClient::encode, PlayerSelectionChangedPacketToClient::new, PlayerSelectionChangedPacketToClient::handle);
 
+		simpleChannel.registerMessage(MessageId++, PlayerSelectionChangedPacketToServer.class, PlayerSelectionChangedPacketToServer::encode, PlayerSelectionChangedPacketToServer::new, PlayerSelectionChangedPacketToServer::handle);
+
 	}
 
 	public static <MSG> void SendToPlayer(ServerPlayerEntity player, MSG message) {
 		// Sending to one player
-		simpleChannel.send(PacketDistributor.PLAYER.with((Supplier<ServerPlayerEntity>) player), message);
+//		simpleChannel.send(PacketDistributor.PLAYER.with((Supplier<ServerPlayerEntity>) player), message);
+		simpleChannel.sendTo(message, player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+
 	}
 
 	// Send to all players tracking this chunk
