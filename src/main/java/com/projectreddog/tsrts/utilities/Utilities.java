@@ -728,7 +728,9 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup1[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup1[i];
+						if (j < tmp.length) {
+							tmp[j] = TSRTS.playerSelectionsControlGroup1[i];
+						}
 						j++;
 					}
 				}
@@ -748,7 +750,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup2[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup2[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup2[i];
+						}
 						j++;
 					}
 				}
@@ -769,7 +774,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup3[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup3[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup3[i];
+						}
 						j++;
 					}
 				}
@@ -790,7 +798,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup4[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup4[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup4[i];
+						}
 						j++;
 					}
 				}
@@ -811,7 +822,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup5[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup5[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup5[i];
+						}
 						j++;
 					}
 				}
@@ -831,7 +845,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup6[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup6[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup6[i];
+						}
 						j++;
 					}
 				}
@@ -852,7 +869,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup7[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup7[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup7[i];
+						}
 						j++;
 					}
 				}
@@ -872,7 +892,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup8[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup8[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup8[i];
+						}
 						j++;
 					}
 				}
@@ -892,7 +915,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup9[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup9[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup9[i];
+						}
 						j++;
 					}
 				}
