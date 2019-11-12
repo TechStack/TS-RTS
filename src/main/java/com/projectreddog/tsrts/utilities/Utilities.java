@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.utilities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
@@ -930,4 +932,37 @@ public class Utilities {
 
 	}
 
+	public static void CheckTeamsAndCreatedIfNeeded(World world) {
+		Collection<ScorePlayerTeam> teams = world.getScoreboard().getTeams();
+		boolean hasGreen = false;
+		boolean hasRed = false;
+		boolean hasBlue = false;
+		boolean hasYellow = false;
+
+		for (Iterator team = teams.iterator(); team.hasNext();) {
+			ScorePlayerTeam scorePlayerTeam = (ScorePlayerTeam) team.next();
+			if (scorePlayerTeam.getName().equals("red")) {
+				hasRed = true;
+			} else if (scorePlayerTeam.getName().equals("blue")) {
+				hasBlue = true;
+			} else if (scorePlayerTeam.getName().equals("green")) {
+				hasGreen = true;
+			} else if (scorePlayerTeam.getName().equals("yellow")) {
+				hasYellow = true;
+			}
+		}
+
+		if (!hasRed) {
+			world.getScoreboard().createTeam("red").setColor(TextFormatting.RED);
+		}
+		if (!hasBlue) {
+			world.getScoreboard().createTeam("blue").setColor(TextFormatting.BLUE);
+		}
+		if (!hasGreen) {
+			world.getScoreboard().createTeam("green").setColor(TextFormatting.GREEN);
+		}
+		if (!hasYellow) {
+			world.getScoreboard().createTeam("yellow").setColor(TextFormatting.YELLOW);
+		}
+	}
 }

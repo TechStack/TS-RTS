@@ -69,7 +69,7 @@ public class EventHandler {
 	@SubscribeEvent
 	public static void onLoad(Load event) {
 		TSRTS.playerSelections.clear();
-
+		Utilities.CheckTeamsAndCreatedIfNeeded((World) event.getWorld());
 		if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
 			TSRTS.CURRENT_GAME_STATE = GAMESTATE.LOBBY;
 		}
