@@ -1,4 +1,4 @@
-package com.projectreddog.tsrts.hanlder;
+package com.projectreddog.tsrts.handler;
 
 import java.nio.file.Path;
 

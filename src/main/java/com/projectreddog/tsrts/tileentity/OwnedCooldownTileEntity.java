@@ -1,7 +1,7 @@
 package com.projectreddog.tsrts.tileentity;
 
 import com.projectreddog.tsrts.entities.TargetEntity;
-import com.projectreddog.tsrts.hanlder.Config;
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.Entity;
