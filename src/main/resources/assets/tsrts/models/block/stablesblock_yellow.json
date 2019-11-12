@@ -3,7 +3,7 @@
   "textures": {
     "particle": "tsrts:block/townhallblock_down",
     "down": "tsrts:block/townhallblock_down",
-    "up": "tsrts:block/archeryrangeblock_yellow_top",
+    "up": "tsrts:block/stablesblock_yellow_top",
     "north": "tsrts:block/townhallblock_yellow_front",
     "east": "tsrts:block/townhallblock_yellow_side",
     "south": "tsrts:block/townhallblock_yellow_side",
