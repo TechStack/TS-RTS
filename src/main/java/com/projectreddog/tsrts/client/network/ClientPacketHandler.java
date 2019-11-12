@@ -4,6 +4,7 @@ import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 import net.minecraft.client.Minecraft;
@@ -52,6 +53,19 @@ public class ClientPacketHandler {
 		}
 	}
 
+	public static void PlayerSelectionChangedPacketToClient(int[] entityIds) {
+		if (Minecraft.getInstance() != null && Minecraft.getInstance().player != null) {
+			String playerScoreboardName = Minecraft.getInstance().player.getScoreboardName();
+			PlayerSelections ps = new PlayerSelections();
+			for (int i = 0; i < entityIds.length; i++) {
+				ps.selectedUnits.add(entityIds[i]);
+			}
+
+			TSRTS.playerSelections.put(playerScoreboardName, ps);
+
+		}
+
+	}
 
 	public static void PlayerReadyUpPacketToClient(int playerEntityID, Boolean isReady) {
 		World world = Minecraft.getInstance().player.world;
