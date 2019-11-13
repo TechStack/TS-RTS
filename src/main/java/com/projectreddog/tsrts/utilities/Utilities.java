@@ -366,6 +366,35 @@ public class Utilities {
 
 	}
 
+	public static boolean hasNeededResource(String teamName, TeamInfo.Resources res, int amt) {
+		if (TSRTS.teamInfoMap.containsKey(teamName)) {
+			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
+			if (ti.HasEnoughResource(res, amt)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean SpendResourcesFromTeam(String teamName, TeamInfo.Resources res, int amt) {
+		if (TSRTS.teamInfoMap.containsKey(teamName)) {
+			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
+			ti.SpendResource(res, amt);
+			TSRTS.teamInfoMap.put(teamName, ti);
+
+			SendTeamToClient(teamName);
+			return true;
+
+		} else {
+			try {
+				throw new IllegalStateException(" Team not found :" + teamName);
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 	public static void AddResourcesToTeam(String teamName, TeamInfo.Resources res, int amt) {
 		if (TSRTS.teamInfoMap.containsKey(teamName)) {
 			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
