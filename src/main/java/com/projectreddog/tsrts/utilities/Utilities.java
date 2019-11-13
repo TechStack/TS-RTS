@@ -962,36 +962,40 @@ public class Utilities {
 	}
 
 	public static void CheckTeamsAndCreatedIfNeeded(World world) {
-		Collection<ScorePlayerTeam> teams = world.getScoreboard().getTeams();
-		boolean hasGreen = false;
-		boolean hasRed = false;
-		boolean hasBlue = false;
-		boolean hasYellow = false;
+		if (!world.isRemote) {
+			// server only!
 
-		for (Iterator team = teams.iterator(); team.hasNext();) {
-			ScorePlayerTeam scorePlayerTeam = (ScorePlayerTeam) team.next();
-			if (scorePlayerTeam.getName().equals("red")) {
-				hasRed = true;
-			} else if (scorePlayerTeam.getName().equals("blue")) {
-				hasBlue = true;
-			} else if (scorePlayerTeam.getName().equals("green")) {
-				hasGreen = true;
-			} else if (scorePlayerTeam.getName().equals("yellow")) {
-				hasYellow = true;
+			Collection<ScorePlayerTeam> teams = world.getScoreboard().getTeams();
+			boolean hasGreen = false;
+			boolean hasRed = false;
+			boolean hasBlue = false;
+			boolean hasYellow = false;
+
+			for (Iterator team = teams.iterator(); team.hasNext();) {
+				ScorePlayerTeam scorePlayerTeam = (ScorePlayerTeam) team.next();
+				if (scorePlayerTeam.getName().equals("red")) {
+					hasRed = true;
+				} else if (scorePlayerTeam.getName().equals("blue")) {
+					hasBlue = true;
+				} else if (scorePlayerTeam.getName().equals("green")) {
+					hasGreen = true;
+				} else if (scorePlayerTeam.getName().equals("yellow")) {
+					hasYellow = true;
+				}
 			}
-		}
 
-		if (!hasRed) {
-			world.getScoreboard().createTeam("red").setColor(TextFormatting.RED);
-		}
-		if (!hasBlue) {
-			world.getScoreboard().createTeam("blue").setColor(TextFormatting.BLUE);
-		}
-		if (!hasGreen) {
-			world.getScoreboard().createTeam("green").setColor(TextFormatting.GREEN);
-		}
-		if (!hasYellow) {
-			world.getScoreboard().createTeam("yellow").setColor(TextFormatting.YELLOW);
+			if (!hasRed) {
+				world.getScoreboard().createTeam("red").setColor(TextFormatting.RED);
+			}
+			if (!hasBlue) {
+				world.getScoreboard().createTeam("blue").setColor(TextFormatting.BLUE);
+			}
+			if (!hasGreen) {
+				world.getScoreboard().createTeam("green").setColor(TextFormatting.GREEN);
+			}
+			if (!hasYellow) {
+				world.getScoreboard().createTeam("yellow").setColor(TextFormatting.YELLOW);
+			}
 		}
 	}
 }

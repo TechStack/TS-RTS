@@ -7,6 +7,8 @@ import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -45,6 +47,16 @@ public class EventHandler {
 				}
 			}
 
+		} else if (event.getEntity() instanceof UnitEntity) {
+			if (event.getWorld() != null) {
+				if (event.getWorld().isRemote) {
+					// client
+					// TODO send packet to server requesting the Entities owner from the server
+
+					ModNetwork.SendToServer(new RequestOwnerInfoToServer(event.getEntity().getEntityId()));
+
+				}
+			}
 		}
 	}
 
