@@ -13,6 +13,7 @@ import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
@@ -32,6 +33,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -122,6 +124,13 @@ public class Utilities {
 		// set gamemodes of players
 		// change the gamemode
 		// give players items
+		List<? extends PlayerEntity> players = world.getPlayers();
+		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
+			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
+			Utilities.giveStartingItems(playerEntity);
+
+		}
+
 		// give teams resoruces
 		Collection<ScorePlayerTeam> teams = world.getScoreboard().getTeams();
 
@@ -133,6 +142,14 @@ public class Utilities {
 			String teamName = team.getName();
 			Utilities.setResourcesOfTeam(teamName, tmpRes);
 		}
+	}
+
+	private static void giveStartingItems(PlayerEntity playerEntity) {
+		// TODO Auto-generated method stub
+		GivePlayerItemStack(playerEntity, new ItemStack(Items.DIAMOND_SWORD, 1));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.SAMPLEITEM));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
+
 	}
 
 	public static int[] getStartingResourceAmounts() {
@@ -151,6 +168,10 @@ public class Utilities {
 	public static void PlayerBuysItem(PlayerEntity player, ItemStack itemStack) {
 		// EntityType.ITEM.spawn(player.world, itemSTack, playerIn, pos, reason, p_220331_6_, p_220331_7_)
 //TODO SPEND RESROUCES here before giving the player the items !
+		GivePlayerItemStack(player, itemStack);
+	}
+
+	public static void GivePlayerItemStack(PlayerEntity player, ItemStack itemStack) {
 
 		boolean result = player.inventory.addItemStackToInventory(itemStack);
 
