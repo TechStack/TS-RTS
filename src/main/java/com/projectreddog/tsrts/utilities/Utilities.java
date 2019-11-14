@@ -56,7 +56,6 @@ public class Utilities {
 			// server
 			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
 
-			// TODO: SEND PACKET FROM SERVER TO CLIENT!
 			ModNetwork.SendToALLPlayers(new PlayerReadyUpPacketToClient(player.getEntityId(), isReady));
 
 		} else {
@@ -151,6 +150,7 @@ public class Utilities {
 
 	public static void PlayerBuysItem(PlayerEntity player, ItemStack itemStack) {
 		// EntityType.ITEM.spawn(player.world, itemSTack, playerIn, pos, reason, p_220331_6_, p_220331_7_)
+//TODO SPEND RESROUCES here before giving the player the items !
 
 		boolean result = player.inventory.addItemStackToInventory(itemStack);
 

@@ -4,6 +4,7 @@ import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.utilities.Utilities;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -17,7 +18,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-
 
 public class UnitEntity extends MonsterEntity {
 
@@ -67,8 +67,6 @@ public class UnitEntity extends MonsterEntity {
 	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vec3d vec, Hand hand) {
 		if (!player.world.isRemote) {
 			if (player.getScoreboardName().equals(ownerName)) {
-				// TODO Debug why this is called twice and allow for UNselecting
-				// isSelected = true;
 				if (!player.isSneaking()) {
 					Utilities.serverSelectUnit(player, player.getScoreboardName(), this.getEntityId());
 				} else {
@@ -89,7 +87,6 @@ public class UnitEntity extends MonsterEntity {
 	}
 
 	public void setOwnerName(String ownerName) {
-		// TODO REMOVE THE RNG next int as its only for testing here
 		this.ownerName = ownerName;
 
 		if (!world.isRemote) {

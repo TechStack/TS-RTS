@@ -55,7 +55,6 @@ public class EventHandler {
 			if (event.getWorld() != null) {
 				if (event.getWorld().isRemote) {
 					// client
-					// TODO send packet to server requesting the Entities owner from the server
 
 					ModNetwork.SendToServer(new RequestOwnerInfoToServer(event.getEntity().getEntityId()));
 
