@@ -21,8 +21,6 @@ public class OwnedTileEntity extends TileEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	protected int[] targetEntityIds;
-
 	private String onwersName;
 	private StructureData structureData;
 
@@ -89,14 +87,6 @@ public class OwnedTileEntity extends TileEntity {
 			resourceOrdnial = re.getResource().ordinal();
 		}
 		compound.putInt("resourceordnial", resourceOrdnial);
-		if (targetEntityIds != null) {
-			// SAVE it
-			compound.putInt("numberTargets", targetEntityIds.length);
-
-			for (int i = 0; i < targetEntityIds.length; i++) {
-				compound.putInt("targetid" + i, targetEntityIds[i]);
-			}
-		}
 
 		structureData.writeToNbt(compound);
 
@@ -126,26 +116,7 @@ public class OwnedTileEntity extends TileEntity {
 				re.setResource(TeamInfo.Resources.values()[resourceOrdnial]);
 			}
 		}
-
-		int numIds = compound.getInt("numberTargets");
-		if (numIds > 0) {
-			int[] tmpIds = new int[numIds];
-			for (int i = 0; i < numIds; i++) {
-				tmpIds[i] = compound.getInt("targetid" + i);
-			}
-			setTargetEntityIds(tmpIds);
-		}
-
 		structureData = new StructureData(compound);
-	}
-
-	public int[] getTargetEntityIds() {
-		return targetEntityIds;
-	}
-
-	public void setTargetEntityIds(int[] targetEntityIds) {
-		this.targetEntityIds = targetEntityIds;
-		this.markDirty();
 	}
 
 }
