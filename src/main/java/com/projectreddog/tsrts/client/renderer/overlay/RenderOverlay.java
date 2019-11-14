@@ -78,11 +78,11 @@ public class RenderOverlay extends Screen {
 			GL11.glPushMatrix();
 			GL11.glScalef(.5f, .5f, .5f);
 
-			if (minecraft.getInstance().player.world != null) {
-				if (minecraft.getInstance().player.world.getScoreboard() != null) {
-					if (minecraft.getInstance().player.getScoreboardName() != null) {
-						if (minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(minecraft.getInstance().player.getScoreboardName()) != null) {
-							String team = minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(minecraft.getInstance().player.getScoreboardName()).getName();
+			if (Minecraft.getInstance().player.world != null) {
+				if (Minecraft.getInstance().player.world.getScoreboard() != null) {
+					if (Minecraft.getInstance().player.getScoreboardName() != null) {
+						if (Minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(Minecraft.getInstance().player.getScoreboardName()) != null) {
+							String team = Minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(Minecraft.getInstance().player.getScoreboardName()).getName();
 							if (TSRTS.teamInfoMap.containsKey(team)) {
 								TeamInfo ti = TSRTS.teamInfoMap.get(team);
 								TeamInfo.Resources[] res = TeamInfo.Resources.values();

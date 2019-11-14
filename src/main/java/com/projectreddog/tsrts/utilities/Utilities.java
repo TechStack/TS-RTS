@@ -12,14 +12,17 @@ import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
+import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -104,12 +107,46 @@ public class Utilities {
 			break;
 		case Reference.GUI_BUTTON_LOBBY_READY:
 			Utilities.setPlayerReady(player.world, player, !Utilities.getPlayerReady(player));
-
+			break;
+		case Reference.GUI_BUTTON_LOBBY_START:
+			Utilities.startGame(player.world);
 			break;
 
 		}
 		TSRTS.LOGGER.info("TEAM:" + player.getTeam().getName());
 
+	}
+
+	private static void startGame(World world) {
+		// close the gui's
+		// send players to spawn
+		// set gamemodes of players
+		// change the gamemode
+		// give players items
+		// give teams resoruces
+		Collection<ScorePlayerTeam> teams = world.getScoreboard().getTeams();
+
+		// get starting resources
+		int[] tmpRes = getStartingResourceAmounts();
+
+		for (Iterator iterator = teams.iterator(); iterator.hasNext();) {
+			ScorePlayerTeam team = (ScorePlayerTeam) iterator.next();
+			String teamName = team.getName();
+			Utilities.setResourcesOfTeam(teamName, tmpRes);
+		}
+	}
+
+	public static int[] getStartingResourceAmounts() {
+		TeamInfo ti = new TeamInfo();
+		ti.SetResource(Resources.FOOD, Config.CONFIG_START_AMT_FOOD.get());
+		ti.SetResource(Resources.WOOD, Config.CONFIG_START_AMT_WOOD.get());
+		ti.SetResource(Resources.STONE, Config.CONFIG_START_AMT_STONE.get());
+		ti.SetResource(Resources.IRON, Config.CONFIG_START_AMT_IRON.get());
+		ti.SetResource(Resources.GOLD, Config.CONFIG_START_AMT_GOLD.get());
+		ti.SetResource(Resources.DIAMOND, Config.CONFIG_START_AMT_DIAMOND.get());
+		ti.SetResource(Resources.EMERALD, Config.CONFIG_START_AMT_EMERALD.get());
+
+		return ti.GetResourceArray();
 	}
 
 	public static void PlayerBuysItem(PlayerEntity player, ItemStack itemStack) {
@@ -393,6 +430,23 @@ public class Utilities {
 			}
 		}
 		return false;
+	}
+
+	public static void setResourcesOfTeam(String teamName, int[] amts) {
+		if (TSRTS.teamInfoMap.containsKey(teamName)) {
+			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
+			ti.SetResourceArray(amts);
+			TSRTS.teamInfoMap.put(teamName, ti);
+
+			SendTeamToClient(teamName);
+
+		} else {
+			try {
+				throw new IllegalStateException(" Team not found :" + teamName);
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
+		}
 	}
 
 	public static void AddResourcesToTeam(String teamName, TeamInfo.Resources res, int amt) {
@@ -731,15 +785,21 @@ public class Utilities {
 				// LOOK FOR TARGET BLOCKS AND TELL THE TE about it.
 				AxisAlignedBB bb = new AxisAlignedBB(bp2, bp2.add(xSize, ySize, zSize));
 				List<TargetEntity> teList = world.getEntitiesWithinAABB(TargetEntity.class, bb);
-
+				float health = 0;
 				int[] ids = new int[teList.size()];
 				for (int i = 0; i < teList.size(); i++) {
-					ids[i] = teList.get(i).getEntityId();
-					teList.get(i).setOwnerName(ownerName);
-				}
+					if (controllerTE != null) {
+						teList.get(i).setOwningTePos(controllerTE.getPos());
+						teList.get(i).setOwnerName(ownerName);
+						health = health + teList.get(i).getHealth();
+					}
 
-				if (controllerTE != null) {
-					controllerTE.setTargetEntityIds(ids);
+				}
+				if (controllerTE instanceof OwnedCooldownTileEntity) {
+					OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) controllerTE;
+					octe.setHealth(health);
+
+					TSRTS.LOGGER.info("Health set to :" + health);
 				}
 
 			}

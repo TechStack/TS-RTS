@@ -1,11 +1,9 @@
 package com.projectreddog.tsrts.tileentity;
 
 import com.projectreddog.tsrts.TSRTS;
-import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.utilities.Utilities;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -20,6 +18,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	private boolean justLoaded = true;
 	private int justLoadedRemaining = 20;
 	private int rubbleTimerRemaining = 20 * 30;
+	protected float health;
 
 	public enum Stage {
 		FULL_HEALTH, HALF_DESTROYED, RUBBLE
@@ -100,22 +99,17 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 
 	}
 
-	public float getHealth() {
-		float health = 0;
-		TSRTS.LOGGER.info("GETHEALTH");
-		if (targetEntityIds != null) {
-			for (int i = 0; i < this.targetEntityIds.length; i++) {
-				Entity e = this.world.getEntityByID(this.targetEntityIds[i]);
+	public void setHealth(float inhealth) {
 
-				if (e instanceof TargetEntity) {
-					// its one of ours YEA!
-					TargetEntity targetEnttiy = (TargetEntity) e;
-					health = health + targetEnttiy.getHealth();
-				}
-			}
-		}
+		this.health = inhealth;
+		this.markDirty();
+
+	}
+
+	public float getHealth() {
 
 		return health;
+
 	}
 
 	public void ActionAfterCooldown() {
@@ -128,6 +122,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		nbt.putInt("coolDownReset", coolDownReset);
 		nbt.putInt("coolDownRemainig", coolDownRemainig);
 		nbt.putFloat("priorHealth", priorHealth);
+		nbt.putFloat("health", health);
 		nbt.putInt("currentStage", currentStage.ordinal());
 		nbt.putInt("priorStage", priorStage.ordinal());
 		nbt.putInt("rubbleTimerRemaining", rubbleTimerRemaining);
@@ -138,15 +133,16 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	@Override
 	public void read(CompoundNBT compound) {
 		super.read(compound);
-		TSRTS.LOGGER.info("STARTING READ");
 		coolDownReset = compound.getInt("coolDownReset");
 		coolDownRemainig = compound.getInt("coolDownRemainig");
 		priorHealth = compound.getFloat("priorHealth");
+		health = compound.getFloat("health");
+
 		currentStage = Stage.values()[compound.getInt("currentStage")];
 
 		priorStage = Stage.values()[compound.getInt("priorStage")];
-		rubbleTimerRemaining = compound.getInt("rubbleTimerRemaining");
-		TSRTS.LOGGER.info("completed READ");
+		// TODO: add back the rubble timer after these are all scanned
+		// rubbleTimerRemaining = compound.getInt("rubbleTimerRemaining");
 	}
 
 }

@@ -43,13 +43,37 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_ARCHER_DIAMOND;
 	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_ARCHER_EMERALD;
 
+	// starting resrources
+
+	public static ForgeConfigSpec.IntValue CONFIG_START_AMT_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_START_AMT_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_START_AMT_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_START_AMT_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_START_AMT_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_START_AMT_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_START_AMT_EMERALD;
+
 	static {
 
 		setupGeneralConfig();
+		setupStartinResourcesConfig();
 		setupUnitCostConfig();
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
 
+	}
+
+	private static void setupStartinResourcesConfig() {
+		COMMON_BUILDER.comment("Starting resources").push(CATEGORY_UNIT_COST);
+		CONFIG_START_AMT_FOOD = COMMON_BUILDER.comment("Defines the starting amount in food").defineInRange("StartingFood", 100, 0, 100000);
+		CONFIG_START_AMT_WOOD = COMMON_BUILDER.comment("Defines the starting amount in wood").defineInRange("StartingWood", 100, 0, 100000);
+		CONFIG_START_AMT_STONE = COMMON_BUILDER.comment("Defines the starting amount in stone").defineInRange("StartingStone", 75, 0, 100000);
+		CONFIG_START_AMT_IRON = COMMON_BUILDER.comment("Defines the starting amount in iron").defineInRange("StartingIron", 50, 0, 100000);
+		CONFIG_START_AMT_GOLD = COMMON_BUILDER.comment("Defines the starting amount in gold").defineInRange("StartingGold", 25, 0, 100000);
+		CONFIG_START_AMT_DIAMOND = COMMON_BUILDER.comment("Defines the starting amount in diamond").defineInRange("StartingDiamond", 0, 0, 100000);
+		CONFIG_START_AMT_EMERALD = COMMON_BUILDER.comment("Defines the starting amount in emerald").defineInRange("StartingEmerald", 0, 0, 100000);
+
+		COMMON_BUILDER.pop();
 	}
 
 	private static void setupUnitCostConfig() {
