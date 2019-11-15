@@ -27,6 +27,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.event.world.WorldEvent.Load;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -43,13 +44,13 @@ public class EventHandler {
 				Utilities.SendTeamToClient("green");
 				Utilities.SendTeamToClient("yellow");
 			}
-
-			if (!pe.world.isRemote) {
-				if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.LOBBY) {
-					NetworkHooks.openGui((ServerPlayerEntity) pe, (INamedContainerProvider) new LobbyContinerProvider());
-
-				}
-			}
+// TODO FIX this CUT OUT 
+//			if (!pe.world.isRemote) {
+//				if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.LOBBY) {
+//					NetworkHooks.openGui((ServerPlayerEntity) pe, (INamedContainerProvider) new LobbyContinerProvider());
+//
+//				}
+//			}
 
 		} else if (event.getEntity() instanceof UnitEntity) {
 			if (event.getWorld() != null) {
@@ -59,6 +60,18 @@ public class EventHandler {
 					ModNetwork.SendToServer(new RequestOwnerInfoToServer(event.getEntity().getEntityId()));
 
 				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+
+	public static void onPlayerLoggedInEvent(PlayerLoggedInEvent event) {
+		PlayerEntity pe = event.getPlayer();
+		if (!pe.world.isRemote) {
+			if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.LOBBY) {
+				NetworkHooks.openGui((ServerPlayerEntity) pe, (INamedContainerProvider) new LobbyContinerProvider());
+
 			}
 		}
 	}

@@ -10,7 +10,7 @@ import net.minecraft.util.math.Vec3i;
 
 public class ArcheryRangeBuilderItem extends BuilderItem {
 
-	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "archeryrange_red_100");
+	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "archery_red_100");
 	protected ResourceLocation templateNameRed50 = null;
 	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "archeryrange_red_0");
 

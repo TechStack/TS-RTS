@@ -88,7 +88,9 @@ public class OwnedTileEntity extends TileEntity {
 		}
 		compound.putInt("resourceordnial", resourceOrdnial);
 
-		structureData.writeToNbt(compound);
+		if (structureData != null) {
+			structureData.writeToNbt(compound);
+		}
 
 		return nbt;
 	}
