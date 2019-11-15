@@ -113,7 +113,6 @@ public class Utilities {
 			break;
 		case Reference.GUI_BUTTON_LOBBY_START:
 			Utilities.startGame(player.world);
-			player.closeScreen();
 			break;
 
 		}
@@ -131,6 +130,7 @@ public class Utilities {
 		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
 			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
 			Utilities.giveStartingItems(playerEntity);
+			playerEntity.closeScreen();
 
 		}
 
