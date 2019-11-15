@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
@@ -121,15 +122,20 @@ public class Utilities {
 	}
 
 	private static void startGame(World world) {
-		// close the gui's
 		// send players to spawn
 		// set gamemodes of players
+
 		// change the gamemode
+		// TODO later this should be the count down !
+		TSRTS.CURRENT_GAME_STATE = GAMESTATE.RUNNINNG;
+
 		// give players items
 		List<? extends PlayerEntity> players = world.getPlayers();
 		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
 			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
 			Utilities.giveStartingItems(playerEntity);
+			// close the gui's
+
 			playerEntity.closeScreen();
 
 		}
