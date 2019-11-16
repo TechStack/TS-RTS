@@ -53,7 +53,7 @@ public class EventHandler {
 //				}
 //			}
 
-		} else if (event.getEntity() instanceof UnitEntity) {
+		} else if (event.getEntity() instanceof UnitEntity || event.getEntity() instanceof TargetEntity) {
 			if (event.getWorld() != null) {
 				if (event.getWorld().isRemote) {
 					// client
