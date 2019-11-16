@@ -15,8 +15,10 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SampleItem extends Item {
@@ -29,9 +31,9 @@ public class SampleItem extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 
-		EntityRayTraceResult entityraytraceresult = ProjectileHelper.func_221273_a(playerIn, playerIn.getEyePosition(1), playerIn.getEyePosition(1).add(playerIn.getLook(1.0F).x * 32, playerIn.getLook(1.0F).y * 32, playerIn.getLook(1.0F).z * 32), playerIn.getBoundingBox().expand(playerIn.getLook(1.0F).scale(32)), (p_215312_0_) -> {
+		EntityRayTraceResult entityraytraceresult = ProjectileHelper.func_221269_a(worldIn, playerIn, playerIn.getEyePosition(1), playerIn.getEyePosition(1).add(playerIn.getLook(1.0F).x * 32, playerIn.getLook(1.0F).y * 32, playerIn.getLook(1.0F).z * 32), playerIn.getBoundingBox().expand(playerIn.getLook(1.0F).scale(32)), (p_215312_0_) -> {
 			return !p_215312_0_.isSpectator() && p_215312_0_.canBeCollidedWith();
-		}, 0);
+		}, 1024);
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		if (entityraytraceresult != null) {
 			// found entity so attack it if possible !
@@ -48,7 +50,11 @@ public class SampleItem extends Item {
 		} else {
 			// NO ENTITY FOUND so instead look for a block move
 
-			RayTraceResult rtr = playerIn.func_213324_a(32, 1, false);
+			Vec3d vec3d = playerIn.getEyePosition(1);
+			Vec3d vec3d1 = playerIn.getLook(1);
+			Vec3d vec3d2 = vec3d.add(vec3d1.x * 32, vec3d1.y * 32, vec3d1.z * 32);
+
+			RayTraceResult rtr = worldIn.rayTraceBlocks(new RayTraceContext(vec3d, vec3d2, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, playerIn));
 			if (rtr != null) {
 				if (rtr.getType() == Type.BLOCK) {
 					if (rtr instanceof BlockRayTraceResult) {
