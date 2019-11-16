@@ -33,6 +33,18 @@ public class TargetRenderer<T extends TargetEntity> extends EntityRenderer {
 		GlStateManager.translatef((float) x, (float) y, (float) z);
 		model.render((TargetEntity) entity, 1, 1, 1, 1, 1, 1);
 
+		if (((TargetEntity) entity).hurtTime > 0) {
+			GlStateManager.depthFunc(514);
+			GlStateManager.disableTexture();
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+			GlStateManager.color4f(1.0F, 0.0F, 0.0F, 0.5F);
+			model.render((TargetEntity) entity, 1, 1, 1, 1, 1, 1);
+			GlStateManager.enableTexture();
+			GlStateManager.disableBlend();
+			GlStateManager.depthFunc(515);
+		}
+
 		GlStateManager.popMatrix();
 	}
 
