@@ -907,7 +907,7 @@ public class Utilities {
 
 				for (int z = 0; z < zSize; z++) {
 
-					if (!world.getBlockState(bp2.add(x, y, z)).getBlock().isAir(world.getBlockState(bp2.add(x, y, z)))) {
+					if ((!world.getBlockState(bp2.add(x, y, z)).getBlock().isAir(world.getBlockState(bp2.add(x, y, z))) && !(world.getBlockState(bp2.add(x, y, z)).getBlock().getMaterial(world.getBlockState(bp2.add(x, y, z))).isReplaceable()) && (world.getBlockState(bp2.add(x, y, z)).getBlock().getMaterial(world.getBlockState(bp2.add(x, y, z))).blocksMovement()))) {
 						result = false;
 						// BLOCK in the way
 					}
