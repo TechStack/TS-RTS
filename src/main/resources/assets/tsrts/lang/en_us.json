@@ -1,15 +1,30 @@
 {
 "_comment":"Blocks here",
-"block.tsrts.barracksblock":"Barracks Block",
-"block.tsrts.archeryrangeblock":"Archery Range Block",
-"block.tsrts.minesiteblock":"Mine Site Block",
+"block.tsrts.barracksblock":"Barracks Control Block",
+"block.tsrts.archeryrangeblock":"Archery Range Control Block",
+"block.tsrts.minesiteblock":"Mine Site Control Block",
+"block.tsrts.farmblock":"Farm Control Block",
+"block.tsrts.lumberyardblock":"Lumber Yard Control Block",
+"block.tsrts.townhallblock":"Town Hall Control Block",
+
 
 "_comment":"Creative Tabs",
 "itemGroup.blocks":"TS RTS - Blocks",
 "itemGroup.weapons":"TS RTS - Weapons",
 
 "_comment":"Items here",
-"item.tsrts.sampleitem":"Sample item",
+"item.tsrts.sampleitem":"Command Saber",
+"item.tsrts.barracksbuilderitem":"Barracks",
+"item.tsrts.minesitediamondbuilderitem":"Diamond Mine",
+"item.tsrts.minesiteemeraldbuilderitem":"Emerald Mine",
+"item.tsrts.minesitegoldbuilderitem":"Gold Mine",
+"item.tsrts.minesiteironbuilderitem":"Iron Mine",
+"item.tsrts.minesitestonebuilderitem":"Stone Mine",
+"item.tsrts.townhallbuilderitem":"Town Hall",
+"item.tsrts.farmblockbuilderitem":"Farm",
+"item.tsrts.lumberyardbuilderitem":"Lumber Yard",
+"item.tsrts.archeryrangebuilderitem":"Archery Range",
+
 
 
 "_comment":"End here"
