@@ -22,6 +22,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
@@ -213,6 +214,13 @@ public class EventHandler {
 					}
 				}
 
+			}
+		}
+		RayTraceResult rtr = event.getRayTraceResult();
+		if (!(rtr instanceof EntityRayTraceResult)) {
+			// ASSUME BLOCK?
+			if (rtr.getType() == Type.BLOCK) {
+				event.getEntity().remove();
 			}
 		}
 		event.setCanceled(shouldCancel);
