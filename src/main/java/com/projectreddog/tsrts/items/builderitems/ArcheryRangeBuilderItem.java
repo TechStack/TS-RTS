@@ -12,19 +12,19 @@ public class ArcheryRangeBuilderItem extends BuilderItem {
 
 	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "archery_red_100");
 	protected ResourceLocation templateNameRed50 = null;
-	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "archer_red_0");
+	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "archery_red_0");
 
-	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "archer_yellow_100");
+	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "archery_yellow_100");
 	protected ResourceLocation templateNameYellow50 = null;
-	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "archer_yellow_0");
+	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "archery_yellow_0");
 
-	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "archer_green_100");
+	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "archery_green_100");
 	protected ResourceLocation templateNameGreen50 = null;
-	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "archer_green_0");
+	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "archery_green_0");
 
-	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "archer_blue_100");
+	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "archery_blue_100");
 	protected ResourceLocation templateNameBlue50 = null;
-	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "archer_blue_0");
+	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "archery_blue_0");
 
 	public ArcheryRangeBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
