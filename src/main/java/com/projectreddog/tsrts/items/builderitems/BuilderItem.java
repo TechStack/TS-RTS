@@ -53,6 +53,7 @@ public abstract class BuilderItem extends Item {
 				if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(context.getPlayer().getTeam().getName()), new StructureData(getTemplateName100(context.getPlayer().getTeam().getName()), getTemplateName50(context.getPlayer().getTeam().getName()), getTemplateName0(context.getPlayer().getTeam().getName()), context.getPos(), d, getSize()), context.getPlayer().getScoreboardName(), true)) {
 
 					context.getItem().shrink(1);
+					context.getPlayer().container.detectAndSendChanges();
 
 				} else {
 					return ActionResultType.FAIL;

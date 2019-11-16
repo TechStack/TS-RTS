@@ -265,7 +265,7 @@ public class Config {
 		CONFIG_UNIT_COSTS_MINION_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the minion").defineInRange("unitCostsMinionWood", 5, 0, 100000);
 		CONFIG_UNIT_COSTS_MINION_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the minion").defineInRange("unitCostsMinionStone", 2, 0, 100000);
 		CONFIG_UNIT_COSTS_MINION_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the minion").defineInRange("unitCostsMinionIron", 3, 0, 100000);
-		CONFIG_UNIT_COSTS_MINION_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the minion").defineInRange("unitCostsMinionGold", 2, 0, 100000);
+		CONFIG_UNIT_COSTS_MINION_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the minion").defineInRange("unitCostsMinionGold", 0, 0, 100000);
 		CONFIG_UNIT_COSTS_MINION_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the minion").defineInRange("unitCostsMinionDiamond", 0, 0, 100000);
 		CONFIG_UNIT_COSTS_MINION_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the minion").defineInRange("unitCostsMinionEmerald", 0, 0, 100000);
 

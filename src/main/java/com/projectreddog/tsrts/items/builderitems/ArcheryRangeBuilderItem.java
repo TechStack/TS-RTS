@@ -73,7 +73,7 @@ public class ArcheryRangeBuilderItem extends BuilderItem {
 
 	public Vec3i getSize() {
 //TODO UDPATE THIS WITH REAL SIZE OF ARCHERY RANGE!
-		return new Vec3i(13, 10, 13);
+		return new Vec3i(117, 10, 17);
 	}
 
 	@Override
