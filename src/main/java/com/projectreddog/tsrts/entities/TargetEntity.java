@@ -14,31 +14,38 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class TargetEntity extends CreatureEntity {
 
+	private BlockPos owningTePos;
+
+	public BlockPos getOwningTePos() {
+		return owningTePos;
+	}
+
+	public void setOwningTePos(BlockPos owningTePos) {
+		this.owningTePos = owningTePos;
+	}
+
 	public TargetEntity(EntityType type, World worldIn) {
 		super(type, worldIn);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public boolean canDespawn(double distanceToClosestPlayer) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected int getExperiencePoints(PlayerEntity player) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	protected boolean canDropLoot() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -59,7 +66,6 @@ public class TargetEntity extends CreatureEntity {
 	}
 
 	public void setOwnerName(String ownerName) {
-		// TODO REMOVE THE RNG next int as its only for testing here
 		this.ownerName = ownerName;
 
 		if (!world.isRemote) {

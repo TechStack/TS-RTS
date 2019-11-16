@@ -5,9 +5,9 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.projectreddog.tsrts.hanlder.ClientEvents;
-import com.projectreddog.tsrts.hanlder.Config;
-import com.projectreddog.tsrts.hanlder.EventHandler;
+import com.projectreddog.tsrts.handler.ClientEvents;
+import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.handler.EventHandler;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModContainers;
 import com.projectreddog.tsrts.init.ModEntities;

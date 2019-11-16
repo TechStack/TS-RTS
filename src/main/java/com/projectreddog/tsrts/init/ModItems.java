@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.init;
 
 import com.projectreddog.tsrts.items.SampleItem;
+import com.projectreddog.tsrts.items.builderitems.ArcheryRangeBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.BarracksBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.FarmBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.LumberYardBuilderItem;
@@ -25,6 +26,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_BARRACKS_BUILDER_ITEM)
 	public static BarracksBuilderItem BARRACKSBUILDERITEM = new BarracksBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARCHERY_RANGE_BUILDER_ITEM)
+	public static ArcheryRangeBuilderItem ARCHERYRANGEBUILDERITEM = new ArcheryRangeBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM)
 	public static LumberYardBuilderItem LUMBERYARDBUILDERITEM = new LumberYardBuilderItem();
@@ -51,6 +55,7 @@ public class ModItems {
 		RegisterItem(event, ModItems.SAMPLEITEM);
 		RegisterItem(event, ModItems.TOWNHALLBUILDERITEM);
 		RegisterItem(event, ModItems.BARRACKSBUILDERITEM);
+		RegisterItem(event, ModItems.ARCHERYRANGEBUILDERITEM);
 		RegisterItem(event, ModItems.LUMBERYARDBUILDERITEM);
 		RegisterItem(event, ModItems.MINESITEDIAMONDBUILDERITEM);
 		RegisterItem(event, ModItems.MINESITEEMERALDBUILDERITEM);
