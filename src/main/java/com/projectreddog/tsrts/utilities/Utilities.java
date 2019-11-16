@@ -1,24 +1,31 @@
 package com.projectreddog.tsrts.utilities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.init.ModEntities;
+import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
+import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -27,7 +34,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -38,6 +48,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
@@ -51,7 +62,6 @@ public class Utilities {
 			// server
 			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
 
-			// TODO: SEND PACKET FROM SERVER TO CLIENT!
 			ModNetwork.SendToALLPlayers(new PlayerReadyUpPacketToClient(player.getEntityId(), isReady));
 
 		} else {
@@ -102,7 +112,9 @@ public class Utilities {
 			break;
 		case Reference.GUI_BUTTON_LOBBY_READY:
 			Utilities.setPlayerReady(player.world, player, !Utilities.getPlayerReady(player));
-
+			break;
+		case Reference.GUI_BUTTON_LOBBY_START:
+			Utilities.startGame(player.world);
 			break;
 
 		}
@@ -110,8 +122,262 @@ public class Utilities {
 
 	}
 
+	private static void startGame(World world) {
+		// send players to spawn
+		// set gamemodes of players
+
+		// change the gamemode
+		// TODO later this should be the count down !
+		TSRTS.CURRENT_GAME_STATE = GAMESTATE.RUNNINNG;
+
+		// give players items
+		List<? extends PlayerEntity> players = world.getPlayers();
+		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
+			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
+			Utilities.giveStartingItems(playerEntity);
+			// close the gui's
+
+			playerEntity.closeScreen();
+
+		}
+
+		// give teams resoruces
+		Collection<ScorePlayerTeam> teams = world.getScoreboard().getTeams();
+
+		// get starting resources
+		int[] tmpRes = getStartingResourceAmounts();
+
+		for (Iterator iterator = teams.iterator(); iterator.hasNext();) {
+			ScorePlayerTeam team = (ScorePlayerTeam) iterator.next();
+			String teamName = team.getName();
+			Utilities.setResourcesOfTeam(teamName, tmpRes);
+		}
+	}
+
+	private static void giveStartingItems(PlayerEntity playerEntity) {
+		// TODO Auto-generated method stub
+		GivePlayerItemStack(playerEntity, new ItemStack(Items.DIAMOND_SWORD, 1));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.SAMPLEITEM));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
+
+	}
+
+	public static int[] getStartingResourceAmounts() {
+		TeamInfo ti = new TeamInfo();
+		ti.SetResource(Resources.FOOD, Config.CONFIG_START_AMT_FOOD.get());
+		ti.SetResource(Resources.WOOD, Config.CONFIG_START_AMT_WOOD.get());
+		ti.SetResource(Resources.STONE, Config.CONFIG_START_AMT_STONE.get());
+		ti.SetResource(Resources.IRON, Config.CONFIG_START_AMT_IRON.get());
+		ti.SetResource(Resources.GOLD, Config.CONFIG_START_AMT_GOLD.get());
+		ti.SetResource(Resources.DIAMOND, Config.CONFIG_START_AMT_DIAMOND.get());
+		ti.SetResource(Resources.EMERALD, Config.CONFIG_START_AMT_EMERALD.get());
+
+		return ti.GetResourceArray();
+	}
+
 	public static void PlayerBuysItem(PlayerEntity player, ItemStack itemStack) {
 		// EntityType.ITEM.spawn(player.world, itemSTack, playerIn, pos, reason, p_220331_6_, p_220331_7_)
+//TODO SPEND RESROUCES here before giving the player the items !
+
+		int foodCosts = getFoodCostsForBuilder(itemStack.getItem());
+		int woodCosts = getWoodCostsForBuilder(itemStack.getItem());
+		int stoneCosts = getStoneCostsForBuilder(itemStack.getItem());
+
+		int ironCosts = getIronCostsForBuilder(itemStack.getItem());
+		int goldCosts = getGoldCostsForBuilder(itemStack.getItem());
+		int diamondCosts = getDiamondCostsForBuilder(itemStack.getItem());
+		int emeraldCosts = getEmeraldCostsForBuilder(itemStack.getItem());
+
+		String teamName = player.getTeam().getName();
+
+		boolean result = true;
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.FOOD, foodCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.WOOD, woodCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.STONE, stoneCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.IRON, ironCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.GOLD, goldCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.DIAMOND, diamondCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.EMERALD, emeraldCosts);
+		if (result) {
+
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.FOOD, foodCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.WOOD, woodCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.STONE, stoneCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.IRON, ironCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.GOLD, goldCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.DIAMOND, diamondCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, emeraldCosts);
+
+			if (result) {
+				GivePlayerItemStack(player, itemStack);
+			}
+
+		}
+
+	}
+
+	public static int getFoodCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_FOOD.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_FOOD.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_FOOD.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_FOOD.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_FOOD.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_FOOD.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_FOOD.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_FOOD.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_FOOD.get();
+		}
+		return 0;
+	}
+
+	public static int getWoodCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_WOOD.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_WOOD.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_WOOD.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_WOOD.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_WOOD.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_WOOD.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_WOOD.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_WOOD.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_WOOD.get();
+		}
+		return 0;
+	}
+
+	public static int getStoneCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_STONE.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_STONE.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_STONE.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_STONE.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_STONE.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_STONE.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_STONE.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_STONE.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STONE.get();
+		}
+		return 0;
+	}
+
+	public static int getIronCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_IRON.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_IRON.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_IRON.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_IRON.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_IRON.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_IRON.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_IRON.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_IRON.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_IRON.get();
+		}
+		return 0;
+	}
+
+	public static int getGoldCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_GOLD.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_GOLD.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_GOLD.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_GOLD.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_GOLD.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_GOLD.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_GOLD.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_GOLD.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_GOLD.get();
+		}
+		return 0;
+	}
+
+	public static int getDiamondCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_DIAMOND.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_DIAMOND.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_DIAMOND.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_DIAMOND.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_DIAMOND.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_DIAMOND.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_DIAMOND.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_DIAMOND.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_DIAMOND.get();
+		}
+		return 0;
+	}
+
+	public static int getEmeraldCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_EMERALD.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_EMERALD.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_EMERALD.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_EMERALD.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_EMERALD.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_EMERALD.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_EMERALD.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_EMERALD.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_EMERALD.get();
+		}
+		return 0;
+	}
+
+	public static void GivePlayerItemStack(PlayerEntity player, ItemStack itemStack) {
 
 		boolean result = player.inventory.addItemStackToInventory(itemStack);
 
@@ -150,7 +416,10 @@ public class Utilities {
 				ue.ownerControlledDestination = rallyPoint;
 			}
 
-			// ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+			if (entityType == ModEntities.ARCHER_MINION) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+			}
+			//
 //			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
 			// ue.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.DIAMOND_HELMET));
 //			ue.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.IRON_LEGGINGS));
@@ -362,6 +631,52 @@ public class Utilities {
 			ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoMap.get(teamName), teamName));
 		}
 
+	}
+
+	public static boolean hasNeededResource(String teamName, TeamInfo.Resources res, int amt) {
+		if (TSRTS.teamInfoMap.containsKey(teamName)) {
+			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
+			if (ti.HasEnoughResource(res, amt)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean SpendResourcesFromTeam(String teamName, TeamInfo.Resources res, int amt) {
+		if (TSRTS.teamInfoMap.containsKey(teamName)) {
+			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
+			ti.SpendResource(res, amt);
+			TSRTS.teamInfoMap.put(teamName, ti);
+
+			SendTeamToClient(teamName);
+			return true;
+
+		} else {
+			try {
+				throw new IllegalStateException(" Team not found :" + teamName);
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+	public static void setResourcesOfTeam(String teamName, int[] amts) {
+		if (TSRTS.teamInfoMap.containsKey(teamName)) {
+			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
+			ti.SetResourceArray(amts);
+			TSRTS.teamInfoMap.put(teamName, ti);
+
+			SendTeamToClient(teamName);
+
+		} else {
+			try {
+				throw new IllegalStateException(" Team not found :" + teamName);
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
+		}
 	}
 
 	public static void AddResourcesToTeam(String teamName, TeamInfo.Resources res, int amt) {
@@ -700,18 +1015,25 @@ public class Utilities {
 				// LOOK FOR TARGET BLOCKS AND TELL THE TE about it.
 				AxisAlignedBB bb = new AxisAlignedBB(bp2, bp2.add(xSize, ySize, zSize));
 				List<TargetEntity> teList = world.getEntitiesWithinAABB(TargetEntity.class, bb);
-
+				float health = 0;
 				int[] ids = new int[teList.size()];
 				for (int i = 0; i < teList.size(); i++) {
-					ids[i] = teList.get(i).getEntityId();
-					teList.get(i).setOwnerName(ownerName);
-				}
+					if (controllerTE != null) {
+						teList.get(i).setOwningTePos(controllerTE.getPos());
+						teList.get(i).setOwnerName(ownerName);
+						health = health + teList.get(i).getHealth();
+					}
 
-				if (controllerTE != null) {
-					controllerTE.setTargetEntityIds(ids);
+				}
+				if (controllerTE instanceof OwnedCooldownTileEntity) {
+					OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) controllerTE;
+					octe.setHealth(health);
+
+					TSRTS.LOGGER.info("Health set to :" + health);
 				}
 
 			}
+			return true;
 
 		}
 
@@ -728,7 +1050,9 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup1[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup1[i];
+						if (j < tmp.length) {
+							tmp[j] = TSRTS.playerSelectionsControlGroup1[i];
+						}
 						j++;
 					}
 				}
@@ -748,7 +1072,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup2[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup2[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup2[i];
+						}
 						j++;
 					}
 				}
@@ -769,7 +1096,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup3[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup3[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup3[i];
+						}
 						j++;
 					}
 				}
@@ -790,7 +1120,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup4[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup4[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup4[i];
+						}
 						j++;
 					}
 				}
@@ -811,7 +1144,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup5[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup5[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup5[i];
+						}
 						j++;
 					}
 				}
@@ -831,7 +1167,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup6[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup6[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup6[i];
+						}
 						j++;
 					}
 				}
@@ -852,7 +1191,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup7[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup7[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup7[i];
+						}
 						j++;
 					}
 				}
@@ -872,7 +1214,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup8[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup8[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup8[i];
+						}
 						j++;
 					}
 				}
@@ -892,7 +1237,10 @@ public class Utilities {
 					if (TSRTS.playerSelectionsControlGroup9[i] == entityId) {
 						found = true;
 					} else {
-						tmp[j] = TSRTS.playerSelectionsControlGroup9[i];
+						if (j < tmp.length) {
+
+							tmp[j] = TSRTS.playerSelectionsControlGroup9[i];
+						}
 						j++;
 					}
 				}
@@ -904,4 +1252,41 @@ public class Utilities {
 
 	}
 
+	public static void CheckTeamsAndCreatedIfNeeded(World world) {
+		if (!world.isRemote) {
+			// server only!
+
+			Collection<ScorePlayerTeam> teams = world.getScoreboard().getTeams();
+			boolean hasGreen = false;
+			boolean hasRed = false;
+			boolean hasBlue = false;
+			boolean hasYellow = false;
+
+			for (Iterator team = teams.iterator(); team.hasNext();) {
+				ScorePlayerTeam scorePlayerTeam = (ScorePlayerTeam) team.next();
+				if (scorePlayerTeam.getName().equals("red")) {
+					hasRed = true;
+				} else if (scorePlayerTeam.getName().equals("blue")) {
+					hasBlue = true;
+				} else if (scorePlayerTeam.getName().equals("green")) {
+					hasGreen = true;
+				} else if (scorePlayerTeam.getName().equals("yellow")) {
+					hasYellow = true;
+				}
+			}
+
+			if (!hasRed) {
+				world.getScoreboard().createTeam("red").setColor(TextFormatting.RED);
+			}
+			if (!hasBlue) {
+				world.getScoreboard().createTeam("blue").setColor(TextFormatting.BLUE);
+			}
+			if (!hasGreen) {
+				world.getScoreboard().createTeam("green").setColor(TextFormatting.GREEN);
+			}
+			if (!hasYellow) {
+				world.getScoreboard().createTeam("yellow").setColor(TextFormatting.YELLOW);
+			}
+		}
+	}
 }

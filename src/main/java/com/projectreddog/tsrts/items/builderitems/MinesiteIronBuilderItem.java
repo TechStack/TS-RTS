@@ -13,19 +13,19 @@ public class MinesiteIronBuilderItem extends BuilderItem {
 
 	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "iron_red_100");
 	protected ResourceLocation templateNameRed50 = null;
-	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "iron_red_0");
+	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "stone_red_0");
 
 	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "iron_yellow_100");
 	protected ResourceLocation templateNameYellow50 = null;
-	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "iron_yellow_0");
+	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "stone_yellow_0");
 
 	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "iron_green_100");
 	protected ResourceLocation templateNameGreen50 = null;
-	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "iron_green_0");
+	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "stone_green_0");
 
 	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "iron_blue_100");
 	protected ResourceLocation templateNameBlue50 = null;
-	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "iron_blue_0");
+	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "stone_blue_0");
 
 	public MinesiteIronBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));

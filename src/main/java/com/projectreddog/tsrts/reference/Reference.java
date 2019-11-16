@@ -12,11 +12,11 @@ public class Reference {
 	public static final String REIGSTRY_NAME_FARM_BLOCK = "farmblock";
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BLOCK = "lumberyardblock";
 
+	public static final String REIGSTRY_NAME_STABLES_BLOCK = "stablesblock";
+	public static final String REIGSTRY_NAME_RESERACH_CENTER_BLOCK = "researchcenterblock";
+
 	// CONTAINER ONLY NO BLOCK
 	public static final String REIGSTRY_NAME_LOBBY_CONTAINER = "lobbycontiner";
-
-	public static final String REIGSTRY_NAME_STABLES_BLOCK = "stablesblock";
-	public static final String REIGSTRY_NAME_RESERACH_CENTER_BLOCK = "researchcenter";
 
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
@@ -47,7 +47,14 @@ public class Reference {
 	// TOWN HALLba GUI BUTTONS
 	public static final int GUI_BUTTON_BUY_BARRACKS = 1;
 	public static final int GUI_BUTTON_BUY_ARCHERY_RANGE = 2;
-	public static final int GUI_BUTTON_BUY_MINE_SITE = 3;
+
+	public static final int GUI_BUTTON_BUY_LUMBER_YARD = 3;
+	public static final int GUI_BUTTON_BUY_MINE_SITE_STONE = 4;
+	public static final int GUI_BUTTON_BUY_MINE_SITE_IRON = 5;
+	public static final int GUI_BUTTON_BUY_MINE_SITE_GOLD = 6;
+	public static final int GUI_BUTTON_BUY_MINE_SITE_DIAMOND = 7;
+	public static final int GUI_BUTTON_BUY_MINE_SITE_EMERALD = 8;
+	public static final int GUI_BUTTON_BUY_FARM = 9;
 
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
 	public static final int GUI_BUTTON_LOBBY_BLUE = 5;

@@ -7,6 +7,7 @@ import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,14 +33,12 @@ public class ClientPacketHandler {
 	}
 
 	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName) {
-		PlayerEntity player = Minecraft.getInstance().player;
-		if (player != null) {
-			// should be on CLIENT !
-			TeamInfo ti = new TeamInfo();
-			ti.SetResourceArray(resourceAmt);
-			TSRTS.teamInfoMap.put(teamName, ti);
 
-		}
+		// should be on CLIENT !
+		TeamInfo ti = new TeamInfo();
+		ti.SetResourceArray(resourceAmt);
+		TSRTS.teamInfoMap.put(teamName, ti);
+
 	}
 
 	public static void TEOwnerChangedPacketToClient(int posX, int posY, int posZ, String ownerName) {

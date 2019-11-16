@@ -1,0 +1,28 @@
+{
+"variants":{
+"facing=north,team=red":{"model":"tsrts:block/stablesblock_red"},
+"facing=north,team=blue":{"model":"tsrts:block/stablesblock_blue"},
+"facing=north,team=green":{"model":"tsrts:block/stablesblock_green"},
+"facing=north,team=yellow":{"model":"tsrts:block/stablesblock_yellow"},    
+"facing=south,team=red": { "model": "tsrts:block/stablesblock_red", "y": 180 },   
+"facing=south,team=blue": { "model": "tsrts:block/stablesblock_blue", "y": 180 },   
+"facing=south,team=green": { "model": "tsrts:block/stablesblock_green", "y": 180 },   
+"facing=south,team=yellow": { "model": "tsrts:block/stablesblock_yellow", "y": 180 },   
+"facing=west,team=red": { "model": "tsrts:block/stablesblock_red", "y": 270 },   
+"facing=west,team=blue": { "model": "tsrts:block/stablesblock_blue", "y": 270 },   
+"facing=west,team=green": { "model": "tsrts:block/stablesblock_green", "y": 270 },   
+"facing=west,team=yellow": { "model": "tsrts:block/stablesblock_yellow", "y": 270 },  
+"facing=east,team=red": { "model": "tsrts:block/stablesblock_red", "y": 90 },   
+"facing=east,team=blue": { "model": "tsrts:block/stablesblock_blue", "y": 90 },   
+"facing=east,team=green": { "model": "tsrts:block/stablesblock_green", "y": 90 },   
+"facing=east,team=yellow": { "model": "tsrts:block/stablesblock_yellow", "y": 90 },   
+"facing=up,team=red": { "model": "tsrts:block/stablesblock_red", "x": -90 },   
+"facing=up,team=blue": { "model": "tsrts:block/stablesblock_blue", "x": -90 },   
+"facing=up,team=green": { "model": "tsrts:block/stablesblock_green", "x": -90 },   
+"facing=up,team=yellow": { "model": "tsrts:block/stablesblock_yellow", "x": -90 },   
+"facing=down,team=red": { "model": "tsrts:block/stablesblock_red", "x": 90 },   
+"facing=down,team=blue": { "model": "tsrts:block/stablesblock_blue", "x": 90 },   
+"facing=down,team=green": { "model": "tsrts:block/stablesblock_green", "x": 90 },   
+"facing=down,team=yellow": { "model": "tsrts:block/stablesblock_yellow", "x": 90 }  
+}
+}
