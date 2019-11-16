@@ -40,20 +40,64 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
-		addButton(new Button(x, y, 50, 10, "Barracks", (button) -> {
+
+		/*
+		 * public static final int GUI_BUTTON_BUY_BARRACKS = 1; public static final int GUI_BUTTON_BUY_ARCHERY_RANGE = 2;
+		 * 
+		 * public static final int GUI_BUTTON_BUY_LUMBER_YARD = 3; public static final int GUI_BUTTON_BUY_MINE_SITE_STONE = 4; public static final int GUI_BUTTON_BUY_MINE_SITE_IRON = 5; public static final int GUI_BUTTON_BUY_MINE_SITE_GOLD = 6; public static final int GUI_BUTTON_BUY_MINE_SITE_DIAMOND = 7; public static final int GUI_BUTTON_BUY_MINE_SITE_EMERALD = 8;
+		 */
+		y = y + 5;
+		int width = 90;
+		x = x + (width / 2);
+
+		int height = 20;
+
+		addButton(new Button(x, y, width, height, "Farm", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_FARM));
+			this.onClose();
+		}));
+		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Lumber Yard", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_LUMBER_YARD));
+			this.onClose();
+		}));
+		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Stone Mine Site", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_MINE_SITE_STONE));
+			this.onClose();
+		}));
+		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Iron Mine Site", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_MINE_SITE_IRON));
+			this.onClose();
+		}));
+		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Gold Mine Site", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_MINE_SITE_GOLD));
+			this.onClose();
+		}));
+		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Diamond Mine Site", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND));
+			this.onClose();
+		}));
+		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Barracks", (button) -> {
 			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_BARRACKS));
 			this.onClose();
 		}));
+		y = y + 20;
 
-		addButton(new Button(x, y + 10, 50, 10, "Mine Site", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_MINE_SITE));
-			this.onClose();
-		}));
-
-		addButton(new Button(x, y + 20, 50, 10, "Archery Range", (button) -> {
+		addButton(new Button(x, y, width, height, "Arrchery Range", (button) -> {
 			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_ARCHERY_RANGE));
 			this.onClose();
 		}));
-
+		y = y + 20;
 	}
 }

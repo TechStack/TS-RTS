@@ -35,6 +35,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.scoreboard.ScorePlayerTeam;
@@ -177,7 +178,203 @@ public class Utilities {
 	public static void PlayerBuysItem(PlayerEntity player, ItemStack itemStack) {
 		// EntityType.ITEM.spawn(player.world, itemSTack, playerIn, pos, reason, p_220331_6_, p_220331_7_)
 //TODO SPEND RESROUCES here before giving the player the items !
-		GivePlayerItemStack(player, itemStack);
+
+		int foodCosts = getFoodCostsForBuilder(itemStack.getItem());
+		int woodCosts = getWoodCostsForBuilder(itemStack.getItem());
+		int stoneCosts = getStoneCostsForBuilder(itemStack.getItem());
+
+		int ironCosts = getIronCostsForBuilder(itemStack.getItem());
+		int goldCosts = getGoldCostsForBuilder(itemStack.getItem());
+		int diamondCosts = getDiamondCostsForBuilder(itemStack.getItem());
+		int emeraldCosts = getEmeraldCostsForBuilder(itemStack.getItem());
+
+		String teamName = player.getTeam().getName();
+
+		boolean result = true;
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.FOOD, foodCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.WOOD, woodCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.STONE, stoneCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.IRON, ironCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.GOLD, goldCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.DIAMOND, diamondCosts);
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.EMERALD, emeraldCosts);
+		if (result) {
+
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.FOOD, foodCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.WOOD, woodCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.STONE, stoneCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.IRON, ironCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.GOLD, goldCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.DIAMOND, diamondCosts);
+			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, emeraldCosts);
+
+			if (result) {
+				GivePlayerItemStack(player, itemStack);
+			}
+
+		}
+
+	}
+
+	public static int getFoodCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_FOOD.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_FOOD.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_FOOD.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_FOOD.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_FOOD.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_FOOD.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_FOOD.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_FOOD.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_FOOD.get();
+		}
+		return 0;
+	}
+
+	public static int getWoodCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_WOOD.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_WOOD.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_WOOD.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_WOOD.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_WOOD.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_WOOD.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_WOOD.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_WOOD.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_WOOD.get();
+		}
+		return 0;
+	}
+
+	public static int getStoneCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_STONE.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_STONE.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_STONE.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_STONE.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_STONE.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_STONE.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_STONE.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_STONE.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STONE.get();
+		}
+		return 0;
+	}
+
+	public static int getIronCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_IRON.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_IRON.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_IRON.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_IRON.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_IRON.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_IRON.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_IRON.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_IRON.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_IRON.get();
+		}
+		return 0;
+	}
+
+	public static int getGoldCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_GOLD.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_GOLD.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_GOLD.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_GOLD.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_GOLD.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_GOLD.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_GOLD.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_GOLD.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_GOLD.get();
+		}
+		return 0;
+	}
+
+	public static int getDiamondCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_DIAMOND.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_DIAMOND.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_DIAMOND.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_DIAMOND.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_DIAMOND.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_DIAMOND.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_DIAMOND.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_DIAMOND.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_DIAMOND.get();
+		}
+		return 0;
+	}
+
+	public static int getEmeraldCostsForBuilder(Item item) {
+		if (item == ModItems.FARMBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_FARM_EMERALD.get();
+		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_EMERALD.get();
+		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_EMERALD.get();
+		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_EMERALD.get();
+		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_EMERALD.get();
+		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_EMERALD.get();
+		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_EMERALD.get();
+		} else if (item == ModItems.BARRACKSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS_EMERALD.get();
+		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_EMERALD.get();
+		}
+		return 0;
 	}
 
 	public static void GivePlayerItemStack(PlayerEntity player, ItemStack itemStack) {
@@ -836,6 +1033,7 @@ public class Utilities {
 				}
 
 			}
+			return true;
 
 		}
 

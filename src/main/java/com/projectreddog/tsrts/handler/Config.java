@@ -53,11 +53,85 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_START_AMT_DIAMOND;
 	public static ForgeConfigSpec.IntValue CONFIG_START_AMT_EMERALD;
 
+	// building costs
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_FARM_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_FARM_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_FARM_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_FARM_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_FARM_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_FARM_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_FARM_EMERALD;
+
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_LUMBER_YARD_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_LUMBER_YARD_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_LUMBER_YARD_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_LUMBER_YARD_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_LUMBER_YARD_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_LUMBER_YARD_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_LUMBER_YARD_EMERALD;
+
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_STONE_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_STONE_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_STONE_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_STONE_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_STONE_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_STONE_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_STONE_EMERALD;
+
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_IRON_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_IRON_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_IRON_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_IRON_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_IRON_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_IRON_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_IRON_EMERALD;
+
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_GOLD_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_GOLD_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_GOLD_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_GOLD_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_GOLD_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_GOLD_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_GOLD_EMERALD;
+
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_EMERALD;
+
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_EMERALD_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_EMERALD_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_EMERALD_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_EMERALD_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_EMERALD_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_EMERALD_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_MINESITE_EMERALD_EMERALD;
+
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_BARRACKS_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_BARRACKS_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_BARRACKS_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_BARRACKS_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_BARRACKS_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_BARRACKS_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_BARRACKS_EMERALD;
+
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_ARCHERY_RANGE_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_ARCHERY_RANGE_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_ARCHERY_RANGE_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_ARCHERY_RANGE_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_ARCHERY_RANGE_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_ARCHERY_RANGE_EMERALD;
+
 	static {
 
 		setupGeneralConfig();
 		setupStartinResourcesConfig();
 		setupUnitCostConfig();
+		setupBuildingCostConfig();
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
 
@@ -72,6 +146,84 @@ public class Config {
 		CONFIG_START_AMT_GOLD = COMMON_BUILDER.comment("Defines the starting amount of gold").defineInRange("StartingGold", 25, 0, 100000);
 		CONFIG_START_AMT_DIAMOND = COMMON_BUILDER.comment("Defines the starting amount of diamond").defineInRange("StartingDiamond", 0, 0, 100000);
 		CONFIG_START_AMT_EMERALD = COMMON_BUILDER.comment("Defines the starting amount of emerald").defineInRange("StartingEmerald", 0, 0, 100000);
+
+		COMMON_BUILDER.pop();
+	}
+
+	private static void setupBuildingCostConfig() {
+		COMMON_BUILDER.comment("Building Costs").push(CATEGORY_UNIT_COST);
+
+		CONFIG_BUILDING_COSTS_FARM_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the farm").defineInRange("farmBulidingCostsFood", 10, 0, 100000);
+		CONFIG_BUILDING_COSTS_FARM_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the farm").defineInRange("farmBulidingCostsWood", 15, 0, 100000);
+		CONFIG_BUILDING_COSTS_FARM_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the farm").defineInRange("farmBulidingCostsStone", 5, 0, 100000);
+		CONFIG_BUILDING_COSTS_FARM_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the farm").defineInRange("farmBulidingCostsIron", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_FARM_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the farm").defineInRange("farmBulidingCostsGold", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_FARM_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the farm").defineInRange("farmBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_FARM_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the farm").defineInRange("farmBulidingCostsEmerald", 0, 0, 100000);
+
+		CONFIG_BUILDING_COSTS_LUMBER_YARD_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the lumber Yard").defineInRange("lumberYardBulidingCostsFood", 10, 0, 100000);
+		CONFIG_BUILDING_COSTS_LUMBER_YARD_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the lumber Yard").defineInRange("lumberYardBulidingCostsWood", 10, 0, 100000);
+		CONFIG_BUILDING_COSTS_LUMBER_YARD_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the lumber Yard").defineInRange("lumberYardBulidingCostsStone", 15, 0, 100000);
+		CONFIG_BUILDING_COSTS_LUMBER_YARD_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the lumber Yard").defineInRange("lumberYardBulidingCostsIron", 5, 0, 100000);
+		CONFIG_BUILDING_COSTS_LUMBER_YARD_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the lumber Yard").defineInRange("lumberYardBulidingCostsGold", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_LUMBER_YARD_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the lumber Yard").defineInRange("lumberYardBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_LUMBER_YARD_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the lumber Yard").defineInRange("lumberYardBulidingCostsEmerald", 0, 0, 100000);
+
+		CONFIG_BUILDING_COSTS_MINESITE_STONE_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the minesite Stone").defineInRange("minesiteStoneBulidingCostsFood", 22, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_STONE_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the minesite Stone").defineInRange("minesiteStoneBulidingCostsWood", 30, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_STONE_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the minesite Stone").defineInRange("minesiteStoneBulidingCostsStone", 15, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_STONE_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the minesite Stone").defineInRange("minesiteStoneBulidingCostsIron", 15, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_STONE_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the minesite Stone").defineInRange("minesiteStoneBulidingCostsGold", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_STONE_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the minesite Stone").defineInRange("minesiteStoneBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_STONE_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the minesite Stone").defineInRange("minesiteStoneBulidingCostsEmerald", 0, 0, 100000);
+
+		CONFIG_BUILDING_COSTS_MINESITE_IRON_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the minesite Iron").defineInRange("minesiteIronBulidingCostsFood", 30, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_IRON_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the minesite Iron").defineInRange("minesiteIronBulidingCostsWood", 45, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_IRON_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the minesite Iron").defineInRange("minesiteIronBulidingCostsStone", 9, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_IRON_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the minesite Iron").defineInRange("minesiteIronBulidingCostsIron", 8, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_IRON_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the minesite Iron").defineInRange("minesiteIronBulidingCostsGold", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_IRON_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the minesite Iron").defineInRange("minesiteIronBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_IRON_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the minesite Iron").defineInRange("minesiteIronBulidingCostsEmerald", 0, 0, 100000);
+
+		CONFIG_BUILDING_COSTS_MINESITE_GOLD_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the minesite Gold").defineInRange("minesiteGoldBulidingCostsFood", 36, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_GOLD_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the minesite Gold").defineInRange("minesiteGoldBulidingCostsWood", 38, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_GOLD_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the minesite Gold").defineInRange("minesiteGoldBulidingCostsStone", 9, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_GOLD_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the minesite Gold").defineInRange("minesiteGoldBulidingCostsIron", 20, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_GOLD_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the minesite Gold").defineInRange("minesiteGoldBulidingCostsGold", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_GOLD_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the minesite Gold").defineInRange("minesiteGoldBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_GOLD_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the minesite Gold").defineInRange("minesiteGoldBulidingCostsEmerald", 0, 0, 100000);
+
+		CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the minesite Diamond").defineInRange("minesiteDiamondBulidingCostsFood", 42, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the minesite Diamond").defineInRange("minesiteDiamondBulidingCostsWood", 45, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the minesite Diamond").defineInRange("minesiteDiamondBulidingCostsStone", 14, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the minesite Diamond").defineInRange("minesiteDiamondBulidingCostsIron", 23, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the minesite Diamond").defineInRange("minesiteDiamondBulidingCostsGold", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the minesite Diamond").defineInRange("minesiteDiamondBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the minesite Diamond").defineInRange("minesiteDiamondBulidingCostsEmerald", 0, 0, 100000);
+
+		CONFIG_BUILDING_COSTS_MINESITE_EMERALD_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the minesite Emerald").defineInRange("minesiteEmeraldBulidingCostsFood", 600, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_EMERALD_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the minesite Emerald").defineInRange("minesiteEmeraldBulidingCostsWood", 5, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_EMERALD_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the minesite Emerald").defineInRange("minesiteEmeraldBulidingCostsStone", 2, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_EMERALD_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the minesite Emerald").defineInRange("minesiteEmeraldBulidingCostsIron", 3, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_EMERALD_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the minesite Emerald").defineInRange("minesiteEmeraldBulidingCostsGold", 2, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_EMERALD_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the minesite Emerald").defineInRange("minesiteEmeraldBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_MINESITE_EMERALD_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the minesite Emerald").defineInRange("minesiteEmeraldBulidingCostsEmerald", 0, 0, 100000);
+
+		CONFIG_BUILDING_COSTS_BARRACKS_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the barracks").defineInRange("barracksBulidingCostsFood", 44, 0, 100000);
+		CONFIG_BUILDING_COSTS_BARRACKS_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the barracks").defineInRange("barracksBulidingCostsWood", 70, 0, 100000);
+		CONFIG_BUILDING_COSTS_BARRACKS_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the barracks").defineInRange("barracksBulidingCostsStone", 38, 0, 100000);
+		CONFIG_BUILDING_COSTS_BARRACKS_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the barracks").defineInRange("barracksBulidingCostsIron", 29, 0, 100000);
+		CONFIG_BUILDING_COSTS_BARRACKS_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the barracks").defineInRange("barracksBulidingCostsGold", 11, 0, 100000);
+		CONFIG_BUILDING_COSTS_BARRACKS_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the barracks").defineInRange("barracksBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_BARRACKS_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the barracks").defineInRange("barracksBulidingCostsEmerald", 0, 0, 100000);
+
+		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the Archery Range").defineInRange("ArcheryRangeBulidingCostsFood", 44, 0, 100000);
+		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the Archery Range").defineInRange("ArcheryRangeBulidingCostsWood", 100, 0, 100000);
+		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the Archery Range").defineInRange("ArcheryRangeBulidingCostsStone", 46, 0, 100000);
+		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the Archery Range").defineInRange("ArcheryRangeBulidingCostsIron", 36, 0, 100000);
+		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the Archery Range").defineInRange("ArcheryRangeBulidingCostsGold", 17, 0, 100000);
+		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the Archery Range").defineInRange("ArcheryRangeBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the Archery Range").defineInRange("ArcheryRangeBulidingCostsEmerald", 0, 0, 100000);
 
 		COMMON_BUILDER.pop();
 	}
