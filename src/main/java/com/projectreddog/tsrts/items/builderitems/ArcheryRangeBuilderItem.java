@@ -4,31 +4,32 @@ import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3i;
 
-public class MinesiteGoldBuilderItem extends BuilderItem {
-	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "gold_red_100");
+public class ArcheryRangeBuilderItem extends BuilderItem {
+
+	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "archery_red_100");
 	protected ResourceLocation templateNameRed50 = null;
-	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "stone_red_0");
+	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "archery_red_0");
 
-	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "gold_yellow_100");
+	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "archery_yellow_100");
 	protected ResourceLocation templateNameYellow50 = null;
-	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "stone_yellow_0");
+	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "archery_yellow_0");
 
-	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "gold_green_100");
+	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "archery_green_100");
 	protected ResourceLocation templateNameGreen50 = null;
-	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "stone_green_0");
+	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "archery_green_0");
 
-	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "gold_blue_100");
+	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "archery_blue_100");
 	protected ResourceLocation templateNameBlue50 = null;
-	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "stone_blue_0");
+	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "archery_blue_0");
 
-	public MinesiteGoldBuilderItem() {
+	public ArcheryRangeBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
-		setRegistryName(Reference.REIGSTRY_NAME_MINE_SITE_GOLD_BUILDER_ITEM);
+		setRegistryName(Reference.REIGSTRY_NAME_ARCHERY_RANGE_BUILDER_ITEM);
+
 	}
 
 	public ResourceLocation getTemplateName100(String team) {
@@ -70,14 +71,15 @@ public class MinesiteGoldBuilderItem extends BuilderItem {
 		}
 	}
 
-	@Override
-	public boolean CanPlaceOn(Block block) {
-		return block == Blocks.GOLD_ORE;
+	public Vec3i getSize() {
+//TODO UDPATE THIS WITH REAL SIZE OF ARCHERY RANGE!
+		return new Vec3i(13, 10, 13);
 	}
 
 	@Override
-	public Vec3i getSize() {
-		return new Vec3i(9, 6, 9);
+	public boolean CanPlaceOn(Block block) {
+
+		return true;
 	}
 
 }

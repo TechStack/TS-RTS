@@ -4,6 +4,8 @@ import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
+import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.TeamProperty;
 
 import net.minecraft.nbt.CompoundNBT;
@@ -19,8 +21,6 @@ public class OwnedTileEntity extends TileEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	protected int[] targetEntityIds;
-
 	private String onwersName;
 	private StructureData structureData;
 
@@ -30,6 +30,7 @@ public class OwnedTileEntity extends TileEntity {
 
 	public void setStructureData(StructureData structureData) {
 		this.structureData = structureData;
+		this.markDirty();
 	}
 
 	private BlockPos rallyPoint;
@@ -40,6 +41,7 @@ public class OwnedTileEntity extends TileEntity {
 
 	public void setRallyPoint(BlockPos rallyPoint) {
 		this.rallyPoint = rallyPoint;
+		this.markDirty();
 	}
 
 	public String getOwner() {
@@ -79,6 +81,17 @@ public class OwnedTileEntity extends TileEntity {
 			nbt.putInt("rallypointz", rallyPoint.getZ());
 		}
 		nbt.putBoolean("hasRallyPoint", hasRallyPoint);
+		int resourceOrdnial = -1;
+		if (this instanceof ResourceGenerator) {
+			ResourceGenerator re = (ResourceGenerator) this;
+			resourceOrdnial = re.getResource().ordinal();
+		}
+		compound.putInt("resourceordnial", resourceOrdnial);
+
+		if (structureData != null) {
+			structureData.writeToNbt(compound);
+		}
+
 		return nbt;
 	}
 
@@ -98,14 +111,14 @@ public class OwnedTileEntity extends TileEntity {
 			int z = compound.getInt("rallypointz");
 			rallyPoint = new BlockPos(x, y, z);
 		}
-	}
-
-	public int[] getTargetEntityIds() {
-		return targetEntityIds;
-	}
-
-	public void setTargetEntityIds(int[] targetEntityIds) {
-		this.targetEntityIds = targetEntityIds;
+		if (this instanceof ResourceGenerator) {
+			ResourceGenerator re = (ResourceGenerator) this;
+			int resourceOrdnial = compound.getInt("resourceordnial");
+			if (resourceOrdnial >= 0) {
+				re.setResource(TeamInfo.Resources.values()[resourceOrdnial]);
+			}
+		}
+		structureData = new StructureData(compound);
 	}
 
 }
