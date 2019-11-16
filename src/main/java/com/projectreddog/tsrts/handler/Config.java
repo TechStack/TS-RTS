@@ -17,6 +17,12 @@ public class Config {
 
 	public static final String CATEGORY_UNIT_COST = "unit_cost";
 
+	public static final String CATEGORY_BUILDING_COST = "building_cost";
+
+	public static final String CATEGORY_STARTUP_RESOURCES = "startup_resources";
+
+	public static final String CATEGORY_RESOURCE_GENERATION = "resource_generation";
+
 	private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
 	private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
 
@@ -126,19 +132,29 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_ARCHERY_RANGE_DIAMOND;
 	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_ARCHERY_RANGE_EMERALD;
 
+	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_EMERALD;
+
 	static {
 
 		setupGeneralConfig();
 		setupStartinResourcesConfig();
+		setupResourceGeneration();
 		setupUnitCostConfig();
 		setupBuildingCostConfig();
+
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
 
 	}
 
 	private static void setupStartinResourcesConfig() {
-		COMMON_BUILDER.comment("Starting resources").push(CATEGORY_UNIT_COST);
+		COMMON_BUILDER.comment("Starting resources").push(CATEGORY_STARTUP_RESOURCES);
 		CONFIG_START_AMT_FOOD = COMMON_BUILDER.comment("Defines the starting amount of food").defineInRange("StartingFood", 100, 0, 100000);
 		CONFIG_START_AMT_WOOD = COMMON_BUILDER.comment("Defines the starting amount of wood").defineInRange("StartingWood", 100, 0, 100000);
 		CONFIG_START_AMT_STONE = COMMON_BUILDER.comment("Defines the starting amount of stone").defineInRange("StartingStone", 75, 0, 100000);
@@ -150,8 +166,23 @@ public class Config {
 		COMMON_BUILDER.pop();
 	}
 
+	private static void setupResourceGeneration() {
+		COMMON_BUILDER.comment("resource generation").push(CATEGORY_RESOURCE_GENERATION);
+
+		CONFIG_TOWN_HALL_GENERATE_FOOD = COMMON_BUILDER.comment("Defines the amount of food the town hall generate per unit of time").defineInRange("townHallGeneratesFood", 5, 0, 100000);
+		CONFIG_TOWN_HALL_GENERATE_WOOD = COMMON_BUILDER.comment("Defines the amount of wood the town hall generate per unit of time").defineInRange("townHallGeneratesWood", 5, 0, 100000);
+		CONFIG_TOWN_HALL_GENERATE_STONE = COMMON_BUILDER.comment("Defines the amount of stone the town hall generate per unit of time").defineInRange("townHallGeneratesStone", 5, 0, 100000);
+		CONFIG_TOWN_HALL_GENERATE_IRON = COMMON_BUILDER.comment("Defines the amount of iron the town hall generate per unit of time").defineInRange("townHallGeneratesIron", 5, 0, 100000);
+		CONFIG_TOWN_HALL_GENERATE_GOLD = COMMON_BUILDER.comment("Defines the amount of gold the town hall generate per unit of time").defineInRange("townHallGeneratesGold", 1, 0, 100000);
+		CONFIG_TOWN_HALL_GENERATE_DIAMOND = COMMON_BUILDER.comment("Defines the amount of diamond the town hall generate per unit of time").defineInRange("townHallGeneratesDiamond", 1, 0, 100000);
+		CONFIG_TOWN_HALL_GENERATE_EMERALD = COMMON_BUILDER.comment("Defines the amount of emerald the town hall generate per unit of time").defineInRange("townHallGeneratesEmerald", 0, 0, 100000);
+
+		COMMON_BUILDER.pop();
+
+	}
+
 	private static void setupBuildingCostConfig() {
-		COMMON_BUILDER.comment("Building Costs").push(CATEGORY_UNIT_COST);
+		COMMON_BUILDER.comment("Building Costs").push(CATEGORY_BUILDING_COST);
 
 		CONFIG_BUILDING_COSTS_FARM_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the farm").defineInRange("farmBulidingCostsFood", 10, 0, 100000);
 		CONFIG_BUILDING_COSTS_FARM_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the farm").defineInRange("farmBulidingCostsWood", 15, 0, 100000);

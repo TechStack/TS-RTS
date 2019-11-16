@@ -1,10 +1,12 @@
 package com.projectreddog.tsrts.tileentity;
 
 import com.projectreddog.tsrts.containers.TownHallContainer;
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,6 +30,14 @@ public class TownHallTileEntity extends OwnedCooldownTileEntity implements IName
 
 		if (getOwner() != null) {
 			// ModEntities.MINION.spawn(world, null, null, this.pos, SpawnReason.TRIGGERED, true, true);
+
+			Utilities.AddResourcesToTeam(this.getTeam().getName(), TeamInfo.Resources.FOOD, Config.CONFIG_TOWN_HALL_GENERATE_FOOD.get());
+			Utilities.AddResourcesToTeam(this.getTeam().getName(), TeamInfo.Resources.WOOD, Config.CONFIG_TOWN_HALL_GENERATE_WOOD.get());
+			Utilities.AddResourcesToTeam(this.getTeam().getName(), TeamInfo.Resources.STONE, Config.CONFIG_TOWN_HALL_GENERATE_STONE.get());
+			Utilities.AddResourcesToTeam(this.getTeam().getName(), TeamInfo.Resources.IRON, Config.CONFIG_TOWN_HALL_GENERATE_IRON.get());
+			Utilities.AddResourcesToTeam(this.getTeam().getName(), TeamInfo.Resources.GOLD, Config.CONFIG_TOWN_HALL_GENERATE_GOLD.get());
+			Utilities.AddResourcesToTeam(this.getTeam().getName(), TeamInfo.Resources.DIAMOND, Config.CONFIG_TOWN_HALL_GENERATE_DIAMOND.get());
+			Utilities.AddResourcesToTeam(this.getTeam().getName(), TeamInfo.Resources.EMERALD, Config.CONFIG_TOWN_HALL_GENERATE_EMERALD.get());
 
 		}
 	}
