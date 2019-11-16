@@ -1,6 +1,5 @@
 package com.projectreddog.tsrts.tileentity;
 
-import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -78,7 +77,6 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 				this.markDirty();
 				if (rubbleTimerRemaining <= 0) {
 					if (getStructureData() != null) {
-						TSRTS.LOGGER.info("clear ALL");
 
 						Utilities.clearAreaTELast(world, getStructureData().getSpawnPoint(), getStructureData().getDirection(), getStructureData().getSize());
 					}
