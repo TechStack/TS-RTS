@@ -1,4 +1,4 @@
-package com.projectreddog.tsrts.hanlder;
+package com.projectreddog.tsrts.handler;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -6,7 +6,11 @@ import java.util.Map;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
+import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
+import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -15,12 +19,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.event.world.WorldEvent.Load;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -37,14 +44,65 @@ public class EventHandler {
 				Utilities.SendTeamToClient("green");
 				Utilities.SendTeamToClient("yellow");
 			}
+// TODO FIX this CUT OUT 
+//			if (!pe.world.isRemote) {
+//				if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.LOBBY) {
+//					NetworkHooks.openGui((ServerPlayerEntity) pe, (INamedContainerProvider) new LobbyContinerProvider());
+//
+//				}
+//			}
 
-			if (!pe.world.isRemote) {
-				if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.LOBBY) {
-					NetworkHooks.openGui((ServerPlayerEntity) pe, (INamedContainerProvider) new LobbyContinerProvider());
+		} else if (event.getEntity() instanceof UnitEntity) {
+			if (event.getWorld() != null) {
+				if (event.getWorld().isRemote) {
+					// client
+
+					ModNetwork.SendToServer(new RequestOwnerInfoToServer(event.getEntity().getEntityId()));
 
 				}
 			}
+		}
+	}
 
+	@SubscribeEvent
+
+	public static void onPlayerLoggedInEvent(PlayerLoggedInEvent event) {
+		PlayerEntity pe = event.getPlayer();
+		if (!pe.world.isRemote) {
+			if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.LOBBY) {
+				NetworkHooks.openGui((ServerPlayerEntity) pe, (INamedContainerProvider) new LobbyContinerProvider());
+
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onLivingDamageEvent(LivingDamageEvent event) {
+		if (!event.getEntity().world.isRemote) {
+			// server only!
+			if (event.getEntity() instanceof TargetEntity) {
+				// its a target entity
+				// check its ownedTEpos for a TE and update its health stat accordingly.
+				TargetEntity targetEntity = (TargetEntity) event.getEntity();
+				if (targetEntity.getOwningTePos() != null) {
+					TileEntity te = targetEntity.world.getTileEntity(targetEntity.getOwningTePos());
+					if (te != null && te instanceof OwnedCooldownTileEntity) {
+						OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) te;
+						float damageAmount = 0;
+						if (event.getAmount() <= event.getEntityLiving().getHealth()) {
+							damageAmount = event.getAmount();
+						} else {
+							damageAmount = event.getEntityLiving().getHealth();
+						}
+
+						octe.setHealth(octe.getHealth() - damageAmount);
+						TSRTS.LOGGER.info("DAMAGE :" + damageAmount);
+
+						TSRTS.LOGGER.info("remaining health : " + octe.getHealth());
+
+					}
+				}
+			}
 		}
 	}
 
@@ -69,28 +127,31 @@ public class EventHandler {
 	@SubscribeEvent
 	public static void onLoad(Load event) {
 		TSRTS.playerSelections.clear();
-
+		Utilities.CheckTeamsAndCreatedIfNeeded((World) event.getWorld());
 		if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
 			TSRTS.CURRENT_GAME_STATE = GAMESTATE.LOBBY;
 		}
 
 		World world = (World) event.getWorld();
 		TSRTS.teamInfoMap.clear();
-		if (world.getScoreboard().getTeam("blue") != null) {
-			TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("blue").getName(), new TeamInfo());
-			Utilities.SendTeamToClient("blue");
-		}
-		if (world.getScoreboard().getTeam("red") != null) {
-			TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("red").getName(), new TeamInfo());
-			Utilities.SendTeamToClient("red");
-		}
-		if (world.getScoreboard().getTeam("yellow") != null) {
-			TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("yellow").getName(), new TeamInfo());
-			Utilities.SendTeamToClient("yellow");
-		}
-		if (world.getScoreboard().getTeam("green") != null) {
-			TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("green").getName(), new TeamInfo());
-			Utilities.SendTeamToClient("green");
+		if (!world.isRemote) {
+
+			if (world.getScoreboard().getTeam("blue") != null) {
+				TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("blue").getName(), new TeamInfo());
+				Utilities.SendTeamToClient("blue");
+			}
+			if (world.getScoreboard().getTeam("red") != null) {
+				TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("red").getName(), new TeamInfo());
+				Utilities.SendTeamToClient("red");
+			}
+			if (world.getScoreboard().getTeam("yellow") != null) {
+				TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("yellow").getName(), new TeamInfo());
+				Utilities.SendTeamToClient("yellow");
+			}
+			if (world.getScoreboard().getTeam("green") != null) {
+				TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("green").getName(), new TeamInfo());
+				Utilities.SendTeamToClient("green");
+			}
 		}
 
 	}

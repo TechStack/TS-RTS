@@ -10,7 +10,7 @@ import com.projectreddog.tsrts.client.renderer.overlay.RenderOverlay;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
-import com.projectreddog.tsrts.hanlder.ClientEvents;
+import com.projectreddog.tsrts.handler.ClientEvents;
 import com.projectreddog.tsrts.init.ModContainers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;

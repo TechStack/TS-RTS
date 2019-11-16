@@ -47,7 +47,14 @@ public class Reference {
 	// TOWN HALLba GUI BUTTONS
 	public static final int GUI_BUTTON_BUY_BARRACKS = 1;
 	public static final int GUI_BUTTON_BUY_ARCHERY_RANGE = 2;
-	public static final int GUI_BUTTON_BUY_MINE_SITE = 3;
+
+	public static final int GUI_BUTTON_BUY_LUMBER_YARD = 3;
+	public static final int GUI_BUTTON_BUY_MINE_SITE_STONE = 4;
+	public static final int GUI_BUTTON_BUY_MINE_SITE_IRON = 5;
+	public static final int GUI_BUTTON_BUY_MINE_SITE_GOLD = 6;
+	public static final int GUI_BUTTON_BUY_MINE_SITE_DIAMOND = 7;
+	public static final int GUI_BUTTON_BUY_MINE_SITE_EMERALD = 8;
+	public static final int GUI_BUTTON_BUY_FARM = 9;
 
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
 	public static final int GUI_BUTTON_LOBBY_BLUE = 5;
