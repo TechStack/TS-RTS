@@ -641,10 +641,9 @@ public class Utilities {
 	}
 
 	public static boolean SpendResourcesFromTeam(String teamName, TeamInfo.Resources res, int amt) {
-		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
-		ti.SpendResource(res, amt);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
 
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SpendResource(res, amt);
+		TSRTS.LOGGER.info("TEAM: " + teamName + " spent (RES ORD): " + res.ordinal() + " for amount: " + amt);
 		SendTeamToClient(teamName);
 		return true;
 
