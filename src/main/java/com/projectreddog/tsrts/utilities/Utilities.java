@@ -57,32 +57,32 @@ import net.minecraft.world.server.ServerWorld;
 
 public class Utilities {
 
-	public static void setPlayerReady(World world, PlayerEntity player, Boolean isReady) {
-		if (!world.isRemote) {
-			// server
+	public static void setPlayerReady(PlayerEntity player, boolean isReady) {
+		TSRTS.LOGGER.info("setPlayerReady: " + isReady);
 
-			TSRTS.isPlayerReadyArray[TeamEnum.getIDFromName(player.getScoreboardName())] = isReady;
+		TSRTS.isPlayerReadyArray.put(player.getScoreboardName(), isReady);
+
+		if (!player.world.isRemote) {
+			// server so also send packet
 
 			ModNetwork.SendToALLPlayers(new PlayerReadyUpPacketToClient(player.getEntityId(), isReady));
 
-		} else {
-			// client
-
-			TSRTS.isPlayerReadyArray[TeamEnum.getIDFromName(player.getScoreboardName())] = isReady;
-			// do not send packet here to avoid looping between client and server
 		}
 	}
 
 	public static boolean getPlayerReady(PlayerEntity player) {
 
-		return TSRTS.isPlayerReadyArray[TeamEnum.getIDFromName(player.getScoreboardName())];
-
+		return getPlayerReady(player.getScoreboardName());
 	}
 
 	public static boolean getPlayerReady(String playerScoreboardName) {
+		if (TSRTS.isPlayerReadyArray.containsKey(playerScoreboardName)) {
+			return TSRTS.isPlayerReadyArray.get(playerScoreboardName);
+		}
+		TSRTS.LOGGER.info(" player " + playerScoreboardName + " not in hashmap ASSUME THEY ARE FALSE & put them in the map");
+		TSRTS.isPlayerReadyArray.put(playerScoreboardName, false);
 
-		return TSRTS.isPlayerReadyArray[TeamEnum.getIDFromName(playerScoreboardName)];
-
+		return false;
 	}
 
 	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
@@ -109,7 +109,9 @@ public class Utilities {
 			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
 			break;
 		case Reference.GUI_BUTTON_LOBBY_READY:
-			Utilities.setPlayerReady(player.world, player, !Utilities.getPlayerReady(player));
+			Utilities.setPlayerReady(player, !Utilities.getPlayerReady(player));
+			TSRTS.LOGGER.info("Lobby Button: READY:" + Utilities.getPlayerReady(player));
+
 			break;
 		case Reference.GUI_BUTTON_LOBBY_START:
 			Utilities.startGame(player.world);
