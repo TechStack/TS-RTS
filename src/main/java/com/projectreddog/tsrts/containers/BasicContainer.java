@@ -9,14 +9,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BarracksContainer extends Container {
+public class BasicContainer extends Container {
 
 	private TileEntity tileEntity;
 	private PlayerInventory playerInventory;
 	public BlockPos pos;
 
-	public BarracksContainer(int id, World world, BlockPos pos, PlayerInventory playerInventory) {
-		super(ModContainers.BARRACKS_CONTAINER, id);
+	public BasicContainer(int id, World world, BlockPos pos, PlayerInventory playerInventory) {
+		super(ModContainers.BASIC_CONTAINER, id);
 		this.tileEntity = world.getTileEntity(pos);
 		this.playerInventory = playerInventory;
 		this.pos = pos;

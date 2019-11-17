@@ -1,13 +1,21 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.containers.BasicContainer;
 import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.utilities.Utilities;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.text.ITextComponent;
 
-public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickableTileEntity {
+public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickableTileEntity, INamedContainerProvider, ITEGuiButtonHandler {
 
 	public int coolDownReset = 10 * 20;
 	public int coolDownRemainig = coolDownReset;
@@ -18,6 +26,8 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	private int justLoadedRemaining = 20;
 	private int rubbleTimerRemaining = 20 * 30;
 	protected float health;
+
+	protected boolean enabled = true;
 
 	public enum Stage {
 		FULL_HEALTH, HALF_DESTROYED, RUBBLE
@@ -33,7 +43,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	// TSRTS.LOGGER.info(world.getScoreboard().getPlayersTeam(getOwner()).getName());
 	@Override
 	public void tick() {
-		if (!world.isRemote) {
+		if (!world.isRemote && enabled) {
 			if (justLoaded) {
 				// just loaded in so give the entities time to load before checking health and all that.
 				justLoadedRemaining--;
@@ -110,6 +120,11 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 
 	}
 
+	@Override
+	public Container createMenu(int p_createMenu_1_, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+		return new BasicContainer(p_createMenu_1_, this.world, this.getPos(), playerInventory);
+	}
+
 	public void ActionAfterCooldown() {
 
 	}
@@ -124,6 +139,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		nbt.putInt("currentStage", currentStage.ordinal());
 		nbt.putInt("priorStage", priorStage.ordinal());
 		nbt.putInt("rubbleTimerRemaining", rubbleTimerRemaining);
+		nbt.putBoolean("enabled", enabled);
 
 		return nbt;
 	}
@@ -139,8 +155,32 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		currentStage = Stage.values()[compound.getInt("currentStage")];
 
 		priorStage = Stage.values()[compound.getInt("priorStage")];
+		if (compound.contains("enabled")) {
+			enabled = compound.getBoolean("enabled");
+		}
 		// TODO: add back the rubble timer after these are all scanned
 		// rubbleTimerRemaining = compound.getInt("rubbleTimerRemaining");
+	}
+
+	@Override
+	public void HandleGuiButton(int buttonId, PlayerEntity player) {
+		switch (buttonId) {
+		case Reference.GUI_BUTTON_ENABLE_TE:
+			enabled = true;
+			break;
+		case Reference.GUI_BUTTON_DISABLE_TE:
+			enabled = false;
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public ITextComponent getDisplayName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
