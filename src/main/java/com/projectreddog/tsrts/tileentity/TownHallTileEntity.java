@@ -56,7 +56,7 @@ public class TownHallTileEntity extends OwnedCooldownTileEntity implements IName
 	@Override
 	public void HandleGuiButton(int buttonId, PlayerEntity player) {
 		// TSRTS.LOGGER.info("button ID:" + buttonId);
-
+		super.HandleGuiButton(buttonId, player);
 		if (buttonId == Reference.GUI_BUTTON_BUY_BARRACKS) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.BARRACKSBUILDERITEM));
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHERY_RANGE) {
