@@ -18,6 +18,7 @@ import com.projectreddog.tsrts.proxy.IProxy;
 import com.projectreddog.tsrts.proxy.ServerProxy;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 
 import net.minecraft.block.Block;
@@ -50,8 +51,8 @@ public class TSRTS {
 	public static int[] playerSelectionsControlGroup8 = null;
 	public static int[] playerSelectionsControlGroup9 = null;
 
-	public static HashMap<String, TeamInfo> teamInfoMap = new HashMap<String, TeamInfo>();
-	public static HashMap<String, Boolean> isPlayerReadyMap = new HashMap<>();
+	public static TeamInfo[] teamInfoArray = new TeamInfo[TeamEnum.values().length];
+	public static boolean[] isPlayerReadyArray = new boolean[TeamEnum.values().length];
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
 	// Directly reference a log4j logger.

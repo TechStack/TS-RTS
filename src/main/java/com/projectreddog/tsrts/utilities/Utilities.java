@@ -60,31 +60,29 @@ public class Utilities {
 	public static void setPlayerReady(World world, PlayerEntity player, Boolean isReady) {
 		if (!world.isRemote) {
 			// server
-			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
+
+			TSRTS.isPlayerReadyArray[TeamEnum.getIDFromName(player.getScoreboardName())] = isReady;
 
 			ModNetwork.SendToALLPlayers(new PlayerReadyUpPacketToClient(player.getEntityId(), isReady));
 
 		} else {
 			// client
-			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
+
+			TSRTS.isPlayerReadyArray[TeamEnum.getIDFromName(player.getScoreboardName())] = isReady;
 			// do not send packet here to avoid looping between client and server
 		}
 	}
 
 	public static boolean getPlayerReady(PlayerEntity player) {
 
-		if (TSRTS.isPlayerReadyMap.containsKey(player.getScoreboardName())) {
-			return TSRTS.isPlayerReadyMap.get(player.getScoreboardName());
-		}
-		return false;
+		return TSRTS.isPlayerReadyArray[TeamEnum.getIDFromName(player.getScoreboardName())];
+
 	}
 
 	public static boolean getPlayerReady(String playerScoreboardName) {
 
-		if (TSRTS.isPlayerReadyMap.containsKey(playerScoreboardName)) {
-			return TSRTS.isPlayerReadyMap.get(playerScoreboardName);
-		}
-		return false;
+		return TSRTS.isPlayerReadyArray[TeamEnum.getIDFromName(playerScoreboardName)];
+
 	}
 
 	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
@@ -627,73 +625,44 @@ public class Utilities {
 	}
 
 	public static void SendTeamToClient(String teamName) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoMap.get(teamName), teamName));
-		}
+		ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)], teamName));
 
 	}
 
 	public static boolean hasNeededResource(String teamName, TeamInfo.Resources res, int amt) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			if (ti.HasEnoughResource(res, amt)) {
-				return true;
-			}
+		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
+		if (ti.HasEnoughResource(res, amt)) {
+			return true;
 		}
 		return false;
+
 	}
 
 	public static boolean SpendResourcesFromTeam(String teamName, TeamInfo.Resources res, int amt) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			ti.SpendResource(res, amt);
-			TSRTS.teamInfoMap.put(teamName, ti);
+		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
+		ti.SpendResource(res, amt);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
 
-			SendTeamToClient(teamName);
-			return true;
+		SendTeamToClient(teamName);
+		return true;
 
-		} else {
-			try {
-				throw new IllegalStateException(" Team not found :" + teamName);
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
-		}
-		return false;
 	}
 
 	public static void setResourcesOfTeam(String teamName, int[] amts) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			ti.SetResourceArray(amts);
-			TSRTS.teamInfoMap.put(teamName, ti);
+		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
+		ti.SetResourceArray(amts);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
+		SendTeamToClient(teamName);
 
-			SendTeamToClient(teamName);
-
-		} else {
-			try {
-				throw new IllegalStateException(" Team not found :" + teamName);
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
-		}
 	}
 
 	public static void AddResourcesToTeam(String teamName, TeamInfo.Resources res, int amt) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			ti.AddResource(res, amt);
-			TSRTS.teamInfoMap.put(teamName, ti);
+		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
+		ti.AddResource(res, amt);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
 
-			SendTeamToClient(teamName);
+		SendTeamToClient(teamName);
 
-		} else {
-			try {
-				throw new IllegalStateException(" Team not found :" + teamName);
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
-		}
 	}
 
 	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player) {

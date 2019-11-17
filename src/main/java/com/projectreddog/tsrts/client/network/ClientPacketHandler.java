@@ -5,6 +5,7 @@ import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -37,7 +38,7 @@ public class ClientPacketHandler {
 		// should be on CLIENT !
 		TeamInfo ti = new TeamInfo();
 		ti.SetResourceArray(resourceAmt);
-		TSRTS.teamInfoMap.put(teamName, ti);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
 
 	}
 

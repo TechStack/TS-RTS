@@ -18,4 +18,19 @@ public enum TeamEnum implements IStringSerializable {
 		return this.name;
 	}
 
+	public static int getIDFromName(String name) {
+		switch (name) {
+		case "blue":
+			return 0;
+		case "red":
+			return 1;
+		case "yellow":
+			return 2;
+		case "green":
+			return 3;
+		}
+		return 0;
+
+	}
+
 }
