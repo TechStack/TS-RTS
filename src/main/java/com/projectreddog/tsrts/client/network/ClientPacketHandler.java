@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamEnum;
+import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.client.Minecraft;
@@ -35,6 +36,9 @@ public class ClientPacketHandler {
 	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName) {
 		TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource array:" + resourceAmt);
 		// should be on CLIENT !
+		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = new TeamInfo();
+		}
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SetResourceArray(resourceAmt);
 
 	}
