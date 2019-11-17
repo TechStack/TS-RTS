@@ -12,6 +12,7 @@ import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -134,25 +135,18 @@ public class EventHandler {
 		}
 
 		World world = (World) event.getWorld();
-		TSRTS.teamInfoMap.clear();
+
 		if (!world.isRemote) {
 
-			if (world.getScoreboard().getTeam("blue") != null) {
-				TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("blue").getName(), new TeamInfo());
-				Utilities.SendTeamToClient("blue");
+			for (int i = 0; i < TSRTS.teamInfoArray.length; i++) {
+
+				if (world.getScoreboard().getTeam(TeamEnum.values()[i].getName()) != null) {
+					TSRTS.teamInfoArray[i] = new TeamInfo();
+
+					Utilities.SendTeamToClient(TeamEnum.values()[i].getName());
+				}
 			}
-			if (world.getScoreboard().getTeam("red") != null) {
-				TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("red").getName(), new TeamInfo());
-				Utilities.SendTeamToClient("red");
-			}
-			if (world.getScoreboard().getTeam("yellow") != null) {
-				TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("yellow").getName(), new TeamInfo());
-				Utilities.SendTeamToClient("yellow");
-			}
-			if (world.getScoreboard().getTeam("green") != null) {
-				TSRTS.teamInfoMap.put(world.getScoreboard().getTeam("green").getName(), new TeamInfo());
-				Utilities.SendTeamToClient("green");
-			}
+
 		}
 
 	}
