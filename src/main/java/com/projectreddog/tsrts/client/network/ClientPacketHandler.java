@@ -5,6 +5,7 @@ import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -37,7 +38,7 @@ public class ClientPacketHandler {
 		// should be on CLIENT !
 		TeamInfo ti = new TeamInfo();
 		ti.SetResourceArray(resourceAmt);
-		TSRTS.teamInfoMap.put(teamName, ti);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
 
 	}
 
@@ -69,10 +70,12 @@ public class ClientPacketHandler {
 	public static void PlayerReadyUpPacketToClient(int playerEntityID, Boolean isReady) {
 		World world = Minecraft.getInstance().player.world;
 		Entity e = world.getEntityByID(playerEntityID);
+		TSRTS.LOGGER.info("READY UP PACKET CLIENT: " + isReady);
+
 		if (e instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) e;
 
-			Utilities.setPlayerReady(world, player, isReady);
+			Utilities.setPlayerReady(player, isReady);
 		}
 	}
 

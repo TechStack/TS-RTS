@@ -57,33 +57,31 @@ import net.minecraft.world.server.ServerWorld;
 
 public class Utilities {
 
-	public static void setPlayerReady(World world, PlayerEntity player, Boolean isReady) {
-		if (!world.isRemote) {
-			// server
-			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
+	public static void setPlayerReady(PlayerEntity player, boolean isReady) {
+		TSRTS.LOGGER.info("setPlayerReady: " + isReady);
+
+		TSRTS.isPlayerReadyArray.put(player.getScoreboardName(), isReady);
+
+		if (!player.world.isRemote) {
+			// server so also send packet
 
 			ModNetwork.SendToALLPlayers(new PlayerReadyUpPacketToClient(player.getEntityId(), isReady));
 
-		} else {
-			// client
-			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
-			// do not send packet here to avoid looping between client and server
 		}
 	}
 
 	public static boolean getPlayerReady(PlayerEntity player) {
 
-		if (TSRTS.isPlayerReadyMap.containsKey(player.getScoreboardName())) {
-			return TSRTS.isPlayerReadyMap.get(player.getScoreboardName());
-		}
-		return false;
+		return getPlayerReady(player.getScoreboardName());
 	}
 
 	public static boolean getPlayerReady(String playerScoreboardName) {
-
-		if (TSRTS.isPlayerReadyMap.containsKey(playerScoreboardName)) {
-			return TSRTS.isPlayerReadyMap.get(playerScoreboardName);
+		if (TSRTS.isPlayerReadyArray.containsKey(playerScoreboardName)) {
+			return TSRTS.isPlayerReadyArray.get(playerScoreboardName);
 		}
+		TSRTS.LOGGER.info(" player " + playerScoreboardName + " not in hashmap ASSUME THEY ARE FALSE & put them in the map");
+		TSRTS.isPlayerReadyArray.put(playerScoreboardName, false);
+
 		return false;
 	}
 
@@ -111,7 +109,9 @@ public class Utilities {
 			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
 			break;
 		case Reference.GUI_BUTTON_LOBBY_READY:
-			Utilities.setPlayerReady(player.world, player, !Utilities.getPlayerReady(player));
+			Utilities.setPlayerReady(player, !Utilities.getPlayerReady(player));
+			TSRTS.LOGGER.info("Lobby Button: READY:" + Utilities.getPlayerReady(player));
+
 			break;
 		case Reference.GUI_BUTTON_LOBBY_START:
 			Utilities.startGame(player.world);
@@ -627,73 +627,44 @@ public class Utilities {
 	}
 
 	public static void SendTeamToClient(String teamName) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoMap.get(teamName), teamName));
-		}
+		ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)], teamName));
 
 	}
 
 	public static boolean hasNeededResource(String teamName, TeamInfo.Resources res, int amt) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			if (ti.HasEnoughResource(res, amt)) {
-				return true;
-			}
+		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
+		if (ti.HasEnoughResource(res, amt)) {
+			return true;
 		}
 		return false;
+
 	}
 
 	public static boolean SpendResourcesFromTeam(String teamName, TeamInfo.Resources res, int amt) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			ti.SpendResource(res, amt);
-			TSRTS.teamInfoMap.put(teamName, ti);
+		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
+		ti.SpendResource(res, amt);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
 
-			SendTeamToClient(teamName);
-			return true;
+		SendTeamToClient(teamName);
+		return true;
 
-		} else {
-			try {
-				throw new IllegalStateException(" Team not found :" + teamName);
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
-		}
-		return false;
 	}
 
 	public static void setResourcesOfTeam(String teamName, int[] amts) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			ti.SetResourceArray(amts);
-			TSRTS.teamInfoMap.put(teamName, ti);
+		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
+		ti.SetResourceArray(amts);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
+		SendTeamToClient(teamName);
 
-			SendTeamToClient(teamName);
-
-		} else {
-			try {
-				throw new IllegalStateException(" Team not found :" + teamName);
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
-		}
 	}
 
 	public static void AddResourcesToTeam(String teamName, TeamInfo.Resources res, int amt) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			ti.AddResource(res, amt);
-			TSRTS.teamInfoMap.put(teamName, ti);
+		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
+		ti.AddResource(res, amt);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
 
-			SendTeamToClient(teamName);
+		SendTeamToClient(teamName);
 
-		} else {
-			try {
-				throw new IllegalStateException(" Team not found :" + teamName);
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
-		}
 	}
 
 	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player) {
