@@ -52,7 +52,7 @@ public class TSRTS {
 	public static int[] playerSelectionsControlGroup9 = null;
 
 	public static TeamInfo[] teamInfoArray = new TeamInfo[TeamEnum.values().length];
-	public static boolean[] isPlayerReadyArray = new boolean[TeamEnum.values().length];
+	public static HashMap<String, Boolean> isPlayerReadyArray = new HashMap<>();
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
 	// Directly reference a log4j logger.

@@ -70,10 +70,12 @@ public class ClientPacketHandler {
 	public static void PlayerReadyUpPacketToClient(int playerEntityID, Boolean isReady) {
 		World world = Minecraft.getInstance().player.world;
 		Entity e = world.getEntityByID(playerEntityID);
+		TSRTS.LOGGER.info("READY UP PACKET CLIENT: " + isReady);
+
 		if (e instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) e;
 
-			Utilities.setPlayerReady(world, player, isReady);
+			Utilities.setPlayerReady(player, isReady);
 		}
 	}
 

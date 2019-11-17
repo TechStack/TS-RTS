@@ -37,7 +37,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class EventHandler {
 	@SubscribeEvent
 	public static void onEntityJoinWorldEvent(final EntityJoinWorldEvent event) {
-		if (event.getEntity() instanceof PlayerEntity) {
+		if (event.getEntity() instanceof PlayerEntity && !event.getWorld().isRemote) {
+			// player and server !
 			PlayerEntity pe = (PlayerEntity) event.getEntity();
 			if (!TSRTS.playerSelections.containsKey(pe.getScoreboardName())) {
 				TSRTS.playerSelections.put(pe.getScoreboardName(), new PlayerSelections());
@@ -46,13 +47,6 @@ public class EventHandler {
 				Utilities.SendTeamToClient("green");
 				Utilities.SendTeamToClient("yellow");
 			}
-// TODO FIX this CUT OUT 
-//			if (!pe.world.isRemote) {
-//				if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.LOBBY) {
-//					NetworkHooks.openGui((ServerPlayerEntity) pe, (INamedContainerProvider) new LobbyContinerProvider());
-//
-//				}
-//			}
 
 		} else if (event.getEntity() instanceof UnitEntity || event.getEntity() instanceof TargetEntity) {
 			if (event.getWorld() != null) {
