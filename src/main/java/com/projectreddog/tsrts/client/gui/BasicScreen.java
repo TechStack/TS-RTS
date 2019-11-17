@@ -1,6 +1,6 @@
 package com.projectreddog.tsrts.client.gui;
 
-import com.projectreddog.tsrts.containers.BarracksContainer;
+import com.projectreddog.tsrts.containers.BasicContainer;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
@@ -12,12 +12,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 
-public class BarracksScreen extends ContainerScreen<BarracksContainer> {
+public class BasicScreen extends ContainerScreen<BasicContainer> {
 
 	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/barracks_gui.png");
 	BlockPos pos;
 
-	public BarracksScreen(BarracksContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+	public BasicScreen(BasicContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
 		pos = screenContainer.pos;
 	}
@@ -40,20 +40,14 @@ public class BarracksScreen extends ContainerScreen<BarracksContainer> {
 		int x = (this.width - this.xSize) / 2;
 
 		int y = (this.height - this.ySize) / 2;
-		addButton(new Button(x, y, 50, 10, "Y", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERYELLOW));
+		x = x + 100;
+		addButton(new Button(x, y, 50, 20, "On", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_ENABLE_TE));
+		}));
+		y = y + 20;
+		addButton(new Button(x, y, 50, 20, "Off", (button) -> {
+			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DISABLE_TE));
 		}));
 
-		addButton(new Button(x, y + 10, 50, 10, "G", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERGREEN));
-		}));
-
-		addButton(new Button(x, y + 20, 50, 10, "R", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERRED));
-		}));
-
-		addButton(new Button(x, y + 30, 50, 10, "B", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERBLUE));
-		}));
 	}
 }
