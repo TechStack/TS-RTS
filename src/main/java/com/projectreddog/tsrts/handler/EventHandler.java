@@ -141,6 +141,15 @@ public class EventHandler {
 				}
 			}
 
+		} else {
+
+			for (int i = 0; i < TSRTS.teamInfoArray.length; i++) {
+
+				if (world.getScoreboard().getTeam(TeamEnum.values()[i].getName()) != null) {
+					TSRTS.teamInfoArray[i] = new TeamInfo();
+
+				}
+			}
 		}
 
 	}
