@@ -13,12 +13,15 @@
 <mapEntry key="MCP_VERSION" value="20190829.143755"/>
 <mapEntry key="MC_VERSION" value="1.14.4"/>
 <mapEntry key="MOD_CLASSES" value="tsrts%%D:\ALL\Code\Minecraft\TS-RTS\bin\main;tsrts%%D:\ALL\Code\Minecraft\TS-RTS\bin\main"/>
-<mapEntry key="target" value="fmluserdevdata"/>
+<mapEntry key="assetDirectory" value="C:\Users\TechStack\.gradle\caches\forge_gradle\assets"/>
+<mapEntry key="assetIndex" value="1.14"/>
+<mapEntry key="nativesDirectory" value="D:\ALL\Code\Minecraft\TS-RTS\build\natives"/>
+<mapEntry key="target" value="fmluserdevclient"/>
 </mapAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.buildship.core.classpathprovider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="net.minecraftforge.userdev.LaunchTesting"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="--mod tsrts --all --output D:\ALL\Code\Minecraft\TS-RTS\src\generated\resources"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="--username Czarified"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="TS-RTS"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump &quot;-Dos.name=Windows 10&quot; -Dos.version=10.0"/>
 <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="D:\ALL\Code\Minecraft\TS-RTS\run"/>
 </launchConfiguration>
