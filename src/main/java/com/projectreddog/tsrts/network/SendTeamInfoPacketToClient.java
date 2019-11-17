@@ -33,7 +33,9 @@ public class SendTeamInfoPacketToClient {
 
 			resourceAmt[i] = ti.GetResource(res[i]);
 		}
+
 		this.teamName = teamName;
+
 	}
 
 	public void encode(PacketBuffer buf) {
