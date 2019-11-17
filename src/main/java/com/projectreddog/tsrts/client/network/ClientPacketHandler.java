@@ -34,7 +34,7 @@ public class ClientPacketHandler {
 	}
 
 	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName) {
-		TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource array:" + resourceAmt);
+		TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
 		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = new TeamInfo();
