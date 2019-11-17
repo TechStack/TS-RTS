@@ -11,6 +11,10 @@ public class TeamInfo {
 		FOOD, WOOD, STONE, IRON, GOLD, DIAMOND, EMERALD
 	}
 
+	public void clear() {
+		int resourceAmt[] = new int[Resources.values().length];
+	}
+
 	public static ItemStack GetRenderItemStack(Resources res) {
 		switch (res) {
 		case FOOD:
