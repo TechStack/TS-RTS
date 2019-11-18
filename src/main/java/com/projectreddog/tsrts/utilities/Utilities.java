@@ -207,6 +207,7 @@ public class Utilities {
 			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.GOLD, goldCosts);
 			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.DIAMOND, diamondCosts);
 			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, emeraldCosts);
+			SendTeamToClient(teamName);
 
 			if (result) {
 				GivePlayerItemStack(player, itemStack);
@@ -644,7 +645,6 @@ public class Utilities {
 
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SpendResource(res, amt);
 		TSRTS.LOGGER.info("TEAM: " + teamName + " spent (RES ORD): " + res.ordinal() + " for amount: " + amt);
-		SendTeamToClient(teamName);
 		return true;
 
 	}

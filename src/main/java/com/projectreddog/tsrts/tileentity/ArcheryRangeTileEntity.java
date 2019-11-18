@@ -45,6 +45,8 @@ public class ArcheryRangeTileEntity extends OwnedCooldownTileEntity implements I
 		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.GOLD, Config.CONFIG_UNIT_COSTS_ARCHER_GOLD.get());
 		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.DIAMOND, Config.CONFIG_UNIT_COSTS_ARCHER_DIAMOND.get());
 		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, Config.CONFIG_UNIT_COSTS_ARCHER_EMERALD.get());
+		Utilities.SendTeamToClient(teamName);
+
 		return result;
 	}
 
