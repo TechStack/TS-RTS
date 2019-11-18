@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import com.projectreddog.tsrts.handler.ClientEvents;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.handler.EventHandler;
+import com.projectreddog.tsrts.handler.ServerEvents;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModContainers;
 import com.projectreddog.tsrts.init.ModEntities;
@@ -77,6 +78,8 @@ public class TSRTS {
 
 		MinecraftForge.EVENT_BUS.register(EventHandler.class);
 		MinecraftForge.EVENT_BUS.register(ClientEvents.class);
+		MinecraftForge.EVENT_BUS.register(ServerEvents.class);
+
 	}
 
 	// You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
