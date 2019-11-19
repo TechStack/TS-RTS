@@ -145,10 +145,11 @@ public class Utilities {
 		Collection<ScorePlayerTeam> teams = world.getScoreboard().getTeams();
 
 		// get starting resources
-		int[] tmpRes = getStartingResourceAmounts();
 
 		for (Iterator iterator = teams.iterator(); iterator.hasNext();) {
 			ScorePlayerTeam team = (ScorePlayerTeam) iterator.next();
+			int[] tmpRes = getStartingResourceAmounts();
+
 			String teamName = team.getName();
 			Utilities.setResourcesOfTeam(teamName, tmpRes);
 		}
@@ -159,6 +160,7 @@ public class Utilities {
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.DIAMOND_SWORD, 1));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.SAMPLEITEM));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
+		GivePlayerItemStack(playerEntity, new ItemStack(Items.COOKED_BEEF, 64));
 
 	}
 
@@ -207,6 +209,7 @@ public class Utilities {
 			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.GOLD, goldCosts);
 			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.DIAMOND, diamondCosts);
 			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, emeraldCosts);
+			SendTeamToClient(teamName);
 
 			if (result) {
 				GivePlayerItemStack(player, itemStack);
@@ -632,8 +635,8 @@ public class Utilities {
 	}
 
 	public static boolean hasNeededResource(String teamName, TeamInfo.Resources res, int amt) {
-		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
-		if (ti.HasEnoughResource(res, amt)) {
+
+		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].HasEnoughResource(res, amt)) {
 			return true;
 		}
 		return false;
@@ -641,29 +644,21 @@ public class Utilities {
 	}
 
 	public static boolean SpendResourcesFromTeam(String teamName, TeamInfo.Resources res, int amt) {
-		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
-		ti.SpendResource(res, amt);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
 
-		SendTeamToClient(teamName);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SpendResource(res, amt);
+		TSRTS.LOGGER.info("TEAM: " + teamName + " spent (RES ORD): " + res.ordinal() + " for amount: " + amt);
 		return true;
 
 	}
 
 	public static void setResourcesOfTeam(String teamName, int[] amts) {
-		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
-		ti.SetResourceArray(amts);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SetResourceArray(amts);
 		SendTeamToClient(teamName);
 
 	}
 
 	public static void AddResourcesToTeam(String teamName, TeamInfo.Resources res, int amt) {
-		TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)];
-		ti.AddResource(res, amt);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
-
-		SendTeamToClient(teamName);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddResource(res, amt);
 
 	}
 

@@ -1,5 +1,7 @@
 package com.projectreddog.tsrts.utilities;
 
+import com.projectreddog.tsrts.TSRTS;
+
 import net.minecraft.util.IStringSerializable;
 
 public enum TeamEnum implements IStringSerializable {
@@ -29,6 +31,8 @@ public enum TeamEnum implements IStringSerializable {
 		case "green":
 			return 3;
 		}
+
+		TSRTS.LOGGER.info("INVALID PLAYER TEAM FOUND: " + name);
 		return 0;
 
 	}

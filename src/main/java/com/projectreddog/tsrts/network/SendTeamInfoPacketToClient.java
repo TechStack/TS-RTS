@@ -27,12 +27,7 @@ public class SendTeamInfoPacketToClient {
 	public SendTeamInfoPacketToClient(TeamInfo ti, String teamName) {
 		super();
 
-		TeamInfo.Resources[] res = TeamInfo.Resources.values();
-
-		for (int i = 0; i < resourceCount; i++) {
-
-			resourceAmt[i] = ti.GetResource(res[i]);
-		}
+		resourceAmt = ti.GetResourceArray();
 
 		this.teamName = teamName;
 
