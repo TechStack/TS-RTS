@@ -658,8 +658,6 @@ public class Utilities {
 	public static void AddResourcesToTeam(String teamName, TeamInfo.Resources res, int amt) {
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddResource(res, amt);
 
-		SendTeamToClient(teamName);
-
 	}
 
 	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player) {

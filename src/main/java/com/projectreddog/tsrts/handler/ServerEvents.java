@@ -1,5 +1,8 @@
 package com.projectreddog.tsrts.handler;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
@@ -62,10 +65,30 @@ public class ServerEvents {
 					// SEND the changes to the clients !
 					Utilities.SendTeamToClient(TeamEnum.values()[i].getName());
 
+					int totFood = TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())].GetResource(Resources.FOOD);
+					int totWood = TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())].GetResource(Resources.WOOD);
+					int totStone = TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())].GetResource(Resources.STONE);
+					int totIron = TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())].GetResource(Resources.IRON);
+					int totGold = TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())].GetResource(Resources.GOLD);
+					int totDiamond = TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())].GetResource(Resources.DIAMOND);
+					int totEmerald = TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())].GetResource(Resources.EMERALD);
+					WriteToEcoStats(TeamEnum.values()[i].getName(), foodDelta, woodDelta, stoneDelta, ironDelta, goldDelta, diamondDelta, emeraldDelta, totFood, totWood, totStone, totIron, totGold, totDiamond, totEmerald);
 				}
 
 			}
 		}
+	}
+
+	public static void WriteToEcoStats(String teamName, int foodDelta, int woodDelta, int stoneDelta, int ironDelta, int goldDelta, int diamondDelta, int emeraldDelta, int totFood, int totWood, int totStone, int totIron, int totGold, int totDiamond, int totEmerald) {
+		String delimiter = ",";
+
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		String timeStamp = dtf.format(now);
+		String tmp = "ECOSTATS: " + delimiter + timeStamp + delimiter + teamName + delimiter + foodDelta + delimiter + woodDelta + delimiter + stoneDelta + delimiter + ironDelta + delimiter + goldDelta + delimiter + diamondDelta + delimiter + emeraldDelta + delimiter + totFood + delimiter + totWood + delimiter + totStone + delimiter + totIron + delimiter + totGold + delimiter + totDiamond + delimiter + totEmerald;
+
+		TSRTS.LOGGER.info(tmp);
+
 	}
 
 }
