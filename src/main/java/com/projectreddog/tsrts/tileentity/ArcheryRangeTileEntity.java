@@ -51,6 +51,9 @@ public class ArcheryRangeTileEntity extends OwnedCooldownTileEntity implements I
 	}
 
 	public boolean hasNeededResources() {
+		if (this.getTeam() == null) {
+			return false;
+		}
 		String teamName = this.getTeam().getName();
 		boolean result = true;
 		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.FOOD, Config.CONFIG_UNIT_COSTS_ARCHER_FOOD.get());

@@ -57,6 +57,9 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 	}
 
 	public boolean hasNeededResources() {
+		if (this.getTeam() == null) {
+			return false;
+		}
 		String teamName = this.getTeam().getName();
 		boolean result = true;
 		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.FOOD, Config.CONFIG_UNIT_COSTS_MINION_FOOD.get());
