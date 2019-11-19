@@ -34,11 +34,12 @@ public class ClientPacketHandler {
 	}
 
 	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName) {
-
+		TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
-		TeamInfo ti = new TeamInfo();
-		ti.SetResourceArray(resourceAmt);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = ti;
+		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = new TeamInfo();
+		}
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SetResourceArray(resourceAmt);
 
 	}
 

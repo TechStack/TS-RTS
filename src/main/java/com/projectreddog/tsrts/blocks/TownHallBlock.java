@@ -52,4 +52,7 @@ public class TownHallBlock extends OwnedBlock {
 		return super.onBlockActivated(state, world, pos, player, handIn, hit);
 	}
 
+	public void increaseCountOfThisType(World world, PlayerEntity player) {
+	}
+
 }

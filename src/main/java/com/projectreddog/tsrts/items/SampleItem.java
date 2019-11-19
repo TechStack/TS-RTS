@@ -44,7 +44,13 @@ public class SampleItem extends Item {
 				if (!playerIn.world.isRemote) {
 
 					// TODO need to consider if the player is on the same team as the entity or not !
-					Utilities.SelectedUnitsTargetEntity(worldIn, le, playerIn.getScoreboardName());
+
+					if (playerIn.getTeam() != null && !(playerIn.getTeam().isSameTeam(le.getTeam()))) {
+						Utilities.SelectedUnitsTargetEntity(worldIn, le, playerIn.getScoreboardName());
+					} else if (playerIn.getTeam() == null) {
+						Utilities.SelectedUnitsTargetEntity(worldIn, le, playerIn.getScoreboardName());
+					}
+
 				}
 			}
 		} else {
