@@ -129,6 +129,7 @@ public class EventHandler {
 			TSRTS.CURRENT_GAME_STATE = GAMESTATE.LOBBY;
 
 			// TODO KEEP INVENTORY?
+			// ((World)event.getWorld()).getGameRules().getBoolean(GameRules.KEEP_INVENTORY)
 		}
 
 		World world = (World) event.getWorld();
