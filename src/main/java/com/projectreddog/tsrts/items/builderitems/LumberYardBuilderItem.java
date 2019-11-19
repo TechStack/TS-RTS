@@ -5,9 +5,12 @@ import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 
 public class LumberYardBuilderItem extends BuilderItem {
 
@@ -81,4 +84,8 @@ public class LumberYardBuilderItem extends BuilderItem {
 		return block == Blocks.OAK_LOG;
 	}
 
+	@Override
+	public void ActionAfterSpawn(World world, PlayerEntity Player, BlockPos bp) {
+
+	}
 }

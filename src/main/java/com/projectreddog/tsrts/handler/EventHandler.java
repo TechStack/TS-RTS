@@ -127,6 +127,8 @@ public class EventHandler {
 		Utilities.CheckTeamsAndCreatedIfNeeded((World) event.getWorld());
 		if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
 			TSRTS.CURRENT_GAME_STATE = GAMESTATE.LOBBY;
+
+			// TODO KEEP INVENTORY?
 		}
 
 		World world = (World) event.getWorld();
