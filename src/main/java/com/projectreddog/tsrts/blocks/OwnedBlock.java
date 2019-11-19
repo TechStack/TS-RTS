@@ -33,8 +33,8 @@ public class OwnedBlock extends Block {
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		if (placer instanceof PlayerEntity) {
 
+		if (placer instanceof PlayerEntity) {
 			TileEntity te = worldIn.getTileEntity(pos);
 
 			if (te != null) {

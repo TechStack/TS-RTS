@@ -102,13 +102,15 @@ public class RenderOverlay extends Screen {
 							ClientUtilities.renderTexture(x - 10, 4, 512, 18);
 							RenderHelper.enableGUIStandardItemLighting();
 							for (int i = 0; i < res.length; i++) {
-								int amt = ti.GetResource(res[i]);
+								if (ti != null) {
+									int amt = ti.GetResource(res[i]);
 
-								Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
-								x = x + xtextOffset;
-								// TODO add amt back instaed of the hardcoded value
-								Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + amt, x, y + ytextOffset, 14737632);
-								x = x + xTextWidth;
+									Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
+									x = x + xtextOffset;
+									// TODO add amt back instaed of the hardcoded value
+									Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + amt, x, y + ytextOffset, 14737632);
+									x = x + xTextWidth;
+								}
 							}
 
 						}

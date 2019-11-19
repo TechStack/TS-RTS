@@ -1,11 +1,12 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
-import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -39,9 +40,61 @@ public class FarmTileEntity extends OwnedCooldownTileEntity implements INamedCon
 
 			if (res != null) {
 
-				Utilities.AddResourcesToTeam(this.getTeam().getName(), res, 1);
+//				Utilities.AddResourcesToTeam(this.getTeam().getName(), res, 1);
 			}
 
+		}
+	}
+
+	public void IncreaseCount() {
+		switch (resource) {
+		case FOOD:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setFarms(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getFarms() + 1);
+			break;
+		case WOOD:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setLumberYard(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getLumberYard() + 1);
+			break;
+		case STONE:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteStone(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteStone() + 1);
+			break;
+		case IRON:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteIron(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteIron() + 1);
+			break;
+		case GOLD:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteGold(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteGold() + 1);
+			break;
+		case DIAMOND:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteDiamond(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteDiamond() + 1);
+			break;
+		case EMERALD:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteEmerald(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteEmerald() + 1);
+			break;
+		}
+	}
+
+	public void DecreaseCount() {
+		switch (resource) {
+		case FOOD:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setFarms(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getFarms() - 1);
+			break;
+		case WOOD:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setLumberYard(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getLumberYard() - 1);
+			break;
+		case STONE:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteStone(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteStone() - 1);
+			break;
+		case IRON:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteIron(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteIron() - 1);
+			break;
+		case GOLD:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteGold(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteGold() - 1);
+			break;
+		case DIAMOND:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteDiamond(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteDiamond() - 1);
+			break;
+		case EMERALD:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteEmerald(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteEmerald() - 1);
+			break;
 		}
 	}
 

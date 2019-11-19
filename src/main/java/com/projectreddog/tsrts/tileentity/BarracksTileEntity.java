@@ -51,6 +51,8 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.GOLD, Config.CONFIG_UNIT_COSTS_MINION_GOLD.get());
 		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.DIAMOND, Config.CONFIG_UNIT_COSTS_MINION_DIAMOND.get());
 		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, Config.CONFIG_UNIT_COSTS_MINION_EMERALD.get());
+		Utilities.SendTeamToClient(teamName);
+
 		return result;
 	}
 

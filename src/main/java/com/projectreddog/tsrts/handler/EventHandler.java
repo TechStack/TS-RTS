@@ -30,6 +30,7 @@ import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.event.world.WorldEvent.Load;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -126,6 +127,9 @@ public class EventHandler {
 		Utilities.CheckTeamsAndCreatedIfNeeded((World) event.getWorld());
 		if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
 			TSRTS.CURRENT_GAME_STATE = GAMESTATE.LOBBY;
+
+			// TODO KEEP INVENTORY?
+			// ((World)event.getWorld()).getGameRules().getBoolean(GameRules.KEEP_INVENTORY)
 		}
 
 		World world = (World) event.getWorld();
@@ -141,6 +145,15 @@ public class EventHandler {
 				}
 			}
 
+		} else {
+
+			for (int i = 0; i < TSRTS.teamInfoArray.length; i++) {
+
+				if (world.getScoreboard().getTeam(TeamEnum.values()[i].getName()) != null) {
+					TSRTS.teamInfoArray[i] = new TeamInfo();
+
+				}
+			}
 		}
 
 	}
@@ -212,6 +225,16 @@ public class EventHandler {
 			}
 		}
 		event.setCanceled(shouldCancel);
+	}
+
+	@SubscribeEvent
+	public static void onBreakEvent(BreakEvent event) {
+		TileEntity te = event.getWorld().getTileEntity(event.getPos());
+
+		if (te instanceof OwnedCooldownTileEntity) {
+			OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) te;
+			octe.DecreaseCount();
+		}
 	}
 
 }
