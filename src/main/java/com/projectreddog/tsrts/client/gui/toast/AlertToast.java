@@ -40,7 +40,7 @@ public class AlertToast implements IToast {
 			toastGui.getMinecraft().fontRenderer.drawString(new TranslationTextComponent(this.title).getFormattedText(), 30.0F, 12.0F, -16733525);
 		} else {
 			toastGui.getMinecraft().fontRenderer.drawString(new TranslationTextComponent(this.title).getFormattedText(), 30.0F, 7.0F, -16733525);
-			toastGui.getMinecraft().fontRenderer.drawString(new TranslationTextComponent(this.subTitle).getFormattedText(), 30.0F, 18.0F, -16777216);
+			toastGui.getMinecraft().fontRenderer.drawString(new TranslationTextComponent(this.subTitle).getFormattedText(), 30.0F, 18.0F, 16777215);
 		}
 
 		return delta - this.firstDrawTime < 5000L ? IToast.Visibility.SHOW : IToast.Visibility.HIDE;

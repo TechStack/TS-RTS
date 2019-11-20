@@ -1266,7 +1266,7 @@ public class Utilities {
 
 			playerEntity.sendMessage(new TranslationTextComponent(LangLookup, part2));
 			if (playerEntity instanceof ServerPlayerEntity) {
-				ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("ALERT", LangLookup, AlertToastBackgroundType.WARN));
+				ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("tsrts.alerttoast.alert", LangLookup, AlertToastBackgroundType.WARN));
 			}
 		}
 	}
@@ -1280,7 +1280,7 @@ public class Utilities {
 				if (playerEntity.getTeam().getName().equals(team)) {
 					playerEntity.sendMessage(new TranslationTextComponent(LangLookup));
 					if (playerEntity instanceof ServerPlayerEntity) {
-						ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("ALERT", LangLookup, AlertToastBackgroundType.WARN));
+						ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("tsrts.alerttoast.alert", LangLookup, AlertToastBackgroundType.WARN));
 					}
 				}
 			}
