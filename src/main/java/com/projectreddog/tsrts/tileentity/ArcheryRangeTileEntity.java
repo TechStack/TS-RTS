@@ -67,6 +67,13 @@ public class ArcheryRangeTileEntity extends OwnedCooldownTileEntity implements I
 	}
 
 	@Override
+	public void StructureLost() {
+		super.StructureLost();
+		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.archeryrange");
+
+	}
+
+	@Override
 	public ITextComponent getDisplayName() {
 		// TODO Auto-generated method stub
 		return new StringTextComponent(getType().getRegistryName().getPath());

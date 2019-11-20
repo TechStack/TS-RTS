@@ -48,6 +48,10 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 
 	}
 
+	public void StructureLost() {
+
+	}
+
 	@Override
 	public void tick() {
 		if (!world.isRemote && enabled) {
@@ -89,6 +93,8 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 						}
 						if (currentStage == Stage.RUBBLE) {
 							Utilities.LoadStructure(this.world, getStructureData().getTemplate0(), getStructureData(), getOwner(), false);
+
+							StructureLost();
 							DecreaseCount();
 
 						}

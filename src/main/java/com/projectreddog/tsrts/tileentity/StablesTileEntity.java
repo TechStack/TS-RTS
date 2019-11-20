@@ -29,6 +29,13 @@ public class StablesTileEntity extends OwnedCooldownTileEntity implements INamed
 	}
 
 	@Override
+	public void StructureLost() {
+		super.StructureLost();
+		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.stables");
+
+	}
+
+	@Override
 	public void HandleGuiButton(int buttonId, PlayerEntity player) {
 		// TSRTS.LOGGER.info("button ID:" + buttonId);
 		super.HandleGuiButton(buttonId, player);
