@@ -49,6 +49,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
@@ -1253,6 +1254,30 @@ public class Utilities {
 			if (!hasYellow) {
 				world.getScoreboard().createTeam("yellow").setColor(TextFormatting.YELLOW);
 			}
+		}
+	}
+
+	public static void SendMessageToAllTeams(World world, String LangLookup, String part2) {
+		List<? extends PlayerEntity> players = world.getPlayers();
+		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
+			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
+
+			playerEntity.sendMessage(new TranslationTextComponent(LangLookup, part2));
+
+		}
+	}
+
+	public static void SendMessageToTeam(World world, String team, String LangLookup) {
+		List<? extends PlayerEntity> players = world.getPlayers();
+		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
+			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
+
+			if (playerEntity.getTeam() != null) {
+				if (playerEntity.getTeam().getName().equals(team)) {
+					playerEntity.sendMessage(new TranslationTextComponent(LangLookup));
+				}
+			}
+
 		}
 	}
 }

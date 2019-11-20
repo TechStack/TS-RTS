@@ -94,4 +94,12 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 		}
 
 	}
+
+	@Override
+	public void StructureLost() {
+		super.StructureLost();
+		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.barracks");
+
+	}
+
 }

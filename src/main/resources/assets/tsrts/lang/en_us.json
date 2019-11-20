@@ -25,6 +25,18 @@
 "item.tsrts.lumberyardbuilderitem":"Lumber Yard",
 "item.tsrts.archeryrangebuilderitem":"Archery Range",
 
+"_comment":"custom messages here",
+
+"tsrts.destroy.townhall":"Town Hall Destroyed!",
+
+"tsrts.destroy.archeryrange":"Archery Range Destroyed!",
+"tsrts.destroy.barracks":"Barracks Destroyed!",
+"tsrts.destroy.farm":"Farm Destroyed!",
+"tsrts.destroy.lumberyard":"Lumber Yard Destroyed!",
+"tsrts.destroy.minesite":"Mine Site Destroyed!",
+"tsrts.destroy.researchcenter":"Research Center Destroyed!",
+"tsrts.destroy.stables":"Stables Destroyed!",
+
 
 
 "_comment":"End here"
