@@ -1,9 +1,11 @@
 package com.projectreddog.tsrts.client.network;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.client.gui.toast.AlertToast;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+import com.projectreddog.tsrts.utilities.AlertToastBackgroundType;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
@@ -31,6 +33,10 @@ public class ClientPacketHandler {
 				te.setOwnerName(ownerName);
 			}
 		}
+	}
+
+	public static void AlertToastToClient(String title, String subTitle, AlertToastBackgroundType backgroundType) {
+		Minecraft.getInstance().getToastGui().add(new AlertToast(title, subTitle, backgroundType));
 	}
 
 	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName) {

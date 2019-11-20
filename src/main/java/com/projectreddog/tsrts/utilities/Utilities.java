@@ -17,6 +17,7 @@ import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
@@ -1264,7 +1265,9 @@ public class Utilities {
 			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
 
 			playerEntity.sendMessage(new TranslationTextComponent(LangLookup, part2));
-
+			if (playerEntity instanceof ServerPlayerEntity) {
+				ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("ALERT", LangLookup, AlertToastBackgroundType.WARN));
+			}
 		}
 	}
 
@@ -1276,6 +1279,9 @@ public class Utilities {
 			if (playerEntity.getTeam() != null) {
 				if (playerEntity.getTeam().getName().equals(team)) {
 					playerEntity.sendMessage(new TranslationTextComponent(LangLookup));
+					if (playerEntity instanceof ServerPlayerEntity) {
+						ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("ALERT", LangLookup, AlertToastBackgroundType.WARN));
+					}
 				}
 			}
 
