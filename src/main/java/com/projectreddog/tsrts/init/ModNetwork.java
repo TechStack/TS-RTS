@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.init;
 
+import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.network.LobbyGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
@@ -37,6 +38,7 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, PlayerSelectionChangedPacketToServer.class, PlayerSelectionChangedPacketToServer::encode, PlayerSelectionChangedPacketToServer::new, PlayerSelectionChangedPacketToServer::handle);
 		simpleChannel.registerMessage(MessageId++, RequestOwnerInfoToServer.class, RequestOwnerInfoToServer::encode, RequestOwnerInfoToServer::new, RequestOwnerInfoToServer::handle);
 		simpleChannel.registerMessage(MessageId++, TESetRallyPointToServer.class, TESetRallyPointToServer::encode, TESetRallyPointToServer::new, TESetRallyPointToServer::handle);
+		simpleChannel.registerMessage(MessageId++, AlertToastToClient.class, AlertToastToClient::encode, AlertToastToClient::new, AlertToastToClient::handle);
 
 	}
 
