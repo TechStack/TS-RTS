@@ -8,6 +8,7 @@ import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.network.TESetRallyPointToServer;
 import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -33,10 +34,9 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, LobbyGuiButtonClickedPacketToServer.class, LobbyGuiButtonClickedPacketToServer::encode, LobbyGuiButtonClickedPacketToServer::new, LobbyGuiButtonClickedPacketToServer::handle);
 		simpleChannel.registerMessage(MessageId++, PlayerReadyUpPacketToClient.class, PlayerReadyUpPacketToClient::encode, PlayerReadyUpPacketToClient::new, PlayerReadyUpPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, PlayerSelectionChangedPacketToClient.class, PlayerSelectionChangedPacketToClient::encode, PlayerSelectionChangedPacketToClient::new, PlayerSelectionChangedPacketToClient::handle);
-
 		simpleChannel.registerMessage(MessageId++, PlayerSelectionChangedPacketToServer.class, PlayerSelectionChangedPacketToServer::encode, PlayerSelectionChangedPacketToServer::new, PlayerSelectionChangedPacketToServer::handle);
-
 		simpleChannel.registerMessage(MessageId++, RequestOwnerInfoToServer.class, RequestOwnerInfoToServer::encode, RequestOwnerInfoToServer::new, RequestOwnerInfoToServer::handle);
+		simpleChannel.registerMessage(MessageId++, TESetRallyPointToServer.class, TESetRallyPointToServer::encode, TESetRallyPointToServer::new, TESetRallyPointToServer::handle);
 
 	}
 

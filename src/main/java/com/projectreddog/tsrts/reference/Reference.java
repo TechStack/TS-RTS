@@ -21,6 +21,8 @@ public class Reference {
 
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
+	public static final String REIGSTRY_NAME_RALLY_POINT_TOOL = "rallypointtool";
+
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM = "lumberyardbuilderitem";
 	public static final String REIGSTRY_NAME_FARM_BUILDER_ITEM = "farmbuilderitem";
