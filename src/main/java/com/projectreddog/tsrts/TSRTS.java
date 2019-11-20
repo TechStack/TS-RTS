@@ -27,6 +27,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -41,6 +42,8 @@ import net.minecraftforge.fml.loading.FMLPaths;
 @Mod(Reference.MODID)
 public class TSRTS {
 	public static HashMap<String, PlayerSelections> playerSelections = new HashMap<String, PlayerSelections>();
+	public static BlockPos RallyPointToolFrom = null;
+	public static BlockPos RallyPointToolTo = null;
 
 	public static int[] playerSelectionsControlGroup1 = null;
 	public static int[] playerSelectionsControlGroup2 = null;

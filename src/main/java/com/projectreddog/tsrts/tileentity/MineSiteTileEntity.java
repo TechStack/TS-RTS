@@ -7,6 +7,7 @@ import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
+import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -103,6 +104,13 @@ public class MineSiteTileEntity extends OwnedCooldownTileEntity implements IName
 	public ITextComponent getDisplayName() {
 		// TODO Auto-generated method stub
 		return new StringTextComponent(getType().getRegistryName().getPath());
+	}
+
+	@Override
+	public void StructureLost() {
+		super.StructureLost();
+		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.minesite");
+
 	}
 
 	@Override

@@ -57,6 +57,13 @@ public class TownHallTileEntity extends OwnedCooldownTileEntity implements IName
 	}
 
 	@Override
+	public void StructureLost() {
+		super.StructureLost();
+		Utilities.SendMessageToAllTeams(this.getWorld(), "tsrts.destroy.townhall", this.getTeam().getName());
+
+	}
+
+	@Override
 	public Container createMenu(int p_createMenu_1_, PlayerInventory playerInventory, PlayerEntity playerEntity) {
 		return new TownHallContainer(p_createMenu_1_, this.world, this.getPos(), playerInventory);
 	}
