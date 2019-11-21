@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.entities;
 
 import com.projectreddog.tsrts.entities.ai.MoveToOwnerSpecifiedLocation;
 import com.projectreddog.tsrts.entities.ai.NearestAttackableVisionNotRequiredTargetGoal;
+import com.projectreddog.tsrts.handler.Config;
 
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.EntitySize;
@@ -50,9 +51,14 @@ public class MinionEntity extends UnitEntity {
 	protected void registerAttributes() {
 		super.registerAttributes();
 		// getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
-		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) 0.23F);
-		this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
-		this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+		this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getARMOR());
+		this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getARMOR_TOUGHNESS());
+		this.getAttribute(SharedMonsterAttributes.ATTACK_KNOCKBACK).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getATTACK_KNOCKBACK());
+		this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getATTACK_DAMAGE());
+		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getFOLLOW_RANGE());
+		this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getKNOCK_BACK_RESISTANCE());
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getMAX_HEALTH());
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getMOVEMENT_SPEED());
+
 	}
 }
