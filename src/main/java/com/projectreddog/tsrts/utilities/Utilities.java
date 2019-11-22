@@ -474,7 +474,7 @@ public class Utilities {
 				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
 			}
 		} else {
-			throw new IllegalStateException(" COuld not find the player in the hasmap used for selections !");
+			TSRTS.playerSelections.put(playerScoreboardname, new PlayerSelections());
 
 		}
 
