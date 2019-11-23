@@ -61,6 +61,8 @@ public class ClientPacketHandler {
 	}
 
 	public static void PlayerSelectionChangedPacketToClient(int[] entityIds) {
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in PlayerSelectionChangedPacketToClient( handler)  for " + entityIds.toString());
+
 		if (Minecraft.getInstance() != null && Minecraft.getInstance().player != null) {
 			String playerScoreboardName = Minecraft.getInstance().player.getScoreboardName();
 			PlayerSelections ps = new PlayerSelections();
