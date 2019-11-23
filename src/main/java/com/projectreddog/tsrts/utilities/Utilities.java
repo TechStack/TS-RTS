@@ -437,19 +437,19 @@ public class Utilities {
 	}
 
 	public static void serverDeSelectUnit(PlayerEntity player, String playerScoreboardname, int entityId) {
-		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
-			if (TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
+		if (TSRTS.serverSelections.containsKey(playerScoreboardname)) {
+			if (TSRTS.serverSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
 				TSRTS.LOGGER.info("DE-Select");
-				final Iterator<Integer> it = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.iterator();
+				final Iterator<Integer> it = TSRTS.serverSelections.get(playerScoreboardname).selectedUnits.iterator();
 				while (it.hasNext()) {
 					int currentID = it.next();
 					if (currentID == entityId) {
 						it.remove();
 					}
 				}
-				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				int[] tmpids = new int[TSRTS.serverSelections.get(playerScoreboardname).selectedUnits.size()];
 				for (int i = 0; i < tmpids.length; i++) {
-					tmpids[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+					tmpids[i] = TSRTS.serverSelections.get(playerScoreboardname).selectedUnits.get(i);
 				}
 
 				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
@@ -458,23 +458,23 @@ public class Utilities {
 	}
 
 	public static void serverSelectUnit(PlayerEntity player, String playerScoreboardname, int entityId) {
-		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
-			if (TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
+		if (TSRTS.serverSelections.containsKey(playerScoreboardname)) {
+			if (TSRTS.serverSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
 				// already selected if we wanted this to be a toggle this is where we edit it be removed
 
 			} else {
 
 				TSRTS.LOGGER.info("Select");
-				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityId);
-				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				TSRTS.serverSelections.get(playerScoreboardname).selectedUnits.add(entityId);
+				int[] tmpids = new int[TSRTS.serverSelections.get(playerScoreboardname).selectedUnits.size()];
 				for (int i = 0; i < tmpids.length; i++) {
-					tmpids[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+					tmpids[i] = TSRTS.serverSelections.get(playerScoreboardname).selectedUnits.get(i);
 				}
 
 				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
 			}
 		} else {
-			TSRTS.playerSelections.put(playerScoreboardname, new PlayerSelections());
+			TSRTS.serverSelections.put(playerScoreboardname, new PlayerSelections());
 
 		}
 
@@ -483,10 +483,10 @@ public class Utilities {
 	public static void ServerControlGroupToSelectedUnits(ServerPlayerEntity player, String playerScoreboardname, int[] entityIds) {
 		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in ServerControlGroupToSelectedUnits for " + player.getName() + entityIds.toString());
 
-		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
-			TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.clear();
+		if (TSRTS.serverSelections.containsKey(playerScoreboardname)) {
+			TSRTS.serverSelections.get(playerScoreboardname).selectedUnits.clear();
 			for (int i = 0; i < entityIds.length; i++) {
-				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityIds[i]);
+				TSRTS.serverSelections.get(playerScoreboardname).selectedUnits.add(entityIds[i]);
 
 			}
 		}
@@ -499,6 +499,7 @@ public class Utilities {
 		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in clientControlGroupToSelectedUnits for " + playerScoreboardname + " group " + controlGroupNumber);
 		switch (controlGroupNumber) {
 		case 1:
+
 			if (TSRTS.playerSelectionsControlGroup1 != null) {
 				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup1));
 			}
@@ -550,106 +551,95 @@ public class Utilities {
 		switch (controlGroupNumber) {
 		case 1:
 			if (TSRTS.playerSelectionsControlGroup1 != null) {
-				return TSRTS.playerSelectionsControlGroup1.length;
+				return TSRTS.playerSelectionsControlGroup1.selectedUnits.size();
 			}
 		case 2:
 			if (TSRTS.playerSelectionsControlGroup2 != null) {
-				return TSRTS.playerSelectionsControlGroup2.length;
+				return TSRTS.playerSelectionsControlGroup2.selectedUnits.size();
 			}
 		case 3:
 			if (TSRTS.playerSelectionsControlGroup3 != null) {
-				return TSRTS.playerSelectionsControlGroup3.length;
+				return TSRTS.playerSelectionsControlGroup3.selectedUnits.size();
 			}
 		case 4:
 			if (TSRTS.playerSelectionsControlGroup4 != null) {
-				return TSRTS.playerSelectionsControlGroup4.length;
+				return TSRTS.playerSelectionsControlGroup4.selectedUnits.size();
 			}
 		case 5:
 			if (TSRTS.playerSelectionsControlGroup5 != null) {
-				return TSRTS.playerSelectionsControlGroup5.length;
+				return TSRTS.playerSelectionsControlGroup5.selectedUnits.size();
 			}
 		case 6:
 			if (TSRTS.playerSelectionsControlGroup6 != null) {
-				return TSRTS.playerSelectionsControlGroup6.length;
+				return TSRTS.playerSelectionsControlGroup6.selectedUnits.size();
 			}
 		case 7:
 			if (TSRTS.playerSelectionsControlGroup7 != null) {
-				return TSRTS.playerSelectionsControlGroup7.length;
+				return TSRTS.playerSelectionsControlGroup7.selectedUnits.size();
 			}
 		case 8:
 			if (TSRTS.playerSelectionsControlGroup8 != null) {
-				return TSRTS.playerSelectionsControlGroup8.length;
+				return TSRTS.playerSelectionsControlGroup8.selectedUnits.size();
 			}
 		case 9:
 			if (TSRTS.playerSelectionsControlGroup9 != null) {
-				return TSRTS.playerSelectionsControlGroup9.length;
+				return TSRTS.playerSelectionsControlGroup9.selectedUnits.size();
 			}
 		}
 		return 0;
 	}
 
+	public static void CloneSelections(PlayerSelections from, PlayerSelections to) {
+		to.selectedUnits.clear();
+		for (Iterator iterator = from.selectedUnits.iterator(); iterator.hasNext();) {
+			Integer unitId = (Integer) iterator.next();
+			to.selectedUnits.add(unitId);
+		}
+	}
+
 	public static void clientSelectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
 		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in client selected units to control group for " + playerScoreboardname + " group " + controlGroupNumber);
-		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
-			// already selected if we wanted this to be a toggle this is where we edit it be removed
 
-			switch (controlGroupNumber) {
-			case 1:
-				TSRTS.playerSelectionsControlGroup1 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup1.length; i++) {
-					TSRTS.playerSelectionsControlGroup1[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-				}
-				break;
-			case 2:
-				TSRTS.playerSelectionsControlGroup2 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup2.length; i++) {
-					TSRTS.playerSelectionsControlGroup2[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-				}
-				break;
-			case 3:
-				TSRTS.playerSelectionsControlGroup3 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup3.length; i++) {
-					TSRTS.playerSelectionsControlGroup3[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-				}
-				break;
-			case 4:
-				TSRTS.playerSelectionsControlGroup4 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup4.length; i++) {
-					TSRTS.playerSelectionsControlGroup4[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-				}
-				break;
-			case 5:
-				TSRTS.playerSelectionsControlGroup5 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup5.length; i++) {
-					TSRTS.playerSelectionsControlGroup5[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-				}
-				break;
-			case 6:
-				TSRTS.playerSelectionsControlGroup6 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup6.length; i++) {
-					TSRTS.playerSelectionsControlGroup6[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-				}
-				break;
-			case 7:
-				TSRTS.playerSelectionsControlGroup7 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup7.length; i++) {
-					TSRTS.playerSelectionsControlGroup7[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-				}
-				break;
-			case 8:
-				TSRTS.playerSelectionsControlGroup8 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup8.length; i++) {
-					TSRTS.playerSelectionsControlGroup8[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-				}
-				break;
-			case 9:
-				TSRTS.playerSelectionsControlGroup9 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup9.length; i++) {
-					TSRTS.playerSelectionsControlGroup9[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-				}
-				break;
-			}
+		switch (controlGroupNumber) {
+		case 1:
+
+			CloneSelections(TSRTS.clientSelections, TSRTS.playerSelectionsControlGroup1);
+
+			break;
+		case 2:
+			CloneSelections(TSRTS.clientSelections, TSRTS.playerSelectionsControlGroup2);
+
+			break;
+		case 3:
+			CloneSelections(TSRTS.clientSelections, TSRTS.playerSelectionsControlGroup3);
+
+			break;
+		case 4:
+			CloneSelections(TSRTS.clientSelections, TSRTS.playerSelectionsControlGroup4);
+
+			break;
+		case 5:
+			CloneSelections(TSRTS.clientSelections, TSRTS.playerSelectionsControlGroup5);
+
+			break;
+		case 6:
+			CloneSelections(TSRTS.clientSelections, TSRTS.playerSelectionsControlGroup6);
+
+			break;
+		case 7:
+			CloneSelections(TSRTS.clientSelections, TSRTS.playerSelectionsControlGroup7);
+
+			break;
+		case 8:
+			CloneSelections(TSRTS.clientSelections, TSRTS.playerSelectionsControlGroup8);
+
+			break;
+		case 9:
+			CloneSelections(TSRTS.clientSelections, TSRTS.playerSelectionsControlGroup9);
+
+			break;
 		}
+
 	}
 
 	public static void SendTeamToClient(String teamName) {
@@ -686,15 +676,16 @@ public class Utilities {
 	}
 
 	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player) {
-		if (TSRTS.playerSelections.containsKey(ownerName)) {
+		// called server side
+		if (TSRTS.serverSelections.containsKey(ownerName)) {
 			// found the player in the hasmap get and loop thru the enitties 1
-			int count = TSRTS.playerSelections.get(ownerName).selectedUnits.size();
+			int count = TSRTS.serverSelections.get(ownerName).selectedUnits.size();
 
 			List<BlockPos> lbp = SetFormationPoint(world, target.up(), count, Direction.getFacingFromVector(player.getLookVec().getX(), 0, player.getLookVec().getZ()));
 
 			if (lbp != null && lbp.size() > 0) {
-				for (int i = 0; i < TSRTS.playerSelections.get(ownerName).selectedUnits.size(); i++) {
-					UnitEntity ue = (UnitEntity) world.getEntityByID(TSRTS.playerSelections.get(ownerName).selectedUnits.get(i));
+				for (int i = 0; i < TSRTS.serverSelections.get(ownerName).selectedUnits.size(); i++) {
+					UnitEntity ue = (UnitEntity) world.getEntityByID(TSRTS.serverSelections.get(ownerName).selectedUnits.get(i));
 
 					if (ue != null) {
 						ue.ownerControlledDestination = lbp.get(i);/// context.getPos();
@@ -707,13 +698,13 @@ public class Utilities {
 	}
 
 	public static void SelectedUnitsTargetEntity(World world, LivingEntity target, String ownerName) {
-
-		if (TSRTS.playerSelections.containsKey(ownerName)) {
+// called server side
+		if (TSRTS.serverSelections.containsKey(ownerName)) {
 			// found the player in the hasmap get and loop thru the enitties 1
-			int count = TSRTS.playerSelections.get(ownerName).selectedUnits.size();
+			int count = TSRTS.serverSelections.get(ownerName).selectedUnits.size();
 
-			for (int i = 0; i < TSRTS.playerSelections.get(ownerName).selectedUnits.size(); i++) {
-				UnitEntity ue = (UnitEntity) world.getEntityByID(TSRTS.playerSelections.get(ownerName).selectedUnits.get(i));
+			for (int i = 0; i < TSRTS.serverSelections.get(ownerName).selectedUnits.size(); i++) {
+				UnitEntity ue = (UnitEntity) world.getEntityByID(TSRTS.serverSelections.get(ownerName).selectedUnits.get(i));
 
 				if (ue != null) {
 					// TODO check if target is on "Other" team
@@ -1030,211 +1021,85 @@ public class Utilities {
 	}
 
 	public static void removeDeadEntityFromControlGroups(int entityId) {
-		boolean found = false;
-		if (TSRTS.playerSelectionsControlGroup1 != null) {
-			if (TSRTS.playerSelectionsControlGroup1.length > 0) {
-				int[] tmp = new int[TSRTS.playerSelectionsControlGroup1.length - 1];
-				int j = 0;
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup1.length; i++) {
-					if (TSRTS.playerSelectionsControlGroup1[i] == entityId) {
-						found = true;
-					} else {
-						if (j < tmp.length) {
-							tmp[j] = TSRTS.playerSelectionsControlGroup1[i];
-						}
-						j++;
-					}
-				}
-				if (found) {
-					TSRTS.playerSelectionsControlGroup1 = tmp;
-				}
-
-			}
-		}
-		found = false;
-		if (TSRTS.playerSelectionsControlGroup2 != null) {
-			if (TSRTS.playerSelectionsControlGroup2.length > 0) {
-
-				int[] tmp = new int[TSRTS.playerSelectionsControlGroup2.length - 1];
-				int j = 0;
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup2.length; i++) {
-					if (TSRTS.playerSelectionsControlGroup2[i] == entityId) {
-						found = true;
-					} else {
-						if (j < tmp.length) {
-
-							tmp[j] = TSRTS.playerSelectionsControlGroup2[i];
-						}
-						j++;
-					}
-				}
-				if (found) {
-					TSRTS.playerSelectionsControlGroup2 = tmp;
-				}
-
-			}
-		}
-
-		found = false;
-		if (TSRTS.playerSelectionsControlGroup3 != null) {
-			if (TSRTS.playerSelectionsControlGroup3.length > 0) {
-
-				int[] tmp = new int[TSRTS.playerSelectionsControlGroup3.length - 1];
-				int j = 0;
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup3.length; i++) {
-					if (TSRTS.playerSelectionsControlGroup3[i] == entityId) {
-						found = true;
-					} else {
-						if (j < tmp.length) {
-
-							tmp[j] = TSRTS.playerSelectionsControlGroup3[i];
-						}
-						j++;
-					}
-				}
-				if (found) {
-					TSRTS.playerSelectionsControlGroup3 = tmp;
-				}
-			}
-
-		}
-
-		found = false;
-		if (TSRTS.playerSelectionsControlGroup4 != null) {
-			if (TSRTS.playerSelectionsControlGroup4.length > 0) {
-
-				int[] tmp = new int[TSRTS.playerSelectionsControlGroup4.length - 1];
-				int j = 0;
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup4.length; i++) {
-					if (TSRTS.playerSelectionsControlGroup4[i] == entityId) {
-						found = true;
-					} else {
-						if (j < tmp.length) {
-
-							tmp[j] = TSRTS.playerSelectionsControlGroup4[i];
-						}
-						j++;
-					}
-				}
-				if (found) {
-					TSRTS.playerSelectionsControlGroup4 = tmp;
-				}
-			}
-
-		}
-
-		found = false;
-		if (TSRTS.playerSelectionsControlGroup5 != null) {
-			if (TSRTS.playerSelectionsControlGroup5.length > 0) {
-
-				int[] tmp = new int[TSRTS.playerSelectionsControlGroup5.length - 1];
-				int j = 0;
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup5.length; i++) {
-					if (TSRTS.playerSelectionsControlGroup5[i] == entityId) {
-						found = true;
-					} else {
-						if (j < tmp.length) {
-
-							tmp[j] = TSRTS.playerSelectionsControlGroup5[i];
-						}
-						j++;
-					}
-				}
-				if (found) {
-					TSRTS.playerSelectionsControlGroup5 = tmp;
+		if (TSRTS.playerSelectionsControlGroup1.selectedUnits != null) {
+			Iterator<Integer> itr = TSRTS.playerSelectionsControlGroup1.selectedUnits.iterator();
+			while (itr.hasNext()) {
+				Integer id = itr.next();
+				if (id == entityId) {
+					itr.remove();
 				}
 			}
 		}
 
-		found = false;
-		if (TSRTS.playerSelectionsControlGroup6 != null) {
-			if (TSRTS.playerSelectionsControlGroup6.length > 0) {
-
-				int[] tmp = new int[TSRTS.playerSelectionsControlGroup6.length - 1];
-				int j = 0;
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup6.length; i++) {
-					if (TSRTS.playerSelectionsControlGroup6[i] == entityId) {
-						found = true;
-					} else {
-						if (j < tmp.length) {
-
-							tmp[j] = TSRTS.playerSelectionsControlGroup6[i];
-						}
-						j++;
-					}
-				}
-				if (found) {
-					TSRTS.playerSelectionsControlGroup6 = tmp;
-				}
-
-			}
-		}
-
-		found = false;
-		if (TSRTS.playerSelectionsControlGroup7 != null) {
-			if (TSRTS.playerSelectionsControlGroup7.length > 0) {
-
-				int[] tmp = new int[TSRTS.playerSelectionsControlGroup7.length - 1];
-				int j = 0;
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup7.length; i++) {
-					if (TSRTS.playerSelectionsControlGroup7[i] == entityId) {
-						found = true;
-					} else {
-						if (j < tmp.length) {
-
-							tmp[j] = TSRTS.playerSelectionsControlGroup7[i];
-						}
-						j++;
-					}
-				}
-				if (found) {
-					TSRTS.playerSelectionsControlGroup7 = tmp;
+		if (TSRTS.playerSelectionsControlGroup2.selectedUnits != null) {
+			Iterator<Integer> itr = TSRTS.playerSelectionsControlGroup2.selectedUnits.iterator();
+			while (itr.hasNext()) {
+				Integer id = itr.next();
+				if (id == entityId) {
+					itr.remove();
 				}
 			}
 		}
-
-		found = false;
-		if (TSRTS.playerSelectionsControlGroup8 != null) {
-			if (TSRTS.playerSelectionsControlGroup8.length > 0) {
-
-				int[] tmp = new int[TSRTS.playerSelectionsControlGroup8.length - 1];
-				int j = 0;
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup8.length; i++) {
-					if (TSRTS.playerSelectionsControlGroup8[i] == entityId) {
-						found = true;
-					} else {
-						if (j < tmp.length) {
-
-							tmp[j] = TSRTS.playerSelectionsControlGroup8[i];
-						}
-						j++;
-					}
-				}
-				if (found) {
-					TSRTS.playerSelectionsControlGroup8 = tmp;
+		if (TSRTS.playerSelectionsControlGroup3.selectedUnits != null) {
+			Iterator<Integer> itr = TSRTS.playerSelectionsControlGroup3.selectedUnits.iterator();
+			while (itr.hasNext()) {
+				Integer id = itr.next();
+				if (id == entityId) {
+					itr.remove();
 				}
 			}
 		}
-
-		found = false;
-		if (TSRTS.playerSelectionsControlGroup9 != null) {
-			if (TSRTS.playerSelectionsControlGroup9.length > 0) {
-
-				int[] tmp = new int[TSRTS.playerSelectionsControlGroup9.length - 1];
-				int j = 0;
-				for (int i = 0; i < TSRTS.playerSelectionsControlGroup9.length; i++) {
-					if (TSRTS.playerSelectionsControlGroup9[i] == entityId) {
-						found = true;
-					} else {
-						if (j < tmp.length) {
-
-							tmp[j] = TSRTS.playerSelectionsControlGroup9[i];
-						}
-						j++;
-					}
+		if (TSRTS.playerSelectionsControlGroup4.selectedUnits != null) {
+			Iterator<Integer> itr = TSRTS.playerSelectionsControlGroup4.selectedUnits.iterator();
+			while (itr.hasNext()) {
+				Integer id = itr.next();
+				if (id == entityId) {
+					itr.remove();
 				}
-				if (found) {
-					TSRTS.playerSelectionsControlGroup9 = tmp;
+			}
+		}
+		if (TSRTS.playerSelectionsControlGroup5.selectedUnits != null) {
+			Iterator<Integer> itr = TSRTS.playerSelectionsControlGroup5.selectedUnits.iterator();
+			while (itr.hasNext()) {
+				Integer id = itr.next();
+				if (id == entityId) {
+					itr.remove();
+				}
+			}
+		}
+		if (TSRTS.playerSelectionsControlGroup6.selectedUnits != null) {
+			Iterator<Integer> itr = TSRTS.playerSelectionsControlGroup6.selectedUnits.iterator();
+			while (itr.hasNext()) {
+				Integer id = itr.next();
+				if (id == entityId) {
+					itr.remove();
+				}
+			}
+		}
+		if (TSRTS.playerSelectionsControlGroup7.selectedUnits != null) {
+			Iterator<Integer> itr = TSRTS.playerSelectionsControlGroup7.selectedUnits.iterator();
+			while (itr.hasNext()) {
+				Integer id = itr.next();
+				if (id == entityId) {
+					itr.remove();
+				}
+			}
+		}
+		if (TSRTS.playerSelectionsControlGroup8.selectedUnits != null) {
+			Iterator<Integer> itr = TSRTS.playerSelectionsControlGroup8.selectedUnits.iterator();
+			while (itr.hasNext()) {
+				Integer id = itr.next();
+				if (id == entityId) {
+					itr.remove();
+				}
+			}
+		}
+		if (TSRTS.playerSelectionsControlGroup9.selectedUnits != null) {
+			Iterator<Integer> itr = TSRTS.playerSelectionsControlGroup9.selectedUnits.iterator();
+			while (itr.hasNext()) {
+				Integer id = itr.next();
+				if (id == entityId) {
+					itr.remove();
 				}
 			}
 		}
