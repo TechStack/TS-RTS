@@ -54,8 +54,10 @@ public class UnitEntity extends MonsterEntity {
 		// TODO Auto-generated method stub
 		if (TSRTS.playerSelections.containsKey(ownerName)) {
 			for (int i = 0; i < TSRTS.playerSelections.get(ownerName).selectedUnits.size(); i++) {
-				if (TSRTS.playerSelections.get(ownerName).selectedUnits.get(i) == this.getEntityId()) {
-					return true;
+				if (TSRTS.playerSelections.get(ownerName).selectedUnits != null) {
+					if (TSRTS.playerSelections.get(ownerName).selectedUnits.get(i) == this.getEntityId()) {
+						return true;
+					}
 				}
 			}
 
