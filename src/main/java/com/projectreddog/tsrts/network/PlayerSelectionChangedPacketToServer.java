@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.network;
 
 import java.util.function.Supplier;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.network.PacketBuffer;
@@ -23,6 +24,8 @@ public class PlayerSelectionChangedPacketToServer {
 	public PlayerSelectionChangedPacketToServer(int[] entityIds) {
 		super();
 		this.entityIds = entityIds;
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in PlayerSelectionChangedPacketToServer for " + entityIds.toString());
+
 	}
 
 	public void encode(PacketBuffer buf) {
