@@ -70,7 +70,7 @@ public class ClientPacketHandler {
 				ps.selectedUnits.add(entityIds[i]);
 			}
 
-			TSRTS.clientSelections = ps;
+			TSRTS.playerSelections.put(playerScoreboardName, ps);
 
 		}
 

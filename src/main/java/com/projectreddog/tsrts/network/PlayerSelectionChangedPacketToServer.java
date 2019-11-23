@@ -2,7 +2,6 @@ package com.projectreddog.tsrts.network;
 
 import java.util.function.Supplier;
 
-import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.network.PacketBuffer;
@@ -21,14 +20,9 @@ public class PlayerSelectionChangedPacketToServer {
 
 	}
 
-	public PlayerSelectionChangedPacketToServer(PlayerSelections ps) {
+	public PlayerSelectionChangedPacketToServer(int[] entityIds) {
 		super();
-
-		this.entityIds = new int[ps.selectedUnits.size()];
-
-		for (int i = 0; i < ps.selectedUnits.size(); i++) {
-			this.entityIds[i] = ps.selectedUnits.get(i);
-		}
+		this.entityIds = entityIds;
 
 	}
 

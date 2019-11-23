@@ -52,27 +52,13 @@ public class UnitEntity extends MonsterEntity {
 	@Override
 	public boolean isGlowing() {
 		// TODO Auto-generated method stub
-
-		if (this.world.isRemote) {
-
-			// server
-			if (TSRTS.serverSelections.containsKey(ownerName)) {
-				for (int i = 0; i < TSRTS.serverSelections.get(ownerName).selectedUnits.size(); i++) {
-					if (TSRTS.serverSelections.get(ownerName).selectedUnits.get(i) == this.getEntityId()) {
-						return true;
-					}
-				}
-
-			}
-		} else {
-//client
-
-			for (int i = 0; i < TSRTS.clientSelections.selectedUnits.size(); i++) {
-				if (TSRTS.clientSelections.selectedUnits.get(i) == this.getEntityId()) {
+		if (TSRTS.playerSelections.containsKey(ownerName)) {
+			for (int i = 0; i < TSRTS.playerSelections.get(ownerName).selectedUnits.size(); i++) {
+				if (TSRTS.playerSelections.get(ownerName).selectedUnits.get(i) == this.getEntityId()) {
 					return true;
 				}
-
 			}
+
 		}
 		return false;
 	}
