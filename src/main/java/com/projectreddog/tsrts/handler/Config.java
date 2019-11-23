@@ -171,8 +171,8 @@ public class Config {
 	private static void setupUnitAttributeConfig() {
 		COMMON_BUILDER.comment("UNIT ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS : MAX_HEALTH,KNOCK_BACK_RESISTANCE, MOVEMENT_SPEED,ARMOR,ARMOR_TOUGHNESS,ATTACK_KNOCKBACK,ATTACKD_DAMAGE,FOLLOW_RANGE. They are comma separated list of floats Example : 20.0,0.0,0.25,2.0,0.0,0.0,3.0,35.0").push(CATEGORY_UNIT_ATTRIBUTES);
 
-		CONFIG_UNIT_MINION_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "20.0,0.0,0.25,2.0,0.0,0.0,3.0,35.0");
-		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "20.0,0.0,0.25,2.0,0.0,0.0,3.0,35.0");
+		CONFIG_UNIT_MINION_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,35.0");
+		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "10.0,0.0,0.30,2.0,0.0,0.0,3.0,35.0");
 
 		COMMON_BUILDER.pop();
 
@@ -287,18 +287,18 @@ public class Config {
 	private static void setupUnitCostConfig() {
 		COMMON_BUILDER.comment("Unit Costs").push(CATEGORY_UNIT_COST);
 		CONFIG_UNIT_COSTS_MINION_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the minion").defineInRange("unitCostsMinionFood", 6, 0, 100000);
-		CONFIG_UNIT_COSTS_MINION_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the minion").defineInRange("unitCostsMinionWood", 5, 0, 100000);
-		CONFIG_UNIT_COSTS_MINION_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the minion").defineInRange("unitCostsMinionStone", 2, 0, 100000);
-		CONFIG_UNIT_COSTS_MINION_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the minion").defineInRange("unitCostsMinionIron", 3, 0, 100000);
+		CONFIG_UNIT_COSTS_MINION_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the minion").defineInRange("unitCostsMinionWood", 4, 0, 100000);
+		CONFIG_UNIT_COSTS_MINION_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the minion").defineInRange("unitCostsMinionStone", 4, 0, 100000);
+		CONFIG_UNIT_COSTS_MINION_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the minion").defineInRange("unitCostsMinionIron", 4, 0, 100000);
 		CONFIG_UNIT_COSTS_MINION_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the minion").defineInRange("unitCostsMinionGold", 0, 0, 100000);
 		CONFIG_UNIT_COSTS_MINION_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the minion").defineInRange("unitCostsMinionDiamond", 0, 0, 100000);
 		CONFIG_UNIT_COSTS_MINION_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the minion").defineInRange("unitCostsMinionEmerald", 0, 0, 100000);
 
 		CONFIG_UNIT_COSTS_ARCHER_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the archer").defineInRange("unitCostsArcherFood", 5, 0, 100000);
-		CONFIG_UNIT_COSTS_ARCHER_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the archer").defineInRange("unitCostsArcherWood", 5, 0, 100000);
-		CONFIG_UNIT_COSTS_ARCHER_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the archer").defineInRange("unitCostsArcherStone", 3, 0, 100000);
-		CONFIG_UNIT_COSTS_ARCHER_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the archer").defineInRange("unitCostsArcherIron", 5, 0, 100000);
-		CONFIG_UNIT_COSTS_ARCHER_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the archer").defineInRange("unitCostsArcherGold", 3, 0, 100000);
+		CONFIG_UNIT_COSTS_ARCHER_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the archer").defineInRange("unitCostsArcherWood", 6, 0, 100000);
+		CONFIG_UNIT_COSTS_ARCHER_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the archer").defineInRange("unitCostsArcherStone", 2, 0, 100000);
+		CONFIG_UNIT_COSTS_ARCHER_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the archer").defineInRange("unitCostsArcherIron", 4, 0, 100000);
+		CONFIG_UNIT_COSTS_ARCHER_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the archer").defineInRange("unitCostsArcherGold", 4, 0, 100000);
 		CONFIG_UNIT_COSTS_ARCHER_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the archer").defineInRange("unitCostsArcherDiamond", 0, 0, 100000);
 		CONFIG_UNIT_COSTS_ARCHER_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the archer").defineInRange("unitCostsArcherEmerald", 0, 0, 100000);
 
