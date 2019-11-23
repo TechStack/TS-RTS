@@ -57,7 +57,7 @@ public class ClientProxy implements IProxy {
 		ClientRegistry.registerKeyBinding(ClientEvents.controlModifier);
 		ClientRegistry.registerKeyBinding(ClientEvents.deselectAll);
 		ClientRegistry.registerKeyBinding(ClientEvents.areaSelect);
-
+		ClientRegistry.registerKeyBinding(ClientEvents.boxSelect);
 	}
 
 	@Override
