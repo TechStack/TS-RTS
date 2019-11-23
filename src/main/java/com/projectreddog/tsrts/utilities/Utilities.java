@@ -496,69 +496,66 @@ public class Utilities {
 	}
 
 	public static void clientControlGroupToSelectedUnits(String playerScoreboardname, int controlGroupNumber) {
-		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in client selected units to control group for " + playerScoreboardname + " group " + controlGroupNumber);
-
-		int[] activeSelections = null;
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in clientControlGroupToSelectedUnits for " + playerScoreboardname + " group " + controlGroupNumber);
 		switch (controlGroupNumber) {
 		case 1:
-			activeSelections = TSRTS.playerSelectionsControlGroup1;
-
+			if (TSRTS.playerSelectionsControlGroup1 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup1));
+			}
 			break;
 		case 2:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup2;
+			if (TSRTS.playerSelectionsControlGroup2 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup2));
+			}
 			break;
 		case 3:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup3;
+			if (TSRTS.playerSelectionsControlGroup3 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup3));
+			}
 			break;
 		case 4:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup4;
+			if (TSRTS.playerSelectionsControlGroup4 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup4));
+			}
 			break;
 		case 5:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup5;
+			if (TSRTS.playerSelectionsControlGroup5 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup5));
+			}
 			break;
 		case 6:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup6;
+			if (TSRTS.playerSelectionsControlGroup6 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup6));
+			}
 			break;
 		case 7:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup7;
+			if (TSRTS.playerSelectionsControlGroup7 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup7));
+			}
 			break;
 		case 8:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup8;
+			if (TSRTS.playerSelectionsControlGroup8 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup8));
+			}
 			break;
 		case 9:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup9;
+			if (TSRTS.playerSelectionsControlGroup9 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup9));
+			}
 			break;
-
 		}
-		// TSRTS.playerSelections.put(playerScoreboardname, activeSelections);
-		if (activeSelections != null) {
-
-			ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(activeSelections));
-		}
-
 	}
 
 	public static int GetSelectedCountForControlGroup(int controlGroupNumber) {
 		switch (controlGroupNumber) {
 		case 1:
-
 			if (TSRTS.playerSelectionsControlGroup1 != null) {
 				return TSRTS.playerSelectionsControlGroup1.length;
 			}
-
 		case 2:
 			if (TSRTS.playerSelectionsControlGroup2 != null) {
 				return TSRTS.playerSelectionsControlGroup2.length;
 			}
-
 		case 3:
 			if (TSRTS.playerSelectionsControlGroup3 != null) {
 				return TSRTS.playerSelectionsControlGroup3.length;
@@ -567,7 +564,6 @@ public class Utilities {
 			if (TSRTS.playerSelectionsControlGroup4 != null) {
 				return TSRTS.playerSelectionsControlGroup4.length;
 			}
-
 		case 5:
 			if (TSRTS.playerSelectionsControlGroup5 != null) {
 				return TSRTS.playerSelectionsControlGroup5.length;
@@ -597,43 +593,63 @@ public class Utilities {
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			// already selected if we wanted this to be a toggle this is where we edit it be removed
 
-			int[] activeSelections = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-
-			for (int i = 0; i < activeSelections.length; i++) {
-				activeSelections[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-			}
-
 			switch (controlGroupNumber) {
 			case 1:
-				TSRTS.playerSelectionsControlGroup1 = activeSelections;
+				TSRTS.playerSelectionsControlGroup1 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup1.length; i++) {
+					TSRTS.playerSelectionsControlGroup1[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 2:
-				TSRTS.playerSelectionsControlGroup2 = activeSelections;
+				TSRTS.playerSelectionsControlGroup2 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup2.length; i++) {
+					TSRTS.playerSelectionsControlGroup2[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 3:
-				TSRTS.playerSelectionsControlGroup3 = activeSelections;
+				TSRTS.playerSelectionsControlGroup3 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup3.length; i++) {
+					TSRTS.playerSelectionsControlGroup3[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 4:
-				TSRTS.playerSelectionsControlGroup4 = activeSelections;
+				TSRTS.playerSelectionsControlGroup4 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup4.length; i++) {
+					TSRTS.playerSelectionsControlGroup4[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 5:
-				TSRTS.playerSelectionsControlGroup5 = activeSelections;
+				TSRTS.playerSelectionsControlGroup5 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup5.length; i++) {
+					TSRTS.playerSelectionsControlGroup5[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 6:
-				TSRTS.playerSelectionsControlGroup6 = activeSelections;
+				TSRTS.playerSelectionsControlGroup6 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup6.length; i++) {
+					TSRTS.playerSelectionsControlGroup6[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 7:
-				TSRTS.playerSelectionsControlGroup7 = activeSelections;
+				TSRTS.playerSelectionsControlGroup7 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup7.length; i++) {
+					TSRTS.playerSelectionsControlGroup7[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 8:
-				TSRTS.playerSelectionsControlGroup8 = activeSelections;
+				TSRTS.playerSelectionsControlGroup8 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup8.length; i++) {
+					TSRTS.playerSelectionsControlGroup8[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 9:
-				TSRTS.playerSelectionsControlGroup9 = activeSelections;
+				TSRTS.playerSelectionsControlGroup9 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup9.length; i++) {
+					TSRTS.playerSelectionsControlGroup9[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			}
 		}
-
 	}
 
 	public static void SendTeamToClient(String teamName) {
