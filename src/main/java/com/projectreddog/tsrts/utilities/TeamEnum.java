@@ -1,5 +1,7 @@
 package com.projectreddog.tsrts.utilities;
 
+import com.projectreddog.tsrts.TSRTS;
+
 import net.minecraft.util.IStringSerializable;
 
 public enum TeamEnum implements IStringSerializable {
@@ -16,6 +18,23 @@ public enum TeamEnum implements IStringSerializable {
 	@Override
 	public String getName() {
 		return this.name;
+	}
+
+	public static int getIDFromName(String name) {
+		switch (name) {
+		case "blue":
+			return 0;
+		case "red":
+			return 1;
+		case "yellow":
+			return 2;
+		case "green":
+			return 3;
+		}
+
+		TSRTS.LOGGER.info("INVALID PLAYER TEAM FOUND: " + name);
+		return 0;
+
 	}
 
 }

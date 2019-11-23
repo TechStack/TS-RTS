@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.network;
 
 import java.util.function.Supplier;
 
+import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModNetwork;
 
@@ -39,7 +40,11 @@ public class RequestOwnerInfoToServer {
 				if (e instanceof UnitEntity) {
 					UnitEntity ue = (UnitEntity) e;
 					ModNetwork.SendToPlayer(player, new EntityOwnerChangedPacketToClient(entityID, ue.getOwnerName()));
+				} else if (e instanceof TargetEntity) {
+					TargetEntity te = (TargetEntity) e;
+					ModNetwork.SendToPlayer(player, new EntityOwnerChangedPacketToClient(entityID, te.getOwnerName()));
 				}
+
 			}
 
 		});

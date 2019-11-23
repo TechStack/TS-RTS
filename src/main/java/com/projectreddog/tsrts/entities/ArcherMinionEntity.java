@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.entities;
 
 import com.projectreddog.tsrts.entities.ai.MoveToOwnerSpecifiedLocation;
+import com.projectreddog.tsrts.handler.Config;
 
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -54,10 +55,16 @@ public class ArcherMinionEntity extends UnitEntity implements IRangedAttackMob {
 	protected void registerAttributes() {
 		super.registerAttributes();
 		// getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
-		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) 0.23F);
-		this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
-		this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+
+		this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getARMOR());
+		this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getARMOR_TOUGHNESS());
+		this.getAttribute(SharedMonsterAttributes.ATTACK_KNOCKBACK).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getATTACK_KNOCKBACK());
+		this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getATTACK_DAMAGE());
+		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getFOLLOW_RANGE());
+		this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getKNOCK_BACK_RESISTANCE());
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getMAX_HEALTH());
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getMOVEMENT_SPEED());
+
 	}
 
 	@Override

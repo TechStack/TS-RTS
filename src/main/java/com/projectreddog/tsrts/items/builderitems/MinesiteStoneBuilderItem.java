@@ -5,9 +5,12 @@ import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 
 public class MinesiteStoneBuilderItem extends BuilderItem {
 	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "stone_red_100");
@@ -79,4 +82,10 @@ public class MinesiteStoneBuilderItem extends BuilderItem {
 	public boolean CanPlaceOn(Block block) {
 		return block == Blocks.STONE;
 	}
+
+	@Override
+	public void ActionAfterSpawn(World world, PlayerEntity Player, BlockPos bp) {
+
+	}
+
 }

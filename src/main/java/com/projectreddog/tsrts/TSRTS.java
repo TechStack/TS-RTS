@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import com.projectreddog.tsrts.handler.ClientEvents;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.handler.EventHandler;
+import com.projectreddog.tsrts.handler.ServerEvents;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModContainers;
 import com.projectreddog.tsrts.init.ModEntities;
@@ -18,6 +19,7 @@ import com.projectreddog.tsrts.proxy.IProxy;
 import com.projectreddog.tsrts.proxy.ServerProxy;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 
 import net.minecraft.block.Block;
@@ -25,6 +27,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -39,6 +42,8 @@ import net.minecraftforge.fml.loading.FMLPaths;
 @Mod(Reference.MODID)
 public class TSRTS {
 	public static HashMap<String, PlayerSelections> playerSelections = new HashMap<String, PlayerSelections>();
+	public static BlockPos RallyPointToolFrom = null;
+	public static BlockPos RallyPointToolTo = null;
 
 	public static int[] playerSelectionsControlGroup1 = null;
 	public static int[] playerSelectionsControlGroup2 = null;
@@ -50,8 +55,8 @@ public class TSRTS {
 	public static int[] playerSelectionsControlGroup8 = null;
 	public static int[] playerSelectionsControlGroup9 = null;
 
-	public static HashMap<String, TeamInfo> teamInfoMap = new HashMap<String, TeamInfo>();
-	public static HashMap<String, Boolean> isPlayerReadyMap = new HashMap<>();
+	public static TeamInfo[] teamInfoArray = new TeamInfo[TeamEnum.values().length];
+	public static HashMap<String, Boolean> isPlayerReadyArray = new HashMap<>();
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
 	// Directly reference a log4j logger.
@@ -76,6 +81,8 @@ public class TSRTS {
 
 		MinecraftForge.EVENT_BUS.register(EventHandler.class);
 		MinecraftForge.EVENT_BUS.register(ClientEvents.class);
+		MinecraftForge.EVENT_BUS.register(ServerEvents.class);
+
 	}
 
 	// You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

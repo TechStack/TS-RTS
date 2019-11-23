@@ -27,13 +27,10 @@ public class SendTeamInfoPacketToClient {
 	public SendTeamInfoPacketToClient(TeamInfo ti, String teamName) {
 		super();
 
-		TeamInfo.Resources[] res = TeamInfo.Resources.values();
+		resourceAmt = ti.GetResourceArray();
 
-		for (int i = 0; i < resourceCount; i++) {
-
-			resourceAmt[i] = ti.GetResource(res[i]);
-		}
 		this.teamName = teamName;
+
 	}
 
 	public void encode(PacketBuffer buf) {

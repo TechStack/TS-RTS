@@ -4,12 +4,15 @@ import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 
 public abstract class BuilderItem extends Item {
 
@@ -53,6 +56,8 @@ public abstract class BuilderItem extends Item {
 				if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(context.getPlayer().getTeam().getName()), new StructureData(getTemplateName100(context.getPlayer().getTeam().getName()), getTemplateName50(context.getPlayer().getTeam().getName()), getTemplateName0(context.getPlayer().getTeam().getName()), context.getPos(), d, getSize()), context.getPlayer().getScoreboardName(), true)) {
 
 					context.getItem().shrink(1);
+					context.getPlayer().container.detectAndSendChanges();
+					ActionAfterSpawn(context.getWorld(), context.getPlayer(), context.getPos().up());
 
 				} else {
 					return ActionResultType.FAIL;
@@ -65,6 +70,8 @@ public abstract class BuilderItem extends Item {
 
 		return super.onItemUse(context);
 	}
+
+	public abstract void ActionAfterSpawn(World world, PlayerEntity Player, BlockPos bp);
 
 	public abstract boolean CanPlaceOn(Block block);
 

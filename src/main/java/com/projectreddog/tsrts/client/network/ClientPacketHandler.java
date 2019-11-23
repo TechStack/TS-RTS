@@ -1,10 +1,13 @@
 package com.projectreddog.tsrts.client.network;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.client.gui.toast.AlertToast;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+import com.projectreddog.tsrts.utilities.AlertToastBackgroundType;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -32,12 +35,17 @@ public class ClientPacketHandler {
 		}
 	}
 
-	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName) {
+	public static void AlertToastToClient(String title, String subTitle, AlertToastBackgroundType backgroundType) {
+		Minecraft.getInstance().getToastGui().add(new AlertToast(title, subTitle, backgroundType));
+	}
 
+	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName) {
+		TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
-		TeamInfo ti = new TeamInfo();
-		ti.SetResourceArray(resourceAmt);
-		TSRTS.teamInfoMap.put(teamName, ti);
+		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = new TeamInfo();
+		}
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SetResourceArray(resourceAmt);
 
 	}
 
@@ -53,6 +61,8 @@ public class ClientPacketHandler {
 	}
 
 	public static void PlayerSelectionChangedPacketToClient(int[] entityIds) {
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in PlayerSelectionChangedPacketToClient( handler)  for " + entityIds.toString());
+
 		if (Minecraft.getInstance() != null && Minecraft.getInstance().player != null) {
 			String playerScoreboardName = Minecraft.getInstance().player.getScoreboardName();
 			PlayerSelections ps = new PlayerSelections();
@@ -69,10 +79,12 @@ public class ClientPacketHandler {
 	public static void PlayerReadyUpPacketToClient(int playerEntityID, Boolean isReady) {
 		World world = Minecraft.getInstance().player.world;
 		Entity e = world.getEntityByID(playerEntityID);
+		TSRTS.LOGGER.info("READY UP PACKET CLIENT: " + isReady);
+
 		if (e instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) e;
 
-			Utilities.setPlayerReady(world, player, isReady);
+			Utilities.setPlayerReady(player, isReady);
 		}
 	}
 

@@ -4,9 +4,12 @@ import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 
 public class ArcheryRangeBuilderItem extends BuilderItem {
 
@@ -73,13 +76,18 @@ public class ArcheryRangeBuilderItem extends BuilderItem {
 
 	public Vec3i getSize() {
 //TODO UDPATE THIS WITH REAL SIZE OF ARCHERY RANGE!
-		return new Vec3i(13, 10, 13);
+		return new Vec3i(17, 10, 17);
 	}
 
 	@Override
 	public boolean CanPlaceOn(Block block) {
 
 		return true;
+	}
+
+	@Override
+	public void ActionAfterSpawn(World world, PlayerEntity Player, BlockPos bp) {
+
 	}
 
 }

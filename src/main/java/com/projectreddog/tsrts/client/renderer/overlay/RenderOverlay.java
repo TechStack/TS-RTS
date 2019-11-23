@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL11;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.ClientUtilities;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -83,24 +84,25 @@ public class RenderOverlay extends Screen {
 					if (Minecraft.getInstance().player.getScoreboardName() != null) {
 						if (Minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(Minecraft.getInstance().player.getScoreboardName()) != null) {
 							String team = Minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(Minecraft.getInstance().player.getScoreboardName()).getName();
-							if (TSRTS.teamInfoMap.containsKey(team)) {
-								TeamInfo ti = TSRTS.teamInfoMap.get(team);
-								TeamInfo.Resources[] res = TeamInfo.Resources.values();
-								int x = 5;
-								int y = 5;
-								int yItemOffset = 30;
-								int xItemOffset = 30;
-								int ytextOffset = 5;
-								int xtextOffset = 20;
-								int xTextWidth = 55;
 
-								x = (500 - (res.length * (xtextOffset + xTextWidth)) / 2);
+							TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)];
+							TeamInfo.Resources[] res = TeamInfo.Resources.values();
+							int x = 5;
+							int y = 5;
+							int yItemOffset = 30;
+							int xItemOffset = 30;
+							int ytextOffset = 5;
+							int xtextOffset = 20;
+							int xTextWidth = 55;
 
-								Minecraft.getInstance().textureManager.bindTexture(TEXTURE);
-								// this.blit(x - 10, 5, 0, 0, 256, 18);
-								ClientUtilities.renderTexture(x - 10, 4, 512, 18);
-								RenderHelper.enableGUIStandardItemLighting();
-								for (int i = 0; i < res.length; i++) {
+							x = (500 - (res.length * (xtextOffset + xTextWidth)) / 2);
+
+							Minecraft.getInstance().textureManager.bindTexture(TEXTURE);
+							// this.blit(x - 10, 5, 0, 0, 256, 18);
+							ClientUtilities.renderTexture(x - 10, 4, 512, 18);
+							RenderHelper.enableGUIStandardItemLighting();
+							for (int i = 0; i < res.length; i++) {
+								if (ti != null) {
 									int amt = ti.GetResource(res[i]);
 
 									Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
@@ -110,6 +112,7 @@ public class RenderOverlay extends Screen {
 									x = x + xTextWidth;
 								}
 							}
+
 						}
 					}
 				}

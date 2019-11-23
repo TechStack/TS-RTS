@@ -17,6 +17,7 @@ import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
@@ -49,6 +50,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
@@ -57,33 +59,31 @@ import net.minecraft.world.server.ServerWorld;
 
 public class Utilities {
 
-	public static void setPlayerReady(World world, PlayerEntity player, Boolean isReady) {
-		if (!world.isRemote) {
-			// server
-			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
+	public static void setPlayerReady(PlayerEntity player, boolean isReady) {
+		TSRTS.LOGGER.info("setPlayerReady: " + isReady);
+
+		TSRTS.isPlayerReadyArray.put(player.getScoreboardName(), isReady);
+
+		if (!player.world.isRemote) {
+			// server so also send packet
 
 			ModNetwork.SendToALLPlayers(new PlayerReadyUpPacketToClient(player.getEntityId(), isReady));
 
-		} else {
-			// client
-			TSRTS.isPlayerReadyMap.put(player.getScoreboardName(), isReady);
-			// do not send packet here to avoid looping between client and server
 		}
 	}
 
 	public static boolean getPlayerReady(PlayerEntity player) {
 
-		if (TSRTS.isPlayerReadyMap.containsKey(player.getScoreboardName())) {
-			return TSRTS.isPlayerReadyMap.get(player.getScoreboardName());
-		}
-		return false;
+		return getPlayerReady(player.getScoreboardName());
 	}
 
 	public static boolean getPlayerReady(String playerScoreboardName) {
-
-		if (TSRTS.isPlayerReadyMap.containsKey(playerScoreboardName)) {
-			return TSRTS.isPlayerReadyMap.get(playerScoreboardName);
+		if (TSRTS.isPlayerReadyArray.containsKey(playerScoreboardName)) {
+			return TSRTS.isPlayerReadyArray.get(playerScoreboardName);
 		}
+		TSRTS.LOGGER.info(" player " + playerScoreboardName + " not in hashmap ASSUME THEY ARE FALSE & put them in the map");
+		TSRTS.isPlayerReadyArray.put(playerScoreboardName, false);
+
 		return false;
 	}
 
@@ -111,7 +111,9 @@ public class Utilities {
 			player.world.getScoreboard().addPlayerToTeam(player.getScoreboardName(), team);
 			break;
 		case Reference.GUI_BUTTON_LOBBY_READY:
-			Utilities.setPlayerReady(player.world, player, !Utilities.getPlayerReady(player));
+			Utilities.setPlayerReady(player, !Utilities.getPlayerReady(player));
+			TSRTS.LOGGER.info("Lobby Button: READY:" + Utilities.getPlayerReady(player));
+
 			break;
 		case Reference.GUI_BUTTON_LOBBY_START:
 			Utilities.startGame(player.world);
@@ -145,10 +147,11 @@ public class Utilities {
 		Collection<ScorePlayerTeam> teams = world.getScoreboard().getTeams();
 
 		// get starting resources
-		int[] tmpRes = getStartingResourceAmounts();
 
 		for (Iterator iterator = teams.iterator(); iterator.hasNext();) {
 			ScorePlayerTeam team = (ScorePlayerTeam) iterator.next();
+			int[] tmpRes = getStartingResourceAmounts();
+
 			String teamName = team.getName();
 			Utilities.setResourcesOfTeam(teamName, tmpRes);
 		}
@@ -158,6 +161,8 @@ public class Utilities {
 		// TODO Auto-generated method stub
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.DIAMOND_SWORD, 1));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.SAMPLEITEM));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RALLYPOINTTOOLITEM));
+		GivePlayerItemStack(playerEntity, new ItemStack(Items.COOKED_BEEF, 64));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
 
 	}
@@ -207,6 +212,7 @@ public class Utilities {
 			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.GOLD, goldCosts);
 			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.DIAMOND, diamondCosts);
 			result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, emeraldCosts);
+			SendTeamToClient(teamName);
 
 			if (result) {
 				GivePlayerItemStack(player, itemStack);
@@ -468,13 +474,15 @@ public class Utilities {
 				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
 			}
 		} else {
-			throw new IllegalStateException(" COuld not find the player in the hasmap used for selections !");
+			TSRTS.playerSelections.put(playerScoreboardname, new PlayerSelections());
 
 		}
 
 	}
 
 	public static void ServerControlGroupToSelectedUnits(ServerPlayerEntity player, String playerScoreboardname, int[] entityIds) {
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in ServerControlGroupToSelectedUnits for " + player.getName() + entityIds.toString());
+
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.clear();
 			for (int i = 0; i < entityIds.length; i++) {
@@ -488,68 +496,66 @@ public class Utilities {
 	}
 
 	public static void clientControlGroupToSelectedUnits(String playerScoreboardname, int controlGroupNumber) {
-
-		int[] activeSelections = null;
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in clientControlGroupToSelectedUnits for " + playerScoreboardname + " group " + controlGroupNumber);
 		switch (controlGroupNumber) {
 		case 1:
-			activeSelections = TSRTS.playerSelectionsControlGroup1;
-
+			if (TSRTS.playerSelectionsControlGroup1 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup1));
+			}
 			break;
 		case 2:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup2;
+			if (TSRTS.playerSelectionsControlGroup2 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup2));
+			}
 			break;
 		case 3:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup3;
+			if (TSRTS.playerSelectionsControlGroup3 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup3));
+			}
 			break;
 		case 4:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup4;
+			if (TSRTS.playerSelectionsControlGroup4 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup4));
+			}
 			break;
 		case 5:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup5;
+			if (TSRTS.playerSelectionsControlGroup5 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup5));
+			}
 			break;
 		case 6:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup6;
+			if (TSRTS.playerSelectionsControlGroup6 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup6));
+			}
 			break;
 		case 7:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup7;
+			if (TSRTS.playerSelectionsControlGroup7 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup7));
+			}
 			break;
 		case 8:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup8;
+			if (TSRTS.playerSelectionsControlGroup8 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup8));
+			}
 			break;
 		case 9:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup9;
+			if (TSRTS.playerSelectionsControlGroup9 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup9));
+			}
 			break;
-
 		}
-		// TSRTS.playerSelections.put(playerScoreboardname, activeSelections);
-		if (activeSelections != null) {
-
-			ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(activeSelections));
-		}
-
 	}
 
 	public static int GetSelectedCountForControlGroup(int controlGroupNumber) {
 		switch (controlGroupNumber) {
 		case 1:
-
 			if (TSRTS.playerSelectionsControlGroup1 != null) {
 				return TSRTS.playerSelectionsControlGroup1.length;
 			}
-
 		case 2:
 			if (TSRTS.playerSelectionsControlGroup2 != null) {
 				return TSRTS.playerSelectionsControlGroup2.length;
 			}
-
 		case 3:
 			if (TSRTS.playerSelectionsControlGroup3 != null) {
 				return TSRTS.playerSelectionsControlGroup3.length;
@@ -558,7 +564,6 @@ public class Utilities {
 			if (TSRTS.playerSelectionsControlGroup4 != null) {
 				return TSRTS.playerSelectionsControlGroup4.length;
 			}
-
 		case 5:
 			if (TSRTS.playerSelectionsControlGroup5 != null) {
 				return TSRTS.playerSelectionsControlGroup5.length;
@@ -584,116 +589,100 @@ public class Utilities {
 	}
 
 	public static void clientSelectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in client selected units to control group for " + playerScoreboardname + " group " + controlGroupNumber);
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			// already selected if we wanted this to be a toggle this is where we edit it be removed
 
-			int[] activeSelections = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-
-			for (int i = 0; i < activeSelections.length; i++) {
-				activeSelections[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-			}
-
 			switch (controlGroupNumber) {
 			case 1:
-				TSRTS.playerSelectionsControlGroup1 = activeSelections;
+				TSRTS.playerSelectionsControlGroup1 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup1.length; i++) {
+					TSRTS.playerSelectionsControlGroup1[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 2:
-				TSRTS.playerSelectionsControlGroup2 = activeSelections;
+				TSRTS.playerSelectionsControlGroup2 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup2.length; i++) {
+					TSRTS.playerSelectionsControlGroup2[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 3:
-				TSRTS.playerSelectionsControlGroup3 = activeSelections;
+				TSRTS.playerSelectionsControlGroup3 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup3.length; i++) {
+					TSRTS.playerSelectionsControlGroup3[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 4:
-				TSRTS.playerSelectionsControlGroup4 = activeSelections;
+				TSRTS.playerSelectionsControlGroup4 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup4.length; i++) {
+					TSRTS.playerSelectionsControlGroup4[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 5:
-				TSRTS.playerSelectionsControlGroup5 = activeSelections;
+				TSRTS.playerSelectionsControlGroup5 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup5.length; i++) {
+					TSRTS.playerSelectionsControlGroup5[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 6:
-				TSRTS.playerSelectionsControlGroup6 = activeSelections;
+				TSRTS.playerSelectionsControlGroup6 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup6.length; i++) {
+					TSRTS.playerSelectionsControlGroup6[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 7:
-				TSRTS.playerSelectionsControlGroup7 = activeSelections;
+				TSRTS.playerSelectionsControlGroup7 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup7.length; i++) {
+					TSRTS.playerSelectionsControlGroup7[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 8:
-				TSRTS.playerSelectionsControlGroup8 = activeSelections;
+				TSRTS.playerSelectionsControlGroup8 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup8.length; i++) {
+					TSRTS.playerSelectionsControlGroup8[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 9:
-				TSRTS.playerSelectionsControlGroup9 = activeSelections;
+				TSRTS.playerSelectionsControlGroup9 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup9.length; i++) {
+					TSRTS.playerSelectionsControlGroup9[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			}
 		}
-
 	}
 
 	public static void SendTeamToClient(String teamName) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoMap.get(teamName), teamName));
-		}
+		ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)], teamName));
 
 	}
 
 	public static boolean hasNeededResource(String teamName, TeamInfo.Resources res, int amt) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			if (ti.HasEnoughResource(res, amt)) {
-				return true;
-			}
+
+		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].HasEnoughResource(res, amt)) {
+			return true;
 		}
 		return false;
+
 	}
 
 	public static boolean SpendResourcesFromTeam(String teamName, TeamInfo.Resources res, int amt) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			ti.SpendResource(res, amt);
-			TSRTS.teamInfoMap.put(teamName, ti);
 
-			SendTeamToClient(teamName);
-			return true;
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SpendResource(res, amt);
+		TSRTS.LOGGER.info("TEAM: " + teamName + " spent (RES ORD): " + res.ordinal() + " for amount: " + amt);
+		return true;
 
-		} else {
-			try {
-				throw new IllegalStateException(" Team not found :" + teamName);
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
-		}
-		return false;
 	}
 
 	public static void setResourcesOfTeam(String teamName, int[] amts) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			ti.SetResourceArray(amts);
-			TSRTS.teamInfoMap.put(teamName, ti);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SetResourceArray(amts);
+		SendTeamToClient(teamName);
 
-			SendTeamToClient(teamName);
-
-		} else {
-			try {
-				throw new IllegalStateException(" Team not found :" + teamName);
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
-		}
 	}
 
 	public static void AddResourcesToTeam(String teamName, TeamInfo.Resources res, int amt) {
-		if (TSRTS.teamInfoMap.containsKey(teamName)) {
-			TeamInfo ti = TSRTS.teamInfoMap.get(teamName);
-			ti.AddResource(res, amt);
-			TSRTS.teamInfoMap.put(teamName, ti);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddResource(res, amt);
 
-			SendTeamToClient(teamName);
-
-		} else {
-			try {
-				throw new IllegalStateException(" Team not found :" + teamName);
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
-		}
 	}
 
 	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player) {
@@ -907,7 +896,7 @@ public class Utilities {
 
 				for (int z = 0; z < zSize; z++) {
 
-					if (!world.getBlockState(bp2.add(x, y, z)).getBlock().isAir(world.getBlockState(bp2.add(x, y, z)))) {
+					if ((!world.getBlockState(bp2.add(x, y, z)).getBlock().isAir(world.getBlockState(bp2.add(x, y, z))) && !(world.getBlockState(bp2.add(x, y, z)).getBlock().getMaterial(world.getBlockState(bp2.add(x, y, z))).isReplaceable()) && (world.getBlockState(bp2.add(x, y, z)).getBlock().getMaterial(world.getBlockState(bp2.add(x, y, z))).blocksMovement()))) {
 						result = false;
 						// BLOCK in the way
 					}
@@ -1287,6 +1276,35 @@ public class Utilities {
 			if (!hasYellow) {
 				world.getScoreboard().createTeam("yellow").setColor(TextFormatting.YELLOW);
 			}
+		}
+	}
+
+	public static void SendMessageToAllTeams(World world, String LangLookup, String part2) {
+		List<? extends PlayerEntity> players = world.getPlayers();
+		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
+			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
+
+			playerEntity.sendMessage(new TranslationTextComponent(LangLookup, part2));
+			if (playerEntity instanceof ServerPlayerEntity) {
+				ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("tsrts.alerttoast.alert", LangLookup, AlertToastBackgroundType.WARN));
+			}
+		}
+	}
+
+	public static void SendMessageToTeam(World world, String team, String LangLookup) {
+		List<? extends PlayerEntity> players = world.getPlayers();
+		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
+			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
+
+			if (playerEntity.getTeam() != null) {
+				if (playerEntity.getTeam().getName().equals(team)) {
+					playerEntity.sendMessage(new TranslationTextComponent(LangLookup));
+					if (playerEntity instanceof ServerPlayerEntity) {
+						ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("tsrts.alerttoast.alert", LangLookup, AlertToastBackgroundType.WARN));
+					}
+				}
+			}
+
 		}
 	}
 }

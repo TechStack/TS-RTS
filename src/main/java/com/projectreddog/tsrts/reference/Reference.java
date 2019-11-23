@@ -17,9 +17,12 @@ public class Reference {
 
 	// CONTAINER ONLY NO BLOCK
 	public static final String REIGSTRY_NAME_LOBBY_CONTAINER = "lobbycontiner";
+	public static final String REIGSTRY_NAME_BASIC_CONTAINER = "basiccontiner";
 
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
+	public static final String REIGSTRY_NAME_RALLY_POINT_TOOL = "rallypointtool";
+
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM = "lumberyardbuilderitem";
 	public static final String REIGSTRY_NAME_FARM_BUILDER_ITEM = "farmbuilderitem";
@@ -62,5 +65,8 @@ public class Reference {
 	public static final int GUI_BUTTON_LOBBY_YELLOW = 7;
 	public static final int GUI_BUTTON_LOBBY_READY = 8;
 	public static final int GUI_BUTTON_LOBBY_START = 9;
+
+	public static final int GUI_BUTTON_ENABLE_TE = 8000;
+	public static final int GUI_BUTTON_DISABLE_TE = 8001;
 
 }
