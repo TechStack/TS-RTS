@@ -94,7 +94,7 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 		}));
 		y = y + 20;
 
-		addButton(new Button(x, y, width, height, "Arrchery Range", (button) -> {
+		addButton(new Button(x, y, width, height, "Archery Range", (button) -> {
 			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_ARCHERY_RANGE));
 			this.onClose();
 		}));

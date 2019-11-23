@@ -41,8 +41,8 @@ public class EventHandler {
 		if (event.getEntity() instanceof PlayerEntity && !event.getWorld().isRemote) {
 			// player and server !
 			PlayerEntity pe = (PlayerEntity) event.getEntity();
-			if (!TSRTS.playerSelections.containsKey(pe.getScoreboardName())) {
-				TSRTS.playerSelections.put(pe.getScoreboardName(), new PlayerSelections());
+			if (!TSRTS.serverSelections.containsKey(pe.getScoreboardName())) {
+				TSRTS.serverSelections.put(pe.getScoreboardName(), new PlayerSelections());
 				Utilities.SendTeamToClient("red");
 				Utilities.SendTeamToClient("blue");
 				Utilities.SendTeamToClient("green");
@@ -105,17 +105,38 @@ public class EventHandler {
 
 	@SubscribeEvent
 	public static void onLivingDeathEvent(final LivingDeathEvent event) {
-		for (Map.Entry ps : TSRTS.playerSelections.entrySet()) {
+		// lets assume both server and client
 
-			PlayerSelections p = (PlayerSelections) ps.getValue();
-			Iterator<Integer> i = p.selectedUnits.iterator();
+		if (event.getEntity().world.isRemote) {
+			// client
+
+			Iterator<Integer> i = TSRTS.clientSelections.selectedUnits.iterator();
 			while (i.hasNext()) {
 				int currentEntityID = i.next();
 				if (currentEntityID == event.getEntity().getEntityId()) {
 					// found a match it died remove it from the selections!
 					i.remove();
 				}
+
 			}
+
+		} else {
+
+			// server
+
+			for (Map.Entry ps : TSRTS.serverSelections.entrySet()) {
+
+				PlayerSelections p = (PlayerSelections) ps.getValue();
+				Iterator<Integer> i = p.selectedUnits.iterator();
+				while (i.hasNext()) {
+					int currentEntityID = i.next();
+					if (currentEntityID == event.getEntity().getEntityId()) {
+						// found a match it died remove it from the selections!
+						i.remove();
+					}
+				}
+			}
+
 		}
 
 		Utilities.removeDeadEntityFromControlGroups(event.getEntity().getEntityId());
@@ -123,7 +144,8 @@ public class EventHandler {
 
 	@SubscribeEvent
 	public static void onLoad(Load event) {
-		TSRTS.playerSelections.clear();
+		TSRTS.clientSelections.selectedUnits.clear();
+		TSRTS.serverSelections.clear();
 		Utilities.CheckTeamsAndCreatedIfNeeded((World) event.getWorld());
 		if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
 			TSRTS.CURRENT_GAME_STATE = GAMESTATE.LOBBY;
