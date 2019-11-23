@@ -474,13 +474,15 @@ public class Utilities {
 				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
 			}
 		} else {
-			throw new IllegalStateException(" COuld not find the player in the hasmap used for selections !");
+			TSRTS.playerSelections.put(playerScoreboardname, new PlayerSelections());
 
 		}
 
 	}
 
 	public static void ServerControlGroupToSelectedUnits(ServerPlayerEntity player, String playerScoreboardname, int[] entityIds) {
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in ServerControlGroupToSelectedUnits for " + player.getName() + entityIds.toString());
+
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.clear();
 			for (int i = 0; i < entityIds.length; i++) {
@@ -494,6 +496,7 @@ public class Utilities {
 	}
 
 	public static void clientControlGroupToSelectedUnits(String playerScoreboardname, int controlGroupNumber) {
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in client selected units to control group for " + playerScoreboardname + " group " + controlGroupNumber);
 
 		int[] activeSelections = null;
 		switch (controlGroupNumber) {
@@ -590,6 +593,7 @@ public class Utilities {
 	}
 
 	public static void clientSelectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in client selected units to control group for " + playerScoreboardname + " group " + controlGroupNumber);
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			// already selected if we wanted this to be a toggle this is where we edit it be removed
 

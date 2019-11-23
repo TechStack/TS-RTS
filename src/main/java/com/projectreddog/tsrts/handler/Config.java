@@ -4,6 +4,8 @@ import java.nio.file.Path;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
+import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.utilities.UnitAttributes;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,6 +22,8 @@ public class Config {
 	public static final String CATEGORY_BUILDING_COST = "building_cost";
 
 	public static final String CATEGORY_STARTUP_RESOURCES = "startup_resources";
+
+	public static final String CATEGORY_UNIT_ATTRIBUTES = "unit_attributes";
 
 	public static final String CATEGORY_RESOURCE_GENERATION = "resource_generation";
 
@@ -140,6 +144,12 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_DIAMOND;
 	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_EMERALD;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_MINION_ATTRIBUTES_STRING;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING;
+
+	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_MINION;
+	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_ARCHER;
+
 	static {
 
 		setupGeneralConfig();
@@ -147,9 +157,24 @@ public class Config {
 		setupResourceGeneration();
 		setupUnitCostConfig();
 		setupBuildingCostConfig();
+		setupUnitAttributeConfig();
 
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
+	}
+
+	private static void PostProcessConfigs() {
+		CONFIG_UNIT_ATTRIBUTES_MINION = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_MINION_ATTRIBUTES_STRING.get()));
+		CONFIG_UNIT_ATTRIBUTES_ARCHER = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING.get()));
+	}
+
+	private static void setupUnitAttributeConfig() {
+		COMMON_BUILDER.comment("UNIT ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS : MAX_HEALTH,KNOCK_BACK_RESISTANCE, MOVEMENT_SPEED,ARMOR,ARMOR_TOUGHNESS,ATTACK_KNOCKBACK,ATTACKD_DAMAGE,FOLLOW_RANGE. They are comma separated list of floats Example : 20.0,0.0,0.25,2.0,0.0,0.0,3.0,35.0").push(CATEGORY_UNIT_ATTRIBUTES);
+
+		CONFIG_UNIT_MINION_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "20.0,0.0,0.25,2.0,0.0,0.0,3.0,35.0");
+		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "20.0,0.0,0.25,2.0,0.0,0.0,3.0,35.0");
+
+		COMMON_BUILDER.pop();
 
 	}
 
@@ -294,16 +319,42 @@ public class Config {
 		final CommentedFileConfig configData = CommentedFileConfig.builder(path).sync().autosave().writingMode(WritingMode.REPLACE).build();
 		configData.load();
 		spec.setConfig(configData);
+		PostProcessConfigs();
+
 	}
 
 	@SubscribeEvent
 	public static void onLoad(final ModConfig.Loading configEvent) {
+		PostProcessConfigs();
 
 	}
 
 	@SubscribeEvent
 	public static void onReload(final ModConfig.ConfigReloading configEvent) {
+		PostProcessConfigs();
 
+	}
+
+	public static float[] StringToFloatArray(String input) {
+		float[] tmp;
+		try {
+			String[] stringArray = input.split(",");
+			tmp = new float[stringArray.length];
+			for (int i = 0; i < stringArray.length; i++) {
+				tmp[i] = Float.parseFloat(stringArray[i]);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			TSRTS.LOGGER.error("INVALID CONFIG PLEASE FIX- MOD WILL MISSBEHAVE!!");
+			tmp = new float[0];
+		}
+
+		return tmp;
+	}
+
+	public enum UnitStats {
+		MAX_HEALTH, KNOCK_BACK_RESISTANCE, MOVEMENT_SPEED, ARMOR, ARMOR_TOUGHNESS, ATTACK_KNOCKBACK, ATTACKD_DAMAGE, FOLLOW_RANGE
 	}
 
 }

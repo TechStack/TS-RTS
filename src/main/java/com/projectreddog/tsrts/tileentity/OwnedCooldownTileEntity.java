@@ -158,9 +158,10 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		nbt.putInt("currentStage", currentStage.ordinal());
 		nbt.putInt("priorStage", priorStage.ordinal());
 		nbt.putInt("rubbleTimerRemaining", rubbleTimerRemaining);
-		nbt.putBoolean("enabled", enabled);
-
 		if (Config.CONFIG_GAME_MODE.get() != Config.Modes.WORLDBUILDER) {
+
+			nbt.putBoolean("enabled", enabled);
+
 			nbt.putBoolean("shouldIncreaseCounts", shouldIncreaseCounts);
 		}
 
