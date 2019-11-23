@@ -1,7 +1,11 @@
 package com.projectreddog.tsrts.handler;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.lwjgl.glfw.GLFW;
 
+import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
@@ -9,6 +13,7 @@ import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.scoreboard.Team;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,6 +31,8 @@ public class ClientEvents {
 	public static final KeyBinding controlGroup9 = new KeyBinding(Reference.MODID + ".key.controlgroup9", GLFW.GLFW_KEY_PERIOD, "key.categories." + Reference.MODID);
 	public static final KeyBinding controlModifier = new KeyBinding(Reference.MODID + ".key.controlmodifier", GLFW.GLFW_MOD_CONTROL, "key.categories." + Reference.MODID);
 	public static final KeyBinding deselectAll = new KeyBinding(Reference.MODID + ".key.deselectall", GLFW.GLFW_KEY_G, "key.categories." + Reference.MODID);
+
+	public static final KeyBinding areaSelect = new KeyBinding(Reference.MODID + ".key.areaSelect", GLFW.GLFW_KEY_H, "key.categories." + Reference.MODID);
 
 	@SubscribeEvent
 	public static void onClientTickEvent(final ClientTickEvent event) {
@@ -114,6 +121,29 @@ public class ClientEvents {
 				}
 				if (deselectAll.isPressed()) {
 					ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(new int[0]));
+				}
+				if (areaSelect.isPressed()) {
+					List<UnitEntity> uel = Minecraft.getInstance().player.world.getEntitiesWithinAABB(UnitEntity.class, Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16));
+					Team team = Minecraft.getInstance().player.getTeam();
+
+					int size = uel.size();
+					for (Iterator iterator = uel.iterator(); iterator.hasNext();) {
+						UnitEntity unitEntity = (UnitEntity) iterator.next();
+						if (!unitEntity.getTeam().isSameTeam(team)) {
+							size = size - 1;
+						}
+					}
+
+					int[] tmp = new int[size];
+					// TODO CONSIDER TEAMS!
+					for (int i = 0; i < tmp.length; i++) {
+						if (uel.get(i).getTeam().isSameTeam(team)) {
+							tmp[i] = uel.get(i).getEntityId();
+						}
+
+					}
+
+					ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(tmp));
 				}
 			}
 

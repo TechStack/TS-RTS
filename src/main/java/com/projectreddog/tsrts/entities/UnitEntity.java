@@ -20,7 +20,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 public class UnitEntity extends MonsterEntity {
-
+	;
 	private String ownerName;
 
 	public BlockPos ownerControlledDestination;
