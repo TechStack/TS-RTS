@@ -41,22 +41,19 @@ import net.minecraftforge.fml.loading.FMLPaths;
 
 @Mod(Reference.MODID)
 public class TSRTS {
-	public static HashMap<String, PlayerSelections> serverSelections = new HashMap<String, PlayerSelections>();
-
-	public static PlayerSelections clientSelections = new PlayerSelections();
-
+	public static HashMap<String, PlayerSelections> playerSelections = new HashMap<String, PlayerSelections>();
 	public static BlockPos RallyPointToolFrom = null;
 	public static BlockPos RallyPointToolTo = null;
 
-	public static PlayerSelections playerSelectionsControlGroup1 = new PlayerSelections();
-	public static PlayerSelections playerSelectionsControlGroup2 = new PlayerSelections();
-	public static PlayerSelections playerSelectionsControlGroup3 = new PlayerSelections();
-	public static PlayerSelections playerSelectionsControlGroup4 = new PlayerSelections();
-	public static PlayerSelections playerSelectionsControlGroup5 = new PlayerSelections();
-	public static PlayerSelections playerSelectionsControlGroup6 = new PlayerSelections();
-	public static PlayerSelections playerSelectionsControlGroup7 = new PlayerSelections();
-	public static PlayerSelections playerSelectionsControlGroup8 = new PlayerSelections();
-	public static PlayerSelections playerSelectionsControlGroup9 = new PlayerSelections();
+	public static int[] playerSelectionsControlGroup1 = null;
+	public static int[] playerSelectionsControlGroup2 = null;
+	public static int[] playerSelectionsControlGroup3 = null;
+	public static int[] playerSelectionsControlGroup4 = null;
+	public static int[] playerSelectionsControlGroup5 = null;
+	public static int[] playerSelectionsControlGroup6 = null;
+	public static int[] playerSelectionsControlGroup7 = null;
+	public static int[] playerSelectionsControlGroup8 = null;
+	public static int[] playerSelectionsControlGroup9 = null;
 
 	public static TeamInfo[] teamInfoArray = new TeamInfo[TeamEnum.values().length];
 	public static HashMap<String, Boolean> isPlayerReadyArray = new HashMap<>();
