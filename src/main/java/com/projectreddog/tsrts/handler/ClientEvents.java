@@ -2,6 +2,8 @@ package com.projectreddog.tsrts.handler;
 
 import org.lwjgl.glfw.GLFW;
 
+import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -23,6 +25,7 @@ public class ClientEvents {
 	public static final KeyBinding controlGroup8 = new KeyBinding(Reference.MODID + ".key.controlgroup8", GLFW.GLFW_KEY_COMMA, "key.categories." + Reference.MODID);
 	public static final KeyBinding controlGroup9 = new KeyBinding(Reference.MODID + ".key.controlgroup9", GLFW.GLFW_KEY_PERIOD, "key.categories." + Reference.MODID);
 	public static final KeyBinding controlModifier = new KeyBinding(Reference.MODID + ".key.controlmodifier", GLFW.GLFW_MOD_CONTROL, "key.categories." + Reference.MODID);
+	public static final KeyBinding deselectAll = new KeyBinding(Reference.MODID + ".key.deselectall", GLFW.GLFW_KEY_G, "key.categories." + Reference.MODID);
 
 	@SubscribeEvent
 	public static void onClientTickEvent(final ClientTickEvent event) {
@@ -108,6 +111,9 @@ public class ClientEvents {
 					} else {
 						Utilities.clientControlGroupToSelectedUnits(playerScoreboardName, 9);
 					}
+				}
+				if (deselectAll.isPressed()) {
+					ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(new int[0]));
 				}
 			}
 
