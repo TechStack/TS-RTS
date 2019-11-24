@@ -55,8 +55,14 @@ public class UnitEntity extends MonsterEntity {
 		if (TSRTS.playerSelections.containsKey(ownerName)) {
 			for (int i = 0; i < TSRTS.playerSelections.get(ownerName).selectedUnits.size(); i++) {
 				if (TSRTS.playerSelections.get(ownerName).selectedUnits != null) {
-					if (TSRTS.playerSelections.get(ownerName).selectedUnits.get(i) == this.getEntityId()) {
-						return true;
+
+					try {
+						if (TSRTS.playerSelections.get(ownerName).selectedUnits.get(i) == this.getEntityId()) {
+							return true;
+						}
+					} catch (IndexOutOfBoundsException e) {
+						// Its possible for the user to UNselect the untis at the same time we are trying to process the list(diff threads)
+						// if this should happen just ignore as they are no longer selected now anyway.
 					}
 				}
 			}
