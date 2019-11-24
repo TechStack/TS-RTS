@@ -17,13 +17,16 @@ import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
@@ -58,6 +61,10 @@ public class EventHandler {
 
 				}
 			}
+		}
+		if (event.getEntity() instanceof ItemEntity && !event.getWorld().isRemote) {
+			// server prevent items from dropping !
+			event.setCanceled(true);
 		}
 	}
 
@@ -130,6 +137,9 @@ public class EventHandler {
 
 			// TODO KEEP INVENTORY?
 			// ((World)event.getWorld()).getGameRules().getBoolean(GameRules.KEEP_INVENTORY)
+
+			((World) event.getWorld()).getGameRules().get(GameRules.KEEP_INVENTORY).set(true, (MinecraftServer) null);
+
 		}
 
 		World world = (World) event.getWorld();
