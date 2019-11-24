@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.init;
 
 import com.projectreddog.tsrts.items.RallyPointToolItem;
+import com.projectreddog.tsrts.items.RetreateScepterItem;
 import com.projectreddog.tsrts.items.SampleItem;
 import com.projectreddog.tsrts.items.builderitems.ArcheryRangeBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.BarracksBuilderItem;
@@ -21,6 +22,9 @@ import net.minecraftforge.registries.ObjectHolder;
 public class ModItems {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SAMPLE_ITEM)
 	public static SampleItem SAMPLEITEM = new SampleItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RETREAT_SEPTER_ITEM)
+	public static RetreateScepterItem RETREATESEPTERITEM = new RetreateScepterItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RALLY_POINT_TOOL)
 	public static RallyPointToolItem RALLYPOINTTOOLITEM = new RallyPointToolItem();
@@ -69,6 +73,8 @@ public class ModItems {
 		RegisterItem(event, ModItems.FARMBUILDERITEM);
 
 		RegisterItem(event, ModItems.RALLYPOINTTOOLITEM);
+
+		RegisterItem(event, ModItems.RETREATESEPTERITEM);
 
 	}
 

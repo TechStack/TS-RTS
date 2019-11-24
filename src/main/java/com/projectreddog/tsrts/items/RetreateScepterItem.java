@@ -5,7 +5,6 @@ import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.Utilities;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.Item;
@@ -21,11 +20,11 @@ import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class SampleItem extends Item {
+public class RetreateScepterItem extends Item {
 
-	public SampleItem() {
+	public RetreateScepterItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
-		setRegistryName(Reference.REIGSTRY_NAME_SAMPLE_ITEM);
+		setRegistryName(Reference.REIGSTRY_NAME_RETREAT_SEPTER_ITEM);
 	}
 
 	@Override
@@ -36,23 +35,7 @@ public class SampleItem extends Item {
 		}, 1024);
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		if (entityraytraceresult != null) {
-			// found entity so attack it if possible !
-			TSRTS.LOGGER.info("Hit entity:" + entityraytraceresult.getEntity().getName());
-			if (entityraytraceresult.getEntity() instanceof LivingEntity) {
-				LivingEntity le = (LivingEntity) entityraytraceresult.getEntity();
 
-				if (!playerIn.world.isRemote) {
-
-					// TODO need to consider if the player is on the same team as the entity or not !
-
-					if (playerIn.getTeam() != null && !(playerIn.getTeam().isSameTeam(le.getTeam()))) {
-						Utilities.SelectedUnitsTargetEntity(worldIn, le, playerIn.getScoreboardName());
-					} else if (playerIn.getTeam() == null) {
-						Utilities.SelectedUnitsTargetEntity(worldIn, le, playerIn.getScoreboardName());
-					}
-
-				}
-			}
 		} else {
 			// NO ENTITY FOUND so instead look for a block move
 
@@ -69,7 +52,7 @@ public class SampleItem extends Item {
 						if (!worldIn.isRemote) {
 							TSRTS.LOGGER.info("Block HIT at:" + brtr.getPos());
 
-							Utilities.SelectedUnitsMoveToBlock(worldIn, brtr.getPos(), playerIn.getScoreboardName(), playerIn, false);
+							Utilities.SelectedUnitsMoveToBlock(worldIn, brtr.getPos(), playerIn.getScoreboardName(), playerIn, true);
 						}
 					}
 				} else {
