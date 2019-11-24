@@ -20,7 +20,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 public class UnitEntity extends MonsterEntity {
-	;
+	public boolean isRetreating = false;
+
 	private String ownerName;
 
 	public BlockPos ownerControlledDestination;
@@ -60,7 +61,7 @@ public class UnitEntity extends MonsterEntity {
 						if (TSRTS.playerSelections.get(ownerName).selectedUnits.get(i) == this.getEntityId()) {
 							return true;
 						}
-					} catch (IndexOutOfBoundsException e) {
+					} catch (Exception e) {
 						// Its possible for the user to UNselect the untis at the same time we are trying to process the list(diff threads)
 						// if this should happen just ignore as they are no longer selected now anyway.
 					}
