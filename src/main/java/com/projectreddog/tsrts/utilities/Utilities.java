@@ -161,6 +161,8 @@ public class Utilities {
 		// TODO Auto-generated method stub
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.DIAMOND_SWORD, 1));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.SAMPLEITEM));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RETREATESEPTERITEM));
+
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RALLYPOINTTOOLITEM));
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.COOKED_BEEF, 64));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
@@ -685,7 +687,7 @@ public class Utilities {
 
 	}
 
-	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player) {
+	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player, boolean isRetreatMove) {
 		if (TSRTS.playerSelections.containsKey(ownerName)) {
 			// found the player in the hasmap get and loop thru the enitties 1
 			int count = TSRTS.playerSelections.get(ownerName).selectedUnits.size();
@@ -699,7 +701,7 @@ public class Utilities {
 					if (ue != null) {
 						ue.ownerControlledDestination = lbp.get(i);/// context.getPos();
 						TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
-
+						ue.isRetreating = isRetreatMove;
 					}
 				}
 			}
