@@ -135,6 +135,7 @@ public class EventHandler {
 			// ((World)event.getWorld()).getGameRules().getBoolean(GameRules.KEEP_INVENTORY)
 
 			((World) event.getWorld()).getGameRules().get(GameRules.KEEP_INVENTORY).set(true, (MinecraftServer) null);
+			((World) event.getWorld()).getGameRules().get(GameRules.DO_TILE_DROPS).set(false, (MinecraftServer) null);
 
 		}
 
