@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
+import com.projectreddog.tsrts.containers.provider.TownHallContinerProvider;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
@@ -36,6 +37,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -56,6 +58,7 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class Utilities {
 
@@ -85,6 +88,45 @@ public class Utilities {
 		TSRTS.isPlayerReadyArray.put(playerScoreboardName, false);
 
 		return false;
+	}
+
+	public static void GuiRequestHandler(int guiID, ServerPlayerEntity player) {
+		switch (guiID) {
+		case Reference.GUI_ID_TOWN_HALL:
+			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new TownHallContinerProvider());
+
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	public static void TownHallGuiHandler(int buttonId, ServerPlayerEntity player) {
+		if (buttonId == Reference.GUI_BUTTON_BUY_BARRACKS) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.BARRACKSBUILDERITEM));
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHERY_RANGE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.ARCHERYRANGEBUILDERITEM));
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_STONE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITESTONEBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_IRON) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEIRONBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_GOLD) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEGOLDBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEDIAMONDBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_LUMBER_YARD) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.LUMBERYARDBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_FARM) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.FARMBUILDERITEM));
+
+		}
+
 	}
 
 	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
@@ -162,7 +204,6 @@ public class Utilities {
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.DIAMOND_SWORD, 1));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.SAMPLEITEM));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RETREATESEPTERITEM));
-
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RALLYPOINTTOOLITEM));
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.COOKED_BEEF, 64));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
@@ -394,6 +435,7 @@ public class Utilities {
 
 		}
 		player.container.detectAndSendChanges();
+
 	}
 
 	public static void SpawnUnitForTeam(EntityType entityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {

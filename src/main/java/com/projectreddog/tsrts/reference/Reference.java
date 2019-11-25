@@ -70,4 +70,6 @@ public class Reference {
 	public static final int GUI_BUTTON_ENABLE_TE = 8000;
 	public static final int GUI_BUTTON_DISABLE_TE = 8001;
 
+	public static final int GUI_ID_TOWN_HALL = 1;
+
 }

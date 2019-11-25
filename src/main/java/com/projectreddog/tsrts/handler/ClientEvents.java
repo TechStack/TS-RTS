@@ -8,6 +8,7 @@ import org.lwjgl.glfw.GLFW;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.GuiRequestPacketToServer;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -38,6 +39,7 @@ public class ClientEvents {
 
 	public static final KeyBinding areaSelect = new KeyBinding(Reference.MODID + ".key.areaSelect", GLFW.GLFW_KEY_H, "key.categories." + Reference.MODID);
 	public static final KeyBinding boxSelect = new KeyBinding(Reference.MODID + ".key.boxSelect", GLFW.GLFW_KEY_J, "key.categories." + Reference.MODID);
+	public static final KeyBinding mainGuiOpen = new KeyBinding(Reference.MODID + ".key.mainGuiOpen", GLFW.GLFW_KEY_Y, "key.categories." + Reference.MODID);
 
 	@SubscribeEvent
 	public static void onClientTickEvent(final ClientTickEvent event) {
@@ -166,6 +168,9 @@ public class ClientEvents {
 						}
 					}
 
+				}
+				if (mainGuiOpen.isPressed()) {
+					ModNetwork.SendToServer(new GuiRequestPacketToServer(Reference.GUI_ID_TOWN_HALL));
 				}
 			}
 

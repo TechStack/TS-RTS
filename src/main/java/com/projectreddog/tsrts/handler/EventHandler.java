@@ -17,7 +17,6 @@ import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -62,10 +61,7 @@ public class EventHandler {
 				}
 			}
 		}
-		if (event.getEntity() instanceof ItemEntity && !event.getWorld().isRemote) {
-			// server prevent items from dropping !
-			event.setCanceled(true);
-		}
+
 	}
 
 	@SubscribeEvent
@@ -139,6 +135,7 @@ public class EventHandler {
 			// ((World)event.getWorld()).getGameRules().getBoolean(GameRules.KEEP_INVENTORY)
 
 			((World) event.getWorld()).getGameRules().get(GameRules.KEEP_INVENTORY).set(true, (MinecraftServer) null);
+			((World) event.getWorld()).getGameRules().get(GameRules.DO_TILE_DROPS).set(false, (MinecraftServer) null);
 
 		}
 
