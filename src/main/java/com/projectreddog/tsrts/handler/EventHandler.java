@@ -17,7 +17,6 @@ import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -62,10 +61,7 @@ public class EventHandler {
 				}
 			}
 		}
-		if (event.getEntity() instanceof ItemEntity && !event.getWorld().isRemote) {
-			// server prevent items from dropping !
-			event.setCanceled(true);
-		}
+
 	}
 
 	@SubscribeEvent
