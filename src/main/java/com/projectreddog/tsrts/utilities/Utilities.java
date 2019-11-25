@@ -162,7 +162,6 @@ public class Utilities {
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.DIAMOND_SWORD, 1));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.SAMPLEITEM));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RETREATESEPTERITEM));
-
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RALLYPOINTTOOLITEM));
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.COOKED_BEEF, 64));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
