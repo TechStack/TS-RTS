@@ -28,6 +28,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	protected float health;
 
 	protected boolean enabled = true;
+	protected boolean writeDirty = false;
 
 	private boolean shouldIncreaseCounts = true;
 
@@ -55,6 +56,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	@Override
 	public void tick() {
 		if (!world.isRemote && enabled) {
+			writeDirty = false;
 			if (shouldIncreaseCounts) {
 				IncreaseCount();
 				shouldIncreaseCounts = false;
@@ -72,19 +74,19 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 			}
 			if (priorHealth != getHealth()) {
 				priorHealth = getHealth();
-				this.markDirty();
+				writeDirty = true;
 				if (getHealth() < 80) {
 					currentStage = Stage.HALF_DESTROYED;
-					this.markDirty();
+					writeDirty = true;
 				}
 				if (getHealth() <= 0) {
 					currentStage = Stage.RUBBLE;
-					this.markDirty();
+					writeDirty = true;
 				}
 
 				if (priorStage != currentStage) {
 					priorStage = currentStage;
-					this.markDirty();
+					writeDirty = true;
 					if (getStructureData() != null) {
 						if (currentStage == Stage.HALF_DESTROYED) {
 							if (getStructureData().getTemplate50() != null) {
@@ -104,7 +106,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 			}
 			if (currentStage == Stage.RUBBLE) {
 				rubbleTimerRemaining--;
-				this.markDirty();
+				writeDirty = true;
 				if (rubbleTimerRemaining <= 0) {
 					if (getStructureData() != null) {
 						Utilities.clearAreaTELast(world, getStructureData().getSpawnPoint(), getStructureData().getDirection(), getStructureData().getSize());
@@ -112,7 +114,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 				}
 			}
 			coolDownRemainig = coolDownRemainig - 1;
-			this.markDirty();
+			writeDirty = true;
 			if (coolDownRemainig <= 0) {
 				if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
 					if (getHealth() > 0) {
@@ -120,6 +122,9 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 					}
 				}
 				coolDownRemainig = coolDownReset;
+				writeDirty = true;
+			}
+			if (writeDirty) {
 				this.markDirty();
 			}
 		}
