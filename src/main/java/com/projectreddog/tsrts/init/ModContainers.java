@@ -31,8 +31,7 @@ public class ModContainers {
 		}).setRegistryName(Reference.REIGSTRY_NAME_BASIC_CONTAINER));
 
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
-			BlockPos pos = data.readBlockPos();
-			return new TownHallContainer(windowId, TSRTS.proxy.getClientWorld(), pos, inv);
+			return new TownHallContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
 		}).setRegistryName(Reference.REIGSTRY_NAME_TOWN_HALL_BLOCK));
 
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {

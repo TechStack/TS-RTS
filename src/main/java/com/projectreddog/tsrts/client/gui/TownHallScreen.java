@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.projectreddog.tsrts.containers.TownHallContainer;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
-import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
+import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -17,13 +17,11 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 
 public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 
 	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/barracks_gui.png");
-	BlockPos pos;
 	int ytextOffset = 20;
 	int xtextOffset = 5;
 	int xTextWidth = 25;
@@ -31,7 +29,7 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 
 	public TownHallScreen(TownHallContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
-		pos = screenContainer.pos;
+
 	}
 
 	@Override
@@ -185,42 +183,42 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 		int height = 20;
 
 		addButton(new Button(x, y, width, height, "Farm", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_FARM));
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_FARM));
 		}));
 		y = y + 20;
 
 		addButton(new Button(x, y, width, height, "Lumber Yard", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_LUMBER_YARD));
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LUMBER_YARD));
 		}));
 		y = y + 20;
 
 		addButton(new Button(x, y, width, height, "Stone Mine", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_MINE_SITE_STONE));
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_STONE));
 		}));
 		y = y + 20;
 
 		addButton(new Button(x, y, width, height, "Iron Mine", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_MINE_SITE_IRON));
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_IRON));
 		}));
 		y = y + 20;
 
 		addButton(new Button(x, y, width, height, "Gold Mine", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_MINE_SITE_GOLD));
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_GOLD));
 		}));
 		y = y + 20;
 
 		addButton(new Button(x, y, width, height, "Diamond Mine", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND));
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND));
 		}));
 		y = y + 20;
 
 		addButton(new Button(x, y, width, height, "Barracks", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_BARRACKS));
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_BARRACKS));
 		}));
 		y = y + 20;
 
 		addButton(new Button(x, y, width, height, "Archery Range", (button) -> {
-			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_BUY_ARCHERY_RANGE));
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHERY_RANGE));
 		}));
 		y = y + 20;
 	}
