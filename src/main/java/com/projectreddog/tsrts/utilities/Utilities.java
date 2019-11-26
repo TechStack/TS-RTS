@@ -434,8 +434,11 @@ public class Utilities {
 			player.dropItem(itemStack, false);
 
 		}
-		player.container.detectAndSendChanges();
-
+		// player.container.detectAndSendChanges();
+		if (player instanceof ServerPlayerEntity) {
+			ServerPlayerEntity sp = (ServerPlayerEntity) player;
+			sp.sendContainerToPlayer(sp.container);
+		}
 	}
 
 	public static void SpawnUnitForTeam(EntityType entityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
