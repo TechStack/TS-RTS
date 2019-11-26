@@ -55,7 +55,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 
 	@Override
 	public void tick() {
-		if (!world.isRemote && enabled) {
+		if ((!world.isRemote && enabled) && Config.CONFIG_GAME_MODE.get() != Config.Modes.WORLDBUILDER) {
 			writeDirty = false;
 			if (shouldIncreaseCounts) {
 				IncreaseCount();
