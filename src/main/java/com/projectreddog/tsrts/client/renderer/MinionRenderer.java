@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class MinionRenderer extends BipedRenderer<MinionEntity, MinionModel> {
 
-	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/minion.png");
+	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/minion_yellow.png");
 	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/minion_yellow.png");
 	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation(Reference.MODID, "textures/entity/minion_blue.png");
 	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation(Reference.MODID, "textures/entity/minion_green.png");
