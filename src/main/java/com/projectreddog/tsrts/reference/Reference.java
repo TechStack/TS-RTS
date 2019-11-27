@@ -41,6 +41,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";
 	public static final String REIGSTRY_NAME_ARCHER_MINION_ENTITY = "archerminion";
 	public static final String REIGSTRY_NAME_TARGET_ENTITY = "targetentity";
+	public static final String REIGSTRY_NAME_MOUNTED_ENTITY = "mountedentity";
 
 	// GUI BUTTONS
 
