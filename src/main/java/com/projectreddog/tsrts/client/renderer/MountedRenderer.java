@@ -63,7 +63,7 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 		riderMinionModel.render(entity, 1, 1, 1, 1, 1, 1);
 		GlStateManager.popMatrix();
 
-		// body of characater
+		// body of character
 
 	}
 
