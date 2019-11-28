@@ -38,16 +38,46 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 	@Override
 	public void doRender(MountedEntity entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		super.doRender(entity, x, y, z, entityYaw, partialTicks);
-		float yaw = MathHelper.func_219805_h(partialTicks, entity.prevRenderYawOffset, entity.renderYawOffset);
+		float f = MathHelper.func_219805_h(partialTicks, entity.prevRenderYawOffset, entity.renderYawOffset);
+		float f1 = MathHelper.func_219805_h(partialTicks, entity.prevRotationYawHead, entity.rotationYawHead);
+		float f2 = f1 - f;
+		if (true) {
+			f2 = f1 - f;
+			float f3 = MathHelper.wrapDegrees(f2);
+//			if (f3 < -85.0F) {
+//				f3 = -85.0F;
+//			}
+//
+//			if (f3 >= 85.0F) {
+//				f3 = 85.0F;
+//			}
+
+			f = f1 - f3;
+			if (f3 * f3 > 2500.0F) {
+				f += f3 * 0.2F;
+			}
+
+			f2 = f1 - f;
+		}
+
 		this.bindEntityTexture(entity);
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translatef((float) x, (float) y, (float) z);
 		GlStateManager.scalef(-1.0F, -1.0F, 1.0F);
-		GlStateManager.rotatef(180.0F - yaw, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotatef(entity.rotationYaw - 180, 0.0F, 1.0F, 0.0F);
 
-		mountedModel.render(entity, 1, 1, 1, 1, 1, .1f);
+		float f5 = MathHelper.lerp(partialTicks, entity.prevLimbSwingAmount, entity.limbSwingAmount);
+		float f6 = entity.limbSwing - entity.limbSwingAmount * (1.0F - partialTicks);
+		if (entity.isChild()) {
+			f6 *= 3.0F;
+		}
+
+		if (f5 > 1.0F) {
+			f5 = 1.0F;
+		}
+
+		mountedModel.render(entity, f6, f5, 1, 1, 1, .1f, partialTicks);
 		GlStateManager.popMatrix();
 
 		this.bindRiderEntityTexture(entity);
@@ -57,10 +87,16 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 		GlStateManager.translatef(0, 2.2f, 0);
 		GlStateManager.scalef(-1.0F, -1.0F, 1.0F);
 		GlStateManager.scalef(.055F, .055F, .055F);
-		GlStateManager.rotatef(180, 0, 1, 0);
-		GlStateManager.rotatef(180.0F - yaw, 0.0F, 1.0F, 0.0F);
+		// GlStateManager.rotatef(180, 0, 1, 0);
+		GlStateManager.rotatef(entity.rotationYaw - 180, 0.0F, 1.0F, 0.0F);
 
-		riderMinionModel.render(entity, 1, 1, 1, 1, 1, 1);
+//calculate head look direction 
+		float headYaw = f1 - f;
+
+		float headPitch = MathHelper.lerp(partialTicks, entity.prevRotationPitch, entity.rotationPitch);
+//render(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scaleIn);
+		riderMinionModel.render(entity, 1, 1, 1, headYaw, headPitch, 1);
+		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 		GlStateManager.popMatrix();
 
 		// body of character

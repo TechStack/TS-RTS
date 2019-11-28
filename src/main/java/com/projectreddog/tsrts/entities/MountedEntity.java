@@ -3,8 +3,10 @@ package com.projectreddog.tsrts.entities;
 import com.projectreddog.tsrts.entities.ai.MoveToOwnerSpecifiedLocation;
 import com.projectreddog.tsrts.entities.ai.NearestAttackableVisionNotRequiredTargetGoal;
 import com.projectreddog.tsrts.entities.ai.RetreatToOwnerSpecifiedLocation;
+import com.projectreddog.tsrts.handler.Config;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
@@ -15,6 +17,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 public class MountedEntity extends UnitEntity {
+
+	public int tailCounter;
 
 	public MountedEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
@@ -35,5 +39,31 @@ public class MountedEntity extends UnitEntity {
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, UnitEntity.class, true));
 		this.targetSelector.addGoal(3, new NearestAttackableVisionNotRequiredTargetGoal<>(this, TargetEntity.class, false));
 
+	}
+
+	protected void registerAttributes() {
+		super.registerAttributes();
+		// getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+		this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MOUNTED.getARMOR());
+		this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MOUNTED.getARMOR_TOUGHNESS());
+		this.getAttribute(SharedMonsterAttributes.ATTACK_KNOCKBACK).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MOUNTED.getATTACK_KNOCKBACK());
+		this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MOUNTED.getATTACK_DAMAGE());
+		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MOUNTED.getFOLLOW_RANGE());
+		this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MOUNTED.getKNOCK_BACK_RESISTANCE());
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MOUNTED.getMAX_HEALTH());
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MOUNTED.getMOVEMENT_SPEED());
+
+	}
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		super.tick();
+		if (this.rand.nextInt(200) == 0) {
+			this.tailCounter = 1;
+		}
+		if (this.tailCounter > 0 && ++this.tailCounter > 8) {
+			this.tailCounter = 0;
+		}
 	}
 }
