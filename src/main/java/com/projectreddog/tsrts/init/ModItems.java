@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.init;
 
+import com.projectreddog.tsrts.items.LanceItem;
 import com.projectreddog.tsrts.items.RallyPointToolItem;
 import com.projectreddog.tsrts.items.RetreateScepterItem;
 import com.projectreddog.tsrts.items.SampleItem;
@@ -12,6 +13,7 @@ import com.projectreddog.tsrts.items.builderitems.MinesiteEmeraldBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteGoldBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteIronBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteStoneBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.StablesBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.TownHallBuilderItem;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -22,6 +24,9 @@ import net.minecraftforge.registries.ObjectHolder;
 public class ModItems {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SAMPLE_ITEM)
 	public static SampleItem SAMPLEITEM = new SampleItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LANCE_ITEM)
+	public static LanceItem LANCEITEM = new LanceItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RETREAT_SEPTER_ITEM)
 	public static RetreateScepterItem RETREATESEPTERITEM = new RetreateScepterItem();
@@ -37,6 +42,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARCHERY_RANGE_BUILDER_ITEM)
 	public static ArcheryRangeBuilderItem ARCHERYRANGEBUILDERITEM = new ArcheryRangeBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_STABLES_BUILDER_ITEM)
+	public static StablesBuilderItem STABLESBUILDERITEM = new StablesBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM)
 	public static LumberYardBuilderItem LUMBERYARDBUILDERITEM = new LumberYardBuilderItem();
@@ -64,6 +72,7 @@ public class ModItems {
 		RegisterItem(event, ModItems.TOWNHALLBUILDERITEM);
 		RegisterItem(event, ModItems.BARRACKSBUILDERITEM);
 		RegisterItem(event, ModItems.ARCHERYRANGEBUILDERITEM);
+		RegisterItem(event, ModItems.STABLESBUILDERITEM);
 		RegisterItem(event, ModItems.LUMBERYARDBUILDERITEM);
 		RegisterItem(event, ModItems.MINESITEDIAMONDBUILDERITEM);
 		RegisterItem(event, ModItems.MINESITEEMERALDBUILDERITEM);
@@ -75,6 +84,8 @@ public class ModItems {
 		RegisterItem(event, ModItems.RALLYPOINTTOOLITEM);
 
 		RegisterItem(event, ModItems.RETREATESEPTERITEM);
+
+		RegisterItem(event, ModItems.LANCEITEM);
 
 	}
 

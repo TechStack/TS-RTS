@@ -28,7 +28,7 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 			// ModEntities.MINION.spawn(world, null, null, this.pos, SpawnReason.TRIGGERED, true, true);
 			if (hasNeededResources()) {
 				spendResources();
-				Utilities.SpawnUnitForTeam(ModEntities.MOUNTED_ENTITY, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+				Utilities.SpawnUnitForTeam(ModEntities.MINION, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
 
 			}
 

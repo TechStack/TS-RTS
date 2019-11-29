@@ -23,6 +23,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
 	public static final String REIGSTRY_NAME_RALLY_POINT_TOOL = "rallypointtool";
 	public static final String REIGSTRY_NAME_RETREAT_SEPTER_ITEM = "retreatescepteritem";
+	public static final String REIGSTRY_NAME_LANCE_ITEM = "lanceitem";
 
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM = "lumberyardbuilderitem";
@@ -36,6 +37,7 @@ public class Reference {
 
 	public static final String REIGSTRY_NAME_BARRACKS_BUILDER_ITEM = "barracksbuilderitem";
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BUILDER_ITEM = "archeryrangebuilderitem";
+	public static final String REIGSTRY_NAME_STABLES_BUILDER_ITEM = "stablesbuilderitem";
 
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";

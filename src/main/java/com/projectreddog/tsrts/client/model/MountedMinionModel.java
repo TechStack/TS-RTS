@@ -25,5 +25,6 @@ public class MountedMinionModel extends BipedModel<MountedEntity> {
 	public void render(MountedEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+
 	}
 }

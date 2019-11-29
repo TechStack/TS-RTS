@@ -8,8 +8,10 @@ import com.projectreddog.tsrts.client.model.MountedModel;
 import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.reference.Reference;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
@@ -17,9 +19,9 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 
 	private static ResourceLocation TEXTURE = new ResourceLocation("minecraft", "textures/entity/horse/horse_white.png");
 	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation("minecraft", "textures/entity/horse/horse_white.png");
-	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation("minecraft", "textures/entity/horse/horse_white.png");
-	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation("minecraft", "textures/entity/horse/horse_white.png");
-	private static ResourceLocation TEXTURE_RED = new ResourceLocation("minecraft", "textures/entity/horse/horse_white.png");
+	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation("minecraft", "textures/entity/horse/horse_gray.png");
+	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation("minecraft", "textures/entity/horse/horse_black.png");
+	private static ResourceLocation TEXTURE_RED = new ResourceLocation("minecraft", "textures/entity/horse/horse_brown.png");
 
 	private static ResourceLocation RIDER_TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/minion_yellow.png");
 	private static ResourceLocation RIDER_TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/minion_yellow.png");
@@ -96,6 +98,15 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 		float headPitch = MathHelper.lerp(partialTicks, entity.prevRotationPitch, entity.rotationPitch);
 //render(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scaleIn);
 		riderMinionModel.render(entity, 1, 1, 1, headYaw, headPitch, 1);
+		// render held item
+		if (entity.getHeldItemMainhand() != null) {
+			GlStateManager.scalef(18.181818181818181818181818181818F, 18.181818181818181818181818181818F, 18.181818181818181818181818181818F);
+			GlStateManager.translatef(-.13f, .725f, -.3f);
+			GlStateManager.rotatef(15f, 1.0F, 0.0F, 0.0F);
+
+			Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entity, entity.getHeldItemMainhand(), ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, false);
+
+		}
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 		GlStateManager.popMatrix();
 
