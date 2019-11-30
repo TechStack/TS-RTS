@@ -9,6 +9,11 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BLOCK = "archeryrangeblock";
 	public static final String REIGSTRY_NAME_MINE_SITE_BLOCK = "minesiteblock";
 	public static final String REIGSTRY_NAME_TOWN_HALL_BLOCK = "townhallblock";
+	public static final String REIGSTRY_NAME_WATCH_BLOCK = "watchblock";
+
+	public static final String REIGSTRY_NAME_WATCH_TOWER_BLOCK = "watchtowerblock";
+	public static final String REIGSTRY_NAME_WALL_BLOCK = "wallblock";
+
 	public static final String REIGSTRY_NAME_FARM_BLOCK = "farmblock";
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BLOCK = "lumberyardblock";
 
