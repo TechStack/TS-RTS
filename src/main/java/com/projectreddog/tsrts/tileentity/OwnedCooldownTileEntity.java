@@ -55,7 +55,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 
 	@Override
 	public void tick() {
-		if (!world.isRemote && enabled) {
+		if ((!world.isRemote && enabled) && Config.CONFIG_GAME_MODE.get() != Config.Modes.WORLDBUILDER) {
 			writeDirty = false;
 			if (shouldIncreaseCounts) {
 				IncreaseCount();
@@ -160,8 +160,16 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		nbt.putInt("coolDownRemainig", coolDownRemainig);
 		nbt.putFloat("priorHealth", priorHealth);
 		nbt.putFloat("health", health);
-		nbt.putInt("currentStage", currentStage.ordinal());
-		nbt.putInt("priorStage", priorStage.ordinal());
+
+		if (Config.CONFIG_GAME_MODE.get() != Config.Modes.WORLDBUILDER) {
+			nbt.putInt("currentStage", currentStage.ordinal());
+			nbt.putInt("priorStage", priorStage.ordinal());
+		} else {
+			// world builder
+			nbt.putInt("currentStage", Stage.FULL_HEALTH.ordinal());
+			nbt.putInt("priorStage", Stage.FULL_HEALTH.ordinal());
+		}
+
 		nbt.putInt("rubbleTimerRemaining", rubbleTimerRemaining);
 		if (Config.CONFIG_GAME_MODE.get() != Config.Modes.WORLDBUILDER) {
 
@@ -180,10 +188,18 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		coolDownRemainig = compound.getInt("coolDownRemainig");
 		priorHealth = compound.getFloat("priorHealth");
 		health = compound.getFloat("health");
+		if (compound.contains("currentStage")) {
+			currentStage = Stage.values()[compound.getInt("currentStage")];
+		} else {
+			currentStage = Stage.FULL_HEALTH;
+		}
 
-		currentStage = Stage.values()[compound.getInt("currentStage")];
+		if (compound.contains("priorStage")) {
+			priorStage = Stage.values()[compound.getInt("priorStage")];
+		} else {
+			priorStage = Stage.FULL_HEALTH;
+		}
 
-		priorStage = Stage.values()[compound.getInt("priorStage")];
 		if (compound.contains("enabled")) {
 			enabled = compound.getBoolean("enabled");
 		}

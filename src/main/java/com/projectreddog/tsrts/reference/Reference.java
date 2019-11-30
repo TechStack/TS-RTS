@@ -9,6 +9,11 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BLOCK = "archeryrangeblock";
 	public static final String REIGSTRY_NAME_MINE_SITE_BLOCK = "minesiteblock";
 	public static final String REIGSTRY_NAME_TOWN_HALL_BLOCK = "townhallblock";
+	public static final String REIGSTRY_NAME_WATCH_BLOCK = "watchblock";
+
+	public static final String REIGSTRY_NAME_WATCH_TOWER_BLOCK = "watchtowerblock";
+	public static final String REIGSTRY_NAME_WALL_BLOCK = "wallblock";
+
 	public static final String REIGSTRY_NAME_FARM_BLOCK = "farmblock";
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BLOCK = "lumberyardblock";
 
@@ -23,6 +28,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
 	public static final String REIGSTRY_NAME_RALLY_POINT_TOOL = "rallypointtool";
 	public static final String REIGSTRY_NAME_RETREAT_SEPTER_ITEM = "retreatescepteritem";
+	public static final String REIGSTRY_NAME_LANCE_ITEM = "lanceitem";
 
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM = "lumberyardbuilderitem";
@@ -36,11 +42,13 @@ public class Reference {
 
 	public static final String REIGSTRY_NAME_BARRACKS_BUILDER_ITEM = "barracksbuilderitem";
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BUILDER_ITEM = "archeryrangebuilderitem";
+	public static final String REIGSTRY_NAME_STABLES_BUILDER_ITEM = "stablesbuilderitem";
 
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";
 	public static final String REIGSTRY_NAME_ARCHER_MINION_ENTITY = "archerminion";
 	public static final String REIGSTRY_NAME_TARGET_ENTITY = "targetentity";
+	public static final String REIGSTRY_NAME_MOUNTED_ENTITY = "mountedentity";
 
 	// GUI BUTTONS
 
