@@ -109,15 +109,15 @@ public class MountedModel extends EntityModel<MountedEntity> {
 		// always child so SCALE!
 
 		setupAnim(entityIn, limbSwing, limbSwingAmount, partialTicks);
-		float f = entityIn.getRenderScale() * .75f;
+		float f = .5f * .75f;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translatef(0.0F, -1.8F, 0.0F);
 		// GlStateManager.rotatef(180F, 0, 1, 0);
 
 		GlStateManager.pushMatrix();
-		GlStateManager.scalef(f, 0.5F + f * 0.5F, f);
-		GlStateManager.translatef(0.0F, 0.95F * (1.0F - f), 0.0F);
+		GlStateManager.scalef(f, 0.375F + f * 0.5F, f);
+		GlStateManager.translatef(0.0F, (1.0F - f) + .57f, 0.0F);
 
 		GlStateManager.translatef(0.0F, -.65F * (1.0F - f), 0.0F);
 
@@ -132,7 +132,7 @@ public class MountedModel extends EntityModel<MountedEntity> {
 		GlStateManager.popMatrix();
 		GlStateManager.pushMatrix();
 		GlStateManager.scalef(f, f, f);
-		GlStateManager.translatef(0.0F, 2.3F * (1.0F - f), 0.0F);
+		GlStateManager.translatef(0.0F, 2.9F * (1.0F - f), 0.0F);
 
 		this.body.render(scale); // body
 
@@ -141,7 +141,7 @@ public class MountedModel extends EntityModel<MountedEntity> {
 		GlStateManager.pushMatrix();
 		float f1 = f + 0.1F * f;
 		GlStateManager.scalef(f1, f1, f1);
-		GlStateManager.translatef(0.0F, 1.8F * (1.0F - f1), 0F);
+		GlStateManager.translatef(0.0F, 2.8F * (1.0F - f1), 0F);
 
 		this.Head.render(scale);
 

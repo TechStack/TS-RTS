@@ -5,7 +5,9 @@ import com.projectreddog.tsrts.entities.ai.NearestAttackableVisionNotRequiredTar
 import com.projectreddog.tsrts.entities.ai.RetreatToOwnerSpecifiedLocation;
 import com.projectreddog.tsrts.handler.Config;
 
+import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
@@ -22,6 +24,7 @@ public class MountedEntity extends UnitEntity {
 
 	public MountedEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
+
 	}
 
 	protected void registerGoals() {
@@ -66,4 +69,16 @@ public class MountedEntity extends UnitEntity {
 			this.tailCounter = 0;
 		}
 	}
+
+	@Override
+	public float getRenderScale() {
+		return 1.0F;
+	}
+
+	@Override
+	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
+
+		return 1.615f;
+	}
+
 }

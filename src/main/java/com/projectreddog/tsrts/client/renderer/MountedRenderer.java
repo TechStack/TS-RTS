@@ -78,15 +78,38 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 		if (f5 > 1.0F) {
 			f5 = 1.0F;
 		}
+		if (entity.deathTime > 0) {
+			float deadamt = ((float) entity.deathTime + partialTicks - 1.0F) / 20.0F * 1.6F;
+			deadamt = MathHelper.sqrt(deadamt);
+			if (deadamt > 1.0F) {
+				deadamt = 1.0F;
+			}
 
+			GlStateManager.rotatef(deadamt * 90f, 0, 0.0F, 1F);
+
+		}
 		mountedModel.render(entity, f6, f5, 1, 1, 1, .1f, partialTicks);
+
+		if (((MountedEntity) entity).hurtTime > 0) {
+
+			GlStateManager.depthFunc(514);
+			GlStateManager.disableTexture();
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+			GlStateManager.color4f(1.0F, 0.0F, 0.0F, 0.5F);
+			mountedModel.render(entity, f6, f5, 1, 1, 1, .1f, partialTicks);
+			GlStateManager.enableTexture();
+			GlStateManager.disableBlend();
+			GlStateManager.depthFunc(515);
+		}
 		GlStateManager.popMatrix();
 
 		this.bindRiderEntityTexture(entity);
 
 		GlStateManager.pushMatrix();
+
 		GlStateManager.translatef((float) x, (float) y, (float) z);
-		GlStateManager.translatef(0, 2.2f, 0);
+		GlStateManager.translatef(0, 2.08f, 0);
 		GlStateManager.scalef(-1.0F, -1.0F, 1.0F);
 		GlStateManager.scalef(.055F, .055F, .055F);
 		// GlStateManager.rotatef(180, 0, 1, 0);
@@ -97,17 +120,36 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 
 		float headPitch = MathHelper.lerp(partialTicks, entity.prevRotationPitch, entity.rotationPitch);
 //render(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scaleIn);
-		riderMinionModel.render(entity, 1, 1, 1, headYaw, headPitch, 1);
-		// render held item
-		if (entity.getHeldItemMainhand() != null) {
-			GlStateManager.scalef(18.181818181818181818181818181818F, 18.181818181818181818181818181818F, 18.181818181818181818181818181818F);
-			GlStateManager.translatef(-.13f, .725f, -.3f);
-			GlStateManager.rotatef(15f, 1.0F, 0.0F, 0.0F);
+		if (entity.deathTime == 0) {
+			riderMinionModel.render(entity, 1, 1, 1, headYaw, headPitch, 1);
+			// render held item
+			if (entity.getHeldItemMainhand() != null) {
+				GlStateManager.scalef(18.181818181818181818181818181818F, 18.181818181818181818181818181818F, 18.181818181818181818181818181818F);
+				GlStateManager.translatef(-.13f, .725f, -.3f);
+				GlStateManager.rotatef(15f, 1.0F, 0.0F, 0.0F);
 
-			Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entity, entity.getHeldItemMainhand(), ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, false);
+				Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entity, entity.getHeldItemMainhand(), ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, false);
+
+			}
+		}
+
+		if (((MountedEntity) entity).hurtTime > 0) {
+			GlStateManager.depthFunc(514);
+			GlStateManager.disableTexture();
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+			GlStateManager.color4f(1.0F, 0.0F, 0.0F, 0.5F);
+			riderMinionModel.render((MountedEntity) entity, 1, 1, 1, 1, 1, 1);
+
+			GlStateManager.enableTexture();
+			GlStateManager.disableBlend();
+			GlStateManager.depthFunc(515);
+			// render held item
 
 		}
+
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
+
 		GlStateManager.popMatrix();
 
 		// body of character
