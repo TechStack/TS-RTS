@@ -6,7 +6,6 @@ import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.utilities.Utilities;
 
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 
@@ -23,7 +22,7 @@ public class StablesTileEntity extends OwnedCooldownTileEntity implements INamed
 
 		if (getOwner() != null) {
 
-			Utilities.SpawnMountedUnitForTeam(ModEntities.MINION, EntityType.HORSE, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+			Utilities.SpawnUnitForTeam(ModEntities.MOUNTED_ENTITY, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
 
 		}
 	}

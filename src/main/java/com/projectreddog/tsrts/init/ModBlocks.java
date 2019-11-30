@@ -1,8 +1,31 @@
 package com.projectreddog.tsrts.init;
 
-import com.projectreddog.tsrts.blocks.*;
+import java.util.function.Supplier;
+
+import com.projectreddog.tsrts.blocks.ArcheryRangeBlock;
+import com.projectreddog.tsrts.blocks.BarracksBlock;
+import com.projectreddog.tsrts.blocks.FarmBlock;
+import com.projectreddog.tsrts.blocks.LumberYardBlock;
+import com.projectreddog.tsrts.blocks.MineSite;
+import com.projectreddog.tsrts.blocks.ResearchCenterBlock;
+import com.projectreddog.tsrts.blocks.StablesBlock;
+import com.projectreddog.tsrts.blocks.TownHallBlock;
+import com.projectreddog.tsrts.blocks.WallBlock;
+import com.projectreddog.tsrts.blocks.WatchBlock;
+import com.projectreddog.tsrts.blocks.WatchTowerBlock;
 import com.projectreddog.tsrts.reference.Reference;
-import com.projectreddog.tsrts.tileentity.*;
+import com.projectreddog.tsrts.tileentity.ArcheryRangeTileEntity;
+import com.projectreddog.tsrts.tileentity.BarracksTileEntity;
+import com.projectreddog.tsrts.tileentity.FarmTileEntity;
+import com.projectreddog.tsrts.tileentity.LumberYardTileEntity;
+import com.projectreddog.tsrts.tileentity.MineSiteTileEntity;
+import com.projectreddog.tsrts.tileentity.ResearchCenterTileEntity;
+import com.projectreddog.tsrts.tileentity.StablesTileEntity;
+import com.projectreddog.tsrts.tileentity.TownHallTileEntity;
+import com.projectreddog.tsrts.tileentity.WallTileEntity;
+import com.projectreddog.tsrts.tileentity.WatchTileEntity;
+import com.projectreddog.tsrts.tileentity.WatchTowerTileEntity;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -12,21 +35,17 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
-import java.util.function.Supplier;
-
 public class ModBlocks {
 
 	// BLOCKS
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_BARRACKS_BLOCK)
 	public static BarracksBlock BARRACKS_BLOCK = new BarracksBlock();
 
-
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_FARM_BLOCK)
 	public static FarmBlock FARM_BLOCK = new FarmBlock();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LUMBER_YARD_BLOCK)
 	public static LumberYardBlock LUMBER_YARD_BLOCK = new LumberYardBlock();
-
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_BLOCK)
 	public static MineSite MINE_SITE_BLOCK = new MineSite();
@@ -36,6 +55,15 @@ public class ModBlocks {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_HALL_BLOCK)
 	public static TownHallBlock TOWN_HALL_BLOCK = new TownHallBlock();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WATCH_TOWER_BLOCK)
+	public static WatchTowerBlock WATCH_TOWER_BLOCK = new WatchTowerBlock();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BLOCK)
+	public static WallBlock WALL_BLOCK = new WallBlock();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WATCH_BLOCK)
+	public static WatchBlock WATCH_BLOCK = new WatchBlock();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RESERACH_CENTER_BLOCK)
 	public static ResearchCenterBlock RESEARCH_CENTER_BLOCK = new ResearchCenterBlock();
@@ -53,17 +81,23 @@ public class ModBlocks {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_BLOCK)
 	public static TileEntityType<MineSiteTileEntity> MINE_SITE_TILE_ENITTY_TYPE;
 
-
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_FARM_BLOCK)
 	public static TileEntityType<FarmTileEntity> FARM_TILE_ENITTY_TYPE;
-
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LUMBER_YARD_BLOCK)
 	public static TileEntityType<LumberYardTileEntity> LUMBER_YARD_TILE_ENITTY_TYPE;
 
-
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_HALL_BLOCK)
 	public static TileEntityType<TownHallTileEntity> TOWN_HALL_ENTITY_TYPE;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WATCH_TOWER_BLOCK)
+	public static TileEntityType<WatchTowerTileEntity> TOWN_WATCH_TOWER_ENTITY_TYPE;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BLOCK)
+	public static TileEntityType<WallTileEntity> TOWN_WALL_ENTITY_TYPE;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WATCH_BLOCK)
+	public static TileEntityType<WatchTileEntity> WATCH_ENTITY_TYPE;
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RESERACH_CENTER_BLOCK)
 	public static TileEntityType<ResearchCenterTileEntity> RESEARCH_CENTER_ENTITY_TYPE;
@@ -80,6 +114,11 @@ public class ModBlocks {
 		event.getRegistry().register(ModBlocks.STABLES_BLOCK);
 		event.getRegistry().register(ModBlocks.FARM_BLOCK);
 		event.getRegistry().register(ModBlocks.LUMBER_YARD_BLOCK);
+
+		event.getRegistry().register(ModBlocks.WATCH_BLOCK);
+
+		event.getRegistry().register(ModBlocks.WATCH_TOWER_BLOCK);
+		event.getRegistry().register(ModBlocks.WALL_BLOCK);
 	}
 
 	public static void RegisterBlockItems(final RegistryEvent.Register<Item> event) {
@@ -91,7 +130,10 @@ public class ModBlocks {
 		RegisterBlockItem(event, ModBlocks.STABLES_BLOCK);
 		RegisterBlockItem(event, ModBlocks.FARM_BLOCK);
 		RegisterBlockItem(event, ModBlocks.LUMBER_YARD_BLOCK);
+		RegisterBlockItem(event, ModBlocks.WATCH_BLOCK);
 
+		RegisterBlockItem(event, ModBlocks.WATCH_TOWER_BLOCK);
+		RegisterBlockItem(event, ModBlocks.WALL_BLOCK);
 	}
 
 	// Use default BlockItem group
@@ -109,6 +151,11 @@ public class ModBlocks {
 		RegisterTileEntity(event, MineSiteTileEntity::new, ModBlocks.MINE_SITE_BLOCK);
 		RegisterTileEntity(event, ArcheryRangeTileEntity::new, ModBlocks.ARCHERY_RANGE_BLOCK);
 		RegisterTileEntity(event, TownHallTileEntity::new, ModBlocks.TOWN_HALL_BLOCK);
+
+		RegisterTileEntity(event, WatchTileEntity::new, ModBlocks.WATCH_BLOCK);
+		RegisterTileEntity(event, WatchTowerTileEntity::new, ModBlocks.WATCH_TOWER_BLOCK);
+		RegisterTileEntity(event, WallTileEntity::new, ModBlocks.WALL_BLOCK);
+
 		RegisterTileEntity(event, ResearchCenterTileEntity::new, ModBlocks.RESEARCH_CENTER_BLOCK);
 		RegisterTileEntity(event, StablesTileEntity::new, ModBlocks.STABLES_BLOCK);
 
