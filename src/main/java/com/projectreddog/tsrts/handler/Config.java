@@ -6,6 +6,7 @@ import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.utilities.UnitAttributes;
+import com.projectreddog.tsrts.utilities.WeaponModifierAttributes;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,6 +25,7 @@ public class Config {
 	public static final String CATEGORY_STARTUP_RESOURCES = "startup_resources";
 
 	public static final String CATEGORY_UNIT_ATTRIBUTES = "unit_attributes";
+	public static final String CATEGORY_WEAPON_MODIFIER_ATTRIBUTES = "weapon_modifier_attributes";
 
 	public static final String CATEGORY_RESOURCE_GENERATION = "resource_generation";
 
@@ -146,9 +148,15 @@ public class Config {
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_MINION_ATTRIBUTES_STRING;
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING;
+
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_LANCE_WEAPON_MODIFIER_ATTRIBUTES_STRING;
 
 	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_MINION;
 	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_ARCHER;
+	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_MOUNTED;
+
+	public static WeaponModifierAttributes CONFIG_WEAPON_MODIFIER_ATTRIBUTES_LANCE;
 
 	static {
 
@@ -158,14 +166,26 @@ public class Config {
 		setupUnitCostConfig();
 		setupBuildingCostConfig();
 		setupUnitAttributeConfig();
+		setupWeaponAttributeConfig();
 
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
 	}
 
+	private static void setupWeaponAttributeConfig() {
+		COMMON_BUILDER.comment("Weapon ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS ATTACK_DAMAGE_MODIFIER, ATTACK_SPEED_MODIFIER: . They are comma separated list of floats Example : 8,-2.9").push(CATEGORY_WEAPON_MODIFIER_ATTRIBUTES);
+		CONFIG_LANCE_WEAPON_MODIFIER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").define("lance_attribute_modifier", "8,-2.9");
+		COMMON_BUILDER.pop();
+
+	}
+
 	private static void PostProcessConfigs() {
 		CONFIG_UNIT_ATTRIBUTES_MINION = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_MINION_ATTRIBUTES_STRING.get()));
 		CONFIG_UNIT_ATTRIBUTES_ARCHER = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING.get()));
+		CONFIG_UNIT_ATTRIBUTES_MOUNTED = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING.get()));
+
+		CONFIG_WEAPON_MODIFIER_ATTRIBUTES_LANCE = new WeaponModifierAttributes(StringToFloatArray(CONFIG_LANCE_WEAPON_MODIFIER_ATTRIBUTES_STRING.get()));
+
 	}
 
 	private static void setupUnitAttributeConfig() {
@@ -173,7 +193,7 @@ public class Config {
 
 		CONFIG_UNIT_MINION_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,35.0");
 		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "10.0,0.0,0.30,2.0,0.0,0.0,3.0,35.0");
-
+		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "10.0,0.0,0.40,2.0,0.0,0.0,3.0,35.0");
 		COMMON_BUILDER.pop();
 
 	}
@@ -357,4 +377,7 @@ public class Config {
 		MAX_HEALTH, KNOCK_BACK_RESISTANCE, MOVEMENT_SPEED, ARMOR, ARMOR_TOUGHNESS, ATTACK_KNOCKBACK, ATTACKD_DAMAGE, FOLLOW_RANGE
 	}
 
+	public enum WeaponModifierStats {
+		ATTACK_DAMAGE_MODIFIER, ATTACK_SPEED_MODIFIER
+	}
 }

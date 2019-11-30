@@ -472,6 +472,10 @@ public class Utilities {
 			if (entityType == ModEntities.ARCHER_MINION) {
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
 			}
+
+			if (entityType == ModEntities.MOUNTED_ENTITY) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.LANCEITEM));
+			}
 			//
 //			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
 			// ue.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.DIAMOND_HELMET));
