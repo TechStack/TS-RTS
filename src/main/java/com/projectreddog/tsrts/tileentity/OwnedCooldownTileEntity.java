@@ -158,12 +158,12 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		CompoundNBT nbt = super.write(compound);
 		nbt.putInt("coolDownReset", coolDownReset);
 		nbt.putInt("coolDownRemainig", coolDownRemainig);
-		nbt.putFloat("priorHealth", priorHealth);
-		nbt.putFloat("health", health);
 
 		if (Config.CONFIG_GAME_MODE.get() != Config.Modes.WORLDBUILDER) {
 			nbt.putInt("currentStage", currentStage.ordinal());
 			nbt.putInt("priorStage", priorStage.ordinal());
+			nbt.putFloat("priorHealth", priorHealth);
+			nbt.putFloat("health", health);
 		} else {
 			// world builder
 			nbt.putInt("currentStage", Stage.FULL_HEALTH.ordinal());
@@ -186,8 +186,15 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		super.read(compound);
 		coolDownReset = compound.getInt("coolDownReset");
 		coolDownRemainig = compound.getInt("coolDownRemainig");
-		priorHealth = compound.getFloat("priorHealth");
-		health = compound.getFloat("health");
+
+		if (compound.contains("priorHealth")) {
+			priorHealth = compound.getFloat("priorHealth");
+		}
+
+		if (compound.contains("health")) {
+			health = compound.getFloat("health");
+		}
+
 		if (compound.contains("currentStage")) {
 			currentStage = Stage.values()[compound.getInt("currentStage")];
 		} else {

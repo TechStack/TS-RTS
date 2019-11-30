@@ -15,6 +15,8 @@ import com.projectreddog.tsrts.items.builderitems.MinesiteIronBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteStoneBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.StablesBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.TownHallBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.WallBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.WatchTowerBuilderItem;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.item.Item;
@@ -36,6 +38,12 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM)
 	public static TownHallBuilderItem TOWNHALLBUILDERITEM = new TownHallBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BUILDER_ITEM)
+	public static WallBuilderItem WALLBUILDERITEM = new WallBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WATCH_TOWER_BUILDER_ITEM)
+	public static WatchTowerBuilderItem WATCHTOWERBUILDERITEM = new WatchTowerBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_BARRACKS_BUILDER_ITEM)
 	public static BarracksBuilderItem BARRACKSBUILDERITEM = new BarracksBuilderItem();
@@ -86,6 +94,10 @@ public class ModItems {
 		RegisterItem(event, ModItems.RETREATESEPTERITEM);
 
 		RegisterItem(event, ModItems.LANCEITEM);
+
+		RegisterItem(event, ModItems.WATCHTOWERBUILDERITEM);
+
+		RegisterItem(event, ModItems.WALLBUILDERITEM);
 
 	}
 
