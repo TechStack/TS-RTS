@@ -39,7 +39,7 @@ public class WallTileEntity extends OwnedCooldownTileEntity {
 	@Override
 	public void StructureLost() {
 		super.StructureLost();
-		Utilities.SendMessageToAllTeams(this.getWorld(), "tsrts.destroy.wall", this.getTeam().getName());
+		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.wall");
 
 	}
 
