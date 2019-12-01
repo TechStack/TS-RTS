@@ -11,28 +11,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
-public class StablesBuilderItem extends BuilderItem {
-
-	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "stables_red_100");
+public class WallBuilderItem extends BuilderItem {
+	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_100");
 	protected ResourceLocation templateNameRed50 = null;
-	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "stables_0");
+	protected ResourceLocation templateNameRed0 = null;
 
-	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "stables_yellow_100");
-	protected ResourceLocation templateNameYellow50 = new ResourceLocation(Reference.MODID + ":" + "stables_yellow_50");
-	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "stables_0");
+	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_100");
+	protected ResourceLocation templateNameYellow50 = null;
+	protected ResourceLocation templateNameYellow0 = null;
 
-	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "stables_green_100");
+	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_100");
 	protected ResourceLocation templateNameGreen50 = null;
-	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "stables_0");
+	protected ResourceLocation templateNameGreen0 = null;
 
-	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "stables_blue_100");
-	protected ResourceLocation templateNameBlue50 = new ResourceLocation(Reference.MODID + ":" + "stables_blue_50");
-	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "stables_0");
+	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_100");
+	protected ResourceLocation templateNameBlue50 = null;
+	protected ResourceLocation templateNameBlue0 = null;
 
-	public StablesBuilderItem() {
+	public WallBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
-		setRegistryName(Reference.REIGSTRY_NAME_STABLES_BUILDER_ITEM);
-
+		setRegistryName(Reference.REIGSTRY_NAME_WALL_BUILDER_ITEM);
 	}
 
 	public ResourceLocation getTemplateName100(String team) {
@@ -76,7 +74,7 @@ public class StablesBuilderItem extends BuilderItem {
 
 	public Vec3i getSize() {
 
-		return new Vec3i(15, 10, 15);
+		return new Vec3i(3, 3, 3);
 	}
 
 	@Override
@@ -86,7 +84,8 @@ public class StablesBuilderItem extends BuilderItem {
 	}
 
 	@Override
-	public void ActionAfterSpawn(World world, PlayerEntity Player, BlockPos bp) {
-
+	public void ActionAfterSpawn(World world, PlayerEntity player, BlockPos bp) {
+		player.setSpawnPoint(bp, true, player.dimension);
 	}
+
 }
