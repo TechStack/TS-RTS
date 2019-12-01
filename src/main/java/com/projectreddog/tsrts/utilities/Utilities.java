@@ -125,6 +125,15 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_FARM) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.FARMBUILDERITEM));
 
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_STABLES) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.STABLESBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WATCHTOWERBUILDERITEM));
+
 		}
 
 	}
@@ -284,6 +293,12 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_BARRACKS_FOOD.get();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_FOOD.get();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES_FOOD.get();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_FOOD.get();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER_FOOD.get();
 		}
 		return 0;
 	}
@@ -307,6 +322,12 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_BARRACKS_WOOD.get();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_WOOD.get();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_WOOD.get();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER_WOOD.get();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES_WOOD.get();
 		}
 		return 0;
 	}
@@ -330,6 +351,12 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_BARRACKS_STONE.get();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STONE.get();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_STONE.get();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER_STONE.get();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES_STONE.get();
 		}
 		return 0;
 	}
@@ -353,7 +380,14 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_BARRACKS_IRON.get();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_IRON.get();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_IRON.get();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER_IRON.get();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES_IRON.get();
 		}
+
 		return 0;
 	}
 
@@ -376,6 +410,12 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_BARRACKS_GOLD.get();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_GOLD.get();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_GOLD.get();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER_GOLD.get();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES_GOLD.get();
 		}
 		return 0;
 	}
@@ -399,7 +439,14 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_BARRACKS_DIAMOND.get();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_DIAMOND.get();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_DIAMOND.get();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER_DIAMOND.get();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES_DIAMOND.get();
 		}
+
 		return 0;
 	}
 
@@ -422,6 +469,12 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_BARRACKS_EMERALD.get();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_EMERALD.get();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_EMERALD.get();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER_EMERALD.get();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES_EMERALD.get();
 		}
 		return 0;
 	}
@@ -1025,6 +1078,8 @@ public class Utilities {
 				template.addBlocksToWorldChunk(world, bp, ps);
 
 				OwnedTileEntity controllerTE = null;
+
+				OwnedCooldownTileEntity octe = null;
 				for (int x = 0; x < xSize; x++) {
 					for (int y = 0; y < ySize; y++) {
 						for (int z = 0; z < zSize; z++) {
@@ -1040,7 +1095,11 @@ public class Utilities {
 									((OwnedTileEntity) te).setOwner(ownerName);
 									controllerTE = ((OwnedTileEntity) te);
 									controllerTE.setStructureData(structureData);
+									if (controllerTE instanceof OwnedCooldownTileEntity) {
 
+										octe = (OwnedCooldownTileEntity) controllerTE;
+
+									}
 									if (te instanceof ResourceGenerator) {
 										ResourceGenerator rg = (ResourceGenerator) te;
 										rg.setResource(TeamInfo.GetResoureceForBlock(world.getBlockState(pos).getBlock()));
@@ -1058,15 +1117,14 @@ public class Utilities {
 				float health = 0;
 				int[] ids = new int[teList.size()];
 				for (int i = 0; i < teList.size(); i++) {
-					if (controllerTE != null) {
-						teList.get(i).setOwningTePos(controllerTE.getPos());
+					if (octe != null) {
+						teList.get(i).setOwningTePos(octe.getPos());
 						teList.get(i).setOwnerName(ownerName);
 						health = health + teList.get(i).getHealth();
 					}
 
 				}
-				if (controllerTE instanceof OwnedCooldownTileEntity) {
-					OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) controllerTE;
+				if (octe != null) {
 					octe.setHealth(health);
 
 					TSRTS.LOGGER.info("Health set to :" + health);

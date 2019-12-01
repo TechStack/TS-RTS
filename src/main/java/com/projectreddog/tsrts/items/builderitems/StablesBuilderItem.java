@@ -19,7 +19,7 @@ public class StablesBuilderItem extends BuilderItem {
 
 	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "stables_yellow_100");
 	protected ResourceLocation templateNameYellow50 = new ResourceLocation(Reference.MODID + ":" + "stables_yellow_50");
-	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "stables_0");
+	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "stables_yellow_0");
 
 	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "stables_green_100");
 	protected ResourceLocation templateNameGreen50 = null;
@@ -27,7 +27,7 @@ public class StablesBuilderItem extends BuilderItem {
 
 	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "stables_blue_100");
 	protected ResourceLocation templateNameBlue50 = new ResourceLocation(Reference.MODID + ":" + "stables_blue_50");
-	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "stables_0");
+	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "stables_blue_0");
 
 	public StablesBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
