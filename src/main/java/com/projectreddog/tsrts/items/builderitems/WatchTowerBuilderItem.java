@@ -1,0 +1,91 @@
+package com.projectreddog.tsrts.items.builderitems;
+
+import com.projectreddog.tsrts.init.ModItemGroups;
+import com.projectreddog.tsrts.reference.Reference;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
+
+public class WatchTowerBuilderItem extends BuilderItem {
+	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "watchtower_red_100");
+	protected ResourceLocation templateNameRed50 = new ResourceLocation(Reference.MODID + ":" + "watchtower_red_30");
+	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "watchtower_red_0");
+
+	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "watchtower_yellow_100");
+	protected ResourceLocation templateNameYellow50 = new ResourceLocation(Reference.MODID + ":" + "watchtower_yellow_30");
+	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "watchtower_yellow_0");
+
+	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "watchtower_green_100");
+	protected ResourceLocation templateNameGreen50 = new ResourceLocation(Reference.MODID + ":" + "watchtower_green_30");
+	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "watchtower_green_0");
+
+	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "watchtower_blue_100");
+	protected ResourceLocation templateNameBlue50 = new ResourceLocation(Reference.MODID + ":" + "watchtower_blue_30");
+	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "watchtower_blue_0");
+
+	public WatchTowerBuilderItem() {
+		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
+		setRegistryName(Reference.REIGSTRY_NAME_WATCH_TOWER_BUILDER_ITEM);
+	}
+
+	public ResourceLocation getTemplateName100(String team) {
+		if (team.contentEquals("green")) {
+			return this.templateNameGreen100;
+		} else if (team.contentEquals("red")) {
+			return this.templateNameRed100;
+		} else if (team.contentEquals("blue")) {
+			return this.templateNameBlue100;
+		} else {
+			// assume yellow
+			return this.templateNameYellow100;
+		}
+	}
+
+	public ResourceLocation getTemplateName50(String team) {
+		if (team.contentEquals("green")) {
+			return this.templateNameGreen50;
+		} else if (team.contentEquals("red")) {
+			return this.templateNameRed50;
+		} else if (team.contentEquals("blue")) {
+			return this.templateNameBlue50;
+		} else {
+			// assume yellow
+			return this.templateNameYellow50;
+		}
+	}
+
+	public ResourceLocation getTemplateName0(String team) {
+		if (team.contentEquals("green")) {
+			return this.templateNameGreen0;
+		} else if (team.contentEquals("red")) {
+			return this.templateNameRed0;
+		} else if (team.contentEquals("blue")) {
+			return this.templateNameBlue0;
+		} else {
+			// assume yellow
+			return this.templateNameYellow0;
+		}
+	}
+
+	public Vec3i getSize() {
+
+		return new Vec3i(9, 21, 9);
+	}
+
+	@Override
+	public boolean CanPlaceOn(Block block) {
+
+		return true;
+	}
+
+	@Override
+	public void ActionAfterSpawn(World world, PlayerEntity player, BlockPos bp) {
+		player.setSpawnPoint(bp, true, player.dimension);
+	}
+
+}
