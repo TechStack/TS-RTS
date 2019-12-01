@@ -221,13 +221,13 @@ public class Utilities {
 
 	public static int[] getStartingResourceAmounts() {
 		TeamInfo ti = new TeamInfo();
-		ti.SetResource(Resources.FOOD, Config.CONFIG_START_AMT_FOOD.get());
-		ti.SetResource(Resources.WOOD, Config.CONFIG_START_AMT_WOOD.get());
-		ti.SetResource(Resources.STONE, Config.CONFIG_START_AMT_STONE.get());
-		ti.SetResource(Resources.IRON, Config.CONFIG_START_AMT_IRON.get());
-		ti.SetResource(Resources.GOLD, Config.CONFIG_START_AMT_GOLD.get());
-		ti.SetResource(Resources.DIAMOND, Config.CONFIG_START_AMT_DIAMOND.get());
-		ti.SetResource(Resources.EMERALD, Config.CONFIG_START_AMT_EMERALD.get());
+		ti.SetResource(Resources.FOOD, Config.CONFIG_START_AMT.getFOOD());
+		ti.SetResource(Resources.WOOD, Config.CONFIG_START_AMT.getWOOD());
+		ti.SetResource(Resources.STONE, Config.CONFIG_START_AMT.getSTONE());
+		ti.SetResource(Resources.IRON, Config.CONFIG_START_AMT.getIRON());
+		ti.SetResource(Resources.GOLD, Config.CONFIG_START_AMT.getGOLD());
+		ti.SetResource(Resources.DIAMOND, Config.CONFIG_START_AMT.getDIAMOND());
+		ti.SetResource(Resources.EMERALD, Config.CONFIG_START_AMT.getEMERALD());
 
 		return ti.GetResourceArray();
 	}
