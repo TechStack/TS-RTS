@@ -71,7 +71,7 @@ public class WatchTileEntity extends OwnedTileEntity implements ITickableTileEnt
 	public void ActionAfterCooldown() {
 		Direction d = this.world.getBlockState(this.pos).get(BlockStateProperties.HORIZONTAL_FACING);
 
-		AxisAlignedBB aabb = new AxisAlignedBB(this.pos.offset(d, rangeHalf)).grow(rangeHalf);
+		AxisAlignedBB aabb = new AxisAlignedBB(this.pos.offset(d, rangeHalf + 2)).grow(rangeHalf);
 
 		boolean shouldContinue = true;
 
@@ -82,10 +82,18 @@ public class WatchTileEntity extends OwnedTileEntity implements ITickableTileEnt
 			for (Iterator iterator = e.iterator(); iterator.hasNext();) {
 
 				LivingEntity livingEntity = (LivingEntity) iterator.next();
-				if (shouldContinue) {
-					shoot(this.world, this.pos, d, livingEntity);
-					shouldContinue = false;
+				if (livingEntity instanceof UnitEntity) {
+					UnitEntity ue = (UnitEntity) livingEntity;
+					if (!ue.getTeam().isSameTeam(this.getTeam())) {
+
+						if (shouldContinue) {
+							shoot(this.world, this.pos, d, livingEntity);
+							shouldContinue = false;
+						}
+					}
+
 				}
+
 			}
 		}
 

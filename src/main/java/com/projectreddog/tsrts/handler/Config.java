@@ -55,6 +55,15 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_ARCHER_DIAMOND;
 	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_ARCHER_EMERALD;
 
+	// mounted unit
+	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_LANCER_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_LANCER_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_LANCER_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_LANCER_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_LANCER_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_LANCER_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_UNIT_COSTS_LANCER_EMERALD;
+
 	// starting resrources
 
 	public static ForgeConfigSpec.IntValue CONFIG_START_AMT_FOOD;
@@ -145,6 +154,33 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_GOLD;
 	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_DIAMOND;
 	public static ForgeConfigSpec.IntValue CONFIG_TOWN_HALL_GENERATE_EMERALD;
+
+	// WALL
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WALL_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WALL_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WALL_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WALL_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WALL_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WALL_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WALL_EMERALD;
+
+	// stables
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_STABLES_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_STABLES_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_STABLES_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_STABLES_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_STABLES_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_STABLES_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_STABLES_EMERALD;
+
+	// watch tower
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WATCH_TOWER_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WATCH_TOWER_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WATCH_TOWER_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WATCH_TOWER_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WATCH_TOWER_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WATCH_TOWER_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_BUILDING_COSTS_WATCH_TOWER_EMERALD;
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_MINION_ATTRIBUTES_STRING;
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING;
@@ -301,6 +337,34 @@ public class Config {
 		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the Archery Range").defineInRange("ArcheryRangeBulidingCostsDiamond", 0, 0, 100000);
 		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the Archery Range").defineInRange("ArcheryRangeBulidingCostsEmerald", 0, 0, 100000);
 
+		// wall
+
+		CONFIG_BUILDING_COSTS_WALL_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the Wall").defineInRange("WallBulidingCostsFood", 10, 0, 100000);
+		CONFIG_BUILDING_COSTS_WALL_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the Wall").defineInRange("WallBulidingCostsWood", 5, 0, 100000);
+		CONFIG_BUILDING_COSTS_WALL_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the Wall").defineInRange("WallBulidingCostsStone", 20, 0, 100000);
+		CONFIG_BUILDING_COSTS_WALL_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the Wall").defineInRange("WallBulidingCostsIron", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_WALL_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the Wall").defineInRange("WallBulidingCostsGold", 3, 0, 100000);
+		CONFIG_BUILDING_COSTS_WALL_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the Wall").defineInRange("WallBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_WALL_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the Wall").defineInRange("WallBulidingCostsEmerald", 0, 0, 100000);
+
+/// stables
+		CONFIG_BUILDING_COSTS_STABLES_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the Stables").defineInRange("StablesBulidingCostsFood", 66, 0, 100000);
+		CONFIG_BUILDING_COSTS_STABLES_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the Stables").defineInRange("StablesBulidingCostsWood", 120, 0, 100000);
+		CONFIG_BUILDING_COSTS_STABLES_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the Stables").defineInRange("StablesBulidingCostsStone", 40, 0, 100000);
+		CONFIG_BUILDING_COSTS_STABLES_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the Stables").defineInRange("StablesBulidingCostsIron", 30, 0, 100000);
+		CONFIG_BUILDING_COSTS_STABLES_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the Stables").defineInRange("StablesBulidingCostsGold", 35, 0, 100000);
+		CONFIG_BUILDING_COSTS_STABLES_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the Stables").defineInRange("StablesBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_STABLES_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the Stables").defineInRange("StablesBulidingCostsEmerald", 0, 0, 100000);
+
+// watch tower
+		CONFIG_BUILDING_COSTS_WATCH_TOWER_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the Watch Tower").defineInRange("WatchTowerBulidingCostsFood", 20, 0, 100000);
+		CONFIG_BUILDING_COSTS_WATCH_TOWER_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the Watch Tower").defineInRange("WatchTowerBulidingCostsWood", 50, 0, 100000);
+		CONFIG_BUILDING_COSTS_WATCH_TOWER_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the Watch Tower").defineInRange("WatchTowerBulidingCostsStone", 25, 0, 100000);
+		CONFIG_BUILDING_COSTS_WATCH_TOWER_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the Watch Tower").defineInRange("WatchTowerBulidingCostsIron", 4, 0, 100000);
+		CONFIG_BUILDING_COSTS_WATCH_TOWER_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the Watch Tower").defineInRange("WatchTowerBulidingCostsGold", 20, 0, 100000);
+		CONFIG_BUILDING_COSTS_WATCH_TOWER_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the Watch Tower").defineInRange("WatchTowerBulidingCostsDiamond", 0, 0, 100000);
+		CONFIG_BUILDING_COSTS_WATCH_TOWER_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the Watch Tower").defineInRange("WatchTowerBulidingCostsEmerald", 0, 0, 100000);
+
 		COMMON_BUILDER.pop();
 	}
 
@@ -321,6 +385,14 @@ public class Config {
 		CONFIG_UNIT_COSTS_ARCHER_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the archer").defineInRange("unitCostsArcherGold", 4, 0, 100000);
 		CONFIG_UNIT_COSTS_ARCHER_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the archer").defineInRange("unitCostsArcherDiamond", 0, 0, 100000);
 		CONFIG_UNIT_COSTS_ARCHER_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the archer").defineInRange("unitCostsArcherEmerald", 0, 0, 100000);
+
+		CONFIG_UNIT_COSTS_LANCER_FOOD = COMMON_BUILDER.comment("Defines the cost in food For the lancer").defineInRange("unitCostsLancerFood", 10, 0, 100000);
+		CONFIG_UNIT_COSTS_LANCER_WOOD = COMMON_BUILDER.comment("Defines the cost in wood For the lancer").defineInRange("unitCostsLancerWood", 6, 0, 100000);
+		CONFIG_UNIT_COSTS_LANCER_STONE = COMMON_BUILDER.comment("Defines the cost in stone For the lancer").defineInRange("unitCostsLancerStone", 0, 0, 100000);
+		CONFIG_UNIT_COSTS_LANCER_IRON = COMMON_BUILDER.comment("Defines the cost in iron For the lancer").defineInRange("unitCostsLancerIron", 1, 0, 100000);
+		CONFIG_UNIT_COSTS_LANCER_GOLD = COMMON_BUILDER.comment("Defines the cost in gold For the lancer").defineInRange("unitCostsLancerGold", 6, 0, 100000);
+		CONFIG_UNIT_COSTS_LANCER_DIAMOND = COMMON_BUILDER.comment("Defines the cost in diamond For the lancer").defineInRange("unitCostsLancerDiamond", 0, 0, 100000);
+		CONFIG_UNIT_COSTS_LANCER_EMERALD = COMMON_BUILDER.comment("Defines the cost in emerald For the lancer").defineInRange("unitCostsLancerEmerald", 0, 0, 100000);
 
 		COMMON_BUILDER.pop();
 	}

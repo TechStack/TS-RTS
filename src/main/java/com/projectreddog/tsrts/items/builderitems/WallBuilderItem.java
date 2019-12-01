@@ -14,19 +14,19 @@ import net.minecraft.world.World;
 public class WallBuilderItem extends BuilderItem {
 	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_100");
 	protected ResourceLocation templateNameRed50 = null;
-	protected ResourceLocation templateNameRed0 = null;
+	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_0");
 
 	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_100");
 	protected ResourceLocation templateNameYellow50 = null;
-	protected ResourceLocation templateNameYellow0 = null;
+	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_0");
 
 	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_100");
 	protected ResourceLocation templateNameGreen50 = null;
-	protected ResourceLocation templateNameGreen0 = null;
+	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_0");
 
 	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_100");
 	protected ResourceLocation templateNameBlue50 = null;
-	protected ResourceLocation templateNameBlue0 = null;
+	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "wall1_red_0");
 
 	public WallBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));

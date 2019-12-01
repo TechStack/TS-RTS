@@ -70,6 +70,9 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_MINE_SITE_DIAMOND = 7;
 	public static final int GUI_BUTTON_BUY_MINE_SITE_EMERALD = 8;
 	public static final int GUI_BUTTON_BUY_FARM = 9;
+	public static final int GUI_BUTTON_BUY_STABLES = 10;
+	public static final int GUI_BUTTON_BUY_WALL = 11;
+	public static final int GUI_BUTTON_BUY_WATCH_TOWER = 12;
 
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
 	public static final int GUI_BUTTON_LOBBY_BLUE = 5;
