@@ -40,7 +40,10 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 
 		int y = (this.height - this.ySize) / 2;
 
-		this.blit(x, y, 0, 0, this.xSize, this.ySize);
+		this.blit(x, y - 32, 0, 0, this.xSize, this.ySize);
+
+		this.blit(x, y + 23, 0, 0, this.xSize, this.ySize);
+
 		drawResourceIcons();
 	}
 
@@ -50,7 +53,7 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 		TeamInfo.Resources[] res = TeamInfo.Resources.values();
 		int x = 170;
 		int yOffset = 40;
-		int y = ((this.height - this.ySize - (8 * yOffset))) + 325;
+		int y = ((this.height - this.ySize - (8 * yOffset))) + 257;
 
 		x = ((this.width - this.xSize - (TeamInfo.Resources.values().length * (xtextOffset + xTextWidth)))) + 380;
 // DRAW HEAER:
@@ -62,7 +65,7 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 			x = x + xTextWidth;
 
 		}
-		y = y + 10;
+		y = y + 0;
 		// y = y + yOffset;
 
 		drawCosts(ModItems.FARMBUILDERITEM, y);
@@ -85,6 +88,12 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 		drawCosts(ModItems.BARRACKSBUILDERITEM, y);
 		y = y + yOffset;
 		drawCosts(ModItems.ARCHERYRANGEBUILDERITEM, y);
+		y = y + yOffset;
+		drawCosts(ModItems.STABLESBUILDERITEM, y);
+		y = y + yOffset;
+		drawCosts(ModItems.WALLBUILDERITEM, y);
+		y = y + yOffset;
+		drawCosts(ModItems.WATCHTOWERBUILDERITEM, y);
 		y = y + yOffset;
 		GL11.glPopMatrix();
 	}
@@ -176,7 +185,7 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 		 * 
 		 * public static final int GUI_BUTTON_BUY_LUMBER_YARD = 3; public static final int GUI_BUTTON_BUY_MINE_SITE_STONE = 4; public static final int GUI_BUTTON_BUY_MINE_SITE_IRON = 5; public static final int GUI_BUTTON_BUY_MINE_SITE_GOLD = 6; public static final int GUI_BUTTON_BUY_MINE_SITE_DIAMOND = 7; public static final int GUI_BUTTON_BUY_MINE_SITE_EMERALD = 8;
 		 */
-		y = y + 5;
+		y = y + -30;
 		int width = 80;
 		// x = 0;// x + (width / 2);
 
@@ -221,5 +230,20 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHERY_RANGE));
 		}));
 		y = y + 20;
+		addButton(new Button(x, y, width, height, "Stables", (button) -> {
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_STABLES));
+		}));
+		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Wall", (button) -> {
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WALL));
+		}));
+		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Watch Tower", (button) -> {
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WATCH_TOWER));
+		}));
+		y = y + 20;
+
 	}
 }

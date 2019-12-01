@@ -1,9 +1,11 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,10 +23,44 @@ public class StablesTileEntity extends OwnedCooldownTileEntity implements INamed
 		super.ActionAfterCooldown();
 
 		if (getOwner() != null) {
-
-			Utilities.SpawnUnitForTeam(ModEntities.MOUNTED_ENTITY, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
-
+			if (hasNeededResources()) {
+				spendResources();
+				Utilities.SpawnUnitForTeam(ModEntities.MOUNTED_ENTITY, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+			}
 		}
+	}
+
+	public boolean spendResources() {
+		String teamName = this.getTeam().getName();
+
+		boolean result = true;
+
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.FOOD, Config.CONFIG_UNIT_COSTS_LANCER_FOOD.get());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.WOOD, Config.CONFIG_UNIT_COSTS_LANCER_WOOD.get());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.STONE, Config.CONFIG_UNIT_COSTS_LANCER_STONE.get());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.IRON, Config.CONFIG_UNIT_COSTS_LANCER_IRON.get());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.GOLD, Config.CONFIG_UNIT_COSTS_LANCER_GOLD.get());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.DIAMOND, Config.CONFIG_UNIT_COSTS_LANCER_DIAMOND.get());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, Config.CONFIG_UNIT_COSTS_LANCER_EMERALD.get());
+		Utilities.SendTeamToClient(teamName);
+
+		return result;
+	}
+
+	public boolean hasNeededResources() {
+		if (this.getTeam() == null) {
+			return false;
+		}
+		String teamName = this.getTeam().getName();
+		boolean result = true;
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.FOOD, Config.CONFIG_UNIT_COSTS_LANCER_FOOD.get());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.WOOD, Config.CONFIG_UNIT_COSTS_LANCER_WOOD.get());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.STONE, Config.CONFIG_UNIT_COSTS_LANCER_STONE.get());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.IRON, Config.CONFIG_UNIT_COSTS_LANCER_IRON.get());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.GOLD, Config.CONFIG_UNIT_COSTS_LANCER_GOLD.get());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.DIAMOND, Config.CONFIG_UNIT_COSTS_LANCER_DIAMOND.get());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.EMERALD, Config.CONFIG_UNIT_COSTS_LANCER_EMERALD.get());
+		return result;
 	}
 
 	@Override
