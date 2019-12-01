@@ -37,6 +37,12 @@ public class WatchTowerTileEntity extends OwnedCooldownTileEntity {
 	}
 
 	@Override
+	public int getDamagedHealthThreashold() {
+
+		return 21;
+	}
+
+	@Override
 	public void StructureLost() {
 		super.StructureLost();
 		Utilities.SendMessageToAllTeams(this.getWorld(), "tsrts.destroy.watchtower", this.getTeam().getName());

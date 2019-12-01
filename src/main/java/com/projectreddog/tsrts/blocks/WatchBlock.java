@@ -11,6 +11,8 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 import net.minecraft.world.IBlockReader;
 
 public class WatchBlock extends OwnedBlock {
@@ -28,6 +30,18 @@ public class WatchBlock extends OwnedBlock {
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		return this.getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getNearestLookingDirection().getOpposite());
+	}
+
+	@Override
+	public BlockState mirror(BlockState state, Mirror mirrorIn) {
+
+		return state.with(BlockStateProperties.HORIZONTAL_FACING, mirrorIn.mirror(state.get(BlockStateProperties.HORIZONTAL_FACING)));
+
+	}
+
+	@Override
+	public BlockState rotate(BlockState state, Rotation rot) {
+		return state.with(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.get(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
 	@Override

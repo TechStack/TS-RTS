@@ -75,7 +75,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 			if (priorHealth != getHealth()) {
 				priorHealth = getHealth();
 				writeDirty = true;
-				if (getHealth() < 80) {
+				if (getHealth() < getDamagedHealthThreashold()) {
 					currentStage = Stage.HALF_DESTROYED;
 					writeDirty = true;
 				}
@@ -129,6 +129,10 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 			}
 		}
 
+	}
+
+	public int getDamagedHealthThreashold() {
+		return 80;
 	}
 
 	public void setHealth(float inhealth) {
