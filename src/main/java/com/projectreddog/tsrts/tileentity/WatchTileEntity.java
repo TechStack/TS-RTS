@@ -84,7 +84,8 @@ public class WatchTileEntity extends OwnedTileEntity implements ITickableTileEnt
 				LivingEntity livingEntity = (LivingEntity) iterator.next();
 				if (livingEntity instanceof UnitEntity) {
 					UnitEntity ue = (UnitEntity) livingEntity;
-					if (!ue.getTeam().isSameTeam(this.getTeam())) {
+
+					if (ue.getTeam() != null && !ue.getTeam().isSameTeam(this.getTeam())) {
 
 						if (shouldContinue) {
 							shoot(this.world, this.pos, d, livingEntity);
