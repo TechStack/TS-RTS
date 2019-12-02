@@ -33,6 +33,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -1120,6 +1121,11 @@ public class Utilities {
 					if (octe != null) {
 						teList.get(i).setOwningTePos(octe.getPos());
 						teList.get(i).setOwnerName(ownerName);
+
+						// TODO set the max here to override what was in the structure file ... call method that is overridden on each builder item if possible. or use passsed in pramater that is pouplated by callilng the "getTargetEntityHealthPer" on the builder item.
+						teList.get(i).getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200);
+						teList.get(i).setHealth(200);
+
 						health = health + teList.get(i).getHealth();
 					}
 
