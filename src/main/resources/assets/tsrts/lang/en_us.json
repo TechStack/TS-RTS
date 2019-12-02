@@ -32,6 +32,12 @@
 "_comment":"custom messages here",
 
 "tsrts.destroy.townhall":"Town Hall Destroyed!",
+"tsrts.destroy.townhall.red":"Red's Town Hall has been Destroyed!",
+"tsrts.destroy.townhall.yellow":"Yellow's Town Hall has been Destroyed!",
+"tsrts.destroy.townhall.green":"Green's Town Hall has been Destroyed!",
+"tsrts.destroy.townhall.blue":"Blue's Town Hall has been Destroyed!",
+
+
 "tsrts.destroy.archeryrange":"Archery Range Destroyed!",
 "tsrts.destroy.barracks":"Barracks Destroyed!",
 "tsrts.destroy.farm":"Farm Destroyed!",

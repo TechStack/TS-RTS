@@ -85,4 +85,9 @@ public class StablesTileEntity extends OwnedCooldownTileEntity implements INamed
 		}
 
 	}
+
+	@Override
+	public float getDamagedHealthThreashold() {
+		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_STABLES.get();
+	}
 }
