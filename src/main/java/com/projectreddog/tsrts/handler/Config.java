@@ -23,6 +23,8 @@ public class Config {
 
 	public static final String CATEGORY_BUILDING_COST = "building_cost";
 
+	public static final String CATEGORY_STRUCTURE_HEALTH = "structure_health";
+
 	public static final String CATEGORY_STARTUP_RESOURCES = "startup_resources";
 
 	public static final String CATEGORY_UNIT_ATTRIBUTES = "unit_attributes";
@@ -112,6 +114,22 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_LANCE_WEAPON_MODIFIER_ATTRIBUTES_STRING;
 	public static WeaponModifierAttributes CONFIG_WEAPON_MODIFIER_ATTRIBUTES_LANCE;
 
+	// Structure Health
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_ARCHERY_RANGE;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_BARRACKS;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_FARM;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_LUMBER_YARD;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_EMERALD;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_RESEARCH_CENTER;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_STABLES;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WALL;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WATCH_TOWER;
+
 	static {
 
 		setupGeneralConfig();
@@ -121,9 +139,31 @@ public class Config {
 		setupBuildingCostConfig();
 		setupUnitAttributeConfig();
 		setupWeaponAttributeConfig();
-
+		setupStructureHealthConfig();
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
+	}
+
+	private static void setupStructureHealthConfig() {
+		COMMON_BUILDER.comment("Sets the health of the various buildings. The health is evenly split between the target entities in the strcture.").push(CATEGORY_STRUCTURE_HEALTH);
+
+		CONFIG_STRCTURE_TOTAL_HEALTH_ARCHERY_RANGE = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthArcheryRange", 160, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_BARRACKS = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthBarracks", 80, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_FARM = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthFarm", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_LUMBER_YARD = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthLumberYard", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_STONE = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteStone", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_IRON = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteIron", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_GOLD = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteGold", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_DIAMOND = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteDiamond", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_EMERALD = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteEmerald", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_RESEARCH_CENTER = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthResearchCenter", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_STABLES = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthStables", 160, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthTownHall", 500, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_WALL = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthWall", 400, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_WATCH_TOWER = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthWatchTower", 300, 0, 1024);
+
+		COMMON_BUILDER.pop();
+
 	}
 
 	private static void setupWeaponAttributeConfig() {

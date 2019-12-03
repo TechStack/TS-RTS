@@ -90,11 +90,11 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 					if (getStructureData() != null) {
 						if (currentStage == Stage.HALF_DESTROYED) {
 							if (getStructureData().getTemplate50() != null) {
-								Utilities.LoadStructure(this.world, getStructureData().getTemplate50(), getStructureData(), getOwner(), false);
+								Utilities.LoadStructure(this.world, getStructureData().getTemplate50(), getStructureData(), getOwner(), false, false, 0);
 							}
 						}
 						if (currentStage == Stage.RUBBLE) {
-							Utilities.LoadStructure(this.world, getStructureData().getTemplate0(), getStructureData(), getOwner(), false);
+							Utilities.LoadStructure(this.world, getStructureData().getTemplate0(), getStructureData(), getOwner(), false, false, 0);
 
 							StructureLost();
 							DecreaseCount();
@@ -131,7 +131,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 
 	}
 
-	public int getDamagedHealthThreashold() {
+	public float getDamagedHealthThreashold() {
 		return 80;
 	}
 

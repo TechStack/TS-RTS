@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.items.builderitems;
 
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -87,5 +88,10 @@ public class MinesiteEmeraldBuilderItem extends BuilderItem {
 	@Override
 	public void ActionAfterSpawn(World world, PlayerEntity Player, BlockPos bp) {
 
+	}
+
+	@Override
+	public float getTotalStructureHealth() {
+		return Config.CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_EMERALD.get();
 	}
 }

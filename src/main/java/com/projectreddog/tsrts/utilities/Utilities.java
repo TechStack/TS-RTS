@@ -33,6 +33,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -1021,7 +1022,7 @@ public class Utilities {
 		return result;
 	}
 
-	public static boolean LoadStructure(World world, ResourceLocation templateName, StructureData structureData, String ownerName, Boolean shouldCheckifValid) {
+	public static boolean LoadStructure(World world, ResourceLocation templateName, StructureData structureData, String ownerName, boolean shouldCheckifValid, boolean setHealth, float healthTarget) {
 
 		BlockPos pos = structureData.getSpawnPoint();
 		Direction d = structureData.getDirection();
@@ -1120,6 +1121,13 @@ public class Utilities {
 					if (octe != null) {
 						teList.get(i).setOwningTePos(octe.getPos());
 						teList.get(i).setOwnerName(ownerName);
+
+						if (setHealth) {
+							float currhealth = healthTarget / teList.size();
+							// TODO set the max here to override what was in the structure file ... call method that is overridden on each builder item if possible. or use passsed in pramater that is pouplated by callilng the "getTargetEntityHealthPer" on the builder item.
+							teList.get(i).getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(currhealth);
+							teList.get(i).setHealth(currhealth);
+						}
 						health = health + teList.get(i).getHealth();
 					}
 

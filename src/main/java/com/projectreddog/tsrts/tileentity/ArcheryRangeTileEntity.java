@@ -94,4 +94,9 @@ public class ArcheryRangeTileEntity extends OwnedCooldownTileEntity implements I
 		}
 
 	}
+
+	@Override
+	public float getDamagedHealthThreashold() {
+		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_ARCHERY_RANGE.get();
+	}
 }

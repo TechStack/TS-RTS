@@ -102,4 +102,8 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 
 	}
 
+	@Override
+	public float getDamagedHealthThreashold() {
+		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_BARRACKS.get();
+	}
 }
