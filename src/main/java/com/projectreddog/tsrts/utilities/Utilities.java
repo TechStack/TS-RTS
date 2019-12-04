@@ -530,6 +530,10 @@ public class Utilities {
 			if (entityType == ModEntities.MOUNTED_ENTITY) {
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.LANCEITEM));
 			}
+
+			if (entityType == ModEntities.PIKEMAN_ENTITY) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.PIKEITEM));
+			}
 			//
 //			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
 			// ue.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.DIAMOND_HELMET));

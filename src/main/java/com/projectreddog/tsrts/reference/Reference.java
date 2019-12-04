@@ -29,6 +29,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_RALLY_POINT_TOOL = "rallypointtool";
 	public static final String REIGSTRY_NAME_RETREAT_SEPTER_ITEM = "retreatescepteritem";
 	public static final String REIGSTRY_NAME_LANCE_ITEM = "lanceitem";
+	public static final String REIGSTRY_NAME_PIKE_ITEM = "pikeitem";
 
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
 	public static final String REIGSTRY_NAME_WATCH_TOWER_BUILDER_ITEM = "watchtowerbuilderitem";
@@ -52,6 +53,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ARCHER_MINION_ENTITY = "archerminion";
 	public static final String REIGSTRY_NAME_TARGET_ENTITY = "targetentity";
 	public static final String REIGSTRY_NAME_MOUNTED_ENTITY = "mountedentity";
+	public static final String REIGSTRY_NAME_PIKEMAN_ENTITY = "pikemanentity";
 
 	// GUI BUTTONS
 

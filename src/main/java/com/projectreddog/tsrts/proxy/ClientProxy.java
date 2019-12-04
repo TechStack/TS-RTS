@@ -6,11 +6,13 @@ import com.projectreddog.tsrts.client.gui.TownHallScreen;
 import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MountedRenderer;
+import com.projectreddog.tsrts.client.renderer.PikemanRenderer;
 import com.projectreddog.tsrts.client.renderer.TargetRenderer;
 import com.projectreddog.tsrts.client.renderer.overlay.RenderOverlay;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.MountedEntity;
+import com.projectreddog.tsrts.entities.PikemanEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.handler.ClientEvents;
 import com.projectreddog.tsrts.init.ModContainers;
@@ -38,6 +40,7 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(TargetEntity.class, TargetRenderer::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(MountedEntity.class, MountedRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(PikemanEntity.class, PikemanRenderer::new);
 
 		// Client Gui
 		ScreenManager.registerFactory(ModContainers.BASIC_CONTAINER, BasicScreen::new);
