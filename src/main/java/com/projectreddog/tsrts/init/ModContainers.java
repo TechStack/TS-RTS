@@ -2,8 +2,11 @@ package com.projectreddog.tsrts.init;
 
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.containers.BasicContainer;
+import com.projectreddog.tsrts.containers.DefensiveBuildingsContainer;
+import com.projectreddog.tsrts.containers.EcoBuildingsContainer;
 import com.projectreddog.tsrts.containers.LobbyContainer;
-import com.projectreddog.tsrts.containers.TownHallContainer;
+import com.projectreddog.tsrts.containers.MainMenuContainer;
+import com.projectreddog.tsrts.containers.TroopBuildingsContainer;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.inventory.container.ContainerType;
@@ -17,8 +20,17 @@ public class ModContainers {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_BASIC_CONTAINER)
 	public static ContainerType<BasicContainer> BASIC_CONTAINER;
 
-	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_HALL_BLOCK)
-	public static ContainerType<TownHallContainer> TOWN_HALL_CONTAINER;
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_DEFENSIVE_BUILDINGS_CONTAINER)
+	public static ContainerType<DefensiveBuildingsContainer> DEFENSIVE_BUILDINGS_CONTAINER;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MAIN_MENU_CONTAINER)
+	public static ContainerType<MainMenuContainer> MAIN_MENU_CONTAINER;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ECO_BUILDINGS_CONTAINER)
+	public static ContainerType<EcoBuildingsContainer> ECO_BUILDINGS_CONTAINER;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TROOP_BUILDINGS_CONTAINER)
+	public static ContainerType<TroopBuildingsContainer> TROOP_BUILDINGS_CONTAINER;
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LOBBY_CONTAINER)
 	public static ContainerType<LobbyContainer> LOBBY_CONTAINER;
@@ -31,12 +43,24 @@ public class ModContainers {
 		}).setRegistryName(Reference.REIGSTRY_NAME_BASIC_CONTAINER));
 
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
-			return new TownHallContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
-		}).setRegistryName(Reference.REIGSTRY_NAME_TOWN_HALL_BLOCK));
+			return new DefensiveBuildingsContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
+		}).setRegistryName(Reference.REIGSTRY_NAME_DEFENSIVE_BUILDINGS_CONTAINER));
 
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
 			return new LobbyContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
 		}).setRegistryName(Reference.REIGSTRY_NAME_LOBBY_CONTAINER));
+
+		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+			return new MainMenuContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
+		}).setRegistryName(Reference.REIGSTRY_NAME_MAIN_MENU_CONTAINER));
+
+		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+			return new EcoBuildingsContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
+		}).setRegistryName(Reference.REIGSTRY_NAME_ECO_BUILDINGS_CONTAINER));
+
+		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+			return new TroopBuildingsContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
+		}).setRegistryName(Reference.REIGSTRY_NAME_TROOP_BUILDINGS_CONTAINER));
 
 	}
 }
