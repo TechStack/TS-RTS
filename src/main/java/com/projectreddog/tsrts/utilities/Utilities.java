@@ -10,7 +10,10 @@ import javax.annotation.Nullable;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
-import com.projectreddog.tsrts.containers.provider.TownHallContinerProvider;
+import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
+import com.projectreddog.tsrts.containers.provider.MainMenuContinerProvider;
+import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
+import com.projectreddog.tsrts.containers.provider.TroopBuildingsContinerProvider;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
@@ -94,10 +97,14 @@ public class Utilities {
 	public static void GuiRequestHandler(int guiID, ServerPlayerEntity player) {
 		switch (guiID) {
 		case Reference.GUI_ID_TOWN_HALL:
-			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new TownHallContinerProvider());
+			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new DefensiveBuildingsContinerProvider());
 
 			break;
 
+		case Reference.GUI_ID_MAIN_MENU:
+			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new MainMenuContinerProvider());
+
+			break;
 		default:
 			break;
 		}
@@ -139,7 +146,7 @@ public class Utilities {
 
 	}
 
-	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
+	public static void GenericGuiHandler(int buttonID, ServerPlayerEntity player) {
 		ScorePlayerTeam team;
 		switch (buttonID) {
 
@@ -169,6 +176,18 @@ public class Utilities {
 			break;
 		case Reference.GUI_BUTTON_LOBBY_START:
 			Utilities.startGame(player.world);
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_ECO:
+			NetworkHooks.openGui(player, new EcoBuildingsContinerProvider());
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS:
+			NetworkHooks.openGui(player, new DefensiveBuildingsContinerProvider());
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS:
+			NetworkHooks.openGui(player, new TroopBuildingsContinerProvider());
 			break;
 
 		}

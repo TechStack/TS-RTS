@@ -181,7 +181,7 @@ public class ClientEvents {
 
 				}
 				if (mainGuiOpen.isPressed()) {
-					ModNetwork.SendToServer(new GuiRequestPacketToServer(Reference.GUI_ID_TOWN_HALL));
+					ModNetwork.SendToServer(new GuiRequestPacketToServer(Reference.GUI_ID_MAIN_MENU));
 				}
 			}
 

@@ -2,7 +2,7 @@ package com.projectreddog.tsrts.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import com.projectreddog.tsrts.containers.TownHallContainer;
+import com.projectreddog.tsrts.containers.DefensiveBuildingsContainer;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
@@ -19,7 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
-public class TownHallScreen extends ContainerScreen<TownHallContainer> {
+public class DefensiveBuildingsScreen extends ContainerScreen<DefensiveBuildingsContainer> {
 
 	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/barracks_gui.png");
 	int ytextOffset = 20;
@@ -27,7 +27,7 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 	int xTextWidth = 25;
 	String teamName = "";
 
-	public TownHallScreen(TownHallContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+	public DefensiveBuildingsScreen(DefensiveBuildingsContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
 
 	}
@@ -68,29 +68,6 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 		y = y + 0;
 		// y = y + yOffset;
 
-		drawCosts(ModItems.FARMBUILDERITEM, y);
-		y = y + yOffset;
-
-		drawCosts(ModItems.LUMBERYARDBUILDERITEM, y);
-		y = y + yOffset;
-
-		drawCosts(ModItems.MINESITESTONEBUILDERITEM, y);
-		y = y + yOffset;
-
-		drawCosts(ModItems.MINESITEIRONBUILDERITEM, y);
-		y = y + yOffset;
-
-		drawCosts(ModItems.MINESITEGOLDBUILDERITEM, y);
-		y = y + yOffset;
-
-		drawCosts(ModItems.MINESITEDIAMONDBUILDERITEM, y);
-		y = y + yOffset;
-		drawCosts(ModItems.BARRACKSBUILDERITEM, y);
-		y = y + yOffset;
-		drawCosts(ModItems.ARCHERYRANGEBUILDERITEM, y);
-		y = y + yOffset;
-		drawCosts(ModItems.STABLESBUILDERITEM, y);
-		y = y + yOffset;
 		drawCosts(ModItems.WALLBUILDERITEM, y);
 		y = y + yOffset;
 		drawCosts(ModItems.WATCHTOWERBUILDERITEM, y);
@@ -190,50 +167,6 @@ public class TownHallScreen extends ContainerScreen<TownHallContainer> {
 		// x = 0;// x + (width / 2);
 
 		int height = 20;
-
-		addButton(new Button(x, y, width, height, "Farm", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_FARM));
-		}));
-		y = y + 20;
-
-		addButton(new Button(x, y, width, height, "Lumber Yard", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LUMBER_YARD));
-		}));
-		y = y + 20;
-
-		addButton(new Button(x, y, width, height, "Stone Mine", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_STONE));
-		}));
-		y = y + 20;
-
-		addButton(new Button(x, y, width, height, "Iron Mine", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_IRON));
-		}));
-		y = y + 20;
-
-		addButton(new Button(x, y, width, height, "Gold Mine", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_GOLD));
-		}));
-		y = y + 20;
-
-		addButton(new Button(x, y, width, height, "Diamond Mine", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND));
-		}));
-		y = y + 20;
-
-		addButton(new Button(x, y, width, height, "Barracks", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_BARRACKS));
-		}));
-		y = y + 20;
-
-		addButton(new Button(x, y, width, height, "Archery Range", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHERY_RANGE));
-		}));
-		y = y + 20;
-		addButton(new Button(x, y, width, height, "Stables", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_STABLES));
-		}));
-		y = y + 20;
 
 		addButton(new Button(x, y, width, height, "Wall", (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WALL));

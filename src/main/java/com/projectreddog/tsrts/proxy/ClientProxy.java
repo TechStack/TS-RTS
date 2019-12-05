@@ -1,8 +1,11 @@
 package com.projectreddog.tsrts.proxy;
 
 import com.projectreddog.tsrts.client.gui.BasicScreen;
+import com.projectreddog.tsrts.client.gui.EcoBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.LobbyScreen;
-import com.projectreddog.tsrts.client.gui.TownHallScreen;
+import com.projectreddog.tsrts.client.gui.MainMenuScreen;
+import com.projectreddog.tsrts.client.gui.DefensiveBuildingsScreen;
+import com.projectreddog.tsrts.client.gui.TroopBuildingsScreen;
 import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MountedRenderer;
@@ -44,8 +47,11 @@ public class ClientProxy implements IProxy {
 
 		// Client Gui
 		ScreenManager.registerFactory(ModContainers.BASIC_CONTAINER, BasicScreen::new);
-		ScreenManager.registerFactory(ModContainers.TOWN_HALL_CONTAINER, TownHallScreen::new);
+		ScreenManager.registerFactory(ModContainers.DEFENSIVE_BUILDINGS_CONTAINER, DefensiveBuildingsScreen::new);
 		ScreenManager.registerFactory(ModContainers.LOBBY_CONTAINER, LobbyScreen::new);
+		ScreenManager.registerFactory(ModContainers.MAIN_MENU_CONTAINER, MainMenuScreen::new);
+		ScreenManager.registerFactory(ModContainers.ECO_BUILDINGS_CONTAINER, EcoBuildingsScreen::new);
+		ScreenManager.registerFactory(ModContainers.TROOP_BUILDINGS_CONTAINER, TroopBuildingsScreen::new);
 
 		MinecraftForge.EVENT_BUS.register(new RenderOverlay());
 		KeyBindings();
