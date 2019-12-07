@@ -2,6 +2,8 @@ package com.projectreddog.tsrts.entities;
 
 import javax.annotation.Nullable;
 
+import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 
@@ -63,6 +65,14 @@ public class TargetEntity extends CreatureEntity {
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
 		setOwnerName(compound.getString("onwerName"));
+
+		if (compound.contains("owerPosX")) {
+			int x = compound.getInt("owerPosX");
+			int y = compound.getInt("owerPosY");
+			int z = compound.getInt("owerPosZ");
+			owningTePos = new BlockPos(x, y, z);
+
+		}
 	}
 
 	public void setOwnerName(String ownerName) {
@@ -78,6 +88,13 @@ public class TargetEntity extends CreatureEntity {
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
 		compound.putString("onwerName", ownerName);
+
+		if (Config.CONFIG_GAME_MODE.get() != Modes.WORLDBUILDER) {
+			compound.putInt("owerPosX", owningTePos.getX());
+			compound.putInt("owerPosY", owningTePos.getY());
+			compound.putInt("owerPosZ", owningTePos.getZ());
+		}
+
 	}
 
 	@Override
