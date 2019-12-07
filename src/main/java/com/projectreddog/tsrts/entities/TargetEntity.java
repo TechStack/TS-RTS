@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 public class TargetEntity extends CreatureEntity {
 
 	private BlockPos owningTePos;
+	public int newHurtTime;
 
 	public BlockPos getOwningTePos() {
 		return owningTePos;
@@ -104,7 +105,13 @@ public class TargetEntity extends CreatureEntity {
 	@Override
 	public void tick() {
 		super.tick();
-
+		if (this.hurtTime > 0) {
+			this.hurtTime = 0;
+			this.newHurtTime = 10;
+		}
+		if (this.newHurtTime > 0) {
+			this.newHurtTime--;
+		}
 		if (this.posX >= 0) {
 			this.posX = ((int) this.posX) + .5f;
 		} else if (this.posX < 0) {
