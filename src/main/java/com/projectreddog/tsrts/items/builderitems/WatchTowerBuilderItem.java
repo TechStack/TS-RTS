@@ -86,7 +86,6 @@ public class WatchTowerBuilderItem extends BuilderItem {
 
 	@Override
 	public void ActionAfterSpawn(World world, PlayerEntity player, BlockPos bp) {
-		player.setSpawnPoint(bp, true, player.dimension);
 	}
 
 	@Override
