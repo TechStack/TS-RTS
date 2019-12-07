@@ -1,23 +1,14 @@
 package com.projectreddog.tsrts.tileentity;
 
 import com.projectreddog.tsrts.TSRTS;
-import com.projectreddog.tsrts.containers.TownHallContainer;
 import com.projectreddog.tsrts.init.ModBlocks;
-import com.projectreddog.tsrts.init.ModItems;
-import com.projectreddog.tsrts.reference.Reference;
-import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
-public class TownHallTileEntity extends OwnedCooldownTileEntity implements INamedContainerProvider, ITEGuiButtonHandler {
+public class TownHallTileEntity extends OwnedCooldownTileEntity {
 
 	public TownHallTileEntity() {
 		super(ModBlocks.TOWN_HALL_ENTITY_TYPE);
@@ -64,44 +55,9 @@ public class TownHallTileEntity extends OwnedCooldownTileEntity implements IName
 	}
 
 	@Override
-	public Container createMenu(int p_createMenu_1_, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-		return new TownHallContainer(p_createMenu_1_, this.world, this.getPos(), playerInventory);
-	}
-
-	@Override
 	public ITextComponent getDisplayName() {
 		// TODO Auto-generated method stub
 		return new StringTextComponent(getType().getRegistryName().getPath());
-	}
-
-	@Override
-	public void HandleGuiButton(int buttonId, PlayerEntity player) {
-		// TSRTS.LOGGER.info("button ID:" + buttonId);
-		super.HandleGuiButton(buttonId, player);
-		if (buttonId == Reference.GUI_BUTTON_BUY_BARRACKS) {
-			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.BARRACKSBUILDERITEM));
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHERY_RANGE) {
-			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.ARCHERYRANGEBUILDERITEM));
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_STONE) {
-			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITESTONEBUILDERITEM));
-
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_IRON) {
-			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEIRONBUILDERITEM));
-
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_GOLD) {
-			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEGOLDBUILDERITEM));
-
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND) {
-			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEDIAMONDBUILDERITEM));
-
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_LUMBER_YARD) {
-			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.LUMBERYARDBUILDERITEM));
-
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_FARM) {
-			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.FARMBUILDERITEM));
-
-		}
-
 	}
 
 }

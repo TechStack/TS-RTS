@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
+import com.projectreddog.tsrts.containers.provider.TownHallContinerProvider;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
@@ -36,6 +37,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -56,6 +58,7 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class Utilities {
 
@@ -85,6 +88,54 @@ public class Utilities {
 		TSRTS.isPlayerReadyArray.put(playerScoreboardName, false);
 
 		return false;
+	}
+
+	public static void GuiRequestHandler(int guiID, ServerPlayerEntity player) {
+		switch (guiID) {
+		case Reference.GUI_ID_TOWN_HALL:
+			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new TownHallContinerProvider());
+
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	public static void TownHallGuiHandler(int buttonId, ServerPlayerEntity player) {
+		if (buttonId == Reference.GUI_BUTTON_BUY_BARRACKS) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.BARRACKSBUILDERITEM));
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHERY_RANGE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.ARCHERYRANGEBUILDERITEM));
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_STONE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITESTONEBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_IRON) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEIRONBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_GOLD) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEGOLDBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEDIAMONDBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_LUMBER_YARD) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.LUMBERYARDBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_FARM) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.FARMBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_STABLES) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.STABLESBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WATCHTOWERBUILDERITEM));
+
+		}
+
 	}
 
 	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
@@ -161,6 +212,7 @@ public class Utilities {
 		// TODO Auto-generated method stub
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.DIAMOND_SWORD, 1));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.SAMPLEITEM));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RETREATESEPTERITEM));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RALLYPOINTTOOLITEM));
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.COOKED_BEEF, 64));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
@@ -169,13 +221,13 @@ public class Utilities {
 
 	public static int[] getStartingResourceAmounts() {
 		TeamInfo ti = new TeamInfo();
-		ti.SetResource(Resources.FOOD, Config.CONFIG_START_AMT_FOOD.get());
-		ti.SetResource(Resources.WOOD, Config.CONFIG_START_AMT_WOOD.get());
-		ti.SetResource(Resources.STONE, Config.CONFIG_START_AMT_STONE.get());
-		ti.SetResource(Resources.IRON, Config.CONFIG_START_AMT_IRON.get());
-		ti.SetResource(Resources.GOLD, Config.CONFIG_START_AMT_GOLD.get());
-		ti.SetResource(Resources.DIAMOND, Config.CONFIG_START_AMT_DIAMOND.get());
-		ti.SetResource(Resources.EMERALD, Config.CONFIG_START_AMT_EMERALD.get());
+		ti.SetResource(Resources.FOOD, Config.CONFIG_START_AMT.getFOOD());
+		ti.SetResource(Resources.WOOD, Config.CONFIG_START_AMT.getWOOD());
+		ti.SetResource(Resources.STONE, Config.CONFIG_START_AMT.getSTONE());
+		ti.SetResource(Resources.IRON, Config.CONFIG_START_AMT.getIRON());
+		ti.SetResource(Resources.GOLD, Config.CONFIG_START_AMT.getGOLD());
+		ti.SetResource(Resources.DIAMOND, Config.CONFIG_START_AMT.getDIAMOND());
+		ti.SetResource(Resources.EMERALD, Config.CONFIG_START_AMT.getEMERALD());
 
 		return ti.GetResourceArray();
 	}
@@ -224,161 +276,205 @@ public class Utilities {
 
 	public static int getFoodCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getFOOD();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getFOOD();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getFOOD();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getFOOD();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getFOOD();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getFOOD();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getFOOD();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getFOOD();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getFOOD();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getFOOD();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getFOOD();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getFOOD();
 		}
 		return 0;
 	}
 
 	public static int getWoodCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getWOOD();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getWOOD();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getWOOD();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getWOOD();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getWOOD();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getWOOD();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getWOOD();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getWOOD();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getWOOD();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getWOOD();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getWOOD();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getWOOD();
 		}
 		return 0;
 	}
 
 	public static int getStoneCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getSTONE();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getSTONE();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getSTONE();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getSTONE();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getSTONE();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getSTONE();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getSTONE();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getSTONE();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getSTONE();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getSTONE();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getSTONE();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getSTONE();
 		}
 		return 0;
 	}
 
 	public static int getIronCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getIRON();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getIRON();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getIRON();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getIRON();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getIRON();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getIRON();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getIRON();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getIRON();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getIRON();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getIRON();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getIRON();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getIRON();
 		}
+
 		return 0;
 	}
 
 	public static int getGoldCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getGOLD();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getGOLD();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getGOLD();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getGOLD();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getGOLD();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getGOLD();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getGOLD();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getGOLD();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getGOLD();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getGOLD();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getGOLD();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getGOLD();
 		}
 		return 0;
 	}
 
 	public static int getDiamondCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getDIAMOND();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getDIAMOND();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getDIAMOND();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getDIAMOND();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getDIAMOND();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getDIAMOND();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getDIAMOND();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getDIAMOND();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getDIAMOND();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getDIAMOND();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getDIAMOND();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getDIAMOND();
 		}
+
 		return 0;
 	}
 
 	public static int getEmeraldCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getEMERALD();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getEMERALD();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getEMERALD();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getEMERALD();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getEMERALD();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getEMERALD();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getEMERALD();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getEMERALD();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getEMERALD();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getEMERALD();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getEMERALD();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getEMERALD();
 		}
 		return 0;
 	}
@@ -391,7 +487,11 @@ public class Utilities {
 			player.dropItem(itemStack, false);
 
 		}
-		player.container.detectAndSendChanges();
+		// player.container.detectAndSendChanges();
+		if (player instanceof ServerPlayerEntity) {
+			ServerPlayerEntity sp = (ServerPlayerEntity) player;
+			sp.sendContainerToPlayer(sp.container);
+		}
 	}
 
 	public static void SpawnUnitForTeam(EntityType entityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
@@ -424,6 +524,10 @@ public class Utilities {
 
 			if (entityType == ModEntities.ARCHER_MINION) {
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+			}
+
+			if (entityType == ModEntities.MOUNTED_ENTITY) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.LANCEITEM));
 			}
 			//
 //			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
@@ -685,7 +789,7 @@ public class Utilities {
 
 	}
 
-	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player) {
+	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player, boolean isRetreatMove) {
 		if (TSRTS.playerSelections.containsKey(ownerName)) {
 			// found the player in the hasmap get and loop thru the enitties 1
 			int count = TSRTS.playerSelections.get(ownerName).selectedUnits.size();
@@ -699,7 +803,7 @@ public class Utilities {
 					if (ue != null) {
 						ue.ownerControlledDestination = lbp.get(i);/// context.getPos();
 						TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
-
+						ue.isRetreating = isRetreatMove;
 					}
 				}
 			}
@@ -974,6 +1078,8 @@ public class Utilities {
 				template.addBlocksToWorldChunk(world, bp, ps);
 
 				OwnedTileEntity controllerTE = null;
+
+				OwnedCooldownTileEntity octe = null;
 				for (int x = 0; x < xSize; x++) {
 					for (int y = 0; y < ySize; y++) {
 						for (int z = 0; z < zSize; z++) {
@@ -989,7 +1095,11 @@ public class Utilities {
 									((OwnedTileEntity) te).setOwner(ownerName);
 									controllerTE = ((OwnedTileEntity) te);
 									controllerTE.setStructureData(structureData);
+									if (controllerTE instanceof OwnedCooldownTileEntity) {
 
+										octe = (OwnedCooldownTileEntity) controllerTE;
+
+									}
 									if (te instanceof ResourceGenerator) {
 										ResourceGenerator rg = (ResourceGenerator) te;
 										rg.setResource(TeamInfo.GetResoureceForBlock(world.getBlockState(pos).getBlock()));
@@ -1007,15 +1117,14 @@ public class Utilities {
 				float health = 0;
 				int[] ids = new int[teList.size()];
 				for (int i = 0; i < teList.size(); i++) {
-					if (controllerTE != null) {
-						teList.get(i).setOwningTePos(controllerTE.getPos());
+					if (octe != null) {
+						teList.get(i).setOwningTePos(octe.getPos());
 						teList.get(i).setOwnerName(ownerName);
 						health = health + teList.get(i).getHealth();
 					}
 
 				}
-				if (controllerTE instanceof OwnedCooldownTileEntity) {
-					OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) controllerTE;
+				if (octe != null) {
 					octe.setHealth(health);
 
 					TSRTS.LOGGER.info("Health set to :" + health);

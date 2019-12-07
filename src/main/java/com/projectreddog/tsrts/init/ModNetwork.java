@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.init;
 
 import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.network.GuiRequestPacketToServer;
 import com.projectreddog.tsrts.network.LobbyGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
@@ -11,6 +12,7 @@ import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.network.TESetRallyPointToServer;
 import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
+import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -39,6 +41,8 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, RequestOwnerInfoToServer.class, RequestOwnerInfoToServer::encode, RequestOwnerInfoToServer::new, RequestOwnerInfoToServer::handle);
 		simpleChannel.registerMessage(MessageId++, TESetRallyPointToServer.class, TESetRallyPointToServer::encode, TESetRallyPointToServer::new, TESetRallyPointToServer::handle);
 		simpleChannel.registerMessage(MessageId++, AlertToastToClient.class, AlertToastToClient::encode, AlertToastToClient::new, AlertToastToClient::handle);
+		simpleChannel.registerMessage(MessageId++, TownHallButtonClickedPacketToServer.class, TownHallButtonClickedPacketToServer::encode, TownHallButtonClickedPacketToServer::new, TownHallButtonClickedPacketToServer::handle);
+		simpleChannel.registerMessage(MessageId++, GuiRequestPacketToServer.class, GuiRequestPacketToServer::encode, GuiRequestPacketToServer::new, GuiRequestPacketToServer::handle);
 
 	}
 
