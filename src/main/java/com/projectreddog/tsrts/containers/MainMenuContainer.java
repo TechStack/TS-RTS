@@ -7,10 +7,10 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.world.World;
 
-public class TownHallContainer extends Container {
+public class MainMenuContainer extends Container {
 
-	public TownHallContainer(int id, World world, PlayerInventory playerInventory) {
-		super(ModContainers.TOWN_HALL_CONTAINER, id);
+	public MainMenuContainer(int id, World world, PlayerInventory playerInventory) {
+		super(ModContainers.MAIN_MENU_CONTAINER, id);
 	}
 
 	@Override

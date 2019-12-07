@@ -3,7 +3,7 @@ package com.projectreddog.tsrts.init;
 import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.network.GuiRequestPacketToServer;
-import com.projectreddog.tsrts.network.LobbyGuiButtonClickedPacketToServer;
+import com.projectreddog.tsrts.network.GenericGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
@@ -34,7 +34,7 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, EntityOwnerChangedPacketToClient.class, EntityOwnerChangedPacketToClient::encode, EntityOwnerChangedPacketToClient::new, EntityOwnerChangedPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, TEOwnerChangedPacketToClient.class, TEOwnerChangedPacketToClient::encode, TEOwnerChangedPacketToClient::new, TEOwnerChangedPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, SendTeamInfoPacketToClient.class, SendTeamInfoPacketToClient::encode, SendTeamInfoPacketToClient::new, SendTeamInfoPacketToClient::handle);
-		simpleChannel.registerMessage(MessageId++, LobbyGuiButtonClickedPacketToServer.class, LobbyGuiButtonClickedPacketToServer::encode, LobbyGuiButtonClickedPacketToServer::new, LobbyGuiButtonClickedPacketToServer::handle);
+		simpleChannel.registerMessage(MessageId++, GenericGuiButtonClickedPacketToServer.class, GenericGuiButtonClickedPacketToServer::encode, GenericGuiButtonClickedPacketToServer::new, GenericGuiButtonClickedPacketToServer::handle);
 		simpleChannel.registerMessage(MessageId++, PlayerReadyUpPacketToClient.class, PlayerReadyUpPacketToClient::encode, PlayerReadyUpPacketToClient::new, PlayerReadyUpPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, PlayerSelectionChangedPacketToClient.class, PlayerSelectionChangedPacketToClient::encode, PlayerSelectionChangedPacketToClient::new, PlayerSelectionChangedPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, PlayerSelectionChangedPacketToServer.class, PlayerSelectionChangedPacketToServer::encode, PlayerSelectionChangedPacketToServer::new, PlayerSelectionChangedPacketToServer::handle);

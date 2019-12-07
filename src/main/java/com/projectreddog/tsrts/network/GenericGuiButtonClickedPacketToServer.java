@@ -7,16 +7,16 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class LobbyGuiButtonClickedPacketToServer {
+public class GenericGuiButtonClickedPacketToServer {
 
 	public int buttonid;
 
-	public LobbyGuiButtonClickedPacketToServer(PacketBuffer buf) {
+	public GenericGuiButtonClickedPacketToServer(PacketBuffer buf) {
 		// DECODE
 		this.buttonid = buf.readInt();
 	}
 
-	public LobbyGuiButtonClickedPacketToServer(int buttonid) {
+	public GenericGuiButtonClickedPacketToServer(int buttonid) {
 		super();
 		this.buttonid = buttonid;
 	}
@@ -32,7 +32,7 @@ public class LobbyGuiButtonClickedPacketToServer {
 			ServerPlayerEntity player = ctx.get().getSender();
 			if (player != null) {
 
-				Utilities.LobbyGuiHandler(this.buttonid, player);
+				Utilities.GenericGuiHandler(this.buttonid, player);
 
 			}
 

@@ -1,16 +1,21 @@
 package com.projectreddog.tsrts.proxy;
 
 import com.projectreddog.tsrts.client.gui.BasicScreen;
+import com.projectreddog.tsrts.client.gui.EcoBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.LobbyScreen;
-import com.projectreddog.tsrts.client.gui.TownHallScreen;
+import com.projectreddog.tsrts.client.gui.MainMenuScreen;
+import com.projectreddog.tsrts.client.gui.DefensiveBuildingsScreen;
+import com.projectreddog.tsrts.client.gui.TroopBuildingsScreen;
 import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MountedRenderer;
+import com.projectreddog.tsrts.client.renderer.PikemanRenderer;
 import com.projectreddog.tsrts.client.renderer.TargetRenderer;
 import com.projectreddog.tsrts.client.renderer.overlay.RenderOverlay;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.MountedEntity;
+import com.projectreddog.tsrts.entities.PikemanEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.handler.ClientEvents;
 import com.projectreddog.tsrts.init.ModContainers;
@@ -38,11 +43,15 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(TargetEntity.class, TargetRenderer::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(MountedEntity.class, MountedRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(PikemanEntity.class, PikemanRenderer::new);
 
 		// Client Gui
 		ScreenManager.registerFactory(ModContainers.BASIC_CONTAINER, BasicScreen::new);
-		ScreenManager.registerFactory(ModContainers.TOWN_HALL_CONTAINER, TownHallScreen::new);
+		ScreenManager.registerFactory(ModContainers.DEFENSIVE_BUILDINGS_CONTAINER, DefensiveBuildingsScreen::new);
 		ScreenManager.registerFactory(ModContainers.LOBBY_CONTAINER, LobbyScreen::new);
+		ScreenManager.registerFactory(ModContainers.MAIN_MENU_CONTAINER, MainMenuScreen::new);
+		ScreenManager.registerFactory(ModContainers.ECO_BUILDINGS_CONTAINER, EcoBuildingsScreen::new);
+		ScreenManager.registerFactory(ModContainers.TROOP_BUILDINGS_CONTAINER, TroopBuildingsScreen::new);
 
 		MinecraftForge.EVENT_BUS.register(new RenderOverlay());
 		KeyBindings();

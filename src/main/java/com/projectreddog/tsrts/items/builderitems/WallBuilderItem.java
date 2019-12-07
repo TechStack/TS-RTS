@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.items.builderitems;
 
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -85,7 +86,10 @@ public class WallBuilderItem extends BuilderItem {
 
 	@Override
 	public void ActionAfterSpawn(World world, PlayerEntity player, BlockPos bp) {
-		player.setSpawnPoint(bp, true, player.dimension);
 	}
 
+	@Override
+	public float getTotalStructureHealth() {
+		return Config.CONFIG_STRCTURE_TOTAL_HEALTH_WALL.get();
+	}
 }

@@ -10,7 +10,10 @@ import javax.annotation.Nullable;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
-import com.projectreddog.tsrts.containers.provider.TownHallContinerProvider;
+import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
+import com.projectreddog.tsrts.containers.provider.MainMenuContinerProvider;
+import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
+import com.projectreddog.tsrts.containers.provider.TroopBuildingsContinerProvider;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
@@ -33,6 +36,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -93,10 +97,14 @@ public class Utilities {
 	public static void GuiRequestHandler(int guiID, ServerPlayerEntity player) {
 		switch (guiID) {
 		case Reference.GUI_ID_TOWN_HALL:
-			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new TownHallContinerProvider());
+			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new DefensiveBuildingsContinerProvider());
 
 			break;
 
+		case Reference.GUI_ID_MAIN_MENU:
+			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new MainMenuContinerProvider());
+
+			break;
 		default:
 			break;
 		}
@@ -138,7 +146,7 @@ public class Utilities {
 
 	}
 
-	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
+	public static void GenericGuiHandler(int buttonID, ServerPlayerEntity player) {
 		ScorePlayerTeam team;
 		switch (buttonID) {
 
@@ -168,6 +176,18 @@ public class Utilities {
 			break;
 		case Reference.GUI_BUTTON_LOBBY_START:
 			Utilities.startGame(player.world);
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_ECO:
+			NetworkHooks.openGui(player, new EcoBuildingsContinerProvider());
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS:
+			NetworkHooks.openGui(player, new DefensiveBuildingsContinerProvider());
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS:
+			NetworkHooks.openGui(player, new TroopBuildingsContinerProvider());
 			break;
 
 		}
@@ -528,6 +548,10 @@ public class Utilities {
 
 			if (entityType == ModEntities.MOUNTED_ENTITY) {
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.LANCEITEM));
+			}
+
+			if (entityType == ModEntities.PIKEMAN_ENTITY) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.PIKEITEM));
 			}
 			//
 //			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
@@ -1021,7 +1045,7 @@ public class Utilities {
 		return result;
 	}
 
-	public static boolean LoadStructure(World world, ResourceLocation templateName, StructureData structureData, String ownerName, Boolean shouldCheckifValid) {
+	public static boolean LoadStructure(World world, ResourceLocation templateName, StructureData structureData, String ownerName, boolean shouldCheckifValid, boolean setHealth, float healthTarget) {
 
 		BlockPos pos = structureData.getSpawnPoint();
 		Direction d = structureData.getDirection();
@@ -1120,6 +1144,13 @@ public class Utilities {
 					if (octe != null) {
 						teList.get(i).setOwningTePos(octe.getPos());
 						teList.get(i).setOwnerName(ownerName);
+
+						if (setHealth) {
+							float currhealth = healthTarget / teList.size();
+							// TODO set the max here to override what was in the structure file ... call method that is overridden on each builder item if possible. or use passsed in pramater that is pouplated by callilng the "getTargetEntityHealthPer" on the builder item.
+							teList.get(i).getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(currhealth);
+							teList.get(i).setHealth(currhealth);
+						}
 						health = health + teList.get(i).getHealth();
 					}
 

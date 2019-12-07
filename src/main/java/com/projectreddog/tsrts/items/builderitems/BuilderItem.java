@@ -53,7 +53,7 @@ public abstract class BuilderItem extends Item {
 			Direction d = Direction.getFacingFromVector(context.getPlayer().getLookVec().getX(), 0, context.getPlayer().getLookVec().getZ());
 
 			if (CanPlaceOn(context.getPlayer().world.getBlockState(context.getPos()).getBlock())) {
-				if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(context.getPlayer().getTeam().getName()), new StructureData(getTemplateName100(context.getPlayer().getTeam().getName()), getTemplateName50(context.getPlayer().getTeam().getName()), getTemplateName0(context.getPlayer().getTeam().getName()), context.getPos(), d, getSize()), context.getPlayer().getScoreboardName(), true)) {
+				if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(context.getPlayer().getTeam().getName()), new StructureData(getTemplateName100(context.getPlayer().getTeam().getName()), getTemplateName50(context.getPlayer().getTeam().getName()), getTemplateName0(context.getPlayer().getTeam().getName()), context.getPos(), d, getSize()), context.getPlayer().getScoreboardName(), true, true, getTotalStructureHealth())) {
 
 					context.getItem().shrink(1);
 					context.getPlayer().container.detectAndSendChanges();
@@ -75,4 +75,5 @@ public abstract class BuilderItem extends Item {
 
 	public abstract boolean CanPlaceOn(Block block);
 
+	public abstract float getTotalStructureHealth();
 }

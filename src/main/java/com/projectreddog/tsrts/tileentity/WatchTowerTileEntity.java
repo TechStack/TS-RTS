@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -37,9 +38,8 @@ public class WatchTowerTileEntity extends OwnedCooldownTileEntity {
 	}
 
 	@Override
-	public int getDamagedHealthThreashold() {
-
-		return 21;
+	public float getDamagedHealthThreashold() {
+		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_WATCH_TOWER.get();
 	}
 
 	@Override
