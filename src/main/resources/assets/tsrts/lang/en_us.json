@@ -29,6 +29,9 @@
 "item.tsrts.farmbuilderitem":"Farm",
 "item.tsrts.lumberyardbuilderitem":"Lumber Yard",
 "item.tsrts.archeryrangebuilderitem":"Archery Range",
+"item.tsrts.stablesbuilderitem":"Stables",
+"item.tsrts.watchtowerbuilderitem":"Watch Tower",
+"item.tsrts.wallbuilderitem":"Wall",
 
 "_comment":"custom messages here",
 
