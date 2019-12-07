@@ -10,9 +10,9 @@ import javax.annotation.Nullable;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
+import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.MainMenuContinerProvider;
-import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.TroopBuildingsContinerProvider;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
@@ -826,7 +826,7 @@ public class Utilities {
 
 					if (ue != null) {
 						ue.ownerControlledDestination = lbp.get(i);/// context.getPos();
-						TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
+						// TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
 						ue.isRetreating = isRetreatMove;
 					}
 				}

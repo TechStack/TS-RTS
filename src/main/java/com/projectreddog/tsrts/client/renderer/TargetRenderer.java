@@ -33,7 +33,7 @@ public class TargetRenderer<T extends TargetEntity> extends EntityRenderer {
 		GlStateManager.translatef((float) x, (float) y, (float) z);
 		model.render((TargetEntity) entity, 1, 1, 1, 1, 1, 1);
 
-		if (((TargetEntity) entity).hurtTime > 0) {
+		if (((TargetEntity) entity).newHurtTime > 0) {
 			GlStateManager.depthFunc(514);
 			GlStateManager.disableTexture();
 			GlStateManager.enableBlend();

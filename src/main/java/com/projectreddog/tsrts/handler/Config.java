@@ -212,10 +212,10 @@ public class Config {
 	private static void setupUnitAttributeConfig() {
 		COMMON_BUILDER.comment("UNIT ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS : MAX_HEALTH,KNOCK_BACK_RESISTANCE, MOVEMENT_SPEED,ARMOR,ARMOR_TOUGHNESS,ATTACK_KNOCKBACK,ATTACKD_DAMAGE,FOLLOW_RANGE. They are comma separated list of floats Example : 20.0,0.0,0.25,2.0,0.0,0.0,3.0,35.0").push(CATEGORY_UNIT_ATTRIBUTES);
 
-		CONFIG_UNIT_MINION_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,35.0");
-		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "10.0,0.0,0.30,2.0,0.0,0.0,3.0,35.0");
-		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "10.0,0.0,0.40,2.0,0.0,0.0,3.0,35.0");
-		CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are ").define("unit_pikeman_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,35.0");
+		CONFIG_UNIT_MINION_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "10.0,0.0,0.30,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "10.0,5.0,0.40,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are ").define("unit_pikeman_attributes", "15.0,5.0,0.35,2.0,0.0,0.0,3.0,24.0");
 
 		COMMON_BUILDER.pop();
 
@@ -249,9 +249,9 @@ public class Config {
 		CONFIG_BUILDING_COSTS_MINESITE_EMERALD_STRING = COMMON_BUILDER.comment("Defines the cost For the minesite Emerald").define("minesiteEmeraldBulidingCosts", "600,5,2,3,2,0,0");
 		CONFIG_BUILDING_COSTS_BARRACKS_STRING = COMMON_BUILDER.comment("Defines the cost For the barracks").define("barracksBulidingCosts", "44,70,38,29,11,0,0");
 		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STRING = COMMON_BUILDER.comment("Defines the cost For the Archery Range").define("archeryRangeBulidingCosts", "44,100,46,36,17,0,0");
-		CONFIG_BUILDING_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall").define("wallBulidingCosts", "10,5,20,0,3,0,0");
+		CONFIG_BUILDING_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall").define("wallBulidingCosts", "10,15,32,2,3,0,0");
 		CONFIG_BUILDING_COSTS_STABLES_STRING = COMMON_BUILDER.comment("Defines the cost For the Stables").define("stablesBulidingCosts", "66,120,40,30,35,0,0");
-		CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the Watch Tower").define("watchTowerBulidingCosts", "20,50,25,4,20,0,0");
+		CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the Watch Tower").define("watchTowerBulidingCosts", "20,125,25,12,15,0,0");
 
 		COMMON_BUILDER.pop();
 	}
