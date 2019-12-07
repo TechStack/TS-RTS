@@ -14,6 +14,7 @@ import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerPro
 import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.MainMenuContinerProvider;
 import com.projectreddog.tsrts.containers.provider.TroopBuildingsContinerProvider;
+import com.projectreddog.tsrts.containers.provider.UnitRecruitmentContinerProvider;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
@@ -142,8 +143,75 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WATCHTOWERBUILDERITEM));
 
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINION) {
+
+			if (player.getTeam() != null) {
+				String team = player.getTeam().getName();
+				ResourceValues rv = Config.CONFIG_UNIT_COSTS_MINION;
+				if (hasNeededResourcesForResourceValues(team, rv)) {
+					spendResourcesForResourceValues(team, rv);
+				}
+			}
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHER) {
+
+			if (player.getTeam() != null) {
+				String team = player.getTeam().getName();
+				ResourceValues rv = Config.CONFIG_UNIT_COSTS_ARCHER;
+				if (hasNeededResourcesForResourceValues(team, rv)) {
+					spendResourcesForResourceValues(team, rv);
+				}
+			}
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_LANCER) {
+
+			if (player.getTeam() != null) {
+				String team = player.getTeam().getName();
+				ResourceValues rv = Config.CONFIG_UNIT_COSTS_LANCER;
+				if (hasNeededResourcesForResourceValues(team, rv)) {
+					spendResourcesForResourceValues(team, rv);
+				}
+			}
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_PIKEMAN) {
+
+			if (player.getTeam() != null) {
+				String team = player.getTeam().getName();
+				ResourceValues rv = Config.CONFIG_UNIT_COSTS_PIKEMAN;
+				if (hasNeededResourcesForResourceValues(team, rv)) {
+					spendResourcesForResourceValues(team, rv);
+				}
+			}
 		}
 
+	}
+
+	public static boolean spendResourcesForResourceValues(String teamName, ResourceValues rv) {
+
+		boolean result = true;
+
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.FOOD, rv.getFOOD());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.WOOD, rv.getWOOD());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.STONE, rv.getSTONE());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.IRON, rv.getIRON());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.GOLD, rv.getGOLD());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.DIAMOND, rv.getDIAMOND());
+		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, rv.getEMERALD());
+		Utilities.SendTeamToClient(teamName);
+
+		return result;
+	}
+
+	public static boolean hasNeededResourcesForResourceValues(String teamName, ResourceValues rv) {
+		if (teamName == null) {
+			return false;
+		}
+		boolean result = true;
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.FOOD, rv.getFOOD());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.WOOD, rv.getWOOD());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.STONE, rv.getSTONE());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.IRON, rv.getIRON());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.GOLD, rv.getGOLD());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.DIAMOND, rv.getDIAMOND());
+		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.EMERALD, rv.getEMERALD());
+		return result;
 	}
 
 	public static void GenericGuiHandler(int buttonID, ServerPlayerEntity player) {
@@ -188,6 +256,10 @@ public class Utilities {
 
 		case Reference.GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS:
 			NetworkHooks.openGui(player, new TroopBuildingsContinerProvider());
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT:
+			NetworkHooks.openGui(player, new UnitRecruitmentContinerProvider());
 			break;
 
 		}
