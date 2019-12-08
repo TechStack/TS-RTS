@@ -20,17 +20,17 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	public int coolDownReset = 10 * 20;
 	public int coolDownRemainig = coolDownReset;
 	public float priorHealth = -1;
-	private Stage currentStage = Stage.FULL_HEALTH;
-	private Stage priorStage = Stage.FULL_HEALTH;
-	private boolean justLoaded = true;
-	private int justLoadedRemaining = 20;
-	private int rubbleTimerRemaining = 20 * 30;
+	protected Stage currentStage = Stage.FULL_HEALTH;
+	protected Stage priorStage = Stage.FULL_HEALTH;
+	protected boolean justLoaded = true;
+	protected int justLoadedRemaining = 20;
+	protected int rubbleTimerRemaining = 20 * 30;
 	protected float health;
 
 	protected boolean enabled = true;
 	protected boolean writeDirty = false;
 
-	private boolean shouldIncreaseCounts = true;
+	protected boolean shouldIncreaseCounts = true;
 
 	public enum Stage {
 		FULL_HEALTH, HALF_DESTROYED, RUBBLE
