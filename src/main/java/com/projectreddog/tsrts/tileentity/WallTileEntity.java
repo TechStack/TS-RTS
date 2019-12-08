@@ -64,7 +64,7 @@ public class WallTileEntity extends OwnedCooldownTileEntity {
 					writeDirty = true;
 
 					if (currentStage == Stage.RUBBLE) {
-						Utilities.BuildWall(world, this.getRallyPoint(), this.storedDirection, this.getOwner(), true, startHeights);
+						Utilities.BuildWall(world, this.getRallyPoint(), this.storedDirection, this.getOwner(), this.getTeam().getName(), true, startHeights);
 
 						StructureLost();
 						DecreaseCount();
@@ -77,7 +77,7 @@ public class WallTileEntity extends OwnedCooldownTileEntity {
 				rubbleTimerRemaining--;
 				writeDirty = true;
 				if (rubbleTimerRemaining <= 0) {
-					Utilities.BuildWall(world, this.getRallyPoint(), this.storedDirection, this.getOwner(), true, startHeights);
+					Utilities.BuildWall(world, this.getRallyPoint(), this.storedDirection, this.getOwner(), this.getTeam().getName(), true, startHeights);
 
 				}
 			}

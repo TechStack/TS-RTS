@@ -1048,19 +1048,8 @@ public class Utilities {
 		return result;
 	}
 
-	public static boolean IsLocationValidForWall(World world, BlockPos blockPos) {
-		return true;
-	}
+	public static boolean IsLocationValidForWall(World world, BlockPos blockPos, Direction d) {
 
-	public static boolean BuildWall(World world, BlockPos blockPos, Direction d, String ownerName, boolean destroyMode, int[][] inStartHeights) {
-		BlockState bs = Blocks.AIR.getDefaultState();
-		if (!destroyMode) {
-			bs = Blocks.STONE_BRICKS.getDefaultState();
-		}
-
-		if (!(IsLocationValidForWall(world, blockPos))) {
-			return false;
-		}
 		int deep = 3;
 		int width = 3;
 		int height = 5;
@@ -1088,7 +1077,134 @@ public class Utilities {
 			r = Rotation.CLOCKWISE_90;
 			bp2 = blockPos.offset(d.rotateYCCW(), (deep / 2)).offset(d, (1));
 		}
+
+		int clickedHeight = bp2.getY() + 1;
+		int[][] startHeights;
+		startHeights = new int[width][height];
+		// 3 wide 3 deep
+		boolean result = true;
+		for (int x = 0; x < width; x++) {
+			for (int z = 0; z < deep; z++) {
+				// find bottom air block above a solid block
+
+				if ((world.getBlockState(bp2.add(x, 3, z)).isAir() || world.getBlockState(bp2.add(x, 3, z)).getMaterial().isReplaceable() || (!world.getBlockState(bp2.add(x, 3, z)).getMaterial().blocksMovement()))) {
+
+				} else {
+					result = false;
+				}
+
+			}
+
+		}
+
+		return result;
+	}
+
+	public static BlockState GetWallBlockForTeam(String teamName) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		switch (TeamEnum.values()[TeamEnum.getIDFromName(teamName)]) {
+		case BLUE:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case RED:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case GREEN:
+			bs = Blocks.DARK_OAK_LOG.getDefaultState();
+			break;
+		case YELLOW:
+			bs = Blocks.SMOOTH_SANDSTONE.getDefaultState();
+			break;
+		}
+
+		return bs;
+
+	}
+
+	public static BlockState GetWallBlockDecoForTeam(String teamName) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		switch (TeamEnum.values()[TeamEnum.getIDFromName(teamName)]) {
+		case BLUE:
+			bs = Blocks.SPRUCE_LOG.getDefaultState();
+			break;
+		case RED:
+			bs = Blocks.CHISELED_STONE_BRICKS.getDefaultState();
+			break;
+		case GREEN:
+			bs = Blocks.BIRCH_PLANKS.getDefaultState();
+			break;
+		case YELLOW:
+			bs = Blocks.CHISELED_SANDSTONE.getDefaultState();
+			break;
+		}
+
+		return bs;
+
+	}
+
+	public static BlockState GetWallBlockDeco2ForTeam(String teamName) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		switch (TeamEnum.values()[TeamEnum.getIDFromName(teamName)]) {
+		case BLUE:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case RED:
+			bs = Blocks.MOSSY_STONE_BRICKS.getDefaultState();
+			break;
+		case GREEN:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case YELLOW:
+			bs = Blocks.CUT_SANDSTONE.getDefaultState();
+			break;
+		}
+
+		return bs;
+
+	}
+
+	public static boolean BuildWall(World world, BlockPos blockPos, Direction d, String ownerName, String teamName, boolean destroyMode, int[][] inStartHeights) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		BlockState bsDeco = Blocks.AIR.getDefaultState();
+		BlockState bsDeco2 = Blocks.AIR.getDefaultState();
+		if (!destroyMode) {
+			bs = GetWallBlockForTeam(teamName);
+			bsDeco = GetWallBlockDecoForTeam(teamName);
+			bsDeco2 = GetWallBlockDeco2ForTeam(teamName);
+		}
+
+		if ((!(IsLocationValidForWall(world, blockPos, d)) && !destroyMode)) {
+			return false;
+		}
+
 		// settings
+		int deep = 3;
+		int width = 3;
+		int height = 5;
+
+		BlockPos bp = blockPos.offset(d.rotateYCCW(), (width / 2)).offset(d, deep);
+		BlockPos bp2 = bp;
+		Rotation r = Rotation.NONE;
+		if (d == Direction.NORTH) {
+			bp2 = bp;
+
+		}
+		if (d == Direction.SOUTH) {
+			r = Rotation.CLOCKWISE_180;
+			bp2 = blockPos.offset(d.rotateYCCW(), -(width / 2)).offset(d, (1));
+		}
+
+		if (d == Direction.WEST) {
+			r = Rotation.COUNTERCLOCKWISE_90;
+
+			bp2 = blockPos.offset(d.rotateYCCW(), -(deep / 2)).offset(d, (width));
+
+		}
+
+		if (d == Direction.EAST) {
+			r = Rotation.CLOCKWISE_90;
+			bp2 = blockPos.offset(d.rotateYCCW(), (deep / 2)).offset(d, (1));
+		}
 
 		int clickedHeight = bp2.getY() + 1;
 		int[][] startHeights;
@@ -1111,16 +1227,24 @@ public class Utilities {
 		} else {
 			startHeights = inStartHeights;
 		}
-
+		BlockState stateForLevel = bs;
 		for (int x = 0; x < width; x++) {
 			for (int z = 0; z < deep; z++) {
 				for (int y = 0; y < height; y++) {
 
-					world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), bs);
+					if (y == 1) {
+						stateForLevel = bsDeco;
+					} else if (y == height - 1) {
+						stateForLevel = bsDeco2;
+					} else {
+						stateForLevel = bs;
+					}
+
+					world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), stateForLevel);
 					world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
 
 					if ((y == height - 1) && ((x == 0 && z == 0) || (x == 0 && z == deep - 1) || (x == width - 1 && z == 0) || (x == width - 1 && z == deep - 1))) {
-						world.setBlockState(bp2.add(x, startHeights[x][z] + y + 1, z), bs);
+						world.setBlockState(bp2.add(x, startHeights[x][z] + y + 1, z), bsDeco);
 						world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y + 1, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y + 1, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
 					}
 
