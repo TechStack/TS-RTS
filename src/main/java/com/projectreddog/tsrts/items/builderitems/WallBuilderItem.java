@@ -31,7 +31,7 @@ public class WallBuilderItem extends BuilderItem {
 			Direction d = Direction.getFacingFromVector(context.getPlayer().getLookVec().getX(), 0, context.getPlayer().getLookVec().getZ());
 
 			if (CanPlaceOn(context.getPlayer().world.getBlockState(context.getPos()).getBlock())) {
-				if (Utilities.BuildWall(context.getWorld(), context.getPos(), d)) {
+				if (Utilities.BuildWall(context.getWorld(), context.getPos(), d, context.getPlayer().getScoreboardName(), false, null)) {
 
 					context.getItem().shrink(1);
 					context.getPlayer().container.detectAndSendChanges();

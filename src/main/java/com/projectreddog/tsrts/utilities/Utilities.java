@@ -18,6 +18,7 @@ import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
@@ -29,9 +30,11 @@ import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+import com.projectreddog.tsrts.tileentity.WallTileEntity;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -1049,7 +1052,11 @@ public class Utilities {
 		return true;
 	}
 
-	public static boolean BuildWall(World world, BlockPos blockPos, Direction d) {
+	public static boolean BuildWall(World world, BlockPos blockPos, Direction d, String ownerName, boolean destroyMode, int[][] inStartHeights) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		if (!destroyMode) {
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+		}
 
 		if (!(IsLocationValidForWall(world, blockPos))) {
 			return false;
@@ -1084,36 +1091,115 @@ public class Utilities {
 		// settings
 
 		int clickedHeight = bp2.getY() + 1;
+		int[][] startHeights;
+		if (!destroyMode) {
+			startHeights = new int[width][height];
+			// 3 wide 3 deep
+			for (int x = 0; x < width; x++) {
+				for (int z = 0; z < deep; z++) {
+					// find bottom air block above a solid block
+					for (int y = 0; y < height + 2; y++) {
 
-		int[][] startHeights = new int[width][height];
-		// 3 wide 3 deep
-		for (int x = 0; x < width; x++) {
-			for (int z = 0; z < deep; z++) {
-				// find bottom air block above a solid block
-				for (int y = 0; y < height + 2; y++) {
-
-					if ((world.getBlockState(bp2.add(x, y, z)).isAir() || world.getBlockState(bp2.add(x, y, z)).getMaterial().isReplaceable() || (!world.getBlockState(bp2.add(x, y, z)).getMaterial().blocksMovement())) && (!world.getBlockState(bp2.add(x, y - 1, z)).isAir())) {
-						// valid starting point for this x,y save it.
-						startHeights[x][z] = y;
-						y = height + 2;
+						if ((world.getBlockState(bp2.add(x, y, z)).isAir() || world.getBlockState(bp2.add(x, y, z)).getMaterial().isReplaceable() || (!world.getBlockState(bp2.add(x, y, z)).getMaterial().blocksMovement())) && (!world.getBlockState(bp2.add(x, y - 1, z)).isAir())) {
+							// valid starting point for this x,y save it.
+							startHeights[x][z] = y;
+							y = height + 2;
+						}
 					}
 				}
 			}
+		} else {
+			startHeights = inStartHeights;
 		}
 
 		for (int x = 0; x < width; x++) {
 			for (int z = 0; z < deep; z++) {
 				for (int y = 0; y < height; y++) {
 
-					world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), Blocks.STONE_BRICKS.getDefaultState());
+					world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), bs);
 					world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
 
 					if ((y == height - 1) && ((x == 0 && z == 0) || (x == 0 && z == deep - 1) || (x == width - 1 && z == 0) || (x == width - 1 && z == deep - 1))) {
-						world.setBlockState(bp2.add(x, startHeights[x][z] + y + 1, z), Blocks.STONE_BRICKS.getDefaultState());
+						world.setBlockState(bp2.add(x, startHeights[x][z] + y + 1, z), bs);
 						world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y + 1, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y + 1, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
 					}
 
 				}
+			}
+		}
+
+		int x = 1;
+		int z = 1;
+		int y = 1;
+		if (destroyMode) {
+			world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), Blocks.AIR.getDefaultState());
+			world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+
+			// LOOK FOR TARGET BLOCKS AND TELL THE TE about it.
+			AxisAlignedBB bb = new AxisAlignedBB(bp2, bp2.add(width, height, deep));
+			List<TargetEntity> teList = world.getEntitiesWithinAABB(TargetEntity.class, bb);
+			float health = 0;
+			int[] ids = new int[teList.size()];
+			for (int i = 0; i < teList.size(); i++) {
+				teList.get(i).setHealth(0);
+			}
+		} else {
+			world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), ModBlocks.WALL_BLOCK.getDefaultState());
+			world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+			TileEntity te = world.getTileEntity(bp2.add(x, startHeights[x][z] + y, z));
+
+			OwnedTileEntity controllerTE;
+			OwnedCooldownTileEntity octe = null;
+			if (te instanceof OwnedTileEntity) {
+				// its ours so we can set the rally point.
+				((OwnedTileEntity) te).setOwner(ownerName);
+				controllerTE = ((OwnedTileEntity) te);
+				controllerTE.setStructureData(null);
+				controllerTE.setRallyPoint(blockPos);
+				if (controllerTE instanceof OwnedCooldownTileEntity) {
+
+					octe = (OwnedCooldownTileEntity) controllerTE;
+
+				}
+				if (te instanceof WallTileEntity) {
+					WallTileEntity wte = (WallTileEntity) te;
+					wte.startHeights = startHeights;
+					wte.storedDirection = d;
+				}
+
+			}
+			float health = 0;
+
+			for (x = 0; x < 3; x++) {
+				for (z = 0; z < 3; z++) {
+					if ((x == 1 && z == 0) || (x == 1 && z == 2) || (x == 0 && z == 1) || (x == 2 && z == 1)) {
+						y = 1;
+						health = 0;
+						world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), Blocks.AIR.getDefaultState());
+						world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+
+						Entity e = ModEntities.TARGET_ENTITY.spawn(world, null, null, bp2.add(x, startHeights[x][z] + y, z), SpawnReason.TRIGGERED, true, true);
+						if (e instanceof TargetEntity) {
+
+							TargetEntity targetE = (TargetEntity) e;
+							if (octe != null) {
+								targetE.setOwningTePos(octe.getPos());
+								targetE.setOwnerName(ownerName);
+
+								float currhealth = Config.CONFIG_STRCTURE_TOTAL_HEALTH_WALL.get();
+								targetE.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(currhealth);
+								targetE.setHealth(currhealth);
+								health = health + targetE.getHealth();
+							}
+						}
+
+					}
+				}
+			}
+			if (octe != null) {
+				octe.setHealth(health);
+
+				TSRTS.LOGGER.info("Health set to :" + health);
 			}
 		}
 
