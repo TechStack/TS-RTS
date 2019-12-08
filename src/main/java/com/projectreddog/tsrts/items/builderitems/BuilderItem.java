@@ -18,7 +18,6 @@ public abstract class BuilderItem extends Item {
 
 	public BuilderItem(Properties properties) {
 		super(properties);
-		// TODO Auto-generated constructor stub
 	}
 
 	protected ResourceLocation templateNameRed100;

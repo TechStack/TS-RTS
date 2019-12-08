@@ -1045,6 +1045,81 @@ public class Utilities {
 		return result;
 	}
 
+	public static boolean IsLocationValidForWall(World world, BlockPos blockPos) {
+		return true;
+	}
+
+	public static boolean BuildWall(World world, BlockPos blockPos, Direction d) {
+
+		if (!(IsLocationValidForWall(world, blockPos))) {
+			return false;
+		}
+		int deep = 3;
+		int width = 3;
+		int height = 5;
+
+		BlockPos bp = blockPos.offset(d.rotateYCCW(), (width / 2)).offset(d, deep);
+		BlockPos bp2 = bp;
+		Rotation r = Rotation.NONE;
+		if (d == Direction.NORTH) {
+			bp2 = bp;
+
+		}
+		if (d == Direction.SOUTH) {
+			r = Rotation.CLOCKWISE_180;
+			bp2 = blockPos.offset(d.rotateYCCW(), -(width / 2)).offset(d, (1));
+		}
+
+		if (d == Direction.WEST) {
+			r = Rotation.COUNTERCLOCKWISE_90;
+
+			bp2 = blockPos.offset(d.rotateYCCW(), -(deep / 2)).offset(d, (width));
+
+		}
+
+		if (d == Direction.EAST) {
+			r = Rotation.CLOCKWISE_90;
+			bp2 = blockPos.offset(d.rotateYCCW(), (deep / 2)).offset(d, (1));
+		}
+		// settings
+
+		int clickedHeight = bp2.getY() + 1;
+
+		int[][] startHeights = new int[width][height];
+		// 3 wide 3 deep
+		for (int x = 0; x < width; x++) {
+			for (int z = 0; z < deep; z++) {
+				// find bottom air block above a solid block
+				for (int y = 0; y < height + 2; y++) {
+
+					if ((world.getBlockState(bp2.add(x, y, z)).isAir() || world.getBlockState(bp2.add(x, y, z)).getMaterial().isReplaceable() || (!world.getBlockState(bp2.add(x, y, z)).getMaterial().blocksMovement())) && (!world.getBlockState(bp2.add(x, y - 1, z)).isAir())) {
+						// valid starting point for this x,y save it.
+						startHeights[x][z] = y;
+						y = height + 2;
+					}
+				}
+			}
+		}
+
+		for (int x = 0; x < width; x++) {
+			for (int z = 0; z < deep; z++) {
+				for (int y = 0; y < height; y++) {
+
+					world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), Blocks.STONE_BRICKS.getDefaultState());
+					world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+
+					if ((y == height - 1) && ((x == 0 && z == 0) || (x == 0 && z == deep - 1) || (x == width - 1 && z == 0) || (x == width - 1 && z == deep - 1))) {
+						world.setBlockState(bp2.add(x, startHeights[x][z] + y + 1, z), Blocks.STONE_BRICKS.getDefaultState());
+						world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y + 1, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y + 1, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+					}
+
+				}
+			}
+		}
+
+		return true;
+	}
+
 	public static boolean LoadStructure(World world, ResourceLocation templateName, StructureData structureData, String ownerName, boolean shouldCheckifValid, boolean setHealth, float healthTarget) {
 
 		BlockPos pos = structureData.getSpawnPoint();
