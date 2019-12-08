@@ -1,10 +1,10 @@
 package com.projectreddog.tsrts.proxy;
 
 import com.projectreddog.tsrts.client.gui.BasicScreen;
+import com.projectreddog.tsrts.client.gui.DefensiveBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.EcoBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.LobbyScreen;
 import com.projectreddog.tsrts.client.gui.MainMenuScreen;
-import com.projectreddog.tsrts.client.gui.DefensiveBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.TroopBuildingsScreen;
 import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MinionRenderer;
@@ -77,7 +77,6 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public boolean isServer() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -11,6 +11,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_TOWN_HALL_BLOCK = "townhallblock";
 	public static final String REIGSTRY_NAME_WATCH_BLOCK = "watchblock";
 
+	public static final String REIGSTRY_NAME_GATE_BLOCK = "gateblock";
+
 	public static final String REIGSTRY_NAME_WATCH_TOWER_BLOCK = "watchtowerblock";
 	public static final String REIGSTRY_NAME_WALL_BLOCK = "wallblock";
 
