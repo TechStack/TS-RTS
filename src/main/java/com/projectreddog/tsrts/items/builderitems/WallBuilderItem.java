@@ -95,7 +95,7 @@ public class WallBuilderItem extends BuilderItem {
 
 	public Vec3i getSize() {
 
-		return new Vec3i(3, 3, 3);
+		return new Vec3i(3, 6, 3);
 	}
 
 	@Override
