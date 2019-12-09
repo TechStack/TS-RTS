@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.blocks;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.GateTileEntity;
 
@@ -63,14 +64,14 @@ public class GateBlock extends OwnedBlock {
 	@Override
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
 
-		if (!world.isRemote) {
+		if (!world.isRemote && handIn == Hand.MAIN_HAND) {
 
 			TileEntity te = world.getTileEntity(pos);
 			if (te instanceof GateTileEntity) {
 				GateTileEntity gte = (GateTileEntity) te;
 				gte.toggleOpen();
+				TSRTS.LOGGER.info("ToggleCalled");
 			}
-
 			return true;
 
 		}

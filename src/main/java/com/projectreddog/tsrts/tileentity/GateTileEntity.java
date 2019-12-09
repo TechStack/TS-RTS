@@ -29,6 +29,7 @@ public class GateTileEntity extends OwnedCooldownTileEntity implements INamedCon
 		} else {
 			Open();
 		}
+		this.markDirty();
 
 	}
 
@@ -43,18 +44,23 @@ public class GateTileEntity extends OwnedCooldownTileEntity implements INamedCon
 	}
 
 	private void updateGate(Direction d, BlockState bs) {
+		BlockState oldState = null;
 		if (d == Direction.NORTH || d == Direction.SOUTH) {
 			// need to interact with east / west & mid
 			BlockPos bp = this.getPos();
 			for (int y = 1; y <= 4; y++) {
+
+				oldState = world.getBlockState(bp.down(y));
 				world.setBlockState(bp.down(y), bs);
-				world.notifyBlockUpdate(bp.down(y), world.getBlockState(bp.down(y)), world.getBlockState(bp.down(y)), 3);
+				world.notifyBlockUpdate(bp.down(y), oldState, bs, 3);
 
+				oldState = world.getBlockState(bp.down(y).east());
 				world.setBlockState(bp.down(y).east(), bs);
-				world.notifyBlockUpdate(bp.down(y).east(), Blocks.IRON_BARS.getDefaultState(), world.getBlockState(bp.down(y).east()), 3);
+				world.notifyBlockUpdate(bp.down(y).east(), oldState, bs, 3);
 
+				oldState = world.getBlockState(bp.down(y).west());
 				world.setBlockState(bp.down(y).west(), bs);
-				world.notifyBlockUpdate(bp.down(y).west(), Blocks.IRON_BARS.getDefaultState(), world.getBlockState(bp.down(y).west()), 3);
+				world.notifyBlockUpdate(bp.down(y).west(), oldState, bs, 3);
 
 			}
 
@@ -62,14 +68,18 @@ public class GateTileEntity extends OwnedCooldownTileEntity implements INamedCon
 			// need to interact with norht / south & mid
 			BlockPos bp = this.getPos();
 			for (int y = 1; y <= 4; y++) {
+
+				oldState = world.getBlockState(bp.down(y));
 				world.setBlockState(bp.down(y), bs);
-				world.notifyBlockUpdate(bp.down(y), world.getBlockState(bp.down(y)), world.getBlockState(bp.down(y)), 3);
+				world.notifyBlockUpdate(bp.down(y), oldState, bs, 3);
 
+				oldState = world.getBlockState(bp.down(y).north());
 				world.setBlockState(bp.down(y).north(), bs);
-				world.notifyBlockUpdate(bp.down(y).north(), Blocks.IRON_BARS.getDefaultState(), world.getBlockState(bp.down(y).north()), 3);
+				world.notifyBlockUpdate(bp.down(y).north(), oldState, bs, 3);
 
+				oldState = world.getBlockState(bp.down(y).south());
 				world.setBlockState(bp.down(y).south(), bs);
-				world.notifyBlockUpdate(bp.down(y).south(), Blocks.IRON_BARS.getDefaultState(), world.getBlockState(bp.south(y).south()), 3);
+				world.notifyBlockUpdate(bp.down(y).south(), oldState, bs, 3);
 
 			}
 
