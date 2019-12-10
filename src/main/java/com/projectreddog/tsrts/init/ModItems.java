@@ -8,6 +8,7 @@ import com.projectreddog.tsrts.items.SampleItem;
 import com.projectreddog.tsrts.items.builderitems.ArcheryRangeBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.BarracksBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.FarmBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.GateBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.LumberYardBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteDiamondBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteEmeraldBuilderItem;
@@ -45,6 +46,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BUILDER_ITEM)
 	public static WallBuilderItem WALLBUILDERITEM = new WallBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_GATE_BUILDER_ITEM)
+	public static GateBuilderItem GATEBUILDERITEM = new GateBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WATCH_TOWER_BUILDER_ITEM)
 	public static WatchTowerBuilderItem WATCHTOWERBUILDERITEM = new WatchTowerBuilderItem();
@@ -104,6 +108,7 @@ public class ModItems {
 
 		RegisterItem(event, ModItems.WALLBUILDERITEM);
 
+		RegisterItem(event, ModItems.GATEBUILDERITEM);
 	}
 
 	// Called to register every item.

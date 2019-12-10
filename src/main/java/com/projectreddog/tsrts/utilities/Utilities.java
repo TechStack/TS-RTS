@@ -942,7 +942,7 @@ public class Utilities {
 		}
 		if (d == Direction.SOUTH) {
 			r = Rotation.CLOCKWISE_180;
-			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2));
+			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2)).offset(d, (1));
 		}
 
 		if (d == Direction.WEST) {
@@ -954,7 +954,7 @@ public class Utilities {
 
 		if (d == Direction.EAST) {
 			r = Rotation.CLOCKWISE_90;
-			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2));
+			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2)).offset(d, (1));
 		}
 
 		List<BlockPos> tePos = new ArrayList<BlockPos>();
@@ -1335,7 +1335,7 @@ public class Utilities {
 		BlockPos pos = structureData.getSpawnPoint();
 		Direction d = structureData.getDirection();
 		Vec3i size = structureData.getSize();
-
+		boolean spreadHealthAroundTargets = structureData.GetSpreadHealthAroundTargets();
 		if (isValidLocation(world, pos, d, size) || !shouldCheckifValid) {
 
 			// TODO need to consider if the player is on the same team as the entity or not !
@@ -1424,19 +1424,30 @@ public class Utilities {
 				AxisAlignedBB bb = new AxisAlignedBB(bp2, bp2.add(xSize, ySize, zSize));
 				List<TargetEntity> teList = world.getEntitiesWithinAABB(TargetEntity.class, bb);
 				float health = 0;
+
 				int[] ids = new int[teList.size()];
 				for (int i = 0; i < teList.size(); i++) {
 					if (octe != null) {
 						teList.get(i).setOwningTePos(octe.getPos());
 						teList.get(i).setOwnerName(ownerName);
+						float currhealth;
 
 						if (setHealth) {
-							float currhealth = healthTarget / teList.size();
+							if (spreadHealthAroundTargets) {
+								currhealth = healthTarget / teList.size();
+							} else {
+								currhealth = healthTarget;
+							}
 							// TODO set the max here to override what was in the structure file ... call method that is overridden on each builder item if possible. or use passsed in pramater that is pouplated by callilng the "getTargetEntityHealthPer" on the builder item.
 							teList.get(i).getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(currhealth);
 							teList.get(i).setHealth(currhealth);
 						}
-						health = health + teList.get(i).getHealth();
+						if (spreadHealthAroundTargets) {
+
+							health = health + teList.get(i).getHealth();
+						} else {
+							health = healthTarget;
+						}
 					}
 
 				}

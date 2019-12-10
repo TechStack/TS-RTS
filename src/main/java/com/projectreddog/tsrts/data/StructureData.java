@@ -16,6 +16,12 @@ public class StructureData {
 	Direction direction;
 	Vec3i size;
 
+	boolean spreadHealthAroundTargets = true;
+
+	public boolean GetSpreadHealthAroundTargets() {
+		return spreadHealthAroundTargets;
+	}
+
 	public StructureData(CompoundNBT compound) {
 		template100 = new ResourceLocation(compound.getString("template100"));
 		template50 = new ResourceLocation(compound.getString("template50"));
@@ -59,7 +65,7 @@ public class StructureData {
 		}
 	}
 
-	public StructureData(ResourceLocation template100, ResourceLocation template50, ResourceLocation template0, BlockPos spawnPoint, Direction direction, Vec3i size) {
+	public StructureData(ResourceLocation template100, ResourceLocation template50, ResourceLocation template0, BlockPos spawnPoint, Direction direction, Vec3i size, boolean spreadHealthAroundTargets) {
 		super();
 		this.template100 = template100;
 		this.template50 = template50;
@@ -67,6 +73,7 @@ public class StructureData {
 		this.spawnPoint = spawnPoint;
 		this.direction = direction;
 		this.size = size;
+		this.spreadHealthAroundTargets = spreadHealthAroundTargets;
 	}
 
 	public ResourceLocation getTemplate100() {

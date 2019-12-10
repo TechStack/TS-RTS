@@ -91,9 +91,11 @@ public class TargetEntity extends CreatureEntity {
 		compound.putString("onwerName", ownerName);
 
 		if (Config.CONFIG_GAME_MODE.get() != Modes.WORLDBUILDER) {
-			compound.putInt("owerPosX", owningTePos.getX());
-			compound.putInt("owerPosY", owningTePos.getY());
-			compound.putInt("owerPosZ", owningTePos.getZ());
+			if (owningTePos != null) {
+				compound.putInt("owerPosX", owningTePos.getX());
+				compound.putInt("owerPosY", owningTePos.getY());
+				compound.putInt("owerPosZ", owningTePos.getZ());
+			}
 		}
 
 	}

@@ -136,6 +136,7 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL;
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WALL;
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WATCH_TOWER;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_GATE;
 
 	static {
 
@@ -164,6 +165,7 @@ public class Config {
 		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_DIAMOND = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteDiamond", 40, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_EMERALD = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteEmerald", 40, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_RESEARCH_CENTER = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthResearchCenter", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_GATE = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthGate", 400, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_STABLES = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthStables", 160, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthTownHall", 500, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_WALL = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthWall", 400, 0, 1024);
