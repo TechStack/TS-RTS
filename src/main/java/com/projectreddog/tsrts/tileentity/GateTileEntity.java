@@ -1,5 +1,8 @@
 package com.projectreddog.tsrts.tileentity;
 
+import java.util.List;
+
+import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.utilities.TeamEnum;
@@ -11,6 +14,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
 public class GateTileEntity extends OwnedCooldownTileEntity implements INamedContainerProvider {
@@ -134,5 +138,20 @@ public class GateTileEntity extends OwnedCooldownTileEntity implements INamedCon
 	public void read(CompoundNBT compound) {
 		super.read(compound);
 		isOpen = compound.getBoolean("isOpen");
+	}
+
+	@Override
+	public void AfterDeathAction() {
+		super.AfterDeathAction();
+
+		AxisAlignedBB bb = new AxisAlignedBB(this.getPos(), this.getPos().down(6)).grow(3, 0, 3);
+
+		List<TargetEntity> teList = world.getEntitiesWithinAABB(TargetEntity.class, bb);
+		float health = 0;
+		int[] ids = new int[teList.size()];
+		for (int i = 0; i < teList.size(); i++) {
+			teList.get(i).setHealth(0);
+		}
+
 	}
 }

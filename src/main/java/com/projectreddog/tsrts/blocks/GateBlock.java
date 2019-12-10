@@ -1,6 +1,5 @@
 package com.projectreddog.tsrts.blocks;
 
-import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.GateTileEntity;
 
@@ -35,7 +34,7 @@ public class GateBlock extends OwnedBlock {
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return this.getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getNearestLookingDirection().getOpposite());
+		return this.getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing());
 	}
 
 	@Override
@@ -68,9 +67,12 @@ public class GateBlock extends OwnedBlock {
 
 			TileEntity te = world.getTileEntity(pos);
 			if (te instanceof GateTileEntity) {
+
 				GateTileEntity gte = (GateTileEntity) te;
-				gte.toggleOpen();
-				TSRTS.LOGGER.info("ToggleCalled");
+				if (gte.getTeam() == null || gte.getTeam().isSameTeam(player.getTeam())) {
+					gte.toggleOpen();
+
+				}
 			}
 			return true;
 

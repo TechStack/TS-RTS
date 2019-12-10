@@ -98,7 +98,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 
 							StructureLost();
 							DecreaseCount();
-
+							AfterDeathAction();
 						}
 					}
 				}
@@ -145,6 +145,10 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	public float getHealth() {
 
 		return health;
+
+	}
+
+	public void AfterDeathAction() {
 
 	}
 

@@ -40,6 +40,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
 	public static final String REIGSTRY_NAME_WATCH_TOWER_BUILDER_ITEM = "watchtowerbuilderitem";
 	public static final String REIGSTRY_NAME_WALL_BUILDER_ITEM = "wallbuilderitem";
+	public static final String REIGSTRY_NAME_GATE_BUILDER_ITEM = "gatebuilderitem";
 
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM = "lumberyardbuilderitem";
 	public static final String REIGSTRY_NAME_FARM_BUILDER_ITEM = "farmbuilderitem";
