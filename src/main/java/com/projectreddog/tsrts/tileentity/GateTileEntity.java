@@ -111,9 +111,11 @@ public class GateTileEntity extends OwnedCooldownTileEntity implements INamedCon
 	}
 
 	private void Close() {
-		Direction d = getDirection();
-		BlockState bs = getBlockStateForGateFromTeam(this.getTeam().getName());
-		updateGate(d, bs);
+		if (this.health > 0) {
+			Direction d = getDirection();
+			BlockState bs = getBlockStateForGateFromTeam(this.getTeam().getName());
+			updateGate(d, bs);
+		}
 	}
 
 	@Override
