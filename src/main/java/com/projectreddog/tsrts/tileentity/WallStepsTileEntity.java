@@ -4,8 +4,6 @@ import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
-import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
-import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,17 +11,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
-public class WallStepsTileEntity extends OwnedCooldownTileEntity implements INamedContainerProvider, ITEGuiButtonHandler, ResourceGenerator {
-
-	private TeamInfo.Resources resource;
-
-	public TeamInfo.Resources getResource() {
-		return resource;
-	}
-
-	public void setResource(TeamInfo.Resources resource) {
-		this.resource = resource;
-	}
+public class WallStepsTileEntity extends OwnedCooldownTileEntity implements INamedContainerProvider, ITEGuiButtonHandler {
 
 	public WallStepsTileEntity() {
 		super(ModBlocks.WALL_STEPS_TILE_ENITTY_TYPE);
@@ -35,13 +23,6 @@ public class WallStepsTileEntity extends OwnedCooldownTileEntity implements INam
 		super.ActionAfterCooldown();
 
 		if (getOwner() != null) {
-
-			TeamInfo.Resources res = getResource();
-
-			if (res != null) {
-
-//				Utilities.AddResourcesToTeam(this.getTeam().getName(), res, 1);
-			}
 
 		}
 	}
