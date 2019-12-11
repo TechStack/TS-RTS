@@ -19,6 +19,7 @@ import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
@@ -30,9 +31,11 @@ import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+import com.projectreddog.tsrts.tileentity.WallTileEntity;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -143,6 +146,14 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WATCHTOWERBUILDERITEM));
 
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL_STEPS) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLSTEPSBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.GATEBUILDERITEM));
+
+
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINION) {
 
 			if (player.getTeam() != null) {
@@ -179,6 +190,7 @@ public class Utilities {
 					spendResourcesForResourceValues(team, rv);
 				}
 			}
+
 		}
 
 	}
@@ -1011,7 +1023,7 @@ public class Utilities {
 		}
 		if (d == Direction.SOUTH) {
 			r = Rotation.CLOCKWISE_180;
-			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2));
+			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2)).offset(d, (1));
 		}
 
 		if (d == Direction.WEST) {
@@ -1023,7 +1035,7 @@ public class Utilities {
 
 		if (d == Direction.EAST) {
 			r = Rotation.CLOCKWISE_90;
-			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2));
+			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2)).offset(d, (1));
 		}
 
 		List<BlockPos> tePos = new ArrayList<BlockPos>();
@@ -1117,12 +1129,294 @@ public class Utilities {
 		return result;
 	}
 
+	public static boolean IsLocationValidForWall(World world, BlockPos blockPos, Direction d) {
+
+		int deep = 3;
+		int width = 3;
+		int height = 5;
+
+		BlockPos bp = blockPos.offset(d.rotateYCCW(), (width / 2)).offset(d, deep);
+		BlockPos bp2 = bp;
+		Rotation r = Rotation.NONE;
+		if (d == Direction.NORTH) {
+			bp2 = bp;
+
+		}
+		if (d == Direction.SOUTH) {
+			r = Rotation.CLOCKWISE_180;
+			bp2 = blockPos.offset(d.rotateYCCW(), -(width / 2)).offset(d, (1));
+		}
+
+		if (d == Direction.WEST) {
+			r = Rotation.COUNTERCLOCKWISE_90;
+
+			bp2 = blockPos.offset(d.rotateYCCW(), -(deep / 2)).offset(d, (width));
+
+		}
+
+		if (d == Direction.EAST) {
+			r = Rotation.CLOCKWISE_90;
+			bp2 = blockPos.offset(d.rotateYCCW(), (deep / 2)).offset(d, (1));
+		}
+
+		int clickedHeight = bp2.getY() + 1;
+		int[][] startHeights;
+		startHeights = new int[width][height];
+		// 3 wide 3 deep
+		boolean result = true;
+		for (int x = 0; x < width; x++) {
+			for (int z = 0; z < deep; z++) {
+				// find bottom air block above a solid block
+
+				if ((world.getBlockState(bp2.add(x, 3, z)).isAir() || world.getBlockState(bp2.add(x, 3, z)).getMaterial().isReplaceable() || (!world.getBlockState(bp2.add(x, 3, z)).getMaterial().blocksMovement()))) {
+
+				} else {
+					result = false;
+				}
+
+			}
+
+		}
+
+		return result;
+	}
+
+	public static BlockState GetWallBlockForTeam(String teamName) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		switch (TeamEnum.values()[TeamEnum.getIDFromName(teamName)]) {
+		case BLUE:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case RED:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case GREEN:
+			bs = Blocks.DARK_OAK_LOG.getDefaultState();
+			break;
+		case YELLOW:
+			bs = Blocks.SMOOTH_SANDSTONE.getDefaultState();
+			break;
+		}
+
+		return bs;
+
+	}
+
+	public static BlockState GetWallBlockDecoForTeam(String teamName) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		switch (TeamEnum.values()[TeamEnum.getIDFromName(teamName)]) {
+		case BLUE:
+			bs = Blocks.SPRUCE_LOG.getDefaultState();
+			break;
+		case RED:
+			bs = Blocks.CHISELED_STONE_BRICKS.getDefaultState();
+			break;
+		case GREEN:
+			bs = Blocks.BIRCH_PLANKS.getDefaultState();
+			break;
+		case YELLOW:
+			bs = Blocks.CHISELED_SANDSTONE.getDefaultState();
+			break;
+		}
+
+		return bs;
+
+	}
+
+	public static BlockState GetWallBlockDeco2ForTeam(String teamName) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		switch (TeamEnum.values()[TeamEnum.getIDFromName(teamName)]) {
+		case BLUE:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case RED:
+			bs = Blocks.MOSSY_STONE_BRICKS.getDefaultState();
+			break;
+		case GREEN:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case YELLOW:
+			bs = Blocks.CUT_SANDSTONE.getDefaultState();
+			break;
+		}
+
+		return bs;
+
+	}
+
+	public static boolean BuildWall(World world, BlockPos blockPos, Direction d, String ownerName, String teamName, boolean destroyMode, int[][] inStartHeights) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		BlockState bsDeco = Blocks.AIR.getDefaultState();
+		BlockState bsDeco2 = Blocks.AIR.getDefaultState();
+		if (!destroyMode) {
+			bs = GetWallBlockForTeam(teamName);
+			bsDeco = GetWallBlockDecoForTeam(teamName);
+			bsDeco2 = GetWallBlockDeco2ForTeam(teamName);
+		}
+
+		if ((!(IsLocationValidForWall(world, blockPos, d)) && !destroyMode)) {
+			return false;
+		}
+
+		// settings
+		int deep = 3;
+		int width = 3;
+		int height = 5;
+
+		BlockPos bp = blockPos.offset(d.rotateYCCW(), (width / 2)).offset(d, deep);
+		BlockPos bp2 = bp;
+		Rotation r = Rotation.NONE;
+		if (d == Direction.NORTH) {
+			bp2 = bp;
+
+		}
+		if (d == Direction.SOUTH) {
+			r = Rotation.CLOCKWISE_180;
+			bp2 = blockPos.offset(d.rotateYCCW(), -(width / 2)).offset(d, (1));
+		}
+
+		if (d == Direction.WEST) {
+			r = Rotation.COUNTERCLOCKWISE_90;
+
+			bp2 = blockPos.offset(d.rotateYCCW(), -(deep / 2)).offset(d, (width));
+
+		}
+
+		if (d == Direction.EAST) {
+			r = Rotation.CLOCKWISE_90;
+			bp2 = blockPos.offset(d.rotateYCCW(), (deep / 2)).offset(d, (1));
+		}
+
+		int clickedHeight = bp2.getY() + 1;
+		int[][] startHeights;
+		if (!destroyMode) {
+			startHeights = new int[width][height];
+			// 3 wide 3 deep
+			for (int x = 0; x < width; x++) {
+				for (int z = 0; z < deep; z++) {
+					// find bottom air block above a solid block
+					for (int y = 0; y < height + 2; y++) {
+
+						if ((world.getBlockState(bp2.add(x, y, z)).isAir() || world.getBlockState(bp2.add(x, y, z)).getMaterial().isReplaceable() || (!world.getBlockState(bp2.add(x, y, z)).getMaterial().blocksMovement())) && (!world.getBlockState(bp2.add(x, y - 1, z)).isAir())) {
+							// valid starting point for this x,y save it.
+							startHeights[x][z] = y;
+							y = height + 2;
+						}
+					}
+				}
+			}
+		} else {
+			startHeights = inStartHeights;
+		}
+		BlockState stateForLevel = bs;
+		for (int x = 0; x < width; x++) {
+			for (int z = 0; z < deep; z++) {
+				for (int y = 0; y < height; y++) {
+
+					if (y == 1) {
+						stateForLevel = bsDeco;
+					} else if (y == height - 1) {
+						stateForLevel = bsDeco2;
+					} else {
+						stateForLevel = bs;
+					}
+
+					world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), stateForLevel);
+					world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+
+					if ((y == height - 1) && ((x == 0 && z == 0) || (x == 0 && z == deep - 1) || (x == width - 1 && z == 0) || (x == width - 1 && z == deep - 1))) {
+						world.setBlockState(bp2.add(x, startHeights[x][z] + y + 1, z), bsDeco);
+						world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y + 1, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y + 1, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+					}
+
+				}
+			}
+		}
+
+		int x = 1;
+		int z = 1;
+		int y = 1;
+		if (destroyMode) {
+			world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), Blocks.AIR.getDefaultState());
+			world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+
+			// LOOK FOR TARGET BLOCKS AND TELL THE TE about it.
+			AxisAlignedBB bb = new AxisAlignedBB(bp2, bp2.add(width, height, deep));
+			List<TargetEntity> teList = world.getEntitiesWithinAABB(TargetEntity.class, bb);
+			float health = 0;
+			int[] ids = new int[teList.size()];
+			for (int i = 0; i < teList.size(); i++) {
+				teList.get(i).setHealth(0);
+			}
+		} else {
+			world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), ModBlocks.WALL_BLOCK.getDefaultState());
+			world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+			TileEntity te = world.getTileEntity(bp2.add(x, startHeights[x][z] + y, z));
+
+			OwnedTileEntity controllerTE;
+			OwnedCooldownTileEntity octe = null;
+			if (te instanceof OwnedTileEntity) {
+				// its ours so we can set the rally point.
+				((OwnedTileEntity) te).setOwner(ownerName);
+				controllerTE = ((OwnedTileEntity) te);
+				controllerTE.setStructureData(null);
+				controllerTE.setRallyPoint(blockPos);
+				if (controllerTE instanceof OwnedCooldownTileEntity) {
+
+					octe = (OwnedCooldownTileEntity) controllerTE;
+
+				}
+				if (te instanceof WallTileEntity) {
+					WallTileEntity wte = (WallTileEntity) te;
+					wte.startHeights = startHeights;
+					wte.storedDirection = d;
+				}
+
+			}
+			float health = 0;
+
+			for (x = 0; x < 3; x++) {
+				for (z = 0; z < 3; z++) {
+					if ((x == 1 && z == 0) || (x == 1 && z == 2) || (x == 0 && z == 1) || (x == 2 && z == 1)) {
+						y = 1;
+						health = 0;
+						world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), Blocks.AIR.getDefaultState());
+						world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+
+						Entity e = ModEntities.TARGET_ENTITY.spawn(world, null, null, bp2.add(x, startHeights[x][z] + y, z), SpawnReason.TRIGGERED, true, true);
+						if (e instanceof TargetEntity) {
+
+							TargetEntity targetE = (TargetEntity) e;
+							if (octe != null) {
+								targetE.setOwningTePos(octe.getPos());
+								targetE.setOwnerName(ownerName);
+
+								float currhealth = Config.CONFIG_STRCTURE_TOTAL_HEALTH_WALL.get();
+								targetE.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(currhealth);
+								targetE.setHealth(currhealth);
+								health = health + targetE.getHealth();
+							}
+						}
+
+					}
+				}
+			}
+			if (octe != null) {
+				octe.setHealth(health);
+
+				TSRTS.LOGGER.info("Health set to :" + health);
+			}
+		}
+
+		return true;
+	}
+
 	public static boolean LoadStructure(World world, ResourceLocation templateName, StructureData structureData, String ownerName, boolean shouldCheckifValid, boolean setHealth, float healthTarget) {
 
 		BlockPos pos = structureData.getSpawnPoint();
 		Direction d = structureData.getDirection();
 		Vec3i size = structureData.getSize();
-
+		boolean spreadHealthAroundTargets = structureData.GetSpreadHealthAroundTargets();
 		if (isValidLocation(world, pos, d, size) || !shouldCheckifValid) {
 
 			// TODO need to consider if the player is on the same team as the entity or not !
@@ -1211,19 +1505,30 @@ public class Utilities {
 				AxisAlignedBB bb = new AxisAlignedBB(bp2, bp2.add(xSize, ySize, zSize));
 				List<TargetEntity> teList = world.getEntitiesWithinAABB(TargetEntity.class, bb);
 				float health = 0;
+
 				int[] ids = new int[teList.size()];
 				for (int i = 0; i < teList.size(); i++) {
 					if (octe != null) {
 						teList.get(i).setOwningTePos(octe.getPos());
 						teList.get(i).setOwnerName(ownerName);
+						float currhealth;
 
 						if (setHealth) {
-							float currhealth = healthTarget / teList.size();
+							if (spreadHealthAroundTargets) {
+								currhealth = healthTarget / teList.size();
+							} else {
+								currhealth = healthTarget;
+							}
 							// TODO set the max here to override what was in the structure file ... call method that is overridden on each builder item if possible. or use passsed in pramater that is pouplated by callilng the "getTargetEntityHealthPer" on the builder item.
 							teList.get(i).getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(currhealth);
 							teList.get(i).setHealth(currhealth);
 						}
-						health = health + teList.get(i).getHealth();
+						if (spreadHealthAroundTargets) {
+
+							health = health + teList.get(i).getHealth();
+						} else {
+							health = healthTarget;
+						}
 					}
 
 				}

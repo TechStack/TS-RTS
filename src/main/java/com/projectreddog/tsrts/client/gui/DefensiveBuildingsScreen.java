@@ -70,6 +70,10 @@ public class DefensiveBuildingsScreen extends ContainerScreen<DefensiveBuildings
 
 		drawCosts(ModItems.WALLBUILDERITEM, y);
 		y = y + yOffset;
+		drawCosts(ModItems.WALLSTEPSBUILDERITEM, y);
+		y = y + yOffset;
+		drawCosts(ModItems.GATEBUILDERITEM, y);
+		y = y + yOffset;
 		drawCosts(ModItems.WATCHTOWERBUILDERITEM, y);
 		y = y + yOffset;
 		GL11.glPopMatrix();
@@ -170,6 +174,16 @@ public class DefensiveBuildingsScreen extends ContainerScreen<DefensiveBuildings
 
 		addButton(new Button(x, y, width, height, "Wall", (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WALL));
+		}));
+		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Wall Steps", (button) -> {
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WALL_STEPS));
+		}));
+		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Gate", (button) -> {
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_GATE));
 		}));
 		y = y + 20;
 

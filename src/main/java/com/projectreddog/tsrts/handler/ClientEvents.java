@@ -11,6 +11,7 @@ import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.items.builderitems.BuilderItem;
+import com.projectreddog.tsrts.items.builderitems.WallBuilderItem;
 import com.projectreddog.tsrts.network.GuiRequestPacketToServer;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
@@ -238,7 +239,7 @@ public class ClientEvents {
 				GlStateManager.translated(-playerX, -playerY, -playerZ);
 
 				GlStateManager.rotatef(d.getHorizontalAngle(), 0, 1, 0);
-				if (Utilities.isValidLocation(Minecraft.getInstance().player.world, blockpos, d, v3) && ((BuilderItem) Minecraft.getInstance().player.getHeldItemMainhand().getItem()).CanPlaceOn(Minecraft.getInstance().player.world.getBlockState(blockpos).getBlock())) {
+				if ((!(Minecraft.getInstance().player.getHeldItemMainhand().getItem() instanceof WallBuilderItem) && Utilities.isValidLocation(Minecraft.getInstance().player.world, blockpos, d, v3) || (Minecraft.getInstance().player.getHeldItemMainhand().getItem() instanceof WallBuilderItem && Utilities.IsLocationValidForWall(Minecraft.getInstance().player.world, blockpos, d))) && ((BuilderItem) Minecraft.getInstance().player.getHeldItemMainhand().getItem()).CanPlaceOn(Minecraft.getInstance().player.world.getBlockState(blockpos).getBlock())) {
 					GlStateManager.color4f(255, 255, 255, 128);
 				} else if (!((BuilderItem) Minecraft.getInstance().player.getHeldItemMainhand().getItem()).CanPlaceOn(Minecraft.getInstance().player.world.getBlockState(blockpos).getBlock()) && Utilities.isValidLocation(Minecraft.getInstance().player.world, blockpos, d, v3)) {
 

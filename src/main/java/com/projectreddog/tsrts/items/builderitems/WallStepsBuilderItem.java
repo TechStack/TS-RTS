@@ -3,55 +3,35 @@ package com.projectreddog.tsrts.items.builderitems;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
-import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
-public class WallBuilderItem extends BuilderItem {
+public class WallStepsBuilderItem extends BuilderItem {
+	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "wallsteps_red_100");
+	protected ResourceLocation templateNameRed50 = null;
+	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "wallsteps_red_0");
 
-	public WallBuilderItem() {
+	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "wallsteps_yellow_100");
+	protected ResourceLocation templateNameYellow50 = null;
+	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "wallsteps_yellow_0");
+
+	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "wallsteps_green_100");
+	protected ResourceLocation templateNameGreen50 = null;
+	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "wallsteps_green_0");
+
+	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "wallsteps_blue_100");
+	protected ResourceLocation templateNameBlue50 = null;
+	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "wallsteps_blue_0");
+
+	public WallStepsBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
-		setRegistryName(Reference.REIGSTRY_NAME_WALL_BUILDER_ITEM);
-	}
-
-	@Override
-	public ActionResultType onItemUse(ItemUseContext context) {
-
-		if (!context.getPlayer().world.isRemote) {
-
-			Direction d = Direction.getFacingFromVector(context.getPlayer().getLookVec().getX(), 0, context.getPlayer().getLookVec().getZ());
-
-			if (CanPlaceOn(context.getPlayer().world.getBlockState(context.getPos()).getBlock())) {
-				String teamName = null;
-				if (context.getPlayer().getTeam() != null) {
-					teamName = context.getPlayer().getTeam().getName();
-				}
-
-				if (Utilities.BuildWall(context.getWorld(), context.getPos(), d, context.getPlayer().getScoreboardName(), teamName, false, null)) {
-
-					context.getItem().shrink(1);
-					context.getPlayer().container.detectAndSendChanges();
-					ActionAfterSpawn(context.getWorld(), context.getPlayer(), context.getPos().up());
-
-				} else {
-					return ActionResultType.FAIL;
-
-				}
-			}
-			return ActionResultType.FAIL;
-
-		}
-
-		return super.onItemUse(context);
+		setRegistryName(Reference.REIGSTRY_NAME_WALL_STEPS_BUILDER_ITEM);
 	}
 
 	public ResourceLocation getTemplateName100(String team) {
@@ -95,7 +75,7 @@ public class WallBuilderItem extends BuilderItem {
 
 	public Vec3i getSize() {
 
-		return new Vec3i(3, 6, 3);
+		return new Vec3i(7, 10, 7);
 	}
 
 	@Override
@@ -109,7 +89,13 @@ public class WallBuilderItem extends BuilderItem {
 	}
 
 	@Override
-	public float getTotalStructureHealth() {
-		return Config.CONFIG_STRCTURE_TOTAL_HEALTH_WALL.get();
+	public boolean spreadHealthAroundTargets() {
+		return false;
 	}
+
+	@Override
+	public float getTotalStructureHealth() {
+		return Config.CONFIG_STRCTURE_TOTAL_HEALTH_WALL_STEPS.get();
+	}
+
 }

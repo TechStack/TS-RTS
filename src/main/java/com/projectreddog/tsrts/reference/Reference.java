@@ -11,10 +11,14 @@ public class Reference {
 	public static final String REIGSTRY_NAME_TOWN_HALL_BLOCK = "townhallblock";
 	public static final String REIGSTRY_NAME_WATCH_BLOCK = "watchblock";
 
+	public static final String REIGSTRY_NAME_GATE_BLOCK = "gateblock";
+
 	public static final String REIGSTRY_NAME_WATCH_TOWER_BLOCK = "watchtowerblock";
 	public static final String REIGSTRY_NAME_WALL_BLOCK = "wallblock";
 
 	public static final String REIGSTRY_NAME_FARM_BLOCK = "farmblock";
+	public static final String REIGSTRY_NAME_WALL_STEPS_BLOCK = "wallstepsblock";
+
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BLOCK = "lumberyardblock";
 
 	public static final String REIGSTRY_NAME_STABLES_BLOCK = "stablesblock";
@@ -38,6 +42,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
 	public static final String REIGSTRY_NAME_WATCH_TOWER_BUILDER_ITEM = "watchtowerbuilderitem";
 	public static final String REIGSTRY_NAME_WALL_BUILDER_ITEM = "wallbuilderitem";
+	public static final String REIGSTRY_NAME_GATE_BUILDER_ITEM = "gatebuilderitem";
+	public static final String REIGSTRY_NAME_WALL_STEPS_BUILDER_ITEM = "wallstepsbuilderitem";
 
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM = "lumberyardbuilderitem";
 	public static final String REIGSTRY_NAME_FARM_BUILDER_ITEM = "farmbuilderitem";
@@ -83,6 +89,10 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_ARCHER = 14;
 	public static final int GUI_BUTTON_BUY_LANCER = 15;
 	public static final int GUI_BUTTON_BUY_PIKEMAN = 16;
+
+	public static final int GUI_BUTTON_BUY_GATE = 13;
+
+	public static final int GUI_BUTTON_BUY_WALL_STEPS = 14;
 
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
