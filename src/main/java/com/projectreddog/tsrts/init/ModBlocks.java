@@ -12,6 +12,7 @@ import com.projectreddog.tsrts.blocks.ResearchCenterBlock;
 import com.projectreddog.tsrts.blocks.StablesBlock;
 import com.projectreddog.tsrts.blocks.TownHallBlock;
 import com.projectreddog.tsrts.blocks.WallBlock;
+import com.projectreddog.tsrts.blocks.WallStepsBlock;
 import com.projectreddog.tsrts.blocks.WatchBlock;
 import com.projectreddog.tsrts.blocks.WatchTowerBlock;
 import com.projectreddog.tsrts.reference.Reference;
@@ -24,6 +25,7 @@ import com.projectreddog.tsrts.tileentity.MineSiteTileEntity;
 import com.projectreddog.tsrts.tileentity.ResearchCenterTileEntity;
 import com.projectreddog.tsrts.tileentity.StablesTileEntity;
 import com.projectreddog.tsrts.tileentity.TownHallTileEntity;
+import com.projectreddog.tsrts.tileentity.WallStepsTileEntity;
 import com.projectreddog.tsrts.tileentity.WallTileEntity;
 import com.projectreddog.tsrts.tileentity.WatchTileEntity;
 import com.projectreddog.tsrts.tileentity.WatchTowerTileEntity;
@@ -64,6 +66,9 @@ public class ModBlocks {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BLOCK)
 	public static WallBlock WALL_BLOCK = new WallBlock();
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_STEPS_BLOCK)
+	public static WallStepsBlock WALL_STEPS_BLOCK = new WallStepsBlock();
+
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WATCH_BLOCK)
 	public static WatchBlock WATCH_BLOCK = new WatchBlock();
 
@@ -88,6 +93,9 @@ public class ModBlocks {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_FARM_BLOCK)
 	public static TileEntityType<FarmTileEntity> FARM_TILE_ENITTY_TYPE;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_STEPS_BLOCK)
+	public static TileEntityType<WallStepsTileEntity> WALL_STEPS_TILE_ENITTY_TYPE;
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LUMBER_YARD_BLOCK)
 	public static TileEntityType<LumberYardTileEntity> LUMBER_YARD_TILE_ENITTY_TYPE;
@@ -129,6 +137,8 @@ public class ModBlocks {
 		event.getRegistry().register(ModBlocks.WALL_BLOCK);
 
 		event.getRegistry().register(ModBlocks.GATE_BLOCK);
+
+		event.getRegistry().register(ModBlocks.WALL_STEPS_BLOCK);
 	}
 
 	public static void RegisterBlockItems(final RegistryEvent.Register<Item> event) {
@@ -145,6 +155,8 @@ public class ModBlocks {
 		RegisterBlockItem(event, ModBlocks.WATCH_TOWER_BLOCK);
 		RegisterBlockItem(event, ModBlocks.WALL_BLOCK);
 		RegisterBlockItem(event, ModBlocks.GATE_BLOCK);
+		RegisterBlockItem(event, ModBlocks.WALL_STEPS_BLOCK);
+
 	}
 
 	// Use default BlockItem group
@@ -173,6 +185,8 @@ public class ModBlocks {
 		RegisterTileEntity(event, FarmTileEntity::new, ModBlocks.FARM_BLOCK);
 		RegisterTileEntity(event, LumberYardTileEntity::new, ModBlocks.LUMBER_YARD_BLOCK);
 		RegisterTileEntity(event, GateTileEntity::new, ModBlocks.GATE_BLOCK);
+		RegisterTileEntity(event, WallStepsTileEntity::new, ModBlocks.WALL_STEPS_BLOCK);
+
 	}
 
 	private static <T extends TileEntity> void RegisterTileEntity(final RegistryEvent.Register<TileEntityType<?>> event, Supplier<? extends T> factoryIn, Block block) {

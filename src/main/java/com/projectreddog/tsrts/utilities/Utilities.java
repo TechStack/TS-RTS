@@ -145,6 +145,12 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WATCHTOWERBUILDERITEM));
 
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL_STEPS) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLSTEPSBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.GATEBUILDERITEM));
+
 		}
 
 	}
