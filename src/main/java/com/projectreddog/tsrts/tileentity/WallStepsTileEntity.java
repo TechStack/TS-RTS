@@ -75,7 +75,9 @@ public class WallStepsTileEntity extends OwnedCooldownTileEntity implements INam
 		float health = 0;
 		int[] ids = new int[teList.size()];
 		for (int i = 0; i < teList.size(); i++) {
-			teList.get(i).setHealth(0);
+			if (teList.get(i).getOwningTePos() == this.pos) {// ensure the target is owned by this block
+				teList.get(i).setHealth(0);
+			}
 		}
 
 	}
