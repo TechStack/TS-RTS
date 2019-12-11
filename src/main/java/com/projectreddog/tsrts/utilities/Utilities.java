@@ -10,13 +10,19 @@ import javax.annotation.Nullable;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
+import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
+import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
+import com.projectreddog.tsrts.containers.provider.MainMenuContinerProvider;
+import com.projectreddog.tsrts.containers.provider.TroopBuildingsContinerProvider;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
@@ -24,17 +30,21 @@ import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+import com.projectreddog.tsrts.tileentity.WallTileEntity;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -49,11 +59,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class Utilities {
 
@@ -85,7 +97,65 @@ public class Utilities {
 		return false;
 	}
 
-	public static void LobbyGuiHandler(int buttonID, ServerPlayerEntity player) {
+	public static void GuiRequestHandler(int guiID, ServerPlayerEntity player) {
+		switch (guiID) {
+		case Reference.GUI_ID_TOWN_HALL:
+			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new DefensiveBuildingsContinerProvider());
+
+			break;
+
+		case Reference.GUI_ID_MAIN_MENU:
+			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new MainMenuContinerProvider());
+
+			break;
+		default:
+			break;
+		}
+	}
+
+	public static void TownHallGuiHandler(int buttonId, ServerPlayerEntity player) {
+		if (buttonId == Reference.GUI_BUTTON_BUY_BARRACKS) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.BARRACKSBUILDERITEM));
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHERY_RANGE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.ARCHERYRANGEBUILDERITEM));
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_STONE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITESTONEBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_IRON) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEIRONBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_GOLD) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEGOLDBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITEDIAMONDBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_LUMBER_YARD) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.LUMBERYARDBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_FARM) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.FARMBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_STABLES) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.STABLESBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WATCHTOWERBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL_STEPS) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLSTEPSBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.GATEBUILDERITEM));
+
+		}
+
+	}
+
+	public static void GenericGuiHandler(int buttonID, ServerPlayerEntity player) {
 		ScorePlayerTeam team;
 		switch (buttonID) {
 
@@ -115,6 +185,18 @@ public class Utilities {
 			break;
 		case Reference.GUI_BUTTON_LOBBY_START:
 			Utilities.startGame(player.world);
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_ECO:
+			NetworkHooks.openGui(player, new EcoBuildingsContinerProvider());
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS:
+			NetworkHooks.openGui(player, new DefensiveBuildingsContinerProvider());
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS:
+			NetworkHooks.openGui(player, new TroopBuildingsContinerProvider());
 			break;
 
 		}
@@ -159,20 +241,22 @@ public class Utilities {
 		// TODO Auto-generated method stub
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.DIAMOND_SWORD, 1));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.SAMPLEITEM));
-		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RETREATESEPTERITEM));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RALLYPOINTTOOLITEM));
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.COOKED_BEEF, 64));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
 
 	}
 
 	public static int[] getStartingResourceAmounts() {
 		TeamInfo ti = new TeamInfo();
-		ti.SetResource(Resources.FOOD, Config.CONFIG_START_AMT_FOOD.get());
-		ti.SetResource(Resources.WOOD, Config.CONFIG_START_AMT_WOOD.get());
-		ti.SetResource(Resources.STONE, Config.CONFIG_START_AMT_STONE.get());
-		ti.SetResource(Resources.IRON, Config.CONFIG_START_AMT_IRON.get());
-		ti.SetResource(Resources.GOLD, Config.CONFIG_START_AMT_GOLD.get());
-		ti.SetResource(Resources.DIAMOND, Config.CONFIG_START_AMT_DIAMOND.get());
-		ti.SetResource(Resources.EMERALD, Config.CONFIG_START_AMT_EMERALD.get());
+		ti.SetResource(Resources.FOOD, Config.CONFIG_START_AMT.getFOOD());
+		ti.SetResource(Resources.WOOD, Config.CONFIG_START_AMT.getWOOD());
+		ti.SetResource(Resources.STONE, Config.CONFIG_START_AMT.getSTONE());
+		ti.SetResource(Resources.IRON, Config.CONFIG_START_AMT.getIRON());
+		ti.SetResource(Resources.GOLD, Config.CONFIG_START_AMT.getGOLD());
+		ti.SetResource(Resources.DIAMOND, Config.CONFIG_START_AMT.getDIAMOND());
+		ti.SetResource(Resources.EMERALD, Config.CONFIG_START_AMT.getEMERALD());
 
 		return ti.GetResourceArray();
 	}
@@ -221,161 +305,205 @@ public class Utilities {
 
 	public static int getFoodCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getFOOD();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getFOOD();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getFOOD();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getFOOD();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getFOOD();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getFOOD();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getFOOD();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getFOOD();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_FOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getFOOD();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getFOOD();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getFOOD();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getFOOD();
 		}
 		return 0;
 	}
 
 	public static int getWoodCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getWOOD();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getWOOD();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getWOOD();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getWOOD();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getWOOD();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getWOOD();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getWOOD();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getWOOD();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_WOOD.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getWOOD();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getWOOD();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getWOOD();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getWOOD();
 		}
 		return 0;
 	}
 
 	public static int getStoneCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getSTONE();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getSTONE();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getSTONE();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getSTONE();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getSTONE();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getSTONE();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getSTONE();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getSTONE();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STONE.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getSTONE();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getSTONE();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getSTONE();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getSTONE();
 		}
 		return 0;
 	}
 
 	public static int getIronCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getIRON();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getIRON();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getIRON();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getIRON();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getIRON();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getIRON();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getIRON();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getIRON();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_IRON.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getIRON();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getIRON();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getIRON();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getIRON();
 		}
+
 		return 0;
 	}
 
 	public static int getGoldCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getGOLD();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getGOLD();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getGOLD();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getGOLD();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getGOLD();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getGOLD();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getGOLD();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getGOLD();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_GOLD.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getGOLD();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getGOLD();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getGOLD();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getGOLD();
 		}
 		return 0;
 	}
 
 	public static int getDiamondCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getDIAMOND();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getDIAMOND();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getDIAMOND();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getDIAMOND();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getDIAMOND();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getDIAMOND();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getDIAMOND();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getDIAMOND();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_DIAMOND.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getDIAMOND();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getDIAMOND();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getDIAMOND();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getDIAMOND();
 		}
+
 		return 0;
 	}
 
 	public static int getEmeraldCostsForBuilder(Item item) {
 		if (item == ModItems.FARMBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_FARM_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_FARM.getEMERALD();
 		} else if (item == ModItems.LUMBERYARDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD.getEMERALD();
 		} else if (item == ModItems.MINESITESTONEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE.getEMERALD();
 		} else if (item == ModItems.MINESITEIRONBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON.getEMERALD();
 		} else if (item == ModItems.MINESITEGOLDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD.getEMERALD();
 		} else if (item == ModItems.MINESITEDIAMONDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND.getEMERALD();
 		} else if (item == ModItems.MINESITEEMERALDBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD.getEMERALD();
 		} else if (item == ModItems.BARRACKSBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_BARRACKS_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS.getEMERALD();
 		} else if (item == ModItems.ARCHERYRANGEBUILDERITEM) {
-			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE_EMERALD.get();
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE.getEMERALD();
+		} else if (item == ModItems.WALLBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL.getEMERALD();
+		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getEMERALD();
+		} else if (item == ModItems.STABLESBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_STABLES.getEMERALD();
 		}
 		return 0;
 	}
@@ -388,7 +516,11 @@ public class Utilities {
 			player.dropItem(itemStack, false);
 
 		}
-		player.container.detectAndSendChanges();
+		// player.container.detectAndSendChanges();
+		if (player instanceof ServerPlayerEntity) {
+			ServerPlayerEntity sp = (ServerPlayerEntity) player;
+			sp.sendContainerToPlayer(sp.container);
+		}
 	}
 
 	public static void SpawnUnitForTeam(EntityType entityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
@@ -421,6 +553,14 @@ public class Utilities {
 
 			if (entityType == ModEntities.ARCHER_MINION) {
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+			}
+
+			if (entityType == ModEntities.MOUNTED_ENTITY) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.LANCEITEM));
+			}
+
+			if (entityType == ModEntities.PIKEMAN_ENTITY) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.PIKEITEM));
 			}
 			//
 //			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
@@ -471,13 +611,15 @@ public class Utilities {
 				ModNetwork.SendToPlayer((ServerPlayerEntity) player, new PlayerSelectionChangedPacketToClient(tmpids));
 			}
 		} else {
-			throw new IllegalStateException(" COuld not find the player in the hasmap used for selections !");
+			TSRTS.playerSelections.put(playerScoreboardname, new PlayerSelections());
 
 		}
 
 	}
 
 	public static void ServerControlGroupToSelectedUnits(ServerPlayerEntity player, String playerScoreboardname, int[] entityIds) {
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in ServerControlGroupToSelectedUnits for " + player.getName() + entityIds.toString());
+
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.clear();
 			for (int i = 0; i < entityIds.length; i++) {
@@ -491,68 +633,66 @@ public class Utilities {
 	}
 
 	public static void clientControlGroupToSelectedUnits(String playerScoreboardname, int controlGroupNumber) {
-
-		int[] activeSelections = null;
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in clientControlGroupToSelectedUnits for " + playerScoreboardname + " group " + controlGroupNumber);
 		switch (controlGroupNumber) {
 		case 1:
-			activeSelections = TSRTS.playerSelectionsControlGroup1;
-
+			if (TSRTS.playerSelectionsControlGroup1 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup1));
+			}
 			break;
 		case 2:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup2;
+			if (TSRTS.playerSelectionsControlGroup2 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup2));
+			}
 			break;
 		case 3:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup3;
+			if (TSRTS.playerSelectionsControlGroup3 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup3));
+			}
 			break;
 		case 4:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup4;
+			if (TSRTS.playerSelectionsControlGroup4 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup4));
+			}
 			break;
 		case 5:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup5;
+			if (TSRTS.playerSelectionsControlGroup5 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup5));
+			}
 			break;
 		case 6:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup6;
+			if (TSRTS.playerSelectionsControlGroup6 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup6));
+			}
 			break;
 		case 7:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup7;
+			if (TSRTS.playerSelectionsControlGroup7 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup7));
+			}
 			break;
 		case 8:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup8;
+			if (TSRTS.playerSelectionsControlGroup8 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup8));
+			}
 			break;
 		case 9:
-
-			activeSelections = TSRTS.playerSelectionsControlGroup9;
+			if (TSRTS.playerSelectionsControlGroup9 != null) {
+				ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(TSRTS.playerSelectionsControlGroup9));
+			}
 			break;
-
 		}
-		// TSRTS.playerSelections.put(playerScoreboardname, activeSelections);
-		if (activeSelections != null) {
-
-			ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(activeSelections));
-		}
-
 	}
 
 	public static int GetSelectedCountForControlGroup(int controlGroupNumber) {
 		switch (controlGroupNumber) {
 		case 1:
-
 			if (TSRTS.playerSelectionsControlGroup1 != null) {
 				return TSRTS.playerSelectionsControlGroup1.length;
 			}
-
 		case 2:
 			if (TSRTS.playerSelectionsControlGroup2 != null) {
 				return TSRTS.playerSelectionsControlGroup2.length;
 			}
-
 		case 3:
 			if (TSRTS.playerSelectionsControlGroup3 != null) {
 				return TSRTS.playerSelectionsControlGroup3.length;
@@ -561,7 +701,6 @@ public class Utilities {
 			if (TSRTS.playerSelectionsControlGroup4 != null) {
 				return TSRTS.playerSelectionsControlGroup4.length;
 			}
-
 		case 5:
 			if (TSRTS.playerSelectionsControlGroup5 != null) {
 				return TSRTS.playerSelectionsControlGroup5.length;
@@ -587,46 +726,67 @@ public class Utilities {
 	}
 
 	public static void clientSelectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in client selected units to control group for " + playerScoreboardname + " group " + controlGroupNumber);
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			// already selected if we wanted this to be a toggle this is where we edit it be removed
 
-			int[] activeSelections = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
-
-			for (int i = 0; i < activeSelections.length; i++) {
-				activeSelections[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
-			}
-
 			switch (controlGroupNumber) {
 			case 1:
-				TSRTS.playerSelectionsControlGroup1 = activeSelections;
+				TSRTS.playerSelectionsControlGroup1 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup1.length; i++) {
+					TSRTS.playerSelectionsControlGroup1[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 2:
-				TSRTS.playerSelectionsControlGroup2 = activeSelections;
+				TSRTS.playerSelectionsControlGroup2 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup2.length; i++) {
+					TSRTS.playerSelectionsControlGroup2[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 3:
-				TSRTS.playerSelectionsControlGroup3 = activeSelections;
+				TSRTS.playerSelectionsControlGroup3 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup3.length; i++) {
+					TSRTS.playerSelectionsControlGroup3[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 4:
-				TSRTS.playerSelectionsControlGroup4 = activeSelections;
+				TSRTS.playerSelectionsControlGroup4 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup4.length; i++) {
+					TSRTS.playerSelectionsControlGroup4[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 5:
-				TSRTS.playerSelectionsControlGroup5 = activeSelections;
+				TSRTS.playerSelectionsControlGroup5 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup5.length; i++) {
+					TSRTS.playerSelectionsControlGroup5[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 6:
-				TSRTS.playerSelectionsControlGroup6 = activeSelections;
+				TSRTS.playerSelectionsControlGroup6 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup6.length; i++) {
+					TSRTS.playerSelectionsControlGroup6[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 7:
-				TSRTS.playerSelectionsControlGroup7 = activeSelections;
+				TSRTS.playerSelectionsControlGroup7 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup7.length; i++) {
+					TSRTS.playerSelectionsControlGroup7[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 8:
-				TSRTS.playerSelectionsControlGroup8 = activeSelections;
+				TSRTS.playerSelectionsControlGroup8 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup8.length; i++) {
+					TSRTS.playerSelectionsControlGroup8[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			case 9:
-				TSRTS.playerSelectionsControlGroup9 = activeSelections;
+				TSRTS.playerSelectionsControlGroup9 = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
+				for (int i = 0; i < TSRTS.playerSelectionsControlGroup9.length; i++) {
+					TSRTS.playerSelectionsControlGroup9[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
+				}
 				break;
 			}
 		}
-
 	}
 
 	public static void SendTeamToClient(String teamName) {
@@ -662,7 +822,7 @@ public class Utilities {
 
 	}
 
-	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player) {
+	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player, boolean isRetreatMove) {
 		if (TSRTS.playerSelections.containsKey(ownerName)) {
 			// found the player in the hasmap get and loop thru the enitties 1
 			int count = TSRTS.playerSelections.get(ownerName).selectedUnits.size();
@@ -675,8 +835,8 @@ public class Utilities {
 
 					if (ue != null) {
 						ue.ownerControlledDestination = lbp.get(i);/// context.getPos();
-						TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
-
+						// TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
+						ue.isRetreating = isRetreatMove;
 					}
 				}
 			}
@@ -788,7 +948,7 @@ public class Utilities {
 		}
 		if (d == Direction.SOUTH) {
 			r = Rotation.CLOCKWISE_180;
-			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2));
+			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2)).offset(d, (1));
 		}
 
 		if (d == Direction.WEST) {
@@ -800,7 +960,7 @@ public class Utilities {
 
 		if (d == Direction.EAST) {
 			r = Rotation.CLOCKWISE_90;
-			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2));
+			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2)).offset(d, (1));
 		}
 
 		List<BlockPos> tePos = new ArrayList<BlockPos>();
@@ -894,12 +1054,294 @@ public class Utilities {
 		return result;
 	}
 
-	public static boolean LoadStructure(World world, ResourceLocation templateName, StructureData structureData, String ownerName, Boolean shouldCheckifValid) {
+	public static boolean IsLocationValidForWall(World world, BlockPos blockPos, Direction d) {
+
+		int deep = 3;
+		int width = 3;
+		int height = 5;
+
+		BlockPos bp = blockPos.offset(d.rotateYCCW(), (width / 2)).offset(d, deep);
+		BlockPos bp2 = bp;
+		Rotation r = Rotation.NONE;
+		if (d == Direction.NORTH) {
+			bp2 = bp;
+
+		}
+		if (d == Direction.SOUTH) {
+			r = Rotation.CLOCKWISE_180;
+			bp2 = blockPos.offset(d.rotateYCCW(), -(width / 2)).offset(d, (1));
+		}
+
+		if (d == Direction.WEST) {
+			r = Rotation.COUNTERCLOCKWISE_90;
+
+			bp2 = blockPos.offset(d.rotateYCCW(), -(deep / 2)).offset(d, (width));
+
+		}
+
+		if (d == Direction.EAST) {
+			r = Rotation.CLOCKWISE_90;
+			bp2 = blockPos.offset(d.rotateYCCW(), (deep / 2)).offset(d, (1));
+		}
+
+		int clickedHeight = bp2.getY() + 1;
+		int[][] startHeights;
+		startHeights = new int[width][height];
+		// 3 wide 3 deep
+		boolean result = true;
+		for (int x = 0; x < width; x++) {
+			for (int z = 0; z < deep; z++) {
+				// find bottom air block above a solid block
+
+				if ((world.getBlockState(bp2.add(x, 3, z)).isAir() || world.getBlockState(bp2.add(x, 3, z)).getMaterial().isReplaceable() || (!world.getBlockState(bp2.add(x, 3, z)).getMaterial().blocksMovement()))) {
+
+				} else {
+					result = false;
+				}
+
+			}
+
+		}
+
+		return result;
+	}
+
+	public static BlockState GetWallBlockForTeam(String teamName) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		switch (TeamEnum.values()[TeamEnum.getIDFromName(teamName)]) {
+		case BLUE:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case RED:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case GREEN:
+			bs = Blocks.DARK_OAK_LOG.getDefaultState();
+			break;
+		case YELLOW:
+			bs = Blocks.SMOOTH_SANDSTONE.getDefaultState();
+			break;
+		}
+
+		return bs;
+
+	}
+
+	public static BlockState GetWallBlockDecoForTeam(String teamName) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		switch (TeamEnum.values()[TeamEnum.getIDFromName(teamName)]) {
+		case BLUE:
+			bs = Blocks.SPRUCE_LOG.getDefaultState();
+			break;
+		case RED:
+			bs = Blocks.CHISELED_STONE_BRICKS.getDefaultState();
+			break;
+		case GREEN:
+			bs = Blocks.BIRCH_PLANKS.getDefaultState();
+			break;
+		case YELLOW:
+			bs = Blocks.CHISELED_SANDSTONE.getDefaultState();
+			break;
+		}
+
+		return bs;
+
+	}
+
+	public static BlockState GetWallBlockDeco2ForTeam(String teamName) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		switch (TeamEnum.values()[TeamEnum.getIDFromName(teamName)]) {
+		case BLUE:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case RED:
+			bs = Blocks.MOSSY_STONE_BRICKS.getDefaultState();
+			break;
+		case GREEN:
+			bs = Blocks.STONE_BRICKS.getDefaultState();
+			break;
+		case YELLOW:
+			bs = Blocks.CUT_SANDSTONE.getDefaultState();
+			break;
+		}
+
+		return bs;
+
+	}
+
+	public static boolean BuildWall(World world, BlockPos blockPos, Direction d, String ownerName, String teamName, boolean destroyMode, int[][] inStartHeights) {
+		BlockState bs = Blocks.AIR.getDefaultState();
+		BlockState bsDeco = Blocks.AIR.getDefaultState();
+		BlockState bsDeco2 = Blocks.AIR.getDefaultState();
+		if (!destroyMode) {
+			bs = GetWallBlockForTeam(teamName);
+			bsDeco = GetWallBlockDecoForTeam(teamName);
+			bsDeco2 = GetWallBlockDeco2ForTeam(teamName);
+		}
+
+		if ((!(IsLocationValidForWall(world, blockPos, d)) && !destroyMode)) {
+			return false;
+		}
+
+		// settings
+		int deep = 3;
+		int width = 3;
+		int height = 5;
+
+		BlockPos bp = blockPos.offset(d.rotateYCCW(), (width / 2)).offset(d, deep);
+		BlockPos bp2 = bp;
+		Rotation r = Rotation.NONE;
+		if (d == Direction.NORTH) {
+			bp2 = bp;
+
+		}
+		if (d == Direction.SOUTH) {
+			r = Rotation.CLOCKWISE_180;
+			bp2 = blockPos.offset(d.rotateYCCW(), -(width / 2)).offset(d, (1));
+		}
+
+		if (d == Direction.WEST) {
+			r = Rotation.COUNTERCLOCKWISE_90;
+
+			bp2 = blockPos.offset(d.rotateYCCW(), -(deep / 2)).offset(d, (width));
+
+		}
+
+		if (d == Direction.EAST) {
+			r = Rotation.CLOCKWISE_90;
+			bp2 = blockPos.offset(d.rotateYCCW(), (deep / 2)).offset(d, (1));
+		}
+
+		int clickedHeight = bp2.getY() + 1;
+		int[][] startHeights;
+		if (!destroyMode) {
+			startHeights = new int[width][height];
+			// 3 wide 3 deep
+			for (int x = 0; x < width; x++) {
+				for (int z = 0; z < deep; z++) {
+					// find bottom air block above a solid block
+					for (int y = 0; y < height + 2; y++) {
+
+						if ((world.getBlockState(bp2.add(x, y, z)).isAir() || world.getBlockState(bp2.add(x, y, z)).getMaterial().isReplaceable() || (!world.getBlockState(bp2.add(x, y, z)).getMaterial().blocksMovement())) && (!world.getBlockState(bp2.add(x, y - 1, z)).isAir())) {
+							// valid starting point for this x,y save it.
+							startHeights[x][z] = y;
+							y = height + 2;
+						}
+					}
+				}
+			}
+		} else {
+			startHeights = inStartHeights;
+		}
+		BlockState stateForLevel = bs;
+		for (int x = 0; x < width; x++) {
+			for (int z = 0; z < deep; z++) {
+				for (int y = 0; y < height; y++) {
+
+					if (y == 1) {
+						stateForLevel = bsDeco;
+					} else if (y == height - 1) {
+						stateForLevel = bsDeco2;
+					} else {
+						stateForLevel = bs;
+					}
+
+					world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), stateForLevel);
+					world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+
+					if ((y == height - 1) && ((x == 0 && z == 0) || (x == 0 && z == deep - 1) || (x == width - 1 && z == 0) || (x == width - 1 && z == deep - 1))) {
+						world.setBlockState(bp2.add(x, startHeights[x][z] + y + 1, z), bsDeco);
+						world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y + 1, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y + 1, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+					}
+
+				}
+			}
+		}
+
+		int x = 1;
+		int z = 1;
+		int y = 1;
+		if (destroyMode) {
+			world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), Blocks.AIR.getDefaultState());
+			world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+
+			// LOOK FOR TARGET BLOCKS AND TELL THE TE about it.
+			AxisAlignedBB bb = new AxisAlignedBB(bp2, bp2.add(width, height, deep));
+			List<TargetEntity> teList = world.getEntitiesWithinAABB(TargetEntity.class, bb);
+			float health = 0;
+			int[] ids = new int[teList.size()];
+			for (int i = 0; i < teList.size(); i++) {
+				teList.get(i).setHealth(0);
+			}
+		} else {
+			world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), ModBlocks.WALL_BLOCK.getDefaultState());
+			world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+			TileEntity te = world.getTileEntity(bp2.add(x, startHeights[x][z] + y, z));
+
+			OwnedTileEntity controllerTE;
+			OwnedCooldownTileEntity octe = null;
+			if (te instanceof OwnedTileEntity) {
+				// its ours so we can set the rally point.
+				((OwnedTileEntity) te).setOwner(ownerName);
+				controllerTE = ((OwnedTileEntity) te);
+				controllerTE.setStructureData(null);
+				controllerTE.setRallyPoint(blockPos);
+				if (controllerTE instanceof OwnedCooldownTileEntity) {
+
+					octe = (OwnedCooldownTileEntity) controllerTE;
+
+				}
+				if (te instanceof WallTileEntity) {
+					WallTileEntity wte = (WallTileEntity) te;
+					wte.startHeights = startHeights;
+					wte.storedDirection = d;
+				}
+
+			}
+			float health = 0;
+
+			for (x = 0; x < 3; x++) {
+				for (z = 0; z < 3; z++) {
+					if ((x == 1 && z == 0) || (x == 1 && z == 2) || (x == 0 && z == 1) || (x == 2 && z == 1)) {
+						y = 1;
+						health = 0;
+						world.setBlockState(bp2.add(x, startHeights[x][z] + y, z), Blocks.AIR.getDefaultState());
+						world.notifyBlockUpdate(bp2.add(x, startHeights[x][z] + y, z), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), world.getBlockState(bp2.add(x, startHeights[x][z] + y, z)), 3);
+
+						Entity e = ModEntities.TARGET_ENTITY.spawn(world, null, null, bp2.add(x, startHeights[x][z] + y, z), SpawnReason.TRIGGERED, true, true);
+						if (e instanceof TargetEntity) {
+
+							TargetEntity targetE = (TargetEntity) e;
+							if (octe != null) {
+								targetE.setOwningTePos(octe.getPos());
+								targetE.setOwnerName(ownerName);
+
+								float currhealth = Config.CONFIG_STRCTURE_TOTAL_HEALTH_WALL.get();
+								targetE.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(currhealth);
+								targetE.setHealth(currhealth);
+								health = health + targetE.getHealth();
+							}
+						}
+
+					}
+				}
+			}
+			if (octe != null) {
+				octe.setHealth(health);
+
+				TSRTS.LOGGER.info("Health set to :" + health);
+			}
+		}
+
+		return true;
+	}
+
+	public static boolean LoadStructure(World world, ResourceLocation templateName, StructureData structureData, String ownerName, boolean shouldCheckifValid, boolean setHealth, float healthTarget) {
 
 		BlockPos pos = structureData.getSpawnPoint();
 		Direction d = structureData.getDirection();
 		Vec3i size = structureData.getSize();
-
+		boolean spreadHealthAroundTargets = structureData.GetSpreadHealthAroundTargets();
 		if (isValidLocation(world, pos, d, size) || !shouldCheckifValid) {
 
 			// TODO need to consider if the player is on the same team as the entity or not !
@@ -951,6 +1393,8 @@ public class Utilities {
 				template.addBlocksToWorldChunk(world, bp, ps);
 
 				OwnedTileEntity controllerTE = null;
+
+				OwnedCooldownTileEntity octe = null;
 				for (int x = 0; x < xSize; x++) {
 					for (int y = 0; y < ySize; y++) {
 						for (int z = 0; z < zSize; z++) {
@@ -966,7 +1410,11 @@ public class Utilities {
 									((OwnedTileEntity) te).setOwner(ownerName);
 									controllerTE = ((OwnedTileEntity) te);
 									controllerTE.setStructureData(structureData);
+									if (controllerTE instanceof OwnedCooldownTileEntity) {
 
+										octe = (OwnedCooldownTileEntity) controllerTE;
+
+									}
 									if (te instanceof ResourceGenerator) {
 										ResourceGenerator rg = (ResourceGenerator) te;
 										rg.setResource(TeamInfo.GetResoureceForBlock(world.getBlockState(pos).getBlock()));
@@ -982,17 +1430,34 @@ public class Utilities {
 				AxisAlignedBB bb = new AxisAlignedBB(bp2, bp2.add(xSize, ySize, zSize));
 				List<TargetEntity> teList = world.getEntitiesWithinAABB(TargetEntity.class, bb);
 				float health = 0;
+
 				int[] ids = new int[teList.size()];
 				for (int i = 0; i < teList.size(); i++) {
-					if (controllerTE != null) {
-						teList.get(i).setOwningTePos(controllerTE.getPos());
+					if (octe != null) {
+						teList.get(i).setOwningTePos(octe.getPos());
 						teList.get(i).setOwnerName(ownerName);
-						health = health + teList.get(i).getHealth();
+						float currhealth;
+
+						if (setHealth) {
+							if (spreadHealthAroundTargets) {
+								currhealth = healthTarget / teList.size();
+							} else {
+								currhealth = healthTarget;
+							}
+							// TODO set the max here to override what was in the structure file ... call method that is overridden on each builder item if possible. or use passsed in pramater that is pouplated by callilng the "getTargetEntityHealthPer" on the builder item.
+							teList.get(i).getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(currhealth);
+							teList.get(i).setHealth(currhealth);
+						}
+						if (spreadHealthAroundTargets) {
+
+							health = health + teList.get(i).getHealth();
+						} else {
+							health = healthTarget;
+						}
 					}
 
 				}
-				if (controllerTE instanceof OwnedCooldownTileEntity) {
-					OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) controllerTE;
+				if (octe != null) {
 					octe.setHealth(health);
 
 					TSRTS.LOGGER.info("Health set to :" + health);
@@ -1253,6 +1718,35 @@ public class Utilities {
 			if (!hasYellow) {
 				world.getScoreboard().createTeam("yellow").setColor(TextFormatting.YELLOW);
 			}
+		}
+	}
+
+	public static void SendMessageToAllTeams(World world, String LangLookup, String part2) {
+		List<? extends PlayerEntity> players = world.getPlayers();
+		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
+			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
+
+			playerEntity.sendMessage(new TranslationTextComponent(LangLookup, part2));
+			if (playerEntity instanceof ServerPlayerEntity) {
+				ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("tsrts.alerttoast.alert", LangLookup, AlertToastBackgroundType.WARN));
+			}
+		}
+	}
+
+	public static void SendMessageToTeam(World world, String team, String LangLookup) {
+		List<? extends PlayerEntity> players = world.getPlayers();
+		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
+			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
+
+			if (playerEntity.getTeam() != null) {
+				if (playerEntity.getTeam().getName().equals(team)) {
+					playerEntity.sendMessage(new TranslationTextComponent(LangLookup));
+					if (playerEntity instanceof ServerPlayerEntity) {
+						ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("tsrts.alerttoast.alert", LangLookup, AlertToastBackgroundType.WARN));
+					}
+				}
+			}
+
 		}
 	}
 }

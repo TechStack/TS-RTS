@@ -1,12 +1,14 @@
 package com.projectreddog.tsrts.tileentity;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
+import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -44,6 +46,13 @@ public class FarmTileEntity extends OwnedCooldownTileEntity implements INamedCon
 			}
 
 		}
+	}
+
+	@Override
+	public void StructureLost() {
+		super.StructureLost();
+		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.farm");
+
 	}
 
 	public void IncreaseCount() {
@@ -120,4 +129,8 @@ public class FarmTileEntity extends OwnedCooldownTileEntity implements INamedCon
 
 	}
 
+	@Override
+	public float getDamagedHealthThreashold() {
+		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_FARM.get();
+	}
 }

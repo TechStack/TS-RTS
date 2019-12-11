@@ -1,16 +1,25 @@
 package com.projectreddog.tsrts.init;
 
+import com.projectreddog.tsrts.items.LanceItem;
+import com.projectreddog.tsrts.items.PikeItem;
+import com.projectreddog.tsrts.items.RallyPointToolItem;
+import com.projectreddog.tsrts.items.RetreateScepterItem;
 import com.projectreddog.tsrts.items.SampleItem;
 import com.projectreddog.tsrts.items.builderitems.ArcheryRangeBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.BarracksBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.FarmBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.GateBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.LumberYardBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteDiamondBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteEmeraldBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteGoldBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteIronBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteStoneBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.StablesBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.TownHallBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.WallBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.WallStepsBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.WatchTowerBuilderItem;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.item.Item;
@@ -21,14 +30,41 @@ public class ModItems {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SAMPLE_ITEM)
 	public static SampleItem SAMPLEITEM = new SampleItem();
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LANCE_ITEM)
+	public static LanceItem LANCEITEM = new LanceItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_PIKE_ITEM)
+	public static PikeItem PIKEITEM = new PikeItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RETREAT_SEPTER_ITEM)
+	public static RetreateScepterItem RETREATESEPTERITEM = new RetreateScepterItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RALLY_POINT_TOOL)
+	public static RallyPointToolItem RALLYPOINTTOOLITEM = new RallyPointToolItem();
+
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM)
 	public static TownHallBuilderItem TOWNHALLBUILDERITEM = new TownHallBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BUILDER_ITEM)
+	public static WallBuilderItem WALLBUILDERITEM = new WallBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_STEPS_BUILDER_ITEM)
+	public static WallStepsBuilderItem WALLSTEPSBUILDERITEM = new WallStepsBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_GATE_BUILDER_ITEM)
+	public static GateBuilderItem GATEBUILDERITEM = new GateBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WATCH_TOWER_BUILDER_ITEM)
+	public static WatchTowerBuilderItem WATCHTOWERBUILDERITEM = new WatchTowerBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_BARRACKS_BUILDER_ITEM)
 	public static BarracksBuilderItem BARRACKSBUILDERITEM = new BarracksBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARCHERY_RANGE_BUILDER_ITEM)
 	public static ArcheryRangeBuilderItem ARCHERYRANGEBUILDERITEM = new ArcheryRangeBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_STABLES_BUILDER_ITEM)
+	public static StablesBuilderItem STABLESBUILDERITEM = new StablesBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM)
 	public static LumberYardBuilderItem LUMBERYARDBUILDERITEM = new LumberYardBuilderItem();
@@ -56,6 +92,7 @@ public class ModItems {
 		RegisterItem(event, ModItems.TOWNHALLBUILDERITEM);
 		RegisterItem(event, ModItems.BARRACKSBUILDERITEM);
 		RegisterItem(event, ModItems.ARCHERYRANGEBUILDERITEM);
+		RegisterItem(event, ModItems.STABLESBUILDERITEM);
 		RegisterItem(event, ModItems.LUMBERYARDBUILDERITEM);
 		RegisterItem(event, ModItems.MINESITEDIAMONDBUILDERITEM);
 		RegisterItem(event, ModItems.MINESITEEMERALDBUILDERITEM);
@@ -64,6 +101,20 @@ public class ModItems {
 		RegisterItem(event, ModItems.MINESITESTONEBUILDERITEM);
 		RegisterItem(event, ModItems.FARMBUILDERITEM);
 
+		RegisterItem(event, ModItems.RALLYPOINTTOOLITEM);
+
+		RegisterItem(event, ModItems.RETREATESEPTERITEM);
+
+		RegisterItem(event, ModItems.LANCEITEM);
+
+		RegisterItem(event, ModItems.PIKEITEM);
+		RegisterItem(event, ModItems.WATCHTOWERBUILDERITEM);
+
+		RegisterItem(event, ModItems.WALLBUILDERITEM);
+
+		RegisterItem(event, ModItems.GATEBUILDERITEM);
+
+		RegisterItem(event, ModItems.WALLSTEPSBUILDERITEM);
 	}
 
 	// Called to register every item.

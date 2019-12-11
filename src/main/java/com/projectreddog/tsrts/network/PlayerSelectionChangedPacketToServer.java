@@ -23,6 +23,7 @@ public class PlayerSelectionChangedPacketToServer {
 	public PlayerSelectionChangedPacketToServer(int[] entityIds) {
 		super();
 		this.entityIds = entityIds;
+
 	}
 
 	public void encode(PacketBuffer buf) {

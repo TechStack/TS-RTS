@@ -2,6 +2,8 @@ package com.projectreddog.tsrts.entities;
 
 import javax.annotation.Nullable;
 
+import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 
@@ -21,6 +23,7 @@ import net.minecraft.world.World;
 public class TargetEntity extends CreatureEntity {
 
 	private BlockPos owningTePos;
+	public int newHurtTime;
 
 	public BlockPos getOwningTePos() {
 		return owningTePos;
@@ -63,6 +66,14 @@ public class TargetEntity extends CreatureEntity {
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
 		setOwnerName(compound.getString("onwerName"));
+
+		if (compound.contains("owerPosX")) {
+			int x = compound.getInt("owerPosX");
+			int y = compound.getInt("owerPosY");
+			int z = compound.getInt("owerPosZ");
+			owningTePos = new BlockPos(x, y, z);
+
+		}
 	}
 
 	public void setOwnerName(String ownerName) {
@@ -78,6 +89,15 @@ public class TargetEntity extends CreatureEntity {
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
 		compound.putString("onwerName", ownerName);
+
+		if (Config.CONFIG_GAME_MODE.get() != Modes.WORLDBUILDER) {
+			if (owningTePos != null) {
+				compound.putInt("owerPosX", owningTePos.getX());
+				compound.putInt("owerPosY", owningTePos.getY());
+				compound.putInt("owerPosZ", owningTePos.getZ());
+			}
+		}
+
 	}
 
 	@Override
@@ -87,7 +107,13 @@ public class TargetEntity extends CreatureEntity {
 	@Override
 	public void tick() {
 		super.tick();
-
+		if (this.hurtTime > 0) {
+			this.hurtTime = 0;
+			this.newHurtTime = 10;
+		}
+		if (this.newHurtTime > 0) {
+			this.newHurtTime--;
+		}
 		if (this.posX >= 0) {
 			this.posX = ((int) this.posX) + .5f;
 		} else if (this.posX < 0) {

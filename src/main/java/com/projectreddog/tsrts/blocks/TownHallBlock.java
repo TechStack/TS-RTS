@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.blocks;
 
+import com.projectreddog.tsrts.containers.provider.MainMenuContinerProvider;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.TownHallTileEntity;
 
@@ -39,12 +40,8 @@ public class TownHallBlock extends OwnedBlock {
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
 
 		if (!world.isRemote) {
-			TileEntity te = world.getTileEntity(pos);
-			if (te instanceof INamedContainerProvider) {
-				NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) te, te.getPos());
-			} else {
-				throw new IllegalStateException(" Our named container provider is missing !");
-			}
+			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new MainMenuContinerProvider());
+
 			return true;
 
 		}

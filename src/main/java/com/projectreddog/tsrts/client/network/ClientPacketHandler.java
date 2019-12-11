@@ -1,9 +1,11 @@
 package com.projectreddog.tsrts.client.network;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.client.gui.toast.AlertToast;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
+import com.projectreddog.tsrts.utilities.AlertToastBackgroundType;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
@@ -33,6 +35,10 @@ public class ClientPacketHandler {
 		}
 	}
 
+	public static void AlertToastToClient(String title, String subTitle, AlertToastBackgroundType backgroundType) {
+		Minecraft.getInstance().getToastGui().add(new AlertToast(title, subTitle, backgroundType));
+	}
+
 	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName) {
 		TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
@@ -55,6 +61,8 @@ public class ClientPacketHandler {
 	}
 
 	public static void PlayerSelectionChangedPacketToClient(int[] entityIds) {
+		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in PlayerSelectionChangedPacketToClient( handler)  for " + entityIds.toString());
+
 		if (Minecraft.getInstance() != null && Minecraft.getInstance().player != null) {
 			String playerScoreboardName = Minecraft.getInstance().player.getScoreboardName();
 			PlayerSelections ps = new PlayerSelections();

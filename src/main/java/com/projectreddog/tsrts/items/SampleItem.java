@@ -69,7 +69,7 @@ public class SampleItem extends Item {
 						if (!worldIn.isRemote) {
 							TSRTS.LOGGER.info("Block HIT at:" + brtr.getPos());
 
-							Utilities.SelectedUnitsMoveToBlock(worldIn, brtr.getPos(), playerIn.getScoreboardName(), playerIn);
+							Utilities.SelectedUnitsMoveToBlock(worldIn, brtr.getPos(), playerIn.getScoreboardName(), playerIn, false);
 						}
 					}
 				} else {

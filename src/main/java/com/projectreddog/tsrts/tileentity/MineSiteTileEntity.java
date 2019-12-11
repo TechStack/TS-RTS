@@ -1,12 +1,14 @@
 package com.projectreddog.tsrts.tileentity;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
+import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -106,6 +108,13 @@ public class MineSiteTileEntity extends OwnedCooldownTileEntity implements IName
 	}
 
 	@Override
+	public void StructureLost() {
+		super.StructureLost();
+		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.minesite");
+
+	}
+
+	@Override
 	public void HandleGuiButton(int buttonId, PlayerEntity player) {
 		// TSRTS.LOGGER.info("button ID:" + buttonId);
 		super.HandleGuiButton(buttonId, player);
@@ -119,5 +128,29 @@ public class MineSiteTileEntity extends OwnedCooldownTileEntity implements IName
 			this.setOwner("testerred");
 		}
 
+	}
+
+	@Override
+	public float getDamagedHealthThreashold() {
+		float tmp = 0;
+		switch (resource) {
+		case STONE:
+			tmp = Config.CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_STONE.get();
+			break;
+		case IRON:
+			tmp = Config.CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_IRON.get();
+			break;
+		case GOLD:
+			tmp = Config.CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_GOLD.get();
+			break;
+		case DIAMOND:
+			tmp = Config.CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_DIAMOND.get();
+			break;
+		case EMERALD:
+			tmp = Config.CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_EMERALD.get();
+			break;
+		}
+
+		return .50f * tmp;
 	}
 }

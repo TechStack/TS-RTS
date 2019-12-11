@@ -13,11 +13,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class ArcherMinionRenderer extends BipedRenderer<ArcherMinionEntity, ArcherMinionModel> {
 
-	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/minion.png");
-	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/minion_yellow.png");
-	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation(Reference.MODID, "textures/entity/minion_blue.png");
-	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation(Reference.MODID, "textures/entity/minion_green.png");
-	private static ResourceLocation TEXTURE_RED = new ResourceLocation(Reference.MODID, "textures/entity/minion_red.png");
+	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/archer_yellow.png");
+	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/archer_yellow.png");
+	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation(Reference.MODID, "textures/entity/archer_blue.png");
+	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation(Reference.MODID, "textures/entity/archer_green.png");
+	private static ResourceLocation TEXTURE_RED = new ResourceLocation(Reference.MODID, "textures/entity/archer_red.png");
 
 	public ArcherMinionRenderer(EntityRendererManager manager) {
 		super(manager, new ArcherMinionModel(), .5f);

@@ -20,10 +20,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
@@ -59,6 +61,7 @@ public class EventHandler {
 				}
 			}
 		}
+
 	}
 
 	@SubscribeEvent
@@ -130,6 +133,10 @@ public class EventHandler {
 
 			// TODO KEEP INVENTORY?
 			// ((World)event.getWorld()).getGameRules().getBoolean(GameRules.KEEP_INVENTORY)
+
+			((World) event.getWorld()).getGameRules().get(GameRules.KEEP_INVENTORY).set(true, (MinecraftServer) null);
+			((World) event.getWorld()).getGameRules().get(GameRules.DO_TILE_DROPS).set(false, (MinecraftServer) null);
+
 		}
 
 		World world = (World) event.getWorld();
@@ -170,17 +177,22 @@ public class EventHandler {
 				if (hitEntity instanceof UnitEntity) {
 					// Unit hit unit
 					UnitEntity hitUnit = (UnitEntity) hitEntity;
-					if (hitEntity.getTeam().isSameTeam(((UnitEntity) shooter).getTeam())) {
-						// SAME TEAM CANCEL !
-						shouldCancel = true;
+					if (hitEntity.getTeam() != null) {
+
+						if (hitEntity.getTeam().isSameTeam(((UnitEntity) shooter).getTeam())) {
+							// SAME TEAM CANCEL !
+							shouldCancel = true;
+						}
 					}
 
 				} else if (hitEntity instanceof PlayerEntity) {
 					// unit hit player
 					PlayerEntity hitUnit = (PlayerEntity) hitEntity;
-					if (hitEntity.getTeam().isSameTeam(((UnitEntity) shooter).getTeam())) {
-						// SAME TEAM CANCEL !
-						shouldCancel = true;
+					if (hitEntity.getTeam() != null) {
+						if (hitEntity.getTeam().isSameTeam(((UnitEntity) shooter).getTeam())) {
+							// SAME TEAM CANCEL !
+							shouldCancel = true;
+						}
 					}
 				}
 
@@ -208,10 +220,13 @@ public class EventHandler {
 				} else if (hitEntity instanceof PlayerEntity) {
 					// unit hit player
 					PlayerEntity hitUnit = (PlayerEntity) hitEntity;
-					if (hitEntity.getTeam().isSameTeam(((PlayerEntity) shooter).getTeam())) {
-						// PV P
-						// SAME TEAM CANCEL !
-						shouldCancel = true;
+					if (hitEntity.getTeam() != null) {
+
+						if (hitEntity.getTeam().isSameTeam(((PlayerEntity) shooter).getTeam())) {
+							// PV P
+							// SAME TEAM CANCEL !
+							shouldCancel = true;
+						}
 					}
 				}
 

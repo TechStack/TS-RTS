@@ -20,16 +20,17 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	public int coolDownReset = 10 * 20;
 	public int coolDownRemainig = coolDownReset;
 	public float priorHealth = -1;
-	private Stage currentStage = Stage.FULL_HEALTH;
-	private Stage priorStage = Stage.FULL_HEALTH;
-	private boolean justLoaded = true;
-	private int justLoadedRemaining = 20;
-	private int rubbleTimerRemaining = 20 * 30;
+	protected Stage currentStage = Stage.FULL_HEALTH;
+	protected Stage priorStage = Stage.FULL_HEALTH;
+	protected boolean justLoaded = true;
+	protected int justLoadedRemaining = 20;
+	protected int rubbleTimerRemaining = 20 * 30;
 	protected float health;
 
 	protected boolean enabled = true;
+	protected boolean writeDirty = false;
 
-	private boolean shouldIncreaseCounts = true;
+	protected boolean shouldIncreaseCounts = true;
 
 	public enum Stage {
 		FULL_HEALTH, HALF_DESTROYED, RUBBLE
@@ -48,9 +49,14 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 
 	}
 
+	public void StructureLost() {
+
+	}
+
 	@Override
 	public void tick() {
-		if (!world.isRemote && enabled) {
+		if ((!world.isRemote && enabled) && Config.CONFIG_GAME_MODE.get() != Config.Modes.WORLDBUILDER) {
+			writeDirty = false;
 			if (shouldIncreaseCounts) {
 				IncreaseCount();
 				shouldIncreaseCounts = false;
@@ -68,29 +74,31 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 			}
 			if (priorHealth != getHealth()) {
 				priorHealth = getHealth();
-				this.markDirty();
-				if (getHealth() < 80) {
+				writeDirty = true;
+				if (getHealth() < getDamagedHealthThreashold()) {
 					currentStage = Stage.HALF_DESTROYED;
-					this.markDirty();
+					writeDirty = true;
 				}
 				if (getHealth() <= 0) {
 					currentStage = Stage.RUBBLE;
-					this.markDirty();
+					writeDirty = true;
 				}
 
 				if (priorStage != currentStage) {
 					priorStage = currentStage;
-					this.markDirty();
+					writeDirty = true;
 					if (getStructureData() != null) {
 						if (currentStage == Stage.HALF_DESTROYED) {
 							if (getStructureData().getTemplate50() != null) {
-								Utilities.LoadStructure(this.world, getStructureData().getTemplate50(), getStructureData(), getOwner(), false);
+								Utilities.LoadStructure(this.world, getStructureData().getTemplate50(), getStructureData(), getOwner(), false, false, 0);
 							}
 						}
 						if (currentStage == Stage.RUBBLE) {
-							Utilities.LoadStructure(this.world, getStructureData().getTemplate0(), getStructureData(), getOwner(), false);
-							DecreaseCount();
+							Utilities.LoadStructure(this.world, getStructureData().getTemplate0(), getStructureData(), getOwner(), false, false, 0);
 
+							StructureLost();
+							DecreaseCount();
+							AfterDeathAction();
 						}
 					}
 				}
@@ -98,7 +106,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 			}
 			if (currentStage == Stage.RUBBLE) {
 				rubbleTimerRemaining--;
-				this.markDirty();
+				writeDirty = true;
 				if (rubbleTimerRemaining <= 0) {
 					if (getStructureData() != null) {
 						Utilities.clearAreaTELast(world, getStructureData().getSpawnPoint(), getStructureData().getDirection(), getStructureData().getSize());
@@ -106,7 +114,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 				}
 			}
 			coolDownRemainig = coolDownRemainig - 1;
-			this.markDirty();
+			writeDirty = true;
 			if (coolDownRemainig <= 0) {
 				if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
 					if (getHealth() > 0) {
@@ -114,10 +122,17 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 					}
 				}
 				coolDownRemainig = coolDownReset;
+				writeDirty = true;
+			}
+			if (writeDirty) {
 				this.markDirty();
 			}
 		}
 
+	}
+
+	public float getDamagedHealthThreashold() {
+		return 80;
 	}
 
 	public void setHealth(float inhealth) {
@@ -130,6 +145,10 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 	public float getHealth() {
 
 		return health;
+
+	}
+
+	public void AfterDeathAction() {
 
 	}
 
@@ -147,14 +166,23 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		CompoundNBT nbt = super.write(compound);
 		nbt.putInt("coolDownReset", coolDownReset);
 		nbt.putInt("coolDownRemainig", coolDownRemainig);
-		nbt.putFloat("priorHealth", priorHealth);
-		nbt.putFloat("health", health);
-		nbt.putInt("currentStage", currentStage.ordinal());
-		nbt.putInt("priorStage", priorStage.ordinal());
-		nbt.putInt("rubbleTimerRemaining", rubbleTimerRemaining);
-		nbt.putBoolean("enabled", enabled);
 
 		if (Config.CONFIG_GAME_MODE.get() != Config.Modes.WORLDBUILDER) {
+			nbt.putInt("currentStage", currentStage.ordinal());
+			nbt.putInt("priorStage", priorStage.ordinal());
+			nbt.putFloat("priorHealth", priorHealth);
+			nbt.putFloat("health", health);
+		} else {
+			// world builder
+			nbt.putInt("currentStage", Stage.FULL_HEALTH.ordinal());
+			nbt.putInt("priorStage", Stage.FULL_HEALTH.ordinal());
+		}
+
+		nbt.putInt("rubbleTimerRemaining", rubbleTimerRemaining);
+		if (Config.CONFIG_GAME_MODE.get() != Config.Modes.WORLDBUILDER) {
+
+			nbt.putBoolean("enabled", enabled);
+
 			nbt.putBoolean("shouldIncreaseCounts", shouldIncreaseCounts);
 		}
 
@@ -166,12 +194,27 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		super.read(compound);
 		coolDownReset = compound.getInt("coolDownReset");
 		coolDownRemainig = compound.getInt("coolDownRemainig");
-		priorHealth = compound.getFloat("priorHealth");
-		health = compound.getFloat("health");
 
-		currentStage = Stage.values()[compound.getInt("currentStage")];
+		if (compound.contains("priorHealth")) {
+			priorHealth = compound.getFloat("priorHealth");
+		}
 
-		priorStage = Stage.values()[compound.getInt("priorStage")];
+		if (compound.contains("health")) {
+			health = compound.getFloat("health");
+		}
+
+		if (compound.contains("currentStage")) {
+			currentStage = Stage.values()[compound.getInt("currentStage")];
+		} else {
+			currentStage = Stage.FULL_HEALTH;
+		}
+
+		if (compound.contains("priorStage")) {
+			priorStage = Stage.values()[compound.getInt("priorStage")];
+		} else {
+			priorStage = Stage.FULL_HEALTH;
+		}
+
 		if (compound.contains("enabled")) {
 			enabled = compound.getBoolean("enabled");
 		}

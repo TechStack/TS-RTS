@@ -1,6 +1,8 @@
 package com.projectreddog.tsrts.entities;
 
 import com.projectreddog.tsrts.entities.ai.MoveToOwnerSpecifiedLocation;
+import com.projectreddog.tsrts.entities.ai.RetreatToOwnerSpecifiedLocation;
+import com.projectreddog.tsrts.handler.Config;
 
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -36,14 +38,17 @@ public class ArcherMinionEntity extends UnitEntity implements IRangedAttackMob {
 		// this.goalSelector.addGoal(4, new ZombieEntity.AttackTurtleEggGoal(this, 1.0D, 3));
 		this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-		this.goalSelector.addGoal(1, new RangedBowAttackGoal(this, 1.0D, 20, 15.0F));
+		this.goalSelector.addGoal(2, new RangedBowAttackGoal(this, 1.0D, 20, 15.0F));
 		// this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-		this.goalSelector.addGoal(2, new MoveToOwnerSpecifiedLocation(this, 1.1D, 32));
+		this.goalSelector.addGoal(3, new MoveToOwnerSpecifiedLocation(this, 1.1D, 32));
+
+		this.goalSelector.addGoal(1, new RetreatToOwnerSpecifiedLocation(this, 1.1D, 32));
+
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
 
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, UnitEntity.class, true));
-		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, TargetEntity.class, false));
+		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, UnitEntity.class, true));
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, TargetEntity.class, false));
 
 	}
 
@@ -54,10 +59,16 @@ public class ArcherMinionEntity extends UnitEntity implements IRangedAttackMob {
 	protected void registerAttributes() {
 		super.registerAttributes();
 		// getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
-		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) 0.23F);
-		this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
-		this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+
+		this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getARMOR());
+		this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getARMOR_TOUGHNESS());
+		this.getAttribute(SharedMonsterAttributes.ATTACK_KNOCKBACK).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getATTACK_KNOCKBACK());
+		this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getATTACK_DAMAGE());
+		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getFOLLOW_RANGE());
+		this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getKNOCK_BACK_RESISTANCE());
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getMAX_HEALTH());
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getMOVEMENT_SPEED());
+
 	}
 
 	@Override

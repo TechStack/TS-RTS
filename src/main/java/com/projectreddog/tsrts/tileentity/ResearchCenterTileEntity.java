@@ -1,8 +1,10 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -25,6 +27,13 @@ public class ResearchCenterTileEntity extends OwnedCooldownTileEntity implements
 	}
 
 	@Override
+	public void StructureLost() {
+		super.StructureLost();
+		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.researchcenter");
+
+	}
+
+	@Override
 	public void HandleGuiButton(int buttonId, PlayerEntity player) {
 		// TSRTS.LOGGER.info("button ID:" + buttonId);
 		super.HandleGuiButton(buttonId, player);
@@ -38,5 +47,10 @@ public class ResearchCenterTileEntity extends OwnedCooldownTileEntity implements
 			this.setOwner("testerred");
 		}
 
+	}
+
+	@Override
+	public float getDamagedHealthThreashold() {
+		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_RESEARCH_CENTER.get();
 	}
 }
