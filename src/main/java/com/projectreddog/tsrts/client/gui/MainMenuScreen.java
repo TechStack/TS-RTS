@@ -68,5 +68,10 @@ public class MainMenuScreen extends ContainerScreen<MainMenuContainer> {
 		}));
 		y = y + 20;
 
+		addButton(new Button(x, y, width, height, "Unit Recruitment", (button) -> {
+			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT));
+		}));
+		y = y + 20;
 	}
+
 }
