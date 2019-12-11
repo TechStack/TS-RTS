@@ -18,6 +18,7 @@ import com.projectreddog.tsrts.items.builderitems.MinesiteStoneBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.StablesBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.TownHallBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WallBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.WallStepsBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WatchTowerBuilderItem;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -46,6 +47,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BUILDER_ITEM)
 	public static WallBuilderItem WALLBUILDERITEM = new WallBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_STEPS_BUILDER_ITEM)
+	public static WallStepsBuilderItem WALLSTEPSBUILDERITEM = new WallStepsBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_GATE_BUILDER_ITEM)
 	public static GateBuilderItem GATEBUILDERITEM = new GateBuilderItem();
@@ -109,6 +113,8 @@ public class ModItems {
 		RegisterItem(event, ModItems.WALLBUILDERITEM);
 
 		RegisterItem(event, ModItems.GATEBUILDERITEM);
+
+		RegisterItem(event, ModItems.WALLSTEPSBUILDERITEM);
 	}
 
 	// Called to register every item.

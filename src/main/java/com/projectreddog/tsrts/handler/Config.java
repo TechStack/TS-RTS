@@ -95,6 +95,12 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_WALL_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_WALL;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_WALL_STEPS_STRING;
+	public static ResourceValues CONFIG_BUILDING_COSTS_WALL_STEPS;
+
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_GATE_STRING;
+	public static ResourceValues CONFIG_BUILDING_COSTS_GATE;
+
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_STABLES_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_STABLES;
 
@@ -137,6 +143,7 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WALL;
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WATCH_TOWER;
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_GATE;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WALL_STEPS;
 
 	static {
 
@@ -169,6 +176,7 @@ public class Config {
 		CONFIG_STRCTURE_TOTAL_HEALTH_STABLES = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthStables", 160, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthTownHall", 500, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_WALL = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthWall", 400, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_WALL_STEPS = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthWallSteps", 400, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_WATCH_TOWER = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthWatchTower", 300, 0, 1024);
 
 		COMMON_BUILDER.pop();
@@ -207,6 +215,8 @@ public class Config {
 		CONFIG_BUILDING_COSTS_BARRACKS = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_BARRACKS_STRING.get()));
 		CONFIG_BUILDING_COSTS_ARCHERY_RANGE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STRING.get()));
 		CONFIG_BUILDING_COSTS_WALL = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WALL_STRING.get()));
+		CONFIG_BUILDING_COSTS_WALL_STEPS = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WALL_STEPS_STRING.get()));
+		CONFIG_BUILDING_COSTS_GATE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_GATE_STRING.get()));
 		CONFIG_BUILDING_COSTS_STABLES = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_STABLES_STRING.get()));
 		CONFIG_BUILDING_COSTS_WATCH_TOWER = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING.get()));
 	}
@@ -252,6 +262,9 @@ public class Config {
 		CONFIG_BUILDING_COSTS_BARRACKS_STRING = COMMON_BUILDER.comment("Defines the cost For the barracks").define("barracksBulidingCosts", "44,70,38,29,11,0,0");
 		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STRING = COMMON_BUILDER.comment("Defines the cost For the Archery Range").define("archeryRangeBulidingCosts", "44,100,46,36,17,0,0");
 		CONFIG_BUILDING_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall").define("wallBulidingCosts", "10,15,32,2,3,0,0");
+		CONFIG_BUILDING_COSTS_GATE_STRING = COMMON_BUILDER.comment("Defines the cost For the Gate").define("gateBulidingCosts", "10,15,32,2,3,0,0");
+		CONFIG_BUILDING_COSTS_WALL_STEPS_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall Steps").define("wallStepsBulidingCosts", "10,15,32,2,3,0,0");
+
 		CONFIG_BUILDING_COSTS_STABLES_STRING = COMMON_BUILDER.comment("Defines the cost For the Stables").define("stablesBulidingCosts", "66,120,40,30,35,0,0");
 		CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the Watch Tower").define("watchTowerBulidingCosts", "20,125,25,12,15,0,0");
 
