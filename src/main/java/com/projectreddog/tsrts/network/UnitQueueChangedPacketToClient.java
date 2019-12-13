@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.network;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -16,6 +17,18 @@ public class UnitQueueChangedPacketToClient {
 
 	public UnitQueueChangedPacketToClient(PacketBuffer buf) {
 		// DECODE
+
+		if (barracksQueue == null) {
+			barracksQueue = new ArrayList<Integer>();
+		}
+		if (archeryRangeQueue == null) {
+			archeryRangeQueue = new ArrayList<Integer>();
+		}
+
+		if (stablesQueue == null) {
+			stablesQueue = new ArrayList<Integer>();
+		}
+
 		teamOrd = buf.readInt();
 		int size = buf.readInt();
 		for (int i = 0; i < size; i++) {
