@@ -4,6 +4,12 @@ public class Reference {
 	// MOD ID
 	public static final String MODID = "tsrts";
 
+	// UNIT IDs for the queues
+	public static final int UNIT_ID_MINION = 1;
+	public static final int UNIT_ID_ARCHER = 2;
+	public static final int UNIT_ID_LANCER = 3;
+	public static final int UNIT_ID_PIKEMAN = 4;
+
 	// Block registry names
 	public static final String REIGSTRY_NAME_BARRACKS_BLOCK = "barracksblock";
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BLOCK = "archeryrangeblock";
@@ -90,9 +96,9 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_LANCER = 15;
 	public static final int GUI_BUTTON_BUY_PIKEMAN = 16;
 
-	public static final int GUI_BUTTON_BUY_GATE = 13;
+	public static final int GUI_BUTTON_BUY_GATE = 17;
 
-	public static final int GUI_BUTTON_BUY_WALL_STEPS = 14;
+	public static final int GUI_BUTTON_BUY_WALL_STEPS = 18;
 
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;

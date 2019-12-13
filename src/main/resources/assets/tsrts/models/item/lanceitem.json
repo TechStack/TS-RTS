@@ -25,7 +25,7 @@
 			"translation": [-1.25, 4, -0.75]
 		},
 		"gui": {
-			"rotation": [0, 90, 0]
+			"rotation": [0, 45, 0]
 		},
 		"head": {
 			"rotation": [0, -180, 0],

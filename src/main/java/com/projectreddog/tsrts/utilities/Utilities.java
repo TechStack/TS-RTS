@@ -146,13 +146,11 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WATCHTOWERBUILDERITEM));
 
-
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL_STEPS) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLSTEPSBUILDERITEM));
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.GATEBUILDERITEM));
-
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINION) {
 
@@ -161,6 +159,7 @@ public class Utilities {
 				ResourceValues rv = Config.CONFIG_UNIT_COSTS_MINION;
 				if (hasNeededResourcesForResourceValues(team, rv)) {
 					spendResourcesForResourceValues(team, rv);
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_MINION);
 				}
 			}
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHER) {
@@ -170,6 +169,7 @@ public class Utilities {
 				ResourceValues rv = Config.CONFIG_UNIT_COSTS_ARCHER;
 				if (hasNeededResourcesForResourceValues(team, rv)) {
 					spendResourcesForResourceValues(team, rv);
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_ARCHER);
 				}
 			}
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_LANCER) {
@@ -179,6 +179,7 @@ public class Utilities {
 				ResourceValues rv = Config.CONFIG_UNIT_COSTS_LANCER;
 				if (hasNeededResourcesForResourceValues(team, rv)) {
 					spendResourcesForResourceValues(team, rv);
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_LANCER);
 				}
 			}
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_PIKEMAN) {
@@ -188,6 +189,7 @@ public class Utilities {
 				ResourceValues rv = Config.CONFIG_UNIT_COSTS_PIKEMAN;
 				if (hasNeededResourcesForResourceValues(team, rv)) {
 					spendResourcesForResourceValues(team, rv);
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_PIKEMAN);
 				}
 			}
 
@@ -598,8 +600,26 @@ public class Utilities {
 		}
 	}
 
-	public static void SpawnUnitForTeam(EntityType entityType, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
-		Entity e = SpawnUnit(entityType, Owner, world, pos, rallyPoint);
+	public static EntityType getEntityTypeForUnitID(int unitID) {
+		switch (unitID) {
+		case Reference.UNIT_ID_MINION:
+			return ModEntities.MINION;
+		case Reference.UNIT_ID_ARCHER:
+			return ModEntities.ARCHER_MINION;
+		case Reference.UNIT_ID_LANCER:
+			return ModEntities.MOUNTED_ENTITY;
+		case Reference.UNIT_ID_PIKEMAN:
+			return ModEntities.PIKEMAN_ENTITY;
+
+		default:
+			return null;
+		}
+	}
+
+	public static void SpawnUnitForTeam(int unitID, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
+		EntityType et = getEntityTypeForUnitID(unitID);
+
+		Entity e = SpawnUnit(et, Owner, world, pos, rallyPoint);
 		if (team != null) {
 			world.getScoreboard().addPlayerToTeam(e.getCachedUniqueIdString(), team);
 		}
