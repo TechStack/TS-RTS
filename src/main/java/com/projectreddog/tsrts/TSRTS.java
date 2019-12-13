@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +22,7 @@ import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
+import com.projectreddog.tsrts.utilities.UnitQueues;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -41,6 +43,8 @@ import net.minecraftforge.fml.loading.FMLPaths;
 
 @Mod(Reference.MODID)
 public class TSRTS {
+
+	public static UnitQueues[] TeamQueues = new UnitQueues[4];
 	public static HashMap<String, PlayerSelections> playerSelections = new HashMap<String, PlayerSelections>();
 	public static BlockPos RallyPointToolFrom = null;
 	public static BlockPos RallyPointToolTo = null;
@@ -83,6 +87,9 @@ public class TSRTS {
 		MinecraftForge.EVENT_BUS.register(ClientEvents.class);
 		MinecraftForge.EVENT_BUS.register(ServerEvents.class);
 
+		for (int i = 0; i < TeamQueues.length; i++) {
+			TeamQueues[i] = new UnitQueues(new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<Integer>());
+		}
 	}
 
 	// You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

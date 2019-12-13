@@ -1,10 +1,11 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
-import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,11 +25,10 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 		super.ActionAfterCooldown();
 
 		if (getOwner() != null) {
-			// ModEntities.MINION.spawn(world, null, null, this.pos, SpawnReason.TRIGGERED, true, true);
-			// if (hasNeededResources()) {
-//				spendResources();
-			Utilities.SpawnUnitForTeam(ModEntities.MINION, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
-
+			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().size() > 0) {
+				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromBarracksQueue();
+			}
 			// }
 
 //

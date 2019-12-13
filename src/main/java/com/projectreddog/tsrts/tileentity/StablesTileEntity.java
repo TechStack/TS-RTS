@@ -1,10 +1,11 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
-import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -23,9 +24,10 @@ public class StablesTileEntity extends OwnedCooldownTileEntity implements INamed
 		super.ActionAfterCooldown();
 
 		if (getOwner() != null) {
-			if (hasNeededResources()) {
-				spendResources();
-				Utilities.SpawnUnitForTeam(ModEntities.MOUNTED_ENTITY, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getStables().size() > 0) {
+				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getStables().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromStablesQueue();
+
 			}
 		}
 	}
