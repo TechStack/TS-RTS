@@ -4,6 +4,12 @@ public class Reference {
 	// MOD ID
 	public static final String MODID = "tsrts";
 
+	// UNIT IDs for the queues
+	public static final int UNIT_ID_MINION = 1;
+	public static final int UNIT_ID_ARCHER = 2;
+	public static final int UNIT_ID_LANCER = 3;
+	public static final int UNIT_ID_PIKEMAN = 4;
+
 	// Block registry names
 	public static final String REIGSTRY_NAME_BARRACKS_BLOCK = "barracksblock";
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BLOCK = "archeryrangeblock";
@@ -31,7 +37,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ECO_BUILDINGS_CONTAINER = "ecobulidingscontiner";
 	public static final String REIGSTRY_NAME_TROOP_BUILDINGS_CONTAINER = "troopbulidingscontiner";
 	public static final String REIGSTRY_NAME_DEFENSIVE_BUILDINGS_CONTAINER = "defensivebulidingscontiner";
-
+	public static final String REIGSTRY_NAME_UNIT_RECRUITMENT_CONTAINER = "unitrecruitmentcontiner";
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
 	public static final String REIGSTRY_NAME_RALLY_POINT_TOOL = "rallypointtool";
@@ -85,10 +91,14 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_STABLES = 10;
 	public static final int GUI_BUTTON_BUY_WALL = 11;
 	public static final int GUI_BUTTON_BUY_WATCH_TOWER = 12;
+	public static final int GUI_BUTTON_BUY_MINION = 13;
+	public static final int GUI_BUTTON_BUY_ARCHER = 14;
+	public static final int GUI_BUTTON_BUY_LANCER = 15;
+	public static final int GUI_BUTTON_BUY_PIKEMAN = 16;
 
-	public static final int GUI_BUTTON_BUY_GATE = 13;
+	public static final int GUI_BUTTON_BUY_GATE = 17;
 
-	public static final int GUI_BUTTON_BUY_WALL_STEPS = 14;
+	public static final int GUI_BUTTON_BUY_WALL_STEPS = 18;
 
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
@@ -101,6 +111,7 @@ public class Reference {
 	public static final int GUI_BUTTON_MAIN_MENU_ECO = 10;
 	public static final int GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS = 11;
 	public static final int GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS = 12;
+	public static final int GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT = 13;
 
 	public static final int GUI_BUTTON_ENABLE_TE = 8000;
 	public static final int GUI_BUTTON_DISABLE_TE = 8001;

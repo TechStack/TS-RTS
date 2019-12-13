@@ -1,5 +1,8 @@
 package com.projectreddog.tsrts.tileentity;
 
+import java.util.List;
+
+import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
@@ -8,6 +11,7 @@ import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
@@ -59,5 +63,22 @@ public class WallStepsTileEntity extends OwnedCooldownTileEntity implements INam
 	@Override
 	public float getDamagedHealthThreashold() {
 		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_WALL_STEPS.get();
+	}
+
+	@Override
+	public void AfterDeathAction() {
+		super.AfterDeathAction();
+
+		AxisAlignedBB bb = new AxisAlignedBB(this.getPos(), this.getPos().down(9)).grow(3.5, 3, 3.5);
+
+		List<TargetEntity> teList = world.getEntitiesWithinAABB(TargetEntity.class, bb);
+		float health = 0;
+		int[] ids = new int[teList.size()];
+		for (int i = 0; i < teList.size(); i++) {
+			if (teList.get(i).getOwningTePos() == this.pos) {// ensure the target is owned by this block
+				teList.get(i).setHealth(0);
+			}
+		}
+
 	}
 }

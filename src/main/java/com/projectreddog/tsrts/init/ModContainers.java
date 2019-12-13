@@ -7,6 +7,7 @@ import com.projectreddog.tsrts.containers.EcoBuildingsContainer;
 import com.projectreddog.tsrts.containers.LobbyContainer;
 import com.projectreddog.tsrts.containers.MainMenuContainer;
 import com.projectreddog.tsrts.containers.TroopBuildingsContainer;
+import com.projectreddog.tsrts.containers.UnitRecruitmentContainer;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.inventory.container.ContainerType;
@@ -31,6 +32,9 @@ public class ModContainers {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TROOP_BUILDINGS_CONTAINER)
 	public static ContainerType<TroopBuildingsContainer> TROOP_BUILDINGS_CONTAINER;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_UNIT_RECRUITMENT_CONTAINER)
+	public static ContainerType<UnitRecruitmentContainer> UNIT_RECRUITMENT_CONTAINER;
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LOBBY_CONTAINER)
 	public static ContainerType<LobbyContainer> LOBBY_CONTAINER;
@@ -61,6 +65,10 @@ public class ModContainers {
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
 			return new TroopBuildingsContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
 		}).setRegistryName(Reference.REIGSTRY_NAME_TROOP_BUILDINGS_CONTAINER));
+
+		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+			return new UnitRecruitmentContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
+		}).setRegistryName(Reference.REIGSTRY_NAME_UNIT_RECRUITMENT_CONTAINER));
 
 	}
 }
