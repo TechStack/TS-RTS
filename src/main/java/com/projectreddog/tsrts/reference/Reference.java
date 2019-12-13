@@ -70,6 +70,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_TARGET_ENTITY = "targetentity";
 	public static final String REIGSTRY_NAME_MOUNTED_ENTITY = "mountedentity";
 	public static final String REIGSTRY_NAME_PIKEMAN_ENTITY = "pikemanentity";
+	public static final String REIGSTRY_NAME_TREBUCHET_ENTITY = "trebuchetentity";
 
 	// GUI BUTTONS
 
