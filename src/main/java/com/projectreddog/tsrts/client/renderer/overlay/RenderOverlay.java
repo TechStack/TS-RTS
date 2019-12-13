@@ -79,6 +79,7 @@ public class RenderOverlay extends Screen {
 	public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
 
 		if (event.getType() == ElementType.HOTBAR) {
+
 			int width = event.getWindow().getWidth();
 			int height = event.getWindow().getHeight();
 //			Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
@@ -131,6 +132,54 @@ public class RenderOverlay extends Screen {
 
 			GL11.glPopMatrix();
 
+		} else if (event.getType() == ElementType.ALL) {
+			if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.isSpectator()) {
+
+				int width = event.getWindow().getWidth();
+				int height = event.getWindow().getHeight();
+//					Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
+//				    this.blit(0, 0, 0, 0, width, height);
+
+				GL11.glPushMatrix();
+				GL11.glScalef(.5f, .5f, .5f);
+
+				for (int j = 0; j < TeamEnum.values().length; j++) {
+					TeamInfo ti = TSRTS.teamInfoArray[j];
+					TeamInfo.Resources[] res = TeamInfo.Resources.values();
+					int x = 5;
+					int y = 5 + (j * 18 + 5);
+					int yItemOffset = 30;
+					int xItemOffset = 30;
+					int ytextOffset = 5;
+					int xtextOffset = 20;
+					int xTextWidth = 55;
+
+					x = (500 - (res.length * (xtextOffset + xTextWidth)) / 2);
+
+					Minecraft.getInstance().textureManager.bindTexture(TEXTURE);
+					// this.blit(x - 10, 5, 0, 0, 256, 18);
+					ClientUtilities.renderTexture(x - 10, y - 1, 512, 18);
+					RenderHelper.enableGUIStandardItemLighting();
+					for (int i = 0; i < res.length; i++) {
+						if (ti != null) {
+							int amt = ti.GetResource(res[i]);
+
+							Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
+							x = x + xtextOffset;
+							// TODO add amt back instaed of the hardcoded value
+							Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + amt, x, y + ytextOffset, 14737632);
+							x = x + xTextWidth;
+
+						}
+					}
+
+					String teamName = TeamEnum.getNameFromID(j);
+					Minecraft.getInstance().fontRenderer.drawStringWithShadow(teamName, x - 10, y + ytextOffset, TeamEnum.values()[j].getColorCode());
+
+				}
+				GL11.glPopMatrix();
+
+			}
 		}
 
 	}
