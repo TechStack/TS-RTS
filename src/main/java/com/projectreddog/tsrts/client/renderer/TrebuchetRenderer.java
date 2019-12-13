@@ -52,7 +52,7 @@ public class TrebuchetRenderer<T extends TrebuchetEntity> extends EntityRenderer
 		GlStateManager.translatef((float) x, (float) y, (float) z);
 		GlStateManager.scalef(-1.0F, -1.0F, 1.0F);
 		bindEntityTexture(entity);
-		GlStateManager.translatef((float) 0, (float) -4, (float) 0);
+		GlStateManager.translatef((float) 0, (float) -3, (float) 0);
 
 		trebuchetModel.render(entity, 1, 1, 1, 1, 1, .125f);
 
