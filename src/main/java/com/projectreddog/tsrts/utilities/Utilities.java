@@ -61,6 +61,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
@@ -258,6 +259,17 @@ public class Utilities {
 			break;
 		case Reference.GUI_BUTTON_LOBBY_START:
 			Utilities.startGame(player.world);
+			break;
+
+		case Reference.GUI_BUTTON_LOBBY_SEPECTATE:
+			if (player.isSpectator()) {
+				player.setGameType(GameType.SURVIVAL);
+				Utilities.setPlayerReady(player, false);
+			} else {
+				player.setGameType(GameType.SPECTATOR);
+				Utilities.setPlayerReady(player, true);
+
+			}
 			break;
 
 		case Reference.GUI_BUTTON_MAIN_MENU_ECO:

@@ -108,6 +108,7 @@ public class Reference {
 	public static final int GUI_BUTTON_LOBBY_YELLOW = 7;
 	public static final int GUI_BUTTON_LOBBY_READY = 8;
 	public static final int GUI_BUTTON_LOBBY_START = 9;
+	public static final int GUI_BUTTON_LOBBY_SEPECTATE = 14;
 
 	public static final int GUI_BUTTON_MAIN_MENU_ECO = 10;
 	public static final int GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS = 11;
