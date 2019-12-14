@@ -405,6 +405,10 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL.getFOOD();
 		} else if (item == ModItems.WATCHTOWERBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getFOOD();
+		} else if (item == ModItems.WALLSTEPSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getFOOD();
+		} else if (item == ModItems.GATEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_GATE.getFOOD();
 		}
 		return 0;
 	}
@@ -434,6 +438,10 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getWOOD();
 		} else if (item == ModItems.STABLESBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_STABLES.getWOOD();
+		} else if (item == ModItems.WALLSTEPSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getWOOD();
+		} else if (item == ModItems.GATEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_GATE.getWOOD();
 		}
 		return 0;
 	}
@@ -463,6 +471,10 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getSTONE();
 		} else if (item == ModItems.STABLESBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_STABLES.getSTONE();
+		} else if (item == ModItems.WALLSTEPSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getSTONE();
+		} else if (item == ModItems.GATEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_GATE.getSTONE();
 		}
 		return 0;
 	}
@@ -492,6 +504,10 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getIRON();
 		} else if (item == ModItems.STABLESBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_STABLES.getIRON();
+		} else if (item == ModItems.WALLSTEPSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getIRON();
+		} else if (item == ModItems.GATEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_GATE.getIRON();
 		}
 
 		return 0;
@@ -522,6 +538,10 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getGOLD();
 		} else if (item == ModItems.STABLESBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_STABLES.getGOLD();
+		} else if (item == ModItems.WALLSTEPSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getGOLD();
+		} else if (item == ModItems.GATEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_GATE.getGOLD();
 		}
 		return 0;
 	}
@@ -551,6 +571,10 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getDIAMOND();
 		} else if (item == ModItems.STABLESBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_STABLES.getDIAMOND();
+		} else if (item == ModItems.WALLSTEPSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getDIAMOND();
+		} else if (item == ModItems.GATEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_GATE.getDIAMOND();
 		}
 
 		return 0;
@@ -581,6 +605,10 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER.getEMERALD();
 		} else if (item == ModItems.STABLESBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_STABLES.getEMERALD();
+		} else if (item == ModItems.WALLSTEPSBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getEMERALD();
+		} else if (item == ModItems.GATEBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_GATE.getEMERALD();
 		}
 		return 0;
 	}
