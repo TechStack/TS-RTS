@@ -6,6 +6,8 @@
 "block.tsrts.farmblock":"Farm Control Block",
 "block.tsrts.lumberyardblock":"Lumber Yard Control Block",
 "block.tsrts.townhallblock":"Town Hall Control Block",
+"block.tsrts.wallblock":"Wall Control Block",
+"block.tsrts.watchtowerblock":"WatchTower Control Block",
 
 
 "_comment":"Creative Tabs",
@@ -49,6 +51,8 @@
 "tsrts.destroy.minesite":"Mine Site Destroyed!",
 "tsrts.destroy.researchcenter":"Research Center Destroyed!",
 "tsrts.destroy.stables":"Stables Destroyed!",
+"tsrts.destroy.watchtower":"WatchTower Destroyed!",
+"tsrts.destroy.wall":"Wall Segment Destroyed!",
 "tsrts.alerttoast.alert":"Alert!",
 
 
