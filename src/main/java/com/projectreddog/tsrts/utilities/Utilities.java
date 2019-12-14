@@ -264,10 +264,14 @@ public class Utilities {
 		case Reference.GUI_BUTTON_LOBBY_SEPECTATE:
 			if (player.isSpectator()) {
 				player.setGameType(GameType.SURVIVAL);
+
+				player.posY = player.posY + .75f;
+
 				Utilities.setPlayerReady(player, false);
 			} else {
 				player.setGameType(GameType.SPECTATOR);
 				Utilities.setPlayerReady(player, true);
+				player.posY = player.posY + .75f;
 
 			}
 			break;
