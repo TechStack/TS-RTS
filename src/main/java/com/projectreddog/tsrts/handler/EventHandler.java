@@ -51,6 +51,7 @@ public class EventHandler {
 				Utilities.SendTeamToClient("yellow");
 			}
 
+			Utilities.setPlayerReady(pe, false);
 		} else if (event.getEntity() instanceof UnitEntity || event.getEntity() instanceof TargetEntity) {
 			if (event.getWorld() != null) {
 				if (event.getWorld().isRemote) {

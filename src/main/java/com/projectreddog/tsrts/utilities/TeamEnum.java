@@ -5,14 +5,20 @@ import com.projectreddog.tsrts.TSRTS;
 import net.minecraft.util.IStringSerializable;
 
 public enum TeamEnum implements IStringSerializable {
-	BLUE(0, "blue"), RED(1, "red"), YELLOW(2, "yellow"), GREEN(3, "green");
+	BLUE(0, "blue", 170), RED(1, "red", 11141120), YELLOW(2, "yellow", 16777045), GREEN(3, "green", 43520);
 	private final int index;
 	private final String name;
+	private final int colorCode;
 
-	private TeamEnum(int indexIn, String nameIn) {
+	private TeamEnum(int indexIn, String nameIn, int colorCode) {
 		this.index = indexIn;
 		this.name = nameIn;
+		this.colorCode = colorCode;
 
+	}
+
+	public int getColorCode() {
+		return this.colorCode;
 	}
 
 	@Override
@@ -35,6 +41,20 @@ public enum TeamEnum implements IStringSerializable {
 		TSRTS.LOGGER.info("INVALID PLAYER TEAM FOUND: " + name);
 		return 0;
 
+	}
+
+	public static String getNameFromID(int id) {
+		switch (id) {
+		case 0:
+			return "blue";
+		case 1:
+			return "red";
+		case 2:
+			return "yellow";
+		case 3:
+			return "green";
+		}
+		return "blue";
 	}
 
 }
