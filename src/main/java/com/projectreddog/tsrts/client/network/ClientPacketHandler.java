@@ -1,5 +1,7 @@
 package com.projectreddog.tsrts.client.network;
 
+import java.util.List;
+
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.client.gui.toast.AlertToast;
 import com.projectreddog.tsrts.entities.TargetEntity;
@@ -9,6 +11,7 @@ import com.projectreddog.tsrts.utilities.AlertToastBackgroundType;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
+import com.projectreddog.tsrts.utilities.UnitQueues;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.client.Minecraft;
@@ -58,6 +61,10 @@ public class ClientPacketHandler {
 				ote.setOwner(ownerName);
 			}
 		}
+	}
+
+	public static void UnitQueueChangedPacketToClient(int teamOrd, List<Integer> barrcksQueue, List<Integer> archeryRangeQueue, List<Integer> stablesQueue) {
+		TSRTS.TeamQueues[teamOrd] = new UnitQueues(barrcksQueue, archeryRangeQueue, stablesQueue);
 	}
 
 	public static void PlayerSelectionChangedPacketToClient(int[] entityIds) {

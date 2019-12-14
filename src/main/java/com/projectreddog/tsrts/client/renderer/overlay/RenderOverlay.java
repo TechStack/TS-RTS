@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import org.lwjgl.opengl.GL11;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.ClientUtilities;
 import com.projectreddog.tsrts.utilities.TeamEnum;
@@ -15,6 +16,8 @@ import com.projectreddog.tsrts.utilities.Utilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
@@ -66,11 +69,17 @@ public class RenderOverlay extends Screen {
 
 	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/overlay/overlay.png");
 	private ResourceLocation FRAMES_TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/overlay/frame.png");
+	private ResourceLocation TEXTURE_QUEUES = new ResourceLocation(Reference.MODID, "textures/gui/overlay/queuebg.png");
+	private ResourceLocation STABLES_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/stablesblock_yellow_top.png");
+	private ResourceLocation BARRACKS_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/barracksblock_yellow_top.png");
+
+	private ResourceLocation ARCHERY_RANGE_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/archeryrangeblock_yellow_top.png");
 
 	@SubscribeEvent
 	public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
 
 		if (event.getType() == ElementType.HOTBAR) {
+
 			int width = event.getWindow().getWidth();
 			int height = event.getWindow().getHeight();
 //			Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
@@ -113,6 +122,8 @@ public class RenderOverlay extends Screen {
 								}
 							}
 
+							RenderUnitQueues(team);
+
 						}
 					}
 				}
@@ -120,8 +131,127 @@ public class RenderOverlay extends Screen {
 			RenderUnitSelectionFrames();
 
 			GL11.glPopMatrix();
+
+		} else if (event.getType() == ElementType.ALL) {
+			if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.isSpectator()) {
+
+				int width = event.getWindow().getWidth();
+				int height = event.getWindow().getHeight();
+//					Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
+//				    this.blit(0, 0, 0, 0, width, height);
+
+				GL11.glPushMatrix();
+				GL11.glScalef(.5f, .5f, .5f);
+
+				for (int j = 0; j < TeamEnum.values().length; j++) {
+					TeamInfo ti = TSRTS.teamInfoArray[j];
+					TeamInfo.Resources[] res = TeamInfo.Resources.values();
+					int x = 5;
+					int y = 5 + (j * 18 + 5);
+					int yItemOffset = 30;
+					int xItemOffset = 30;
+					int ytextOffset = 5;
+					int xtextOffset = 20;
+					int xTextWidth = 55;
+
+					x = (500 - (res.length * (xtextOffset + xTextWidth)) / 2);
+
+					Minecraft.getInstance().textureManager.bindTexture(TEXTURE);
+					// this.blit(x - 10, 5, 0, 0, 256, 18);
+					ClientUtilities.renderTexture(x - 10, y - 1, 512, 18);
+					RenderHelper.enableGUIStandardItemLighting();
+					for (int i = 0; i < res.length; i++) {
+						if (ti != null) {
+							int amt = ti.GetResource(res[i]);
+
+							Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
+							x = x + xtextOffset;
+							// TODO add amt back instaed of the hardcoded value
+							Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + amt, x, y + ytextOffset, 14737632);
+							x = x + xTextWidth;
+
+						}
+					}
+
+					String teamName = TeamEnum.getNameFromID(j);
+					Minecraft.getInstance().fontRenderer.drawStringWithShadow(teamName, x - 10, y + ytextOffset, TeamEnum.values()[j].getColorCode());
+
+				}
+				GL11.glPopMatrix();
+
+			}
 		}
 
+	}
+
+	public void RenderUnitQueues(String team) {
+		GL11.glPushMatrix();
+
+		// GL11.glScalef(2f, 2f, 2f);
+
+		// GL11.glScalef(.75f, .75f, .75f);
+		int teamOrd = TeamEnum.getIDFromName(team);
+		int y = 444;
+		Minecraft.getInstance().textureManager.bindTexture(TEXTURE_QUEUES);
+
+		ClientUtilities.renderTexture(0, y, 180, 60);
+		int x = 5;
+
+		Minecraft.getInstance().textureManager.bindTexture(BARRACKS_QUEUE_ICON);
+		ClientUtilities.renderTexture(1, y + 2, 16, 16);
+		Minecraft.getInstance().textureManager.bindTexture(ARCHERY_RANGE_QUEUE_ICON);
+		ClientUtilities.renderTexture(1, y + 22, 16, 16);
+		Minecraft.getInstance().textureManager.bindTexture(STABLES_QUEUE_ICON);
+		ClientUtilities.renderTexture(1, y + 42, 16, 16);
+
+		if (TSRTS.TeamQueues[teamOrd].getBarracks() != null) {
+			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getBarracks().size() && i < 30; i++) {
+				int id = TSRTS.TeamQueues[teamOrd].getBarracks().get(i);
+
+//				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
+				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, 445);
+
+			}
+		}
+
+		if (TSRTS.TeamQueues[teamOrd].getArcheryRange() != null) {
+			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getArcheryRange().size() && i < 30; i++) {
+				int id = TSRTS.TeamQueues[teamOrd].getArcheryRange().get(i);
+
+//				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
+				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, 465);
+
+			}
+		}
+
+		if (TSRTS.TeamQueues[teamOrd].getStables() != null) {
+			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getStables().size() && i < 30; i++) {
+				int id = TSRTS.TeamQueues[teamOrd].getStables().get(i);
+
+//				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
+				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, 485);
+
+			}
+		}
+
+		GL11.glPopMatrix();
+	}
+
+	public ItemStack getUnitRenderItemIcon(int id) {
+		switch (id) {
+		case Reference.UNIT_ID_MINION:
+			return new ItemStack(Items.STICK);
+		case Reference.UNIT_ID_ARCHER:
+			return new ItemStack(Items.BOW);
+		case Reference.UNIT_ID_LANCER:
+			return new ItemStack(ModItems.LANCEITEM);
+		case Reference.UNIT_ID_PIKEMAN:
+			return new ItemStack(ModItems.PIKEITEM);
+
+		default:
+			break;
+		}
+		return ItemStack.EMPTY;
 	}
 
 	public void RenderUnitSelectionFrames() {

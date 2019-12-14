@@ -1,10 +1,11 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
-import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -25,10 +26,9 @@ public class ArcheryRangeTileEntity extends OwnedCooldownTileEntity implements I
 		super.ActionAfterCooldown();
 
 		if (getOwner() != null) {
-			// ModEntities.MINION.spawn(world, null, null, this.pos, SpawnReason.TRIGGERED, true, true);
-			if (hasNeededResources()) {
-				spendResources();
-				Utilities.SpawnUnitForTeam(ModEntities.ARCHER_MINION, this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().size() > 0) {
+				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromArcheryRangeQueue();
 			}
 		}
 	}
@@ -93,5 +93,10 @@ public class ArcheryRangeTileEntity extends OwnedCooldownTileEntity implements I
 			this.setOwner("testerred");
 		}
 
+	}
+
+	@Override
+	public float getDamagedHealthThreashold() {
+		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_ARCHERY_RANGE.get();
 	}
 }

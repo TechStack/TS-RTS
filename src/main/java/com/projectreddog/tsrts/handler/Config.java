@@ -23,6 +23,8 @@ public class Config {
 
 	public static final String CATEGORY_BUILDING_COST = "building_cost";
 
+	public static final String CATEGORY_STRUCTURE_HEALTH = "structure_health";
+
 	public static final String CATEGORY_STARTUP_RESOURCES = "startup_resources";
 
 	public static final String CATEGORY_UNIT_ATTRIBUTES = "unit_attributes";
@@ -53,6 +55,9 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_LANCER_STRING;
 	public static ResourceValues CONFIG_UNIT_COSTS_LANCER;
 
+// pikeman
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_PIKEMAN_STRING;
+	public static ResourceValues CONFIG_UNIT_COSTS_PIKEMAN;
 	// starting resrources
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_START_AMT_STRING;
@@ -93,6 +98,12 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_WALL_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_WALL;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_WALL_STEPS_STRING;
+	public static ResourceValues CONFIG_BUILDING_COSTS_WALL_STEPS;
+
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_GATE_STRING;
+	public static ResourceValues CONFIG_BUILDING_COSTS_GATE;
+
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_STABLES_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_STABLES;
 
@@ -103,6 +114,10 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_MINION_ATTRIBUTES_STRING;
 	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_MINION;
 
+	/// UNIt attributes
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING;
+	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_PIKEMAN;
+
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING;
 	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_ARCHER;
 
@@ -111,6 +126,27 @@ public class Config {
 /// weapon moidifiers
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_LANCE_WEAPON_MODIFIER_ATTRIBUTES_STRING;
 	public static WeaponModifierAttributes CONFIG_WEAPON_MODIFIER_ATTRIBUTES_LANCE;
+
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_PIKE_WEAPON_MODIFIER_ATTRIBUTES_STRING;
+	public static WeaponModifierAttributes CONFIG_WEAPON_MODIFIER_ATTRIBUTES_PIKE;
+
+	// Structure Health
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_ARCHERY_RANGE;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_BARRACKS;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_FARM;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_LUMBER_YARD;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_EMERALD;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_RESEARCH_CENTER;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_STABLES;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WALL;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WATCH_TOWER;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_GATE;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WALL_STEPS;
 
 	static {
 
@@ -121,14 +157,39 @@ public class Config {
 		setupBuildingCostConfig();
 		setupUnitAttributeConfig();
 		setupWeaponAttributeConfig();
-
+		setupStructureHealthConfig();
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
+	}
+
+	private static void setupStructureHealthConfig() {
+		COMMON_BUILDER.comment("Sets the health of the various buildings. The health is evenly split between the target entities in the strcture.").push(CATEGORY_STRUCTURE_HEALTH);
+
+		CONFIG_STRCTURE_TOTAL_HEALTH_ARCHERY_RANGE = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthArcheryRange", 160, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_BARRACKS = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthBarracks", 80, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_FARM = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthFarm", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_LUMBER_YARD = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthLumberYard", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_STONE = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteStone", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_IRON = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteIron", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_GOLD = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteGold", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_DIAMOND = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteDiamond", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_MINESITE_EMERALD = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMinesiteEmerald", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_RESEARCH_CENTER = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthResearchCenter", 40, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_GATE = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthGate", 400, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_STABLES = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthStables", 160, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthTownHall", 500, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_WALL = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthWall", 400, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_WALL_STEPS = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthWallSteps", 400, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_WATCH_TOWER = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthWatchTower", 300, 0, 1024);
+
+		COMMON_BUILDER.pop();
+
 	}
 
 	private static void setupWeaponAttributeConfig() {
 		COMMON_BUILDER.comment("Weapon ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS ATTACK_DAMAGE_MODIFIER, ATTACK_SPEED_MODIFIER: . They are comma separated list of floats Example : 8,-2.9").push(CATEGORY_WEAPON_MODIFIER_ATTRIBUTES);
 		CONFIG_LANCE_WEAPON_MODIFIER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").define("lance_attribute_modifier", "8,-2.9");
+		CONFIG_PIKE_WEAPON_MODIFIER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the pike").define("pike_attribute_modifier", "7,0");
 		COMMON_BUILDER.pop();
 
 	}
@@ -137,12 +198,18 @@ public class Config {
 		CONFIG_UNIT_ATTRIBUTES_MINION = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_MINION_ATTRIBUTES_STRING.get()));
 		CONFIG_UNIT_ATTRIBUTES_ARCHER = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING.get()));
 		CONFIG_UNIT_ATTRIBUTES_MOUNTED = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING.get()));
+		CONFIG_UNIT_ATTRIBUTES_PIKEMAN = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING.get()));
+
 		CONFIG_WEAPON_MODIFIER_ATTRIBUTES_LANCE = new WeaponModifierAttributes(StringToFloatArray(CONFIG_LANCE_WEAPON_MODIFIER_ATTRIBUTES_STRING.get()));
+		CONFIG_WEAPON_MODIFIER_ATTRIBUTES_PIKE = new WeaponModifierAttributes(StringToFloatArray(CONFIG_PIKE_WEAPON_MODIFIER_ATTRIBUTES_STRING.get()));
+
 		CONFIG_START_AMT = new ResourceValues(StringToIntArray(CONFIG_START_AMT_STRING.get()));
 		CONFIG_TOWN_HALL_GENERATE = new ResourceValues(StringToIntArray(CONFIG_TOWN_HALL_GENERATE_STRING.get()));
 		CONFIG_UNIT_COSTS_MINION = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_MINION_STRING.get()));
 		CONFIG_UNIT_COSTS_ARCHER = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_ARCHER_STRING.get()));
 		CONFIG_UNIT_COSTS_LANCER = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_LANCER_STRING.get()));
+		CONFIG_UNIT_COSTS_PIKEMAN = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_PIKEMAN_STRING.get()));
+
 		CONFIG_BUILDING_COSTS_FARM = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_FARM_STRING.get()));
 		CONFIG_BUILDING_COSTS_LUMBER_YARD = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_LUMBER_YARD_STRING.get()));
 		CONFIG_BUILDING_COSTS_MINESITE_STONE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_MINESITE_STONE_STRING.get()));
@@ -153,6 +220,8 @@ public class Config {
 		CONFIG_BUILDING_COSTS_BARRACKS = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_BARRACKS_STRING.get()));
 		CONFIG_BUILDING_COSTS_ARCHERY_RANGE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STRING.get()));
 		CONFIG_BUILDING_COSTS_WALL = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WALL_STRING.get()));
+		CONFIG_BUILDING_COSTS_WALL_STEPS = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WALL_STEPS_STRING.get()));
+		CONFIG_BUILDING_COSTS_GATE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_GATE_STRING.get()));
 		CONFIG_BUILDING_COSTS_STABLES = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_STABLES_STRING.get()));
 		CONFIG_BUILDING_COSTS_WATCH_TOWER = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING.get()));
 	}
@@ -160,9 +229,11 @@ public class Config {
 	private static void setupUnitAttributeConfig() {
 		COMMON_BUILDER.comment("UNIT ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS : MAX_HEALTH,KNOCK_BACK_RESISTANCE, MOVEMENT_SPEED,ARMOR,ARMOR_TOUGHNESS,ATTACK_KNOCKBACK,ATTACKD_DAMAGE,FOLLOW_RANGE. They are comma separated list of floats Example : 20.0,0.0,0.25,2.0,0.0,0.0,3.0,35.0").push(CATEGORY_UNIT_ATTRIBUTES);
 
-		CONFIG_UNIT_MINION_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,35.0");
-		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "10.0,0.0,0.30,2.0,0.0,0.0,3.0,35.0");
-		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "10.0,0.0,0.40,2.0,0.0,0.0,3.0,35.0");
+		CONFIG_UNIT_MINION_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "10.0,0.0,0.30,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "10.0,5.0,0.40,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are ").define("unit_pikeman_attributes", "15.0,5.0,0.33,2.0,0.0,0.0,3.0,24.0");
+
 		COMMON_BUILDER.pop();
 
 	}
@@ -195,9 +266,12 @@ public class Config {
 		CONFIG_BUILDING_COSTS_MINESITE_EMERALD_STRING = COMMON_BUILDER.comment("Defines the cost For the minesite Emerald").define("minesiteEmeraldBulidingCosts", "600,5,2,3,2,0,0");
 		CONFIG_BUILDING_COSTS_BARRACKS_STRING = COMMON_BUILDER.comment("Defines the cost For the barracks").define("barracksBulidingCosts", "44,70,38,29,11,0,0");
 		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STRING = COMMON_BUILDER.comment("Defines the cost For the Archery Range").define("archeryRangeBulidingCosts", "44,100,46,36,17,0,0");
-		CONFIG_BUILDING_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall").define("wallBulidingCosts", "10,5,20,0,3,0,0");
+		CONFIG_BUILDING_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall").define("wallBulidingCosts", "10,15,32,2,3,0,0");
+		CONFIG_BUILDING_COSTS_GATE_STRING = COMMON_BUILDER.comment("Defines the cost For the Gate").define("gateBulidingCosts", "10,15,32,2,3,0,0");
+		CONFIG_BUILDING_COSTS_WALL_STEPS_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall Steps").define("wallStepsBulidingCosts", "10,15,32,2,3,0,0");
+
 		CONFIG_BUILDING_COSTS_STABLES_STRING = COMMON_BUILDER.comment("Defines the cost For the Stables").define("stablesBulidingCosts", "66,120,40,30,35,0,0");
-		CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the Watch Tower").define("watchTowerBulidingCosts", "20,50,25,4,20,0,0");
+		CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the Watch Tower").define("watchTowerBulidingCosts", "20,125,25,12,15,0,0");
 
 		COMMON_BUILDER.pop();
 	}
@@ -207,6 +281,7 @@ public class Config {
 		CONFIG_UNIT_COSTS_MINION_STRING = COMMON_BUILDER.comment("Defines the cost For the minion").define("unitCostsMinion", "6,4,4,4,0,0,0");
 		CONFIG_UNIT_COSTS_ARCHER_STRING = COMMON_BUILDER.comment("Defines the cost For the archer").define("unitCostsArcher", "5,6,2,4,4,0,0");
 		CONFIG_UNIT_COSTS_LANCER_STRING = COMMON_BUILDER.comment("Defines the cost For the lancer").define("unitCostsLancer", "10,6,0,1,6,0,0");
+		CONFIG_UNIT_COSTS_PIKEMAN_STRING = COMMON_BUILDER.comment("Defines the cost For the pikeman").define("unitCostsPikeman", "5,6,0,2,5,0,0");
 
 		COMMON_BUILDER.pop();
 	}

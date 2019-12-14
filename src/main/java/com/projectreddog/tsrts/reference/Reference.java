@@ -4,6 +4,12 @@ public class Reference {
 	// MOD ID
 	public static final String MODID = "tsrts";
 
+	// UNIT IDs for the queues
+	public static final int UNIT_ID_MINION = 1;
+	public static final int UNIT_ID_ARCHER = 2;
+	public static final int UNIT_ID_LANCER = 3;
+	public static final int UNIT_ID_PIKEMAN = 4;
+
 	// Block registry names
 	public static final String REIGSTRY_NAME_BARRACKS_BLOCK = "barracksblock";
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BLOCK = "archeryrangeblock";
@@ -11,10 +17,14 @@ public class Reference {
 	public static final String REIGSTRY_NAME_TOWN_HALL_BLOCK = "townhallblock";
 	public static final String REIGSTRY_NAME_WATCH_BLOCK = "watchblock";
 
+	public static final String REIGSTRY_NAME_GATE_BLOCK = "gateblock";
+
 	public static final String REIGSTRY_NAME_WATCH_TOWER_BLOCK = "watchtowerblock";
 	public static final String REIGSTRY_NAME_WALL_BLOCK = "wallblock";
 
 	public static final String REIGSTRY_NAME_FARM_BLOCK = "farmblock";
+	public static final String REIGSTRY_NAME_WALL_STEPS_BLOCK = "wallstepsblock";
+
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BLOCK = "lumberyardblock";
 
 	public static final String REIGSTRY_NAME_STABLES_BLOCK = "stablesblock";
@@ -23,16 +33,23 @@ public class Reference {
 	// CONTAINER ONLY NO BLOCK
 	public static final String REIGSTRY_NAME_LOBBY_CONTAINER = "lobbycontiner";
 	public static final String REIGSTRY_NAME_BASIC_CONTAINER = "basiccontiner";
-
+	public static final String REIGSTRY_NAME_MAIN_MENU_CONTAINER = "mainmenucontiner";
+	public static final String REIGSTRY_NAME_ECO_BUILDINGS_CONTAINER = "ecobulidingscontiner";
+	public static final String REIGSTRY_NAME_TROOP_BUILDINGS_CONTAINER = "troopbulidingscontiner";
+	public static final String REIGSTRY_NAME_DEFENSIVE_BUILDINGS_CONTAINER = "defensivebulidingscontiner";
+	public static final String REIGSTRY_NAME_UNIT_RECRUITMENT_CONTAINER = "unitrecruitmentcontiner";
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
 	public static final String REIGSTRY_NAME_RALLY_POINT_TOOL = "rallypointtool";
 	public static final String REIGSTRY_NAME_RETREAT_SEPTER_ITEM = "retreatescepteritem";
 	public static final String REIGSTRY_NAME_LANCE_ITEM = "lanceitem";
+	public static final String REIGSTRY_NAME_PIKE_ITEM = "pikeitem";
 
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
 	public static final String REIGSTRY_NAME_WATCH_TOWER_BUILDER_ITEM = "watchtowerbuilderitem";
 	public static final String REIGSTRY_NAME_WALL_BUILDER_ITEM = "wallbuilderitem";
+	public static final String REIGSTRY_NAME_GATE_BUILDER_ITEM = "gatebuilderitem";
+	public static final String REIGSTRY_NAME_WALL_STEPS_BUILDER_ITEM = "wallstepsbuilderitem";
 
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BUILDER_ITEM = "lumberyardbuilderitem";
 	public static final String REIGSTRY_NAME_FARM_BUILDER_ITEM = "farmbuilderitem";
@@ -52,6 +69,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ARCHER_MINION_ENTITY = "archerminion";
 	public static final String REIGSTRY_NAME_TARGET_ENTITY = "targetentity";
 	public static final String REIGSTRY_NAME_MOUNTED_ENTITY = "mountedentity";
+	public static final String REIGSTRY_NAME_PIKEMAN_ENTITY = "pikemanentity";
+	public static final String REIGSTRY_NAME_TREBUCHET_ENTITY = "trebuchetentity";
 
 	// GUI BUTTONS
 
@@ -73,17 +92,33 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_STABLES = 10;
 	public static final int GUI_BUTTON_BUY_WALL = 11;
 	public static final int GUI_BUTTON_BUY_WATCH_TOWER = 12;
+	public static final int GUI_BUTTON_BUY_MINION = 13;
+	public static final int GUI_BUTTON_BUY_ARCHER = 14;
+	public static final int GUI_BUTTON_BUY_LANCER = 15;
+	public static final int GUI_BUTTON_BUY_PIKEMAN = 16;
 
+	public static final int GUI_BUTTON_BUY_GATE = 17;
+
+	public static final int GUI_BUTTON_BUY_WALL_STEPS = 18;
+
+	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
 	public static final int GUI_BUTTON_LOBBY_BLUE = 5;
 	public static final int GUI_BUTTON_LOBBY_GREEN = 6;
 	public static final int GUI_BUTTON_LOBBY_YELLOW = 7;
 	public static final int GUI_BUTTON_LOBBY_READY = 8;
 	public static final int GUI_BUTTON_LOBBY_START = 9;
+	public static final int GUI_BUTTON_LOBBY_SEPECTATE = 14;
+
+	public static final int GUI_BUTTON_MAIN_MENU_ECO = 10;
+	public static final int GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS = 11;
+	public static final int GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS = 12;
+	public static final int GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT = 13;
 
 	public static final int GUI_BUTTON_ENABLE_TE = 8000;
 	public static final int GUI_BUTTON_DISABLE_TE = 8001;
 
 	public static final int GUI_ID_TOWN_HALL = 1;
+	public static final int GUI_ID_MAIN_MENU = 2;
 
 }

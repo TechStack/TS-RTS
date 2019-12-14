@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -76,6 +78,15 @@ public class ServerEvents {
 				}
 
 			}
+
+			for (int i = 0; i < TeamEnum.values().length; i++) {
+				if (TSRTS.TeamQueues[i].hasChanged) {
+					ModNetwork.SendToALLPlayers(new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), i));
+
+					TSRTS.TeamQueues[i].hasChanged = false;
+				}
+			}
+
 		}
 	}
 

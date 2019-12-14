@@ -1,0 +1,15 @@
+{
+    "parent": "item/handheld",
+
+	"credit": "Made with Blockbench",
+	"textures": {
+		"layer0": "tsrts:item/pike",
+		"particle": "tsrts:item/pike"
+	},
+	"display": {
+	"thirdperson_righthand": {
+			"rotation": [0, -90, 35],
+			"translation": [0, 9,2.5]
+		}
+	}
+}

@@ -17,6 +17,7 @@
 "item.tsrts.rallypointtool":"Rally Point Tool",
 "item.tsrts.retreatescepteritem":"Retreat Scepter", 
 "item.tsrts.lanceitem":"Lance",
+"item.tsrts.pikeitem":"Pike",
 
 "item.tsrts.barracksbuilderitem":"Barracks",
 "item.tsrts.minesitediamondbuilderitem":"Diamond Mine",
@@ -28,10 +29,19 @@
 "item.tsrts.farmbuilderitem":"Farm",
 "item.tsrts.lumberyardbuilderitem":"Lumber Yard",
 "item.tsrts.archeryrangebuilderitem":"Archery Range",
+"item.tsrts.stablesbuilderitem":"Stables",
+"item.tsrts.watchtowerbuilderitem":"Watch Tower",
+"item.tsrts.wallbuilderitem":"Wall",
 
 "_comment":"custom messages here",
 
 "tsrts.destroy.townhall":"Town Hall Destroyed!",
+"tsrts.destroy.townhall.red":"Red's Town Hall has been Destroyed!",
+"tsrts.destroy.townhall.yellow":"Yellow's Town Hall has been Destroyed!",
+"tsrts.destroy.townhall.green":"Green's Town Hall has been Destroyed!",
+"tsrts.destroy.townhall.blue":"Blue's Town Hall has been Destroyed!",
+
+
 "tsrts.destroy.archeryrange":"Archery Range Destroyed!",
 "tsrts.destroy.barracks":"Barracks Destroyed!",
 "tsrts.destroy.farm":"Farm Destroyed!",

@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.tileentity;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -50,7 +51,7 @@ public class TownHallTileEntity extends OwnedCooldownTileEntity {
 	@Override
 	public void StructureLost() {
 		super.StructureLost();
-		Utilities.SendMessageToAllTeams(this.getWorld(), "tsrts.destroy.townhall", this.getTeam().getName());
+		Utilities.SendMessageToAllTeams(this.getWorld(), "tsrts.destroy.townhall." + this.getTeam().getName(), this.getTeam().getName());
 
 	}
 
@@ -58,6 +59,11 @@ public class TownHallTileEntity extends OwnedCooldownTileEntity {
 	public ITextComponent getDisplayName() {
 		// TODO Auto-generated method stub
 		return new StringTextComponent(getType().getRegistryName().getPath());
+	}
+
+	@Override
+	public float getDamagedHealthThreashold() {
+		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL.get();
 	}
 
 }

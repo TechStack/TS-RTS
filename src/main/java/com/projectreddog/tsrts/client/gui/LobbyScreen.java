@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import com.projectreddog.tsrts.containers.LobbyContainer;
 import com.projectreddog.tsrts.init.ModNetwork;
-import com.projectreddog.tsrts.network.LobbyGuiButtonClickedPacketToServer;
+import com.projectreddog.tsrts.network.GenericGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.ClientUtilities;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -29,7 +29,7 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 	Button btnYellow;
 	Button btnReady;
 	Button btnStart;
-
+	Button btnSpectate;
 	PlayerEntity playerEntity;
 
 	public LobbyScreen(LobbyContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
@@ -81,6 +81,12 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 			btnStart.active = false;
 		}
 
+		if (playerEntity.isSpectator()) {
+			btnSpectate.setMessage("Survival");
+		} else {
+			btnSpectate.setMessage("Spectate");
+		}
+
 	}
 
 	@Override
@@ -107,39 +113,44 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 				btnReady.active = false;
 				btnReady.setMessage("Ready");
 			}
-			ModNetwork.SendToServer(new LobbyGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_READY));
+			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_READY));
 		}));
 
 		btnReady.active = false;
 
 		btnRed = addButton(new Button(x, y, 50, 20, "Red", (button) -> {
-			ModNetwork.SendToServer(new LobbyGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_RED));
+			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_RED));
 			btnReady.active = true;
 		}));
 
 		btnBlue = addButton(new Button(x + 50, y, 50, 20, "Blue", (button) -> {
-			ModNetwork.SendToServer(new LobbyGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_BLUE));
+			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_BLUE));
 			btnReady.active = true;
 
 		}));
 
 		btnGreen = addButton(new Button(x + 100, y, 50, 20, "Green", (button) -> {
-			ModNetwork.SendToServer(new LobbyGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_GREEN));
+			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_GREEN));
 			btnReady.active = true;
 
 		}));
 
 		btnYellow = addButton(new Button(x + 150, y, 50, 20, "Yellow", (button) -> {
-			ModNetwork.SendToServer(new LobbyGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_YELLOW));
+			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_YELLOW));
 			btnReady.active = true;
 
 		}));
 
 		btnStart = addButton(new Button(x + 200, y + 20, 50, 20, "Start", (button) -> {
-			ModNetwork.SendToServer(new LobbyGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_START));
+			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_START));
 
 		}));
 		btnStart.active = false;
+
+		btnSpectate = addButton(new Button(x, y + 20, 50, 20, "Spectate", (button) -> {
+			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_SEPECTATE));
+
+		}));
 
 //		addButton(new Button(x, y, 50, 10, "Y", (button) -> {
 //			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERYELLOW));
