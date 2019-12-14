@@ -81,6 +81,12 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 			btnStart.active = false;
 		}
 
+		if (playerEntity.isSpectator()) {
+			btnSpectate.setMessage("Survival");
+		} else {
+			btnSpectate.setMessage("Spectate");
+		}
+
 	}
 
 	@Override
@@ -98,14 +104,12 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 				btnBlue.active = false;
 				btnGreen.active = false;
 				btnYellow.active = false;
-				btnSpectate.active = false;
 				btnReady.setMessage("UnReady");
 			} else {
 				btnRed.active = true;
 				btnBlue.active = true;
 				btnGreen.active = true;
 				btnYellow.active = true;
-				btnSpectate.active = true;
 				btnReady.active = false;
 				btnReady.setMessage("Ready");
 			}
@@ -147,7 +151,6 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_SEPECTATE));
 
 		}));
-		btnSpectate.active = true;
 
 //		addButton(new Button(x, y, 50, 10, "Y", (button) -> {
 //			ModNetwork.SendToServer(new TeGuiButtonClickedPacketToServer(pos.getX(), pos.getY(), pos.getZ(), Reference.GUI_BUTTON_DEBUG_TESTERYELLOW));
