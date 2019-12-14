@@ -1252,7 +1252,7 @@ public class Utilities {
 			bs = Blocks.STONE_BRICKS.getDefaultState();
 			break;
 		case RED:
-			bs = Blocks.STONE_BRICKS.getDefaultState();
+			bs = Blocks.QUARTZ_BLOCK.getDefaultState();
 			break;
 		case GREEN:
 			bs = Blocks.DARK_OAK_LOG.getDefaultState();
@@ -1273,7 +1273,7 @@ public class Utilities {
 			bs = Blocks.SPRUCE_LOG.getDefaultState();
 			break;
 		case RED:
-			bs = Blocks.CHISELED_STONE_BRICKS.getDefaultState();
+			bs = Blocks.CHISELED_QUARTZ_BLOCK.getDefaultState();
 			break;
 		case GREEN:
 			bs = Blocks.BIRCH_PLANKS.getDefaultState();
@@ -1294,10 +1294,10 @@ public class Utilities {
 			bs = Blocks.STONE_BRICKS.getDefaultState();
 			break;
 		case RED:
-			bs = Blocks.MOSSY_STONE_BRICKS.getDefaultState();
+			bs = Blocks.BRICKS.getDefaultState();
 			break;
 		case GREEN:
-			bs = Blocks.STONE_BRICKS.getDefaultState();
+			bs = Blocks.STRIPPED_BIRCH_LOG.getDefaultState();
 			break;
 		case YELLOW:
 			bs = Blocks.CUT_SANDSTONE.getDefaultState();
