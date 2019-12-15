@@ -9,6 +9,7 @@
 "block.tsrts.wallblock":"Wall Control Block",
 "block.tsrts.watchtowerblock":"WatchTower Control Block",
 "block.tsrts.gateblock":"Gate Control Block",
+"block.tsrts.wallstepsblock":"Wall Tower Control Block",
 
 
 "_comment":"Creative Tabs",
@@ -36,6 +37,7 @@
 "item.tsrts.watchtowerbuilderitem":"Watch Tower",
 "item.tsrts.wallbuilderitem":"Wall",
 "item.tsrts.gatebuilderitem":"Gate",
+"item.tsrts.wallstepsbuilderitem":"Wall Tower",
 
 "_comment":"custom messages here",
 
