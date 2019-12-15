@@ -11,6 +11,7 @@
 "block.tsrts.gateblock":"Gate Control Block",
 "block.tsrts.wallstepsblock":"Wall Tower Control Block",
 "block.tsrts.stablesblock":"Stables Block",
+"block.tsrts.watchblock":"Watch Block",
 
 "_comment":"Creative Tabs",
 "itemGroup.blocks":"TS RTS - Blocks",
