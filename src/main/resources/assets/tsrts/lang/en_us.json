@@ -8,6 +8,7 @@
 "block.tsrts.townhallblock":"Town Hall Control Block",
 "block.tsrts.wallblock":"Wall Control Block",
 "block.tsrts.watchtowerblock":"WatchTower Control Block",
+"block.tsrts.gateblock":"Gate Control Block",
 
 
 "_comment":"Creative Tabs",
@@ -34,6 +35,7 @@
 "item.tsrts.stablesbuilderitem":"Stables",
 "item.tsrts.watchtowerbuilderitem":"Watch Tower",
 "item.tsrts.wallbuilderitem":"Wall",
+"item.tsrts.gatebuilderitem":"Gate",
 
 "_comment":"custom messages here",
 
@@ -53,6 +55,7 @@
 "tsrts.destroy.stables":"Stables Destroyed!",
 "tsrts.destroy.watchtower":"WatchTower Destroyed!",
 "tsrts.destroy.wall":"Wall Segment Destroyed!",
+"tsrts.destroy.gate":"Gate has been breached!",
 "tsrts.alerttoast.alert":"Alert!",
 
 
