@@ -197,7 +197,8 @@ public class ClientEvents {
 		int size = uel.size();
 		for (Iterator iterator = uel.iterator(); iterator.hasNext();) {
 			UnitEntity unitEntity = (UnitEntity) iterator.next();
-			if (!unitEntity.getTeam().isSameTeam(team)) {
+
+			if (unitEntity.getTeam() != null && !unitEntity.getTeam().isSameTeam(team)) {
 				size = size - 1;
 			}
 		}
@@ -205,7 +206,7 @@ public class ClientEvents {
 		int[] tmp = new int[size];
 		// TODO CONSIDER TEAMS!
 		for (int i = 0; i < tmp.length; i++) {
-			if (uel.get(i).getTeam().isSameTeam(team)) {
+			if (uel.get(i).getTeam() != null && uel.get(i).getTeam().isSameTeam(team)) {
 				tmp[i] = uel.get(i).getEntityId();
 			}
 
