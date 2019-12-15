@@ -34,6 +34,12 @@ public class UnitEntity extends MonsterEntity {
 	}
 
 	@Override
+	public boolean canBePushed() {
+
+		return false;
+	}
+
+	@Override
 	public boolean canDespawn(double distanceToClosestPlayer) {
 		return false;
 	}
