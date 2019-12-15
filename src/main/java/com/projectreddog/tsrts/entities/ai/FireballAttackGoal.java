@@ -14,7 +14,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class FireballAttackGoal extends Goal {
 	private final UnitEntity controllingEntity;
-	private int attackStep;
+	public int attackStep;
 	private int attackTime;
 	private int counter;
 

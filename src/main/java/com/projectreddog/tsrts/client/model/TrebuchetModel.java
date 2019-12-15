@@ -1,14 +1,15 @@
 package com.projectreddog.tsrts.client.model;
 
+import com.projectreddog.tsrts.entities.TrebuchetEntity;
+
 //Made with Blockbench
 //Paste this code into your mod.
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.model.ModelBox;
-import net.minecraft.entity.Entity;
 
-public class TrebuchetModel extends EntityModel {
+public class TrebuchetModel extends EntityModel<TrebuchetEntity> {
 	private final RendererModel parent;
 	private final RendererModel base;
 	private final RendererModel backLegs;
@@ -91,8 +92,29 @@ public class TrebuchetModel extends EntityModel {
 	}
 
 	@Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void render(TrebuchetEntity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+		setRotationsForAttackStep(entity);
 		parent.render(f5);
+	}
+
+	public void setRotationsForAttackStep(TrebuchetEntity entity) {
+		if (entity.getAttackStep() == 0) {
+			setRotationAngle(PivotPoint, 0, 0, 0);
+		}
+		if (entity.getAttackStep() == 1) {
+			setRotationAngle(PivotPoint, 10, 0, 0);
+		}
+		if (entity.getAttackStep() == 2) {
+			setRotationAngle(PivotPoint, 45, 0, 0);
+		}
+		if (entity.getAttackStep() == 3) {
+			setRotationAngle(PivotPoint, 90, 0, 0);
+		}
+
+		if (entity.getAttackStep() == 4) {
+			setRotationAngle(PivotPoint, 180, 0, 0);
+		}
+
 	}
 
 	public void setRotationAngle(RendererModel modelRenderer, float x, float y, float z) {
