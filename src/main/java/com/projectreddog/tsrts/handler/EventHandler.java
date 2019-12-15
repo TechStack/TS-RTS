@@ -8,6 +8,7 @@ import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
@@ -249,7 +250,9 @@ public class EventHandler {
 
 		if (te instanceof OwnedCooldownTileEntity) {
 			OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) te;
-			octe.DecreaseCount();
+			if (Config.CONFIG_GAME_MODE.get() == Modes.RUN) {
+				octe.DecreaseCount();
+			}
 		}
 	}
 

@@ -58,7 +58,7 @@
 "tsrts.destroy.watchtower":"WatchTower Destroyed!",
 "tsrts.destroy.wall":"Wall Segment Destroyed!",
 "tsrts.destroy.gate":"Gate has been breached!",
-"tsrts.destroy.gate":"Wall Tower Destroyed!",
+"tsrts.destroy.wallsteps":"Wall Steps Destroyed!",
 "tsrts.alerttoast.alert":"Alert!",
 
 
