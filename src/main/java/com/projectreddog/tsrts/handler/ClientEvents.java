@@ -46,7 +46,7 @@ public class ClientEvents {
 	public static final KeyBinding controlGroup7 = new KeyBinding(Reference.MODID + ".key.controlgroup7", GLFW.GLFW_KEY_M, "key.categories." + Reference.MODID);
 	public static final KeyBinding controlGroup8 = new KeyBinding(Reference.MODID + ".key.controlgroup8", GLFW.GLFW_KEY_COMMA, "key.categories." + Reference.MODID);
 	public static final KeyBinding controlGroup9 = new KeyBinding(Reference.MODID + ".key.controlgroup9", GLFW.GLFW_KEY_PERIOD, "key.categories." + Reference.MODID);
-	public static final KeyBinding controlModifier = new KeyBinding(Reference.MODID + ".key.controlmodifier", GLFW.GLFW_MOD_CONTROL, "key.categories." + Reference.MODID);
+	public static final KeyBinding controlModifier = new KeyBinding(Reference.MODID + ".key.control", GLFW.GLFW_KEY_LEFT_CONTROL, "key.categories." + Reference.MODID);
 	public static final KeyBinding deselectAll = new KeyBinding(Reference.MODID + ".key.deselectall", GLFW.GLFW_KEY_G, "key.categories." + Reference.MODID);
 
 	public static final KeyBinding areaSelect = new KeyBinding(Reference.MODID + ".key.areaSelect", GLFW.GLFW_KEY_H, "key.categories." + Reference.MODID);
