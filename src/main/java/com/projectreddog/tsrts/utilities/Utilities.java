@@ -13,6 +13,7 @@ import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.MainMenuContinerProvider;
+import com.projectreddog.tsrts.containers.provider.ResearchContinerProvider;
 import com.projectreddog.tsrts.containers.provider.TroopBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.UnitRecruitmentContinerProvider;
 import com.projectreddog.tsrts.data.StructureData;
@@ -291,7 +292,9 @@ public class Utilities {
 		case Reference.GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT:
 			NetworkHooks.openGui(player, new UnitRecruitmentContinerProvider());
 			break;
-
+		case Reference.GUI_BUTTON_MAIN_MENU_RESEARCH:
+			NetworkHooks.openGui(player, new ResearchContinerProvider());
+			break;
 		}
 		TSRTS.LOGGER.info("TEAM:" + player.getTeam().getName());
 
