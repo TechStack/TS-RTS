@@ -148,6 +148,14 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_GATE;
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WALL_STEPS;
 
+	public static ForgeConfigSpec.IntValue CONFIG_RATE_GENRATE_FOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_RATE_GENRATE_WOOD;
+	public static ForgeConfigSpec.IntValue CONFIG_RATE_GENRATE_STONE;
+	public static ForgeConfigSpec.IntValue CONFIG_RATE_GENRATE_IRON;
+	public static ForgeConfigSpec.IntValue CONFIG_RATE_GENRATE_GOLD;
+	public static ForgeConfigSpec.IntValue CONFIG_RATE_GENRATE_DIAMOND;
+	public static ForgeConfigSpec.IntValue CONFIG_RATE_GENRATE_EMERALD;
+
 	static {
 
 		setupGeneralConfig();
@@ -249,6 +257,14 @@ public class Config {
 		COMMON_BUILDER.comment("resource generation").push(CATEGORY_RESOURCE_GENERATION);
 
 		CONFIG_TOWN_HALL_GENERATE_STRING = COMMON_BUILDER.comment("Defines the amount of food the town hall generate per unit of time").define("townHallGenerates", "5,5,5,5,1,1,0");
+
+		CONFIG_RATE_GENRATE_FOOD = COMMON_BUILDER.comment("Defines the amount of food collected per farm").defineInRange("foodGeneration", 12, 0, 1024);
+		CONFIG_RATE_GENRATE_WOOD = COMMON_BUILDER.comment("Defines the amount of wood collected per lumber yard").defineInRange("woodGeneration", 17, 0, 1024);
+		CONFIG_RATE_GENRATE_STONE = COMMON_BUILDER.comment("Defines the amount of stone collected per stone Mine").defineInRange("stoneGeneration", 9, 0, 1024);
+		CONFIG_RATE_GENRATE_IRON = COMMON_BUILDER.comment("Defines the amount of iron collected per iron Mine").defineInRange("ironGeneration", 10, 0, 1024);
+		CONFIG_RATE_GENRATE_GOLD = COMMON_BUILDER.comment("Defines the amount of gold collected per gold Mine").defineInRange("goldGeneration", 9, 0, 1024);
+		CONFIG_RATE_GENRATE_DIAMOND = COMMON_BUILDER.comment("Defines the amount of diamond collected per diamond Mine").defineInRange("diamondGeneration", 7, 0, 1024);
+		CONFIG_RATE_GENRATE_EMERALD = COMMON_BUILDER.comment("Defines the amount of emerald collected per emerald Mine").defineInRange("emeraldGeneration", 5, 0, 1024);
 
 		COMMON_BUILDER.pop();
 
