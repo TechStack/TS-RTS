@@ -72,6 +72,11 @@ public class MainMenuScreen extends ContainerScreen<MainMenuContainer> {
 			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT));
 		}));
 		y = y + 20;
+
+		addButton(new Button(x, y, width, height, "Research", (button) -> {
+			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_MAIN_MENU_RESEARCH));
+		}));
+		y = y + 20;
 	}
 
 }

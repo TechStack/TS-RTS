@@ -38,6 +38,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_TROOP_BUILDINGS_CONTAINER = "troopbulidingscontiner";
 	public static final String REIGSTRY_NAME_DEFENSIVE_BUILDINGS_CONTAINER = "defensivebulidingscontiner";
 	public static final String REIGSTRY_NAME_UNIT_RECRUITMENT_CONTAINER = "unitrecruitmentcontiner";
+	public static final String REIGSTRY_NAME_RESEARCH_CONTAINER = "researchcontiner";
+
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
 	public static final String REIGSTRY_NAME_RALLY_POINT_TOOL = "rallypointtool";
@@ -114,6 +116,7 @@ public class Reference {
 	public static final int GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS = 11;
 	public static final int GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS = 12;
 	public static final int GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT = 13;
+	public static final int GUI_BUTTON_MAIN_MENU_RESEARCH = 15;
 
 	public static final int GUI_BUTTON_ENABLE_TE = 8000;
 	public static final int GUI_BUTTON_DISABLE_TE = 8001;
