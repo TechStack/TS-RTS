@@ -182,7 +182,7 @@ public class ClientEvents {
 
 				}
 				if (mainGuiOpen.isPressed()) {
-					ModNetwork.SendToServer(new GuiRequestPacketToServer(Reference.GUI_ID_MAIN_MENU));
+					ModNetwork.SendToServer(new GuiRequestPacketToServer(Reference.GUI_BUTTON_MAIN_MENU_ECO));
 				}
 			}
 

@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 public class ResearchContainer extends Container {
 
 	public ResearchContainer(int id, World world, PlayerInventory playerInventory) {
-		super(ModContainers.UNIT_RECRUITMENT_CONTAINER, id);
+		super(ModContainers.RESEARCH_CONTAINER, id);
 	}
 
 	@Override
