@@ -4,8 +4,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.projectreddog.tsrts.containers.ResearchContainer;
 import com.projectreddog.tsrts.handler.Config;
-import com.projectreddog.tsrts.init.ModNetwork;
-import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.ResourceValues;
 import com.projectreddog.tsrts.utilities.TeamInfo;
@@ -13,8 +11,6 @@ import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -78,32 +74,21 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 	protected void drawResourceIcons() {
 		GL11.glPushMatrix();
 		GL11.glScalef(.5f, .5f, .5f);
-		TeamInfo.Resources[] res = TeamInfo.Resources.values();
-		int x = 170;
-		int yOffset = 40;
-		int y = ((this.height - this.ySize - (8 * yOffset))) + GuiUtil.TOP_RESOURCE_OFFSET;
 
-		x = ((this.width - this.xSize - (TeamInfo.Resources.values().length * (xtextOffset + xTextWidth)))) + 380;
-// DRAW HEAER:
-		// this.blit(x - 10, 5, 0, 0, 256, 18);
-		RenderHelper.enableGUIStandardItemLighting();
-		for (int i = 0; i < res.length; i++) {
+		int yOffset = GuiUtil.GetResourceCostYOffsetValue();
+		int y = GuiUtil.GetResourceCostYStartValue(this);
+		GuiUtil.drawResourceIconHeaders(this);
 
-			Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
-			x = x + xTextWidth;
-
-		}
-		y = y + 0;
 		// y = y + yOffset;
 		// GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_MINION, y, xtextOffset, ytextOffset, xTextWidth, teamName);
 
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_MINION, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_MINION, y, teamName);
 		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_ARCHER, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_ARCHER, y, teamName);
 		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_LANCER, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_LANCER, y, teamName);
 		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_PIKEMAN, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_PIKEMAN, y, teamName);
 		y = y + yOffset;
 		GL11.glPopMatrix();
 	}
@@ -196,22 +181,22 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 
 		int height = 20;
 
-		addButton(new Button(x, y, width, height, "R 1", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINION));
-		}));
-		y = y + 20;
-
-		addButton(new Button(x, y, width, height, "R2", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHER));
-		}));
-		y = y + 20;
-		addButton(new Button(x, y, width, height, "R3", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LANCER));
-		}));
-		y = y + 20;
-		addButton(new Button(x, y, width, height, "R4", (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_PIKEMAN));
-		}));
-		y = y + 20;
+//		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(5), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+//			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINION));
+//		}, "Minion", this));
+//		y = y + 20;
+//
+//		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(5), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+//			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHER));
+//		}, "Minion", this));
+//		y = y + 20;
+//		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(5), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+//			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LANCER));
+//		}, "Minion", this));
+//		y = y + 20;
+//		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(5), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+//			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_PIKEMAN));
+//		}, "Minion", this));
+//		y = y + 20;
 	}
 }

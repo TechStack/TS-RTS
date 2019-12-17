@@ -3,6 +3,7 @@ package com.projectreddog.tsrts.client.gui;
 import org.lwjgl.opengl.GL11;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.client.gui.widget.HoverImageButton;
 import com.projectreddog.tsrts.containers.UnitRecruitmentContainer;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModNetwork;
@@ -14,7 +15,6 @@ import com.projectreddog.tsrts.utilities.TeamInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -93,30 +93,18 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 	protected void drawResourceIcons() {
 		GL11.glPushMatrix();
 		GL11.glScalef(.5f, .5f, .5f);
-		TeamInfo.Resources[] res = TeamInfo.Resources.values();
-		int x = 170;
-		int yOffset = 40;
-		int y = ((this.height - this.ySize - (8 * yOffset))) + GuiUtil.TOP_RESOURCE_OFFSET;
 
-		x = ((this.width - this.xSize - (TeamInfo.Resources.values().length * (xtextOffset + xTextWidth)))) + 380;
-// DRAW HEAER:
-		// this.blit(x - 10, 5, 0, 0, 256, 18);
-		RenderHelper.enableGUIStandardItemLighting();
-		for (int i = 0; i < res.length; i++) {
+		int yOffset = GuiUtil.GetResourceCostYOffsetValue();
+		int y = GuiUtil.GetResourceCostYStartValue(this);
+		GuiUtil.drawResourceIconHeaders(this);
 
-			Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
-			x = x + xTextWidth;
-
-		}
-		y = y + 0;
-		// y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_MINION, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_MINION, y, teamName);
 		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_ARCHER, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_ARCHER, y, teamName);
 		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_LANCER, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_LANCER, y, teamName);
 		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_PIKEMAN, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_PIKEMAN, y, teamName);
 		y = y + yOffset;
 		GL11.glPopMatrix();
 	}
@@ -140,22 +128,22 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 
 		int height = 20;
 
-		minion = addButton(new Button(x, y, width, height, "Minion", (button) -> {
+		minion = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINION));
-		}));
+		}, "gui.units.minion", this));
 		y = y + 20;
 
-		archer = addButton(new Button(x, y, width, height, "Archer", (button) -> {
+		archer = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHER));
-		}));
+		}, "gui.units.archer", this));
 		y = y + 20;
-		lancer = addButton(new Button(x, y, width, height, "Lancer", (button) -> {
+		lancer = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LANCER));
-		}));
+		}, "gui.units.lancer", this));
 		y = y + 20;
-		pikeman = addButton(new Button(x, y, width, height, "Pikeman", (button) -> {
+		pikeman = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_PIKEMAN));
-		}));
+		}, "gui.units.pikeman", this));
 		y = y + 20;
 	}
 }

@@ -63,6 +63,12 @@
 "tsrts.destroy.wallsteps":"Wall Steps Destroyed!",
 "tsrts.alerttoast.alert":"Alert!",
 
+"_comment":"Gui Unit Recruitment",
+
+"gui.units.minion":"Minion",
+"gui.units.archer":"Archer",
+"gui.units.lancer":"Lancer",
+"gui.units.pikeman":"Pikeman",
 
 "_comment":"End here"
 }

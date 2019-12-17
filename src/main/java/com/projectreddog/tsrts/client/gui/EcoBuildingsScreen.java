@@ -2,17 +2,15 @@ package com.projectreddog.tsrts.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
+import com.projectreddog.tsrts.client.gui.widget.HoverImageButton;
 import com.projectreddog.tsrts.containers.EcoBuildingsContainer;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
-import com.projectreddog.tsrts.utilities.TeamInfo;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -71,41 +69,30 @@ public class EcoBuildingsScreen extends ContainerScreen<EcoBuildingsContainer> {
 	protected void drawResourceIcons() {
 		GL11.glPushMatrix();
 		GL11.glScalef(.5f, .5f, .5f);
-		TeamInfo.Resources[] res = TeamInfo.Resources.values();
-		int x = 170;
-		int yOffset = 40;
-		int y = ((this.height - this.ySize - (8 * yOffset))) + GuiUtil.TOP_RESOURCE_OFFSET;
 
-		x = ((this.width - this.xSize - (TeamInfo.Resources.values().length * (xtextOffset + xTextWidth)))) + 380;
-// DRAW HEAER:
-		// this.blit(x - 10, 5, 0, 0, 256, 18);
-		RenderHelper.enableGUIStandardItemLighting();
-		for (int i = 0; i < res.length; i++) {
+		int yOffset = GuiUtil.GetResourceCostYOffsetValue();
+		int y = GuiUtil.GetResourceCostYStartValue(this);
+		GuiUtil.drawResourceIconHeaders(this);
 
-			Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
-			x = x + xTextWidth;
-
-		}
-		y = y + 0;
 		// y = y + yOffset;
 		// GuiUtil.drawCosts(this,ModItems.BARRACKSBUILDERITEM, y , xtextOffset, ytextOffset, xTextWidth, teamName);
 
-		GuiUtil.drawCosts(this, ModItems.FARMBUILDERITEM, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, ModItems.FARMBUILDERITEM, y, teamName);
 		y = y + yOffset;
 
-		GuiUtil.drawCosts(this, ModItems.LUMBERYARDBUILDERITEM, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, ModItems.LUMBERYARDBUILDERITEM, y, teamName);
 		y = y + yOffset;
 
-		GuiUtil.drawCosts(this, ModItems.MINESITESTONEBUILDERITEM, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, ModItems.MINESITESTONEBUILDERITEM, y, teamName);
 		y = y + yOffset;
 
-		GuiUtil.drawCosts(this, ModItems.MINESITEIRONBUILDERITEM, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, ModItems.MINESITEIRONBUILDERITEM, y, teamName);
 		y = y + yOffset;
 
-		GuiUtil.drawCosts(this, ModItems.MINESITEGOLDBUILDERITEM, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, ModItems.MINESITEGOLDBUILDERITEM, y, teamName);
 		y = y + yOffset;
 
-		GuiUtil.drawCosts(this, ModItems.MINESITEDIAMONDBUILDERITEM, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, ModItems.MINESITEDIAMONDBUILDERITEM, y, teamName);
 		y = y + yOffset;
 
 		GL11.glPopMatrix();
@@ -131,34 +118,35 @@ public class EcoBuildingsScreen extends ContainerScreen<EcoBuildingsContainer> {
 
 		int height = 20;
 
-		addButton(new Button(x, y, width, height, "Farm", (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_FARM));
-		}));
+		}, ModItems.FARMBUILDERITEM.getTranslationKey(), this));
+
 		y = y + 20;
 
-		addButton(new Button(x, y, width, height, "Lumber Yard", (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(4), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LUMBER_YARD));
-		}));
+		}, ModItems.LUMBERYARDBUILDERITEM.getTranslationKey(), this));
 		y = y + 20;
 
-		addButton(new Button(x, y, width, height, "Stone Mine", (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(5), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_STONE));
-		}));
+		}, ModItems.MINESITESTONEBUILDERITEM.getTranslationKey(), this));
 		y = y + 20;
 
-		addButton(new Button(x, y, width, height, "Iron Mine", (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(6), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_IRON));
-		}));
+		}, ModItems.MINESITEIRONBUILDERITEM.getTranslationKey(), this));
 		y = y + 20;
 
-		addButton(new Button(x, y, width, height, "Gold Mine", (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(7), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_GOLD));
-		}));
+		}, ModItems.MINESITEGOLDBUILDERITEM.getTranslationKey(), this));
 		y = y + 20;
 
-		addButton(new Button(x, y, width, height, "Diamond Mine", (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(8), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND));
-		}));
+		}, ModItems.MINESITEDIAMONDBUILDERITEM.getTranslationKey(), this));
 		y = y + 20;
 
 	}

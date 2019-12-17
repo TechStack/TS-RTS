@@ -21,9 +21,15 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiUtil {
 	private static final ResourceLocation TABS = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
-	public static final int TOP_BUTTON_OFFSET = 7;
-	public static final int TOP_RESOURCE_OFFSET = 330;
+	public static final ResourceLocation BUTTON_TEXTURE = new ResourceLocation(Reference.MODID + ":" + "textures/gui/buttonimages.png");
+	public static final int TOP_BUTTON_OFFSET = 20;
+	public static final int LEFT_BUTTON_OFFSET = 20;
 
+	public static final int TOP_RESOURCE_OFFSET = 330;
+	public static final int ytextOffset = 20;
+	public static final int xtextOffset = 5;
+	public static final int xTextWidth = 25;
+	private static final int yOffset = 40;
 	/*
 	 * public static final int GUI_BUTTON_MAIN_MENU_ECO = 10; public static final int GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS = 11; public static final int GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS = 12; public static final int GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT = 13; public static final int GUI_BUTTON_MAIN_MENU_RESEARCH = 15;
 	 */
@@ -142,11 +148,40 @@ public class GuiUtil {
 		return -1;
 	}
 
-	public static void drawCosts(ContainerScreen screen, ResourceValues rv, int y, int xtextOffset, int ytextOffset, int xTextWidth, String teamName) {
+	public static int GetResourceCostYStartValue(ContainerScreen screen) {
 
-		int x = ((screen.width - screen.getXSize() - (TeamInfo.Resources.values().length * (xtextOffset + xTextWidth)))) + 380;
+		return ((screen.height - screen.getYSize() - (8 * yOffset))) + GuiUtil.TOP_RESOURCE_OFFSET + 20;
+	}
+
+	public static int GetResourceCostYOffsetValue() {
+		return yOffset;
+	}
+
+	public static void drawResourceIconHeaders(ContainerScreen screen) {
+		TeamInfo.Resources[] res = TeamInfo.Resources.values();
+		int x = GetResourceXCord(screen);
+		int y = GetResourceCostYStartValue(screen) - 15;
+
+// DRAW HEAER:
+		// this.blit(x - 10, 5, 0, 0, 256, 18);
+		RenderHelper.enableGUIStandardItemLighting();
+		for (int i = 0; i < res.length; i++) {
+
+			Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
+			x = x + xTextWidth;
+
+		}
+	}
+
+	private static int GetResourceXCord(ContainerScreen screen) {
+		return ((screen.width - screen.getXSize() - (TeamInfo.Resources.values().length * (xtextOffset + xTextWidth)))) + 280 + LEFT_BUTTON_OFFSET;
+	}
+
+	public static void drawCosts(ContainerScreen screen, ResourceValues rv, int y, String teamName) {
+
+		int x = GetResourceXCord(screen);
 		// FARM
-		int colorWhite = 14737632;
+		int colorWhite = 16777215;
 		int colorRed = 11141120;
 		int color = colorWhite;
 		x = x + xtextOffset;
@@ -216,78 +251,24 @@ public class GuiUtil {
 
 	}
 
-	public static void drawCosts(ContainerScreen screen, Item item, int y, int xtextOffset, int ytextOffset, int xTextWidth, String teamName) {
+	public static void drawCosts(ContainerScreen screen, Item item, int y, String teamName) {
 
-		int x = ((screen.width - screen.getXSize() - (TeamInfo.Resources.values().length * (xtextOffset + xTextWidth)))) + 370;
-		// FARM
-		int colorWhite = 14737632;
-		int colorRed = 11141120;
-		int color = colorWhite;
-		x = x + xtextOffset;
-		int cost = Utilities.getFoodCostsForBuilder(item);
-		if (Utilities.hasNeededResource(teamName, TeamInfo.Resources.FOOD, cost)) {
-			color = colorWhite;
-		} else {
-			color = colorRed;
-		}
-		Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + cost, x, y + ytextOffset, color);
-
-		x = x + xTextWidth;
-		cost = Utilities.getWoodCostsForBuilder(item);
-		if (Utilities.hasNeededResource(teamName, TeamInfo.Resources.WOOD, cost)) {
-			color = colorWhite;
-		} else {
-			color = colorRed;
-		}
-		Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + cost, x, y + ytextOffset, color);
-
-		x = x + xTextWidth;
-		cost = Utilities.getStoneCostsForBuilder(item);
-		if (Utilities.hasNeededResource(teamName, TeamInfo.Resources.STONE, cost)) {
-			color = colorWhite;
-		} else {
-			color = colorRed;
-		}
-		Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + cost, x, y + ytextOffset, color);
-
-		x = x + xTextWidth;
-		cost = Utilities.getIronCostsForBuilder(item);
-		if (Utilities.hasNeededResource(teamName, TeamInfo.Resources.IRON, cost)) {
-			color = colorWhite;
-		} else {
-			color = colorRed;
-		}
-		Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + cost, x, y + ytextOffset, color);
-
-		x = x + xTextWidth;
-		cost = Utilities.getGoldCostsForBuilder(item);
-		if (Utilities.hasNeededResource(teamName, TeamInfo.Resources.GOLD, cost)) {
-			color = colorWhite;
-		} else {
-			color = colorRed;
-		}
-		Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + cost, x, y + ytextOffset, color);
-
-		x = x + xTextWidth;
-		cost = Utilities.getDiamondCostsForBuilder(item);
-		if (Utilities.hasNeededResource(teamName, TeamInfo.Resources.DIAMOND, cost)) {
-			color = colorWhite;
-		} else {
-			color = colorRed;
-		}
-		Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + cost, x, y + ytextOffset, color);
-
-		x = x + xTextWidth;
-		cost = Utilities.getEmeraldCostsForBuilder(item);
-		if (Utilities.hasNeededResource(teamName, TeamInfo.Resources.EMERALD, cost)) {
-			color = colorWhite;
-		} else {
-			color = colorRed;
-		}
-		Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + cost, x, y + ytextOffset, color);
-
-		x = x + xTextWidth;
-
+		int foodCost = Utilities.getFoodCostsForBuilder(item);
+		int woodCost = Utilities.getWoodCostsForBuilder(item);
+		int stoneCost = Utilities.getStoneCostsForBuilder(item);
+		int ironCost = Utilities.getIronCostsForBuilder(item);
+		int goldCost = Utilities.getGoldCostsForBuilder(item);
+		int diamondCost = Utilities.getDiamondCostsForBuilder(item);
+		int emeraldCost = Utilities.getEmeraldCostsForBuilder(item);
+		ResourceValues rv = new ResourceValues(foodCost, woodCost, stoneCost, ironCost, goldCost, diamondCost, emeraldCost);
+		drawCosts(screen, rv, y, teamName);
 	}
 
+	public static int GetXStartForButtonImageXYIndex(int x) {
+		return x * 20;
+	}
+
+	public static int GetYStartForButtonImageXYIndex(int y) {
+		return y * 38;
+	}
 }

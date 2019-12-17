@@ -2,17 +2,15 @@ package com.projectreddog.tsrts.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
+import com.projectreddog.tsrts.client.gui.widget.HoverImageButton;
 import com.projectreddog.tsrts.containers.TroopBuildingsContainer;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
-import com.projectreddog.tsrts.utilities.TeamInfo;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -72,31 +70,20 @@ public class TroopBuildingsScreen extends ContainerScreen<TroopBuildingsContaine
 	protected void drawResourceIcons() {
 		GL11.glPushMatrix();
 		GL11.glScalef(.5f, .5f, .5f);
-		TeamInfo.Resources[] res = TeamInfo.Resources.values();
-		int x = 170;
-		int yOffset = 40;
-		int y = ((this.height - this.ySize - (8 * yOffset))) + GuiUtil.TOP_RESOURCE_OFFSET;
 
-		x = ((this.width - this.xSize - (TeamInfo.Resources.values().length * (xtextOffset + xTextWidth)))) + 370;
-// DRAW HEAER:
-		// this.blit(x - 10, 5, 0, 0, 256, 18);
-		RenderHelper.enableGUIStandardItemLighting();
-		for (int i = 0; i < res.length; i++) {
+		int yOffset = GuiUtil.GetResourceCostYOffsetValue();
+		int y = GuiUtil.GetResourceCostYStartValue(this);
+		GuiUtil.drawResourceIconHeaders(this);
 
-			Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(res[i]), x, y);
-			x = x + xTextWidth;
-
-		}
-		y = y + 0;
 		// y = y + yOffset;
 
 		// GuiUtil.drawCosts(this,ModItems.BARRACKSBUILDERITEM, y , xtextOffset, ytextOffset, xTextWidth, teamName);
 
-		GuiUtil.drawCosts(this, ModItems.BARRACKSBUILDERITEM, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, ModItems.BARRACKSBUILDERITEM, y, teamName);
 		y = y + yOffset;
-		GuiUtil.drawCosts(this, ModItems.ARCHERYRANGEBUILDERITEM, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, ModItems.ARCHERYRANGEBUILDERITEM, y, teamName);
 		y = y + yOffset;
-		GuiUtil.drawCosts(this, ModItems.STABLESBUILDERITEM, y, xtextOffset, ytextOffset, xTextWidth, teamName);
+		GuiUtil.drawCosts(this, ModItems.STABLESBUILDERITEM, y, teamName);
 		y = y + yOffset;
 
 		GL11.glPopMatrix();
@@ -121,18 +108,18 @@ public class TroopBuildingsScreen extends ContainerScreen<TroopBuildingsContaine
 
 		int height = 20;
 
-		addButton(new Button(x, y, width, height, "Barracks", (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_BARRACKS));
-		}));
+		}, ModItems.BARRACKSBUILDERITEM.getTranslationKey(), this));
 		y = y + 20;
 
-		addButton(new Button(x, y, width, height, "Archery Range", (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHERY_RANGE));
-		}));
+		}, ModItems.ARCHERYRANGEBUILDERITEM.getTranslationKey(), this));
 		y = y + 20;
-		addButton(new Button(x, y, width, height, "Stables", (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_STABLES));
-		}));
+		}, ModItems.STABLESBUILDERITEM.getTranslationKey(), this));
 		y = y + 20;
 
 	}
