@@ -12,6 +12,7 @@ import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
+import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
 import com.projectreddog.tsrts.containers.provider.ResearchContinerProvider;
 import com.projectreddog.tsrts.containers.provider.TroopBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.UnitRecruitmentContinerProvider;
@@ -107,8 +108,12 @@ public class Utilities {
 			break;
 
 		case Reference.GUI_BUTTON_MAIN_MENU_ECO:
-			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new EcoBuildingsContinerProvider());
+			if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.LOBBY) {
+				NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new LobbyContinerProvider());
 
+			} else if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.RUNNINNG) {
+				NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new EcoBuildingsContinerProvider());
+			}
 			break;
 		default:
 			break;
