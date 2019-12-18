@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 
 public class ResearchScreen extends ContainerScreen<ResearchContainer> {
@@ -20,6 +21,10 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 	int xtextOffset = 5;
 	int xTextWidth = 25;
 	String teamName = "";
+
+	float currentScrollAmount = 0;
+
+	float totalScrollUnits = 150 - 15;
 
 	public ResearchScreen(ResearchContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
@@ -50,11 +55,20 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 		this.minecraft.getTextureManager().bindTexture(TEXTURE_WIDGETS);
 
 		int xOffset = (this.xSize - 152) / 2;
-
+		// scroll trench
 		this.blit(this.guiLeft + xOffset - 1, this.guiTop + this.ySize - 13 - 6, 0, 24, 152, 14);
 
-		this.blit(this.guiLeft + xOffset, this.guiTop + this.ySize - 13 - 5, 0, 0, 15, 12);
+		// Scroll indicator
+		this.blit(this.guiLeft + xOffset + (int) currentScrollAmount, this.guiTop + this.ySize - 13 - 5, 0, 0, 15, 12);
 
+	}
+
+	@Override
+	public boolean mouseScrolled(double mouseX, double mouseY, double scrollAmount) {
+
+		currentScrollAmount = (float) (currentScrollAmount - scrollAmount);
+		currentScrollAmount = MathHelper.clamp(currentScrollAmount, 0, totalScrollUnits);
+		return true;
 	}
 
 	/// TABS Code:
@@ -62,7 +76,34 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 
 		GuiUtil.MouseClick(this, (int) mouseX, (int) mouseY);
+		moveScrollIndicatorToMouse(mouseX, mouseY, button);
 		return super.mouseClicked(mouseX, mouseY, button);
+
+	}
+
+	private void moveScrollIndicatorToMouse(double mouseX, double mouseY, int button) {
+		if (button == 0) {
+			if (mouseX > this.guiLeft + (this.xSize - 152) / 2 - 1 && mouseX < this.guiLeft + (this.xSize - 152) / 2 - 1 + 152) {
+
+				/// in the scroll bar trench area on the X axis
+
+				if (mouseY > this.guiTop + this.ySize - 13 - 5 && mouseY < this.guiTop + this.ySize - 13 - 6 + 14 - 2) {
+
+					currentScrollAmount = (float) ((mouseX - (this.guiLeft + (this.xSize - 152) / 2)));
+
+					currentScrollAmount = MathHelper.clamp(currentScrollAmount, 0, totalScrollUnits);
+
+				}
+
+			}
+		}
+	}
+
+	public boolean mouseDragged(double mouseX, double mouseY, int button, double p_mouseDragged_6_, double p_mouseDragged_8_) {
+		moveScrollIndicatorToMouse(mouseX, mouseY, button);
+
+		return super.mouseDragged(mouseX, mouseY, button, p_mouseDragged_6_, p_mouseDragged_8_);
+
 	}
 
 	// TABS Code
