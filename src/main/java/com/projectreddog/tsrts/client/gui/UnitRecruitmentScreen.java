@@ -2,15 +2,12 @@ package com.projectreddog.tsrts.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.client.gui.widget.HoverImageButton;
 import com.projectreddog.tsrts.containers.UnitRecruitmentContainer;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
-import com.projectreddog.tsrts.utilities.TeamEnum;
-import com.projectreddog.tsrts.utilities.TeamInfo;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -58,17 +55,17 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 		this.blit(x, y, 0, 0, this.xSize, this.ySize);
 
 		drawResourceIcons();
-		if (player.getTeam() != null) {
-			String team = player.getTeam().getName();
-			TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)];
-			if (ti.getResearch() != null) {
-				minion.active = ti.getResearch().soldiers.isUnlocked;
-				archer.active = ti.getResearch().achery.isUnlocked;
-				lancer.active = ti.getResearch().lancer.isUnlocked;
-				pikeman.active = ti.getResearch().pikeman.isUnlocked;
-			}
-
-		}
+//		if (player.getTeam() != null) {
+//			String team = player.getTeam().getName();
+//			TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)];
+//			if (ti.getResearch() != null) {
+//				// minion.active = ti.getResearch().soldiers.isUnlocked;
+////				archer.active = ti.getResearch().achery.isUnlocked;
+//				// lancer.active = ti.getResearch().lancer.isUnlocked;
+//				// pikeman.active = ti.getResearch().pikeman.isUnlocked;
+//			}
+//
+//		}
 
 		/// TABS Code:
 		GuiUtil.RenderTabsSelected(this, 3);

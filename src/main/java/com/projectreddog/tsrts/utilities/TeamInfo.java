@@ -1,7 +1,5 @@
 package com.projectreddog.tsrts.utilities;
 
-import com.projectreddog.tsrts.init.ModResearch;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
@@ -17,12 +15,6 @@ public class TeamInfo {
 	private int mineSiteGold = 0;
 	private int mineSiteDiamond = 0;
 	private int mineSiteEmerald = 0;
-
-	private ModResearch research = new ModResearch();
-
-	public ModResearch getResearch() {
-		return research;
-	}
 
 	public int[] getResourceAmt() {
 		return resourceAmt;

@@ -33,14 +33,17 @@ public class HoverImageButton extends ImageButton {
 	public void render(int mouseX, int mouseY, float p_render_3_) {
 		super.render(mouseX, mouseY, p_render_3_);
 
-		if (mouseX > this.x && mouseX < this.x + this.width) {
+		if (this.visible) {
 
-			if (mouseY > this.y && mouseY < this.y + this.height) {
-				TranslationTextComponent ttc = new TranslationTextComponent(this.getMessage());
+			if (mouseX > this.x && mouseX < this.x + this.width) {
 
-				List<String> text = new ArrayList<String>();
-				text.add(ttc.getUnformattedComponentText());
-				this.renderTooltip(text, mouseX, mouseY);
+				if (mouseY > this.y && mouseY < this.y + this.height) {
+					TranslationTextComponent ttc = new TranslationTextComponent(this.getMessage());
+
+					List<String> text = new ArrayList<String>();
+					text.add(ttc.getUnformattedComponentText());
+					this.renderTooltip(text, mouseX, mouseY);
+				}
 			}
 		}
 
