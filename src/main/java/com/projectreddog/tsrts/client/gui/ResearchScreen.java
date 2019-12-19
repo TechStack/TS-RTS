@@ -51,6 +51,50 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 	}
 
 	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+
+		int xOffset = (this.xSize - 152) / 2;
+
+		int yOffset = 10;
+		for (Widget button : this.buttons) {
+			if (button instanceof ResearchButton) {
+				ResearchButton rb = (ResearchButton) button;
+				if (rb.parentKey != null) {
+
+					int start = (int) ((xOffset - currentScrollAmountX) + rb.offsetX);
+					int end = (int) ((xOffset - currentScrollAmountX) + rb.parentOffsetX) + 20;
+					int distance = (start - end) / 2;
+					int startY = (int) ((yOffset - currentScrollAmountY) + rb.offsetY) + 10;
+					int endY = (int) ((yOffset - currentScrollAmountY) + rb.parentOffsetY) + 10;
+					if (startY > 10) {
+
+						// draw first 1/2 of the H line (closets to child)
+						this.hLine(start, start - distance, startY, -1);
+						// draw 2nd 1/2 of the H line closest to the parent ?
+					}
+					if (endY > 10) {
+						this.hLine(end, end + distance, endY, -1);
+					}
+
+					if (startY < 10) {
+						startY = 10;
+					}
+
+					if (endY < 10) {
+						endY = 10;
+					}
+					if (endY == 10 && startY == 10) {
+
+					} else {
+						this.vLine(end + distance, startY, endY, -1);
+					}
+				}
+			}
+		}
+	}
+
+	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
 		/// TABS Code:
@@ -83,9 +127,9 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 			if (button instanceof ResearchButton) {
 				ResearchButton rb = (ResearchButton) button;
 
-				rb.x = (int) (this.guiLeft + xOffset + 100 - currentScrollAmountX) + rb.offsetX;
+				rb.x = (int) (this.guiLeft + xOffset - currentScrollAmountX) + rb.offsetX;
 
-				rb.y = (int) (this.guiTop + xOffset + 100 - currentScrollAmountY) + rb.offsetY;
+				rb.y = (int) (this.guiTop + yOffset - currentScrollAmountY) + rb.offsetY;
 
 				if (rb.x < this.guiLeft + xOffset) {
 					rb.visible = false;
@@ -109,7 +153,7 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 
 					}
 				}
-
+				// this.hLine(rb.y - 10, rb.parentOffsetX + 21, rb.y - 1, 60000);
 			}
 		}
 
@@ -205,7 +249,7 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 			Research r = entry.getValue();
 			addButton(new ResearchButton((int) this.guiLeft + (int) r.getCurrentX(), (int) this.guiTop + (int) r.getCurrentY(), 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHER));
-			}, r.getNameTranslationKey(), this, (int) r.getCurrentX(), (int) r.getCurrentY()));
+			}, r.getNameTranslationKey(), this, (int) r.getCurrentX(), (int) r.getCurrentY(), r.getKey(), r.getParentKey(), (int) r.getParentX(), (int) r.getParentY()));
 		}
 	}
 }

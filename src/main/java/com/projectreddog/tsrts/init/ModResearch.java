@@ -35,19 +35,44 @@ public class ModResearch {
 		 */
 		ResourceValues rv = new ResourceValues(0, 0, 0, 0, 0, 0, 0);
 		registerResearchTopic("minion", null, true, rv);
-		registerResearchTopic("archer", "minion", false, rv);
-		registerResearchTopic("lancer", "minion", false, rv);
-		registerResearchTopic("pikeman", "minion", false, rv);
-		registerResearchTopic("armory", "minion", false, rv);
-		registerResearchTopic("mareketplace", "minion", false, rv);
-		registerResearchTopic("wall", "minion", false, rv);
-		registerResearchTopic("siegeworkshop", "minion", false, rv);
-		registerResearchTopic("crossbow", "archer", false, rv);
-		registerResearchTopic("advcedarmor", "armory", false, rv);
-		registerResearchTopic("watchtower", "wall", false, rv);
+//		registerResearchTopic("archer", "minion", false, rv);
+//		registerResearchTopic("lancer", "minion", false, rv);
+//		registerResearchTopic("pikeman", "minion", false, rv);
 
-		registerResearchTopic("batteringrams", "siegeworkshop", false, rv);
-		registerResearchTopic("trebuchet", "batteringrams", false, rv);
+		registerResearchTopic("dummya", "minion", false, rv);
+//		registerResearchTopic("dummyb", "minion", false, rv);
+//		registerResearchTopic("dummyc", "minion", false, rv);
+//		registerResearchTopic("dummyd", "minion", false, rv);
+//		registerResearchTopic("dummya1", "dummya", false, rv);
+//		registerResearchTopic("dummya2", "dummya", false, rv);
+//		registerResearchTopic("dummya3", "dummya", false, rv);
+//		registerResearchTopic("dummyb1", "dummyb", false, rv);
+//		registerResearchTopic("dummyb2", "dummyb", false, rv);
+//		registerResearchTopic("dummyb3", "dummyb", false, rv);
+//		registerResearchTopic("dummyb3a", "dummyb3", false, rv);
+//		registerResearchTopic("dummyb3b", "dummyb3", false, rv);
+//		registerResearchTopic("dummyc1", "dummyc", false, rv);
+//		registerResearchTopic("dummyc2", "dummyc", false, rv);
+//		registerResearchTopic("dummyc3", "dummyc", false, rv);
+//		registerResearchTopic("dummyc4", "dummyc", false, rv);
+//		registerResearchTopic("dummyc5", "dummyc", false, rv);
+//		registerResearchTopic("dummyd1", "dummyd", false, rv);
+//		registerResearchTopic("dummyd2", "dummyd", false, rv);
+//		registerResearchTopic("dummyd1a", "dummyd1", false, rv);
+//		registerResearchTopic("dummyd1a1", "dummyd1a", false, rv);
+//		registerResearchTopic("dummyd1a2", "dummyd1a", false, rv);
+//		registerResearchTopic("dummyd1a3", "dummyd1a", false, rv);
+
+//		registerResearchTopic("armory", "minion", false, rv);
+//		registerResearchTopic("mareketplace", "minion", false, rv);
+//		registerResearchTopic("wall", "minion", false, rv);
+//		registerResearchTopic("siegeworkshop", "minion", false, rv);
+//		registerResearchTopic("crossbow", "archer", false, rv);
+//		registerResearchTopic("advcedarmor", "armory", false, rv);
+//		registerResearchTopic("watchtower", "wall", false, rv);
+//
+//		registerResearchTopic("batteringrams", "siegeworkshop", false, rv);
+//		registerResearchTopic("trebuchet", "batteringrams", false, rv);
 		updateAllCalcs();
 
 	}
@@ -59,19 +84,104 @@ public class ModResearch {
 		calculateLevels(null, 1);
 
 		calculateXvalue();
+//TODO : remove next line if this is ran in startup only..
+		// its here for debugging only
+		for (Map.Entry<String, Research> entry : research_topics.entrySet()) {
+			entry.getValue().setTreeNodeValue(0);
+		}
 
-		for (int i = 1; i <= maxLevels; i++) {
-			calculateYvalueByCounting(i);
+		for (int i = maxLevels; i >= 1; i--) {
+
+			calculateTreeNodeValue(i);
+
+		}
+
+//		for (int i = 1; i <= maxLevels; i++) {
+//
+//			calculateYvalueByCounting(i);
+//		}
+
+		calculateYvalueByTreeNodeValue(null, 0);
+
+		for (int i = maxLevels; i >= 1; i--) {
+
+			calculateParentYByLevel(i);
+
 		}
 	}
 
-	private static void calculateYvalueByCounting(int level) {
-		int count = 0;
+	private static void calculateParentYByLevel(int level) {
 		for (Map.Entry<String, Research> entry : research_topics.entrySet()) {
 			if (entry.getValue().getCalculatedLevel() == level) {
-				count = count + 1;
+				entry.getValue().setParentY(GetParentsYvalue(entry.getValue().getParentKey()));
+
+				entry.getValue().setParentX(GetParentsXvalue(entry.getValue().getParentKey()));
 			}
 		}
+
+	}
+
+	private static double GetParentsXvalue(String parentKey) {
+		if (research_topics.containsKey(parentKey)) {
+			return research_topics.get(parentKey).getCurrentX();
+
+		} else {
+			return 0;
+		}
+	}
+
+	private static double GetParentsYvalue(String parentKey) {
+		if (research_topics.containsKey(parentKey)) {
+			return research_topics.get(parentKey).getCurrentY();
+
+		} else {
+			return 0;
+		}
+	}
+
+	private static void calculateTreeNodeValue(int level) {
+		for (Map.Entry<String, Research> entry : research_topics.entrySet()) {
+			if (entry.getValue().getCalculatedLevel() == level) {
+				if (entry.getValue().getParentKey() != null) {
+					if (entry.getValue().getTreeNodeValue() == 0) {
+						entry.getValue().setTreeNodeValue(1);
+					}
+					research_topics.get(entry.getValue().getParentKey()).setTreeNodeValue(research_topics.get(entry.getValue().getParentKey()).getTreeNodeValue() + entry.getValue().getTreeNodeValue());
+				}
+
+			}
+		}
+
+	}
+
+	private static int calculateYvalueByTreeNodeValue(String key, int parentStart) {
+
+		int i = 0;
+		int priorSpotSpace = parentStart;
+		int prevChildSpot = 0;
+		for (Map.Entry<String, Research> entry : research_topics.entrySet()) {
+			if ((entry.getValue().getParentKey() == null && key == null) || entry.getValue().getParentKey() != null && entry.getValue().getParentKey().equals(key)) {
+				int count = entry.getValue().getTreeNodeValue();
+				if (key == null) {
+					// top parent so set it by itself
+					entry.getValue().setCurrentY(0);
+					priorSpotSpace = -ySpacing;
+				} else {
+					entry.getValue().setCurrentY(((count) * ySpacing) + priorSpotSpace);
+					priorSpotSpace = priorSpotSpace + (count * ySpacing);
+				}
+				i++;
+				prevChildSpot = calculateYvalueByTreeNodeValue(entry.getValue().getKey(), priorSpotSpace - (((int) ((count + 1) / 2) * ySpacing)));
+				if (prevChildSpot > priorSpotSpace) {
+					priorSpotSpace = prevChildSpot;
+				}
+			}
+		}
+		return priorSpotSpace;
+	}
+
+	private static void calculateYvalueByCounting(int level) {
+		int count = research_topics.get("minion").getTreeNodeValue();
 
 		int vertSpace = count * ySpacing;
 		int i = 0;
@@ -86,7 +196,7 @@ public class ModResearch {
 
 	private static void calculateXvalue() {
 		for (Map.Entry<String, Research> entry : research_topics.entrySet()) {
-			entry.getValue().setCurrentX(entry.getValue().getCalculatedLevel() * xSpacing);
+			entry.getValue().setCurrentX((entry.getValue().getCalculatedLevel() - 1) * xSpacing);
 		}
 
 	}
