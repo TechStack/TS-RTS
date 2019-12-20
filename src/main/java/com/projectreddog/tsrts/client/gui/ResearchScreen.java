@@ -1,5 +1,7 @@
 package com.projectreddog.tsrts.client.gui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.projectreddog.tsrts.client.gui.widget.ResearchButton;
@@ -18,6 +20,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 
@@ -54,44 +57,102 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 
-		int xOffset = (this.xSize - 152) / 2;
-
+		int left = (this.xSize - 152) / 2;
+		int top = 10;
 		int yOffset = 10;
+		int bottom = top + 150;
+		int right = left + 150;
+
 		for (Widget button : this.buttons) {
 			if (button instanceof ResearchButton) {
 				ResearchButton rb = (ResearchButton) button;
 				if (rb.parentKey != null) {
 
-					int start = (int) ((xOffset - currentScrollAmountX) + rb.offsetX);
-					int end = (int) ((xOffset - currentScrollAmountX) + rb.parentOffsetX) + 20;
+					int start = (int) ((left - currentScrollAmountX) + rb.offsetX);
+					int end = (int) ((left - currentScrollAmountX) + rb.parentOffsetX) + 20;
 					int distance = (start - end) / 2;
 					int startY = (int) ((yOffset - currentScrollAmountY) + rb.offsetY) + 10;
 					int endY = (int) ((yOffset - currentScrollAmountY) + rb.parentOffsetY) + 10;
-					if (startY > 10) {
 
-						// draw first 1/2 of the H line (closets to child)
-						this.hLine(start, start - distance, startY, -1);
-						// draw 2nd 1/2 of the H line closest to the parent ?
+					if (end < left) {
+						end = left;
+						distance = (start - end) / 2;
 					}
-					if (endY > 10) {
-						this.hLine(end, end + distance, endY, -1);
+					if (start > right) {
+						start = right;
+						distance = (start - end) / 2;
+					}
+					if (distance > 0) {
+						if (startY > top) {
+
+							// draw first 1/2 of the H line (closets to child)
+							if (startY < bottom) {
+								// not to far down
+								this.hLine(start, start - distance, startY, -1);
+							}
+						}
+						if (endY > top) {
+							// draw 2nd 1/2 of the H line closest to the parent ?
+							if (endY < bottom) {
+// not too far down
+								this.hLine(end, end + distance, endY, -1);
+							}
+						}
+					}
+					if (startY < top) {
+						startY = top;
 					}
 
-					if (startY < 10) {
-						startY = 10;
+					if (endY < top) {
+						endY = top;
 					}
 
-					if (endY < 10) {
-						endY = 10;
+					if (startY > bottom) {
+						startY = bottom;
 					}
-					if (endY == 10 && startY == 10) {
+
+					if (endY > bottom) {
+						endY = bottom;
+					}
+
+					if ((endY == top && startY == top) || startY == bottom && endY == bottom) {
 
 					} else {
-						this.vLine(end + distance, startY, endY, -1);
+						// only draw if both points are below the top (10=top in this case)
+						if (end + distance > left) {
+							// only draw if within the left edge
+							if (end + distance < right) {
+								// only draw if within the right edge
+								this.vLine(end + distance, startY, endY, -1);
+							}
+						}
+					}
+				}
+
+			}
+
+		}
+// 2nd loop so the tool tip can be "over" all the lines
+		for (Widget button : this.buttons) {
+			if (button instanceof ResearchButton) {
+				ResearchButton rb = (ResearchButton) button;
+				if (rb.visible) {
+					/// try to render the tooltip so its over the lines
+
+					if (mouseX > rb.x && mouseX < rb.x + rb.getWidth()) {
+
+						if (mouseY > rb.y && mouseY < rb.y + rb.getHeight()) {
+							TranslationTextComponent ttc = new TranslationTextComponent(rb.getMessage());
+
+							List<String> text = new ArrayList<String>();
+							text.add(ttc.getUnformattedComponentText());
+							rb.renderTooltip(text, mouseX - this.guiLeft, mouseY - this.guiTop);
+						}
 					}
 				}
 			}
 		}
+
 	}
 
 	@Override
@@ -131,29 +192,8 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 
 				rb.y = (int) (this.guiTop + yOffset - currentScrollAmountY) + rb.offsetY;
 
-				if (rb.x < this.guiLeft + xOffset) {
-					rb.visible = false;
-				} else {
-					if (rb.y < this.guiTop + yOffset) {
-						rb.visible = false;
+				rb.Cull(this.guiLeft + xOffset, this.guiTop + yOffset, this.guiLeft + xOffset + 150, this.guiTop + yOffset + 151);
 
-					} else {
-
-						// Keep going
-						if (rb.x + rb.getWidth() > this.guiLeft + xOffset + 152) {
-							rb.visible = false;
-
-						} else {
-							if (rb.y + rb.getHeight() > this.guiTop + yOffset + 152) {
-								rb.visible = false;
-							} else {
-								rb.visible = true;
-							}
-						}
-
-					}
-				}
-				// this.hLine(rb.y - 10, rb.parentOffsetX + 21, rb.y - 1, 60000);
 			}
 		}
 
