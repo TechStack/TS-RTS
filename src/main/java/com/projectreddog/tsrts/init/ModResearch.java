@@ -34,45 +34,45 @@ public class ModResearch {
 		trebuchet
 		 */
 		ResourceValues rv = new ResourceValues(0, 0, 0, 0, 0, 0, 0);
-		registerResearchTopic("minion", null, true, rv);
-//		registerResearchTopic("archer", "minion", false, rv);
-//		registerResearchTopic("lancer", "minion", false, rv);
-//		registerResearchTopic("pikeman", "minion", false, rv);
+		registerResearchTopic("minion", null, true, rv, 100);
+		registerResearchTopic("archer", "minion", false, rv, 100);
+		registerResearchTopic("lancer", "minion", false, rv, 100);
+		registerResearchTopic("pikeman", "minion", false, rv, 100);
 
-		registerResearchTopic("dummya", "minion", false, rv);
-		registerResearchTopic("dummyb", "minion", false, rv);
-		registerResearchTopic("dummyc", "minion", false, rv);
-		registerResearchTopic("dummyd", "minion", false, rv);
-		registerResearchTopic("dummya1", "dummya", false, rv);
-		registerResearchTopic("dummya2", "dummya", false, rv);
-		registerResearchTopic("dummya3", "dummya", false, rv);
-		registerResearchTopic("dummyb1", "dummyb", false, rv);
-		registerResearchTopic("dummyb2", "dummyb", false, rv);
-		registerResearchTopic("dummyb3", "dummyb", false, rv);
-		registerResearchTopic("dummyb3a", "dummyb3", false, rv);
-		registerResearchTopic("dummyb3b", "dummyb3", false, rv);
-		registerResearchTopic("dummyc1", "dummyc", false, rv);
-		registerResearchTopic("dummyc2", "dummyc", false, rv);
-		registerResearchTopic("dummyc3", "dummyc", false, rv);
-		registerResearchTopic("dummyc4", "dummyc", false, rv);
-		registerResearchTopic("dummyc5", "dummyc", false, rv);
-		registerResearchTopic("dummyd1", "dummyd", false, rv);
-		registerResearchTopic("dummyd2", "dummyd", false, rv);
-		registerResearchTopic("dummyd1a", "dummyd1", false, rv);
-		registerResearchTopic("dummyd1a1", "dummyd1a", false, rv);
-		registerResearchTopic("dummyd1a2", "dummyd1a", false, rv);
-		registerResearchTopic("dummyd1a3", "dummyd1a", false, rv);
+//		registerResearchTopic("dummya", "minion", false, rv);
+//		registerResearchTopic("dummyb", "minion", false, rv);
+//		registerResearchTopic("dummyc", "minion", false, rv);
+//		registerResearchTopic("dummyd", "minion", false, rv);
+//		registerResearchTopic("dummya1", "dummya", false, rv);
+//		registerResearchTopic("dummya2", "dummya", false, rv);
+//		registerResearchTopic("dummya3", "dummya", false, rv);
+//		registerResearchTopic("dummyb1", "dummyb", false, rv);
+//		registerResearchTopic("dummyb2", "dummyb", false, rv);
+//		registerResearchTopic("dummyb3", "dummyb", false, rv);
+//		registerResearchTopic("dummyb3a", "dummyb3", false, rv);
+//		registerResearchTopic("dummyb3b", "dummyb3", false, rv);
+//		registerResearchTopic("dummyc1", "dummyc", false, rv);
+//		registerResearchTopic("dummyc2", "dummyc", false, rv);
+//		registerResearchTopic("dummyc3", "dummyc", false, rv);
+//		registerResearchTopic("dummyc4", "dummyc", false, rv);
+//		registerResearchTopic("dummyc5", "dummyc", false, rv);
+//		registerResearchTopic("dummyd1", "dummyd", false, rv);
+//		registerResearchTopic("dummyd2", "dummyd", false, rv);
+//		registerResearchTopic("dummyd1a", "dummyd1", false, rv);
+//		registerResearchTopic("dummyd1a1", "dummyd1a", false, rv);
+//		registerResearchTopic("dummyd1a2", "dummyd1a", false, rv);
+//		registerResearchTopic("dummyd1a3", "dummyd1a", false, rv);
 
-//		registerResearchTopic("armory", "minion", false, rv);
-//		registerResearchTopic("mareketplace", "minion", false, rv);
-//		registerResearchTopic("wall", "minion", false, rv);
-//		registerResearchTopic("siegeworkshop", "minion", false, rv);
-//		registerResearchTopic("crossbow", "archer", false, rv);
-//		registerResearchTopic("advcedarmor", "armory", false, rv);
-//		registerResearchTopic("watchtower", "wall", false, rv);
-//
-//		registerResearchTopic("batteringrams", "siegeworkshop", false, rv);
-//		registerResearchTopic("trebuchet", "batteringrams", false, rv);
+		registerResearchTopic("armory", "minion", false, rv, 100);
+		registerResearchTopic("mareketplace", "minion", false, rv, 100);
+		registerResearchTopic("wall", "minion", false, rv, 100);
+		registerResearchTopic("siegeworkshop", "minion", false, rv, 100);
+		registerResearchTopic("crossbow", "archer", false, rv, 100);
+		registerResearchTopic("advcedarmor", "armory", false, rv, 100);
+		registerResearchTopic("watchtower", "wall", false, rv, 100);
+
+		registerResearchTopic("batteringrams", "siegeworkshop", false, rv, 100);
+		registerResearchTopic("trebuchet", "batteringrams", false, rv, 100);
 		updateAllCalcs();
 
 	}
@@ -218,7 +218,7 @@ public class ModResearch {
 		}
 	}
 
-	private static void registerResearchTopic(String key, String parentKey, boolean unlocked, ResourceValues rv) {
+	private static void registerResearchTopic(String key, String parentKey, boolean unlocked, ResourceValues rv, int workRequired) {
 
 		if (parentKey != null) {
 			// has parent so check it
@@ -228,8 +228,17 @@ public class ModResearch {
 				throw new IllegalArgumentException("Tried to add key:" + key + " with a parent of:" + parentKey + " but the parent was not found!");
 			}
 		}
-		research_topics.put(key, new Research(key, parentKey, unlocked, rv));
+		research_topics.put(key, new Research(key, parentKey, unlocked, rv, workRequired));
 
+	}
+
+	public static Research getResearch(String key) {
+		if (research_topics.containsKey(key)) {
+			return research_topics.get(key);
+		} else {
+			TSRTS.LOGGER.error("ERROR tried to get research with invaid key:" + key);
+			throw new IllegalArgumentException("loooking for an invalid research topic KEY!");
+		}
 	}
 
 }

@@ -8,8 +8,9 @@ public class Research {
 	private String key;
 	private String parentKey;
 	private ResourceValues rv;
-	private double parentX;
+	private int workRequired;
 
+	private double parentX;
 	private double parentY;
 	private double currentX;
 	private double currentY;
@@ -17,7 +18,7 @@ public class Research {
 
 	private int calculatedLevel;
 
-	public Research(String key, String parentKey, boolean isStartupUnlockedValue, ResourceValues rv) {
+	public Research(String key, String parentKey, boolean isStartupUnlockedValue, ResourceValues rv, int workRequired) {
 		super();
 		for (int i = 0; i < TeamEnum.values().length; i++) {
 			this.isUnlocked[i] = isStartupUnlockedValue;
@@ -25,6 +26,7 @@ public class Research {
 		this.key = key;
 		this.parentKey = parentKey;
 		this.rv = rv;
+		this.workRequired = workRequired;
 	}
 
 	public int getTreeNodeValue() {
@@ -113,6 +115,14 @@ public class Research {
 
 	public void setRv(ResourceValues rv) {
 		this.rv = rv;
+	}
+
+	public int getWorkRequired() {
+		return workRequired;
+	}
+
+	public void setWorkRequired(int workRequired) {
+		this.workRequired = workRequired;
 	}
 
 }
