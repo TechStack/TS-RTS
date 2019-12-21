@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
@@ -64,6 +65,20 @@ public class ServerEvents {
 					Utilities.AddResourcesToTeam(TeamEnum.values()[i].getName(), Resources.DIAMOND, diamondDelta);
 					Utilities.AddResourcesToTeam(TeamEnum.values()[i].getName(), Resources.EMERALD, emeraldDelta);
 
+					// REsearch
+					if (TSRTS.teamInfoArray[i].getCurrenResearchWorkRemaining() > 0) {
+						TSRTS.teamInfoArray[i].setCurrenResearchWorkRemaining(TSRTS.teamInfoArray[i].getCurrenResearchWorkRemaining() - (TSRTS.teamInfoArray[i].getResearchCenter()));
+					}
+					if (TSRTS.teamInfoArray[i].getCurrenResearchWorkRemaining() < 0) {
+						if (TSRTS.teamInfoArray[i].getCurrenResearchKey() != "") {
+							ModResearch.getResearch(TSRTS.teamInfoArray[i].getCurrenResearchKey()).setUnlocked(true, i);
+
+							TSRTS.teamInfoArray[i].setCurrenResearchKey("");
+							TSRTS.teamInfoArray[i].setCurrenResearchWorkRemaining(0);
+							TSRTS.teamInfoArray[i].setFullResearchWorkRemaining(0);
+						}
+					}
+
 					// SEND the changes to the clients !
 					Utilities.SendTeamToClient(TeamEnum.values()[i].getName());
 
@@ -75,6 +90,7 @@ public class ServerEvents {
 					int totDiamond = TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())].GetResource(Resources.DIAMOND);
 					int totEmerald = TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())].GetResource(Resources.EMERALD);
 					WriteToEcoStats(TeamEnum.values()[i].getName(), foodDelta, woodDelta, stoneDelta, ironDelta, goldDelta, diamondDelta, emeraldDelta, totFood, totWood, totStone, totIron, totGold, totDiamond, totEmerald);
+
 				}
 
 			}

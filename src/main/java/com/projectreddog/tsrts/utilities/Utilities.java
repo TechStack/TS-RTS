@@ -24,6 +24,7 @@ import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
@@ -35,6 +36,7 @@ import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.tileentity.WallTileEntity;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
+import com.projectreddog.tsrts.utilities.data.Research;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -117,6 +119,32 @@ public class Utilities {
 			break;
 		default:
 			break;
+		}
+	}
+
+	public static void StartResearch(String key, String team) {
+		if (!ModResearch.getResearch(key).isUnlocked(team)) {
+
+			// CHECK if there is a research in progress still!
+			if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].getCurrenResearchWorkRemaining() > 0) {
+				// something is actively being researched so do nothing!
+
+			} else {
+
+				// set this as the active research
+				if (ModResearch.research_topics.containsKey(key)) {
+					Research r = ModResearch.getResearch(key);
+					if (!r.isUnlocked(team)) {
+						TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setCurrenResearchKey(key);
+						TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setCurrenResearchWorkRemaining(r.getWorkRequired());
+						TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setFullResearchWorkRemaining(r.getWorkRequired());
+
+						SendTeamToClient(team);
+					}
+				}
+
+			}
+
 		}
 	}
 

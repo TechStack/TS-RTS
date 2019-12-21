@@ -15,6 +15,7 @@ import com.projectreddog.tsrts.items.builderitems.MinesiteEmeraldBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteGoldBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteIronBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteStoneBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.ResearchCenterBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.StablesBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.TownHallBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WallBuilderItem;
@@ -47,6 +48,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BUILDER_ITEM)
 	public static WallBuilderItem WALLBUILDERITEM = new WallBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RESEARCH_CENTER_BUILDER_ITEM)
+	public static ResearchCenterBuilderItem RESEARCHCENTERBUILDERITEM = new ResearchCenterBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_STEPS_BUILDER_ITEM)
 	public static WallStepsBuilderItem WALLSTEPSBUILDERITEM = new WallStepsBuilderItem();
@@ -115,6 +119,8 @@ public class ModItems {
 		RegisterItem(event, ModItems.GATEBUILDERITEM);
 
 		RegisterItem(event, ModItems.WALLSTEPSBUILDERITEM);
+
+		RegisterItem(event, ModItems.RESEARCHCENTERBUILDERITEM);
 	}
 
 	// Called to register every item.

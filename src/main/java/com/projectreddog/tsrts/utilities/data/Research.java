@@ -9,7 +9,8 @@ public class Research {
 	private String parentKey;
 	private ResourceValues rv;
 	private int workRequired;
-
+	private int buttonIndexX;
+	private int buttonIndexY;
 	private double parentX;
 	private double parentY;
 	private double currentX;
@@ -18,7 +19,7 @@ public class Research {
 
 	private int calculatedLevel;
 
-	public Research(String key, String parentKey, boolean isStartupUnlockedValue, ResourceValues rv, int workRequired) {
+	public Research(String key, String parentKey, boolean isStartupUnlockedValue, ResourceValues rv, int workRequired, int buttonIndexX, int buttonIndexY) {
 		super();
 		for (int i = 0; i < TeamEnum.values().length; i++) {
 			this.isUnlocked[i] = isStartupUnlockedValue;
@@ -27,6 +28,8 @@ public class Research {
 		this.parentKey = parentKey;
 		this.rv = rv;
 		this.workRequired = workRequired;
+		this.buttonIndexX = buttonIndexX;
+		this.buttonIndexY = buttonIndexY;
 	}
 
 	public int getTreeNodeValue() {
@@ -85,6 +88,23 @@ public class Research {
 		return "gui.research." + key + ".description";
 	}
 
+	public boolean isUnlocked(String team) {
+		if (TeamEnum.BLUE.getName().equals(team)) {
+			return isUnlocked(TeamEnum.BLUE.ordinal());
+		}
+		if (TeamEnum.RED.getName().equals(team)) {
+			return isUnlocked(TeamEnum.RED.ordinal());
+		}
+
+		if (TeamEnum.GREEN.getName().equals(team)) {
+			return isUnlocked(TeamEnum.GREEN.ordinal());
+		}
+		if (TeamEnum.YELLOW.getName().equals(team)) {
+			return isUnlocked(TeamEnum.YELLOW.ordinal());
+		}
+		return false;
+	}
+
 	public boolean isUnlocked(int teamIndex) {
 		return isUnlocked[teamIndex];
 	}
@@ -123,6 +143,22 @@ public class Research {
 
 	public void setWorkRequired(int workRequired) {
 		this.workRequired = workRequired;
+	}
+
+	public int getButtonIndexX() {
+		return buttonIndexX;
+	}
+
+	public void setButtonIndexX(int buttonIndexX) {
+		this.buttonIndexX = buttonIndexX;
+	}
+
+	public int getButtonIndexY() {
+		return buttonIndexY;
+	}
+
+	public void setButtonIndexY(int buttonIndexY) {
+		this.buttonIndexY = buttonIndexY;
 	}
 
 }

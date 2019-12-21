@@ -74,6 +74,7 @@ public class RenderOverlay extends Screen {
 	private ResourceLocation BARRACKS_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/barracksblock_yellow_top.png");
 
 	private ResourceLocation ARCHERY_RANGE_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/archeryrangeblock_yellow_top.png");
+	private static ResourceLocation STATUS_TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/guiwidgets.png");
 
 	@SubscribeEvent
 	public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
@@ -120,6 +121,17 @@ public class RenderOverlay extends Screen {
 									Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + amt, x, y + ytextOffset, 14737632);
 									x = x + xTextWidth;
 								}
+							}
+
+							Minecraft.getInstance().fontRenderer.drawStringWithShadow(ti.getCurrenResearchKey() + ":" + ti.getCurrenResearchWorkRemaining(), 20, 20, 14737632);
+							int divisor = ti.getFullResearchWorkRemaining();
+							if (divisor > 0) {
+
+								Minecraft.getInstance().textureManager.bindTexture(STATUS_TEXTURE);
+
+								blit(20, 40, 31, 0, (int) (((1 - ((float) ti.getCurrenResearchWorkRemaining() / divisor))) * 100), 8, 256, 256);
+								// blit(this.x, this.y, (, (float) i + topOffset, this.width, this.height, 256, 256);
+
 							}
 
 							RenderUnitQueues(team);

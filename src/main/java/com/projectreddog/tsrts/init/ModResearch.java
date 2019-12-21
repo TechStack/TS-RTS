@@ -34,10 +34,12 @@ public class ModResearch {
 		trebuchet
 		 */
 		ResourceValues rv = new ResourceValues(0, 0, 0, 0, 0, 0, 0);
-		registerResearchTopic("minion", null, true, rv, 100);
-		registerResearchTopic("archer", "minion", false, rv, 100);
-		registerResearchTopic("lancer", "minion", false, rv, 100);
-		registerResearchTopic("pikeman", "minion", false, rv, 100);
+		registerResearchTopic("townhall", null, true, rv, 100, 4, 3);
+
+		registerResearchTopic("minion", "townhall", true, rv, 100, 0, 3);
+		registerResearchTopic("archer", "townhall", false, rv, 100, 1, 3);
+		registerResearchTopic("lancer", "townhall", false, rv, 100, 2, 3);
+		registerResearchTopic("pikeman", "townhall", false, rv, 100, 3, 3);
 
 //		registerResearchTopic("dummya", "minion", false, rv);
 //		registerResearchTopic("dummyb", "minion", false, rv);
@@ -63,16 +65,16 @@ public class ModResearch {
 //		registerResearchTopic("dummyd1a2", "dummyd1a", false, rv);
 //		registerResearchTopic("dummyd1a3", "dummyd1a", false, rv);
 
-		registerResearchTopic("armory", "minion", false, rv, 100);
-		registerResearchTopic("mareketplace", "minion", false, rv, 100);
-		registerResearchTopic("wall", "minion", false, rv, 100);
-		registerResearchTopic("siegeworkshop", "minion", false, rv, 100);
-		registerResearchTopic("crossbow", "archer", false, rv, 100);
-		registerResearchTopic("advcedarmor", "armory", false, rv, 100);
-		registerResearchTopic("watchtower", "wall", false, rv, 100);
+		registerResearchTopic("armory", "townhall", false, rv, 100, 1, 1);
+		registerResearchTopic("mareketplace", "townhall", false, rv, 100, 1, 1);
+		registerResearchTopic("wall", "townhall", false, rv, 100, 9, 0);
+		registerResearchTopic("siegeworkshop", "townhall", false, rv, 100, 1, 1);
+		registerResearchTopic("crossbow", "archer", false, rv, 100, 1, 1);
+		registerResearchTopic("advcedarmor", "armory", false, rv, 100, 1, 1);
+		registerResearchTopic("watchtower", "wall", false, rv, 100, 0, 1);
 
-		registerResearchTopic("batteringrams", "siegeworkshop", false, rv, 100);
-		registerResearchTopic("trebuchet", "batteringrams", false, rv, 100);
+		registerResearchTopic("batteringrams", "siegeworkshop", false, rv, 100, 1, 1);
+		registerResearchTopic("trebuchet", "batteringrams", false, rv, 100, 1, 1);
 		updateAllCalcs();
 
 	}
@@ -181,7 +183,7 @@ public class ModResearch {
 	}
 
 	private static void calculateYvalueByCounting(int level) {
-		int count = research_topics.get("minion").getTreeNodeValue();
+		int count = research_topics.get("townhall").getTreeNodeValue();
 
 		int vertSpace = count * ySpacing;
 		int i = 0;
@@ -218,7 +220,7 @@ public class ModResearch {
 		}
 	}
 
-	private static void registerResearchTopic(String key, String parentKey, boolean unlocked, ResourceValues rv, int workRequired) {
+	private static void registerResearchTopic(String key, String parentKey, boolean unlocked, ResourceValues rv, int workRequired, int buttonIndexX, int buttonIndexY) {
 
 		if (parentKey != null) {
 			// has parent so check it
@@ -228,7 +230,7 @@ public class ModResearch {
 				throw new IllegalArgumentException("Tried to add key:" + key + " with a parent of:" + parentKey + " but the parent was not found!");
 			}
 		}
-		research_topics.put(key, new Research(key, parentKey, unlocked, rv, workRequired));
+		research_topics.put(key, new Research(key, parentKey, unlocked, rv, workRequired, buttonIndexX, buttonIndexY));
 
 	}
 

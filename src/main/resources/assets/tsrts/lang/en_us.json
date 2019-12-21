@@ -70,5 +70,23 @@
 "gui.units.lancer":"Lancer",
 "gui.units.pikeman":"Pikeman",
 
+"gui.research.minion.name":"Minions",
+"gui.research.townhall.name":"Town Hall",
+"gui.research.archer.name":"Archery",
+"gui.research.lancer.name":"Lances",
+"gui.research.pikeman.name":"Pikeman",
+"gui.research.armory.name":"Armory",
+"gui.research.mareketplace.name":"Mareketplace",
+"gui.research.wall.name":"Walls",
+"gui.research.siegeworkshop.name":"Siege Workshop",
+"gui.research.crossbow.name":"Crossbows",
+"gui.research.advcedarmor.name":"Advanced Armor",
+"gui.research.watchtower.name":"Watch Tower",
+"gui.research.batteringrams.name":"Battering Rams",
+"gui.research.trebuchet.name":"Trebuchet",
+
+
+
+
 "_comment":"End here"
 }

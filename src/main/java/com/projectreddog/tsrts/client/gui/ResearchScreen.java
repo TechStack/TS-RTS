@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.client.gui.widget.ResearchButton;
 import com.projectreddog.tsrts.containers.ResearchContainer;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.init.ModResearch;
-import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
+import com.projectreddog.tsrts.network.ResearchButtonClickPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.data.Research;
 
 import net.minecraft.client.Minecraft;
@@ -66,7 +68,42 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 		for (Widget button : this.buttons) {
 			if (button instanceof ResearchButton) {
 				ResearchButton rb = (ResearchButton) button;
+
+				if (player.getTeam() != null && rb.parentKey == null) {
+					if (ModResearch.getResearch(rb.key).isUnlocked(player.getTeam().getName())) {
+						rb.setButtonState(ResearchButton.ButtonState.RESEARCHED);
+						rb.active = false;
+
+					}
+				}
+
 				if (rb.parentKey != null) {
+
+					if (player.getTeam() != null) {
+
+						if (ModResearch.getResearch(rb.key).isUnlocked(player.getTeam().getName())) {
+							rb.setButtonState(ResearchButton.ButtonState.RESEARCHED);
+							rb.active = false;
+						} else {
+							if (!(ModResearch.getResearch(rb.parentKey).isUnlocked(player.getTeam().getName()))) {
+								rb.setButtonState(ResearchButton.ButtonState.LOCKED);
+
+								rb.active = false;
+
+							} else {
+
+								if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(player.getTeam().getName())].getCurrenResearchKey().equals(rb.key)) {
+									rb.setButtonState(ResearchButton.ButtonState.RESEARCH_IN_PROGRESS);
+									rb.active = false;
+								} else {
+									rb.setButtonState(ResearchButton.ButtonState.NORMAL);
+									rb.active = true;
+								}
+
+							}
+
+						}
+					}
 
 					int start = (int) ((left - currentScrollAmountX) + rb.offsetX);
 					int end = (int) ((left - currentScrollAmountX) + rb.parentOffsetX) + 20;
@@ -287,8 +324,8 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 
 		for (Map.Entry<String, Research> entry : ModResearch.research_topics.entrySet()) {
 			Research r = entry.getValue();
-			addButton(new ResearchButton((int) this.guiLeft + (int) r.getCurrentX(), (int) this.guiTop + (int) r.getCurrentY(), 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
-				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHER));
+			addButton(new ResearchButton((int) this.guiLeft + (int) r.getCurrentX(), (int) this.guiTop + (int) r.getCurrentY(), 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(r.getButtonIndexX()), GuiUtil.GetYStartForButtonImageXYIndex(r.getButtonIndexY()), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+				ModNetwork.SendToServer(new ResearchButtonClickPacketToServer(r.getKey()));
 			}, r.getNameTranslationKey(), this, (int) r.getCurrentX(), (int) r.getCurrentY(), r.getKey(), r.getParentKey(), (int) r.getParentX(), (int) r.getParentY()));
 		}
 	}

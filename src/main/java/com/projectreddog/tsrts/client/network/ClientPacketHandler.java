@@ -42,13 +42,17 @@ public class ClientPacketHandler {
 		Minecraft.getInstance().getToastGui().add(new AlertToast(title, subTitle, backgroundType));
 	}
 
-	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName) {
+	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount) {
 		TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
 		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = new TeamInfo();
 		}
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SetResourceArray(resourceAmt);
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setCurrenResearchKey(currentResearchKey);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setCurrenResearchWorkRemaining(currentWorkAmount);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setFullResearchWorkRemaining(fullWorkAmount);
 
 	}
 
