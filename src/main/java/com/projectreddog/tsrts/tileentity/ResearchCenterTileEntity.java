@@ -1,9 +1,11 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -46,6 +48,20 @@ public class ResearchCenterTileEntity extends OwnedCooldownTileEntity implements
 		} else if (buttonId == Reference.GUI_BUTTON_DEBUG_TESTERRED) {
 			this.setOwner("testerred");
 		}
+
+	}
+
+	@Override
+	public void IncreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setResearchCenter(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getResearchCenter() + 1);
+
+	}
+
+	@Override
+	public void DecreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setResearchCenter(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getResearchCenter() - 1);
 
 	}
 

@@ -65,6 +65,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_BARRACKS_BUILDER_ITEM = "barracksbuilderitem";
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BUILDER_ITEM = "archeryrangebuilderitem";
 	public static final String REIGSTRY_NAME_STABLES_BUILDER_ITEM = "stablesbuilderitem";
+	public static final String REIGSTRY_NAME_RESEARCH_CENTER_BUILDER_ITEM = "researchcenterbuilderitem";
 
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";

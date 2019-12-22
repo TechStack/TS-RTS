@@ -6,4 +6,5 @@ public interface ResourceGenerator {
 	public abstract TeamInfo.Resources getResource();
 
 	public abstract void setResource(TeamInfo.Resources resource);
+
 }

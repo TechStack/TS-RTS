@@ -98,17 +98,26 @@ public class WatchTileEntity extends OwnedTileEntity implements ITickableTileEnt
 			}
 		}
 
-//		e = this.world.getEntitiesWithinAABB(PlayerEntity.class, aabb);
-//		if (e != null && shouldContinue) {
-//			for (Iterator iterator = e.iterator(); iterator.hasNext();) {
-//
-//				LivingEntity livingEntity = (LivingEntity) iterator.next();
-//				if (shouldContinue) {
-//					shoot(this.world, this.pos, d, livingEntity);
-//					shouldContinue = false;
-//				}
-//			}
-//		}
+		List<PlayerEntity> peL = this.world.getEntitiesWithinAABB(PlayerEntity.class, aabb);
+
+		if (peL != null && shouldContinue) {
+
+			for (Iterator iterator = peL.iterator(); iterator.hasNext();) {
+
+				PlayerEntity pe = (PlayerEntity) iterator.next();
+
+				if (!pe.isCreative() && pe.getTeam() != null && !pe.getTeam().isSameTeam(this.getTeam())) {
+
+					if (shouldContinue) {
+						shoot(this.world, this.pos, d, pe);
+						shouldContinue = false;
+					}
+
+				}
+
+			}
+		}
+
 	}
 
 	public void shoot(World world, BlockPos bp, Direction direction, LivingEntity target) {

@@ -1,7 +1,5 @@
 package com.projectreddog.tsrts.utilities;
 
-import com.projectreddog.tsrts.init.ModResearch;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
@@ -18,10 +16,16 @@ public class TeamInfo {
 	private int mineSiteDiamond = 0;
 	private int mineSiteEmerald = 0;
 
-	private ModResearch research = new ModResearch();
+	private int researchCenter = 0;
 
-	public ModResearch getResearch() {
-		return research;
+	private String CurrenResearchKey;
+
+	private int currenResearchWorkRemaining;
+	private int fullResearchWorkRemaining;
+
+	public TeamInfo() {
+		super();
+		CurrenResearchKey = "";
 	}
 
 	public int[] getResourceAmt() {
@@ -183,6 +187,38 @@ public class TeamInfo {
 		}
 		return null;
 
+	}
+
+	public String getCurrenResearchKey() {
+		return CurrenResearchKey;
+	}
+
+	public void setCurrenResearchKey(String currenResearchKey) {
+		CurrenResearchKey = currenResearchKey;
+	}
+
+	public int getCurrenResearchWorkRemaining() {
+		return currenResearchWorkRemaining;
+	}
+
+	public void setCurrenResearchWorkRemaining(int currenResearchWorkRemaining) {
+		this.currenResearchWorkRemaining = currenResearchWorkRemaining;
+	}
+
+	public int getFullResearchWorkRemaining() {
+		return fullResearchWorkRemaining;
+	}
+
+	public void setFullResearchWorkRemaining(int fullResearchWorkRemaining) {
+		this.fullResearchWorkRemaining = fullResearchWorkRemaining;
+	}
+
+	public int getResearchCenter() {
+		return researchCenter;
+	}
+
+	public void setResearchCenter(int researchCenter) {
+		this.researchCenter = researchCenter;
 	}
 
 }
