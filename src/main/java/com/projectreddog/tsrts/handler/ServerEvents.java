@@ -69,7 +69,7 @@ public class ServerEvents {
 					if (TSRTS.teamInfoArray[i].getCurrenResearchWorkRemaining() > 0) {
 						TSRTS.teamInfoArray[i].setCurrenResearchWorkRemaining(TSRTS.teamInfoArray[i].getCurrenResearchWorkRemaining() - (TSRTS.teamInfoArray[i].getResearchCenter()));
 					}
-					if (TSRTS.teamInfoArray[i].getCurrenResearchWorkRemaining() < 0) {
+					if (TSRTS.teamInfoArray[i].getCurrenResearchWorkRemaining() <= 0) {
 						if (TSRTS.teamInfoArray[i].getCurrenResearchKey() != "") {
 							ModResearch.getResearch(TSRTS.teamInfoArray[i].getCurrenResearchKey()).setUnlocked(true, i);
 
