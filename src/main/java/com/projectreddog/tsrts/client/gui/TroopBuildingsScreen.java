@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.client.gui.widget.HoverImageButton;
 import com.projectreddog.tsrts.containers.TroopBuildingsContainer;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -108,16 +109,16 @@ public class TroopBuildingsScreen extends ContainerScreen<TroopBuildingsContaine
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_BARRACKS));
-		}, ModItems.BARRACKSBUILDERITEM.getTranslationKey(), this));
+		}, ModItems.BARRACKSBUILDERITEM.getTranslationKey(), this, null));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHERY_RANGE));
-		}, ModItems.ARCHERYRANGEBUILDERITEM.getTranslationKey(), this));
+		}, ModItems.ARCHERYRANGEBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("archer")));
 		y = y + 20;
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_STABLES));
-		}, ModItems.STABLESBUILDERITEM.getTranslationKey(), this));
+		}, ModItems.STABLESBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("lancer")));
 		y = y + 20;
 
 	}

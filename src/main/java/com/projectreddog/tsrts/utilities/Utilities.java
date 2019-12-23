@@ -135,11 +135,15 @@ public class Utilities {
 				if (ModResearch.research_topics.containsKey(key)) {
 					Research r = ModResearch.getResearch(key);
 					if (!r.isUnlocked(team)) {
-						TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setCurrenResearchKey(key);
-						TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setCurrenResearchWorkRemaining(r.getWorkRequired());
-						TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setFullResearchWorkRemaining(r.getWorkRequired());
 
-						SendTeamToClient(team);
+						if (Utilities.hasNeededResourcesForResourceValues(team, r.getRv())) {
+							Utilities.spendResourcesForResourceValues(team, r.getRv());
+							TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setCurrenResearchKey(key);
+							TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setCurrenResearchWorkRemaining(r.getWorkRequired());
+							TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setFullResearchWorkRemaining(r.getWorkRequired());
+
+							SendTeamToClient(team);
+						}
 					}
 				}
 
@@ -185,6 +189,9 @@ public class Utilities {
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.GATEBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_RESEARCH_CENTER) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.RESEARCHCENTERBUILDERITEM));
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINION) {
 
@@ -460,6 +467,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getFOOD();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getFOOD();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getFOOD();
 		}
 		return 0;
 	}
@@ -493,6 +502,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getWOOD();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getWOOD();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getWOOD();
 		}
 		return 0;
 	}
@@ -526,6 +537,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getSTONE();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getSTONE();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getSTONE();
 		}
 		return 0;
 	}
@@ -559,6 +572,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getIRON();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getIRON();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getIRON();
 		}
 
 		return 0;
@@ -593,6 +608,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getGOLD();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getGOLD();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getGOLD();
 		}
 		return 0;
 	}
@@ -626,6 +643,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getDIAMOND();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getDIAMOND();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getDIAMOND();
 		}
 
 		return 0;
@@ -660,6 +679,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getEMERALD();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getEMERALD();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getEMERALD();
 		}
 		return 0;
 	}

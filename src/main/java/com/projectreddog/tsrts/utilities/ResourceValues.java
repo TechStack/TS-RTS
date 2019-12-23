@@ -1,6 +1,11 @@
 package com.projectreddog.tsrts.utilities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
+
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class ResourceValues {
 	private int FOOD;
@@ -31,6 +36,65 @@ public class ResourceValues {
 		GOLD = values[Resources.GOLD.ordinal()];
 		DIAMOND = values[Resources.DIAMOND.ordinal()];
 		EMERALD = values[Resources.EMERALD.ordinal()];
+	}
+
+	public List<String> getToolTipText(String team) {
+		String colorWhite = "§f";
+		String colorRed = "§4";
+		String color = colorWhite;
+
+		List<String> output = new ArrayList<String>();
+
+		if (Utilities.hasNeededResource(team, TeamInfo.Resources.FOOD, FOOD)) {
+			color = colorWhite;
+		} else {
+			color = colorRed;
+		}
+		output.add(colorWhite + new TranslationTextComponent("resourcevalues.food.name").getUnformattedComponentText() + ": " + color + FOOD);
+
+		if (Utilities.hasNeededResource(team, TeamInfo.Resources.WOOD, WOOD)) {
+			color = colorWhite;
+		} else {
+			color = colorRed;
+		}
+		output.add(colorWhite + new TranslationTextComponent("resourcevalues.wood.name").getUnformattedComponentText() + ": " + color + WOOD);
+
+		if (Utilities.hasNeededResource(team, TeamInfo.Resources.STONE, STONE)) {
+			color = colorWhite;
+		} else {
+			color = colorRed;
+		}
+		output.add(colorWhite + new TranslationTextComponent("resourcevalues.stone.name").getUnformattedComponentText() + ": " + color + STONE);
+
+		if (Utilities.hasNeededResource(team, TeamInfo.Resources.IRON, IRON)) {
+			color = colorWhite;
+		} else {
+			color = colorRed;
+		}
+		output.add(colorWhite + new TranslationTextComponent("resourcevalues.iron.name").getUnformattedComponentText() + ": " + color + IRON);
+
+		if (Utilities.hasNeededResource(team, TeamInfo.Resources.GOLD, GOLD)) {
+			color = colorWhite;
+		} else {
+			color = colorRed;
+		}
+		output.add(colorWhite + new TranslationTextComponent("resourcevalues.gold.name").getUnformattedComponentText() + ": " + color + GOLD);
+
+		if (Utilities.hasNeededResource(team, TeamInfo.Resources.DIAMOND, DIAMOND)) {
+			color = colorWhite;
+		} else {
+			color = colorRed;
+		}
+		output.add(colorWhite + new TranslationTextComponent("resourcevalues.diamond.name").getUnformattedComponentText() + ": " + color + DIAMOND);
+
+		if (Utilities.hasNeededResource(team, TeamInfo.Resources.EMERALD, EMERALD)) {
+			color = colorWhite;
+		} else {
+			color = colorRed;
+		}
+		output.add(colorWhite + new TranslationTextComponent("resourcevalues.emerald.name").getUnformattedComponentText() + ": " + color + EMERALD);
+
+		return output;
 	}
 
 	public int getFOOD() {

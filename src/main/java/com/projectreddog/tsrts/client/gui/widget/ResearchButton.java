@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.utilities.ResourceValues;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -27,7 +28,7 @@ public class ResearchButton extends ImageButton {
 	private int yTexStart;
 	private int yDiffText;
 	private ResourceLocation resourceLocation;
-	private static ResourceLocation STATUS_TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/guiwidgets.png");
+	public static ResourceLocation STATUS_TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/guiwidgets.png");
 	private int startWidth;
 	private int startHeight;
 	private int leftOffset;
@@ -37,6 +38,8 @@ public class ResearchButton extends ImageButton {
 	FontRenderer font;
 	ContainerScreen screen;
 	TextComponent t;
+
+	private ResourceValues costs;
 
 	private ButtonState buttonState = ButtonState.NORMAL;
 
@@ -57,7 +60,7 @@ public class ResearchButton extends ImageButton {
 
 	}
 
-	public ResearchButton(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation resourceLocationIn, IPressable onPressIn, String textIn, ContainerScreen screen, int offsetX, int offsetY, String key, String parentKey, int parentOffsetX, int parentOffsetY) {
+	public ResearchButton(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation resourceLocationIn, IPressable onPressIn, String textIn, ContainerScreen screen, int offsetX, int offsetY, String key, String parentKey, int parentOffsetX, int parentOffsetY, ResourceValues costs) {
 		this(xIn, yIn, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, resourceLocationIn, onPressIn, textIn, screen);
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
@@ -71,6 +74,7 @@ public class ResearchButton extends ImageButton {
 		this.resourceLocation = resourceLocationIn;
 		startWidth = this.width;
 		startHeight = this.height;
+		this.costs = costs;
 	}
 
 	public void Cull(int left, int top, int right, int bottom) {
@@ -229,5 +233,13 @@ public class ResearchButton extends ImageButton {
 
 	public void setButtonState(ButtonState buttonState) {
 		this.buttonState = buttonState;
+	}
+
+	public ResourceValues getCosts() {
+		return costs;
+	}
+
+	public void setCosts(ResourceValues costs) {
+		this.costs = costs;
 	}
 }

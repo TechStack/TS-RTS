@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.client.gui.widget.HoverImageButton;
 import com.projectreddog.tsrts.containers.DefensiveBuildingsContainer;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -78,6 +79,8 @@ public class DefensiveBuildingsScreen extends ContainerScreen<DefensiveBuildings
 		y = y + yOffset;
 		GuiUtil.drawCosts(this, ModItems.WATCHTOWERBUILDERITEM, y, teamName);
 		y = y + yOffset;
+		GuiUtil.drawCosts(this, ModItems.RESEARCHCENTERBUILDERITEM, y, teamName);
+		y = y + yOffset;
 		GL11.glPopMatrix();
 	}
 
@@ -102,23 +105,27 @@ public class DefensiveBuildingsScreen extends ContainerScreen<DefensiveBuildings
 //wall
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(9), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WALL));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this));
+		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("wall")));
 		y = y + 20;
 //steps
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(10), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WALL_STEPS));
-		}, ModItems.WALLSTEPSBUILDERITEM.getTranslationKey(), this));
+		}, ModItems.WALLSTEPSBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("wall")));
 		y = y + 20;
 //gate
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(11), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_GATE));
-		}, ModItems.GATEBUILDERITEM.getTranslationKey(), this));
+		}, ModItems.GATEBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("wall")));
 		y = y + 20;
 // watch tower
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WATCH_TOWER));
-		}, ModItems.WATCHTOWERBUILDERITEM.getTranslationKey(), this));
+		}, ModItems.WATCHTOWERBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("watchtower")));
 		y = y + 20;
 
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_RESEARCH_CENTER));
+		}, ModItems.RESEARCHCENTERBUILDERITEM.getTranslationKey(), this, null));
+		y = y + 20;
 	}
 }

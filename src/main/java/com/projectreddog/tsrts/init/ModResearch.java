@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.utilities.ResourceValues;
 import com.projectreddog.tsrts.utilities.data.Research;
 
@@ -18,63 +19,21 @@ public class ModResearch {
 
 	public static void init() {
 		// add research topics here
-		/*
-		  minion
-		archer
-		pikeman
-		lancer
-		armory
-		marketplace
-		wall
-		siegeworkshop
-		crossbow
-		advcedarmor
-		watchtower
-		batteringrams
-		trebuchet
-		 */
-		ResourceValues rv = new ResourceValues(0, 0, 0, 0, 0, 0, 0);
-		registerResearchTopic("townhall", null, true, rv, 100, 4, 3);
 
-		registerResearchTopic("minion", "townhall", true, rv, 100, 0, 3);
-		registerResearchTopic("archer", "townhall", false, rv, 100, 1, 3);
-		registerResearchTopic("lancer", "townhall", false, rv, 100, 2, 3);
-		registerResearchTopic("pikeman", "townhall", false, rv, 100, 3, 3);
-
-//		registerResearchTopic("dummya", "minion", false, rv);
-//		registerResearchTopic("dummyb", "minion", false, rv);
-//		registerResearchTopic("dummyc", "minion", false, rv);
-//		registerResearchTopic("dummyd", "minion", false, rv);
-//		registerResearchTopic("dummya1", "dummya", false, rv);
-//		registerResearchTopic("dummya2", "dummya", false, rv);
-//		registerResearchTopic("dummya3", "dummya", false, rv);
-//		registerResearchTopic("dummyb1", "dummyb", false, rv);
-//		registerResearchTopic("dummyb2", "dummyb", false, rv);
-//		registerResearchTopic("dummyb3", "dummyb", false, rv);
-//		registerResearchTopic("dummyb3a", "dummyb3", false, rv);
-//		registerResearchTopic("dummyb3b", "dummyb3", false, rv);
-//		registerResearchTopic("dummyc1", "dummyc", false, rv);
-//		registerResearchTopic("dummyc2", "dummyc", false, rv);
-//		registerResearchTopic("dummyc3", "dummyc", false, rv);
-//		registerResearchTopic("dummyc4", "dummyc", false, rv);
-//		registerResearchTopic("dummyc5", "dummyc", false, rv);
-//		registerResearchTopic("dummyd1", "dummyd", false, rv);
-//		registerResearchTopic("dummyd2", "dummyd", false, rv);
-//		registerResearchTopic("dummyd1a", "dummyd1", false, rv);
-//		registerResearchTopic("dummyd1a1", "dummyd1a", false, rv);
-//		registerResearchTopic("dummyd1a2", "dummyd1a", false, rv);
-//		registerResearchTopic("dummyd1a3", "dummyd1a", false, rv);
-
-		registerResearchTopic("armory", "townhall", false, rv, 100, 1, 1);
-		registerResearchTopic("mareketplace", "townhall", false, rv, 100, 1, 1);
-		registerResearchTopic("wall", "townhall", false, rv, 100, 9, 0);
-		registerResearchTopic("siegeworkshop", "townhall", false, rv, 100, 1, 1);
-		registerResearchTopic("crossbow", "archer", false, rv, 100, 1, 1);
-		registerResearchTopic("advcedarmor", "armory", false, rv, 100, 1, 1);
-		registerResearchTopic("watchtower", "wall", false, rv, 100, 0, 1);
-
-		registerResearchTopic("batteringrams", "siegeworkshop", false, rv, 100, 1, 1);
-		registerResearchTopic("trebuchet", "batteringrams", false, rv, 100, 1, 1);
+		registerResearchTopic("townhall", null, true, Config.CONFIG_RESEARCH_COSTS_TOWNHALL, 100, 4, 3);
+		registerResearchTopic("minion", "townhall", true, Config.CONFIG_RESEARCH_COSTS_MINION, 100, 0, 3);
+		registerResearchTopic("archer", "townhall", false, Config.CONFIG_RESEARCH_COSTS_ARCHER, 100, 1, 3);
+		registerResearchTopic("pikeman", "townhall", false, Config.CONFIG_RESEARCH_COSTS_PIKEMAN, 100, 3, 3);
+		registerResearchTopic("lancer", "townhall", false, Config.CONFIG_RESEARCH_COSTS_LANCER, 100, 2, 3);
+		registerResearchTopic("armory", "townhall", false, Config.CONFIG_RESEARCH_COSTS_ARMORY, 100, 1, 1);
+		registerResearchTopic("marketplace", "townhall", false, Config.CONFIG_RESEARCH_COSTS_MARKETPLACE, 100, 1, 1);
+		registerResearchTopic("wall", "townhall", false, Config.CONFIG_RESEARCH_COSTS_WALL, 100, 9, 0);
+		registerResearchTopic("siegeworkshop", "townhall", false, Config.CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP, 100, 1, 1);
+		registerResearchTopic("crossbow", "archer", false, Config.CONFIG_RESEARCH_COSTS_CROSSBOW, 100, 1, 1);
+		registerResearchTopic("advcedarmor", "armory", false, Config.CONFIG_RESEARCH_COSTS_ADVCEDARMOR, 100, 1, 1);
+		registerResearchTopic("watchtower", "wall", false, Config.CONFIG_RESEARCH_COSTS_WATCHTOWER, 100, 0, 1);
+		registerResearchTopic("batteringrams", "siegeworkshop", false, Config.CONFIG_RESEARCH_COSTS_BATTERINGRAMS, 100, 1, 1);
+		registerResearchTopic("trebuchet", "batteringrams", false, Config.CONFIG_RESEARCH_COSTS_TREBUCHET, 100, 1, 1);
 		updateAllCalcs();
 
 	}
