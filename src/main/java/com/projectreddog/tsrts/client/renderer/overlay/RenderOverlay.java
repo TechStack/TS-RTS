@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.init.ModItems;
+import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.ClientUtilities;
 import com.projectreddog.tsrts.utilities.TeamEnum;
@@ -21,6 +22,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -122,23 +124,27 @@ public class RenderOverlay extends Screen {
 									x = x + xTextWidth;
 								}
 							}
+							if (ti.getCurrenResearchKey() != null && !ti.getCurrenResearchKey().equals("")) {
 
-							Minecraft.getInstance().fontRenderer.drawStringWithShadow(ti.getCurrenResearchKey() + ":" + ti.getCurrenResearchWorkRemaining(), 20, 20, 14737632);
-							int divisor = ti.getFullResearchWorkRemaining();
-							if (divisor > 0) {
+								String text = new TranslationTextComponent(ModResearch.getResearch(ti.getCurrenResearchKey()).getNameTranslationKey()).getUnformattedComponentText();
+								int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(text);
+								Minecraft.getInstance().fontRenderer.drawStringWithShadow(text, event.getWindow().getScaledWidth() * 2 - textWidth - 10, event.getWindow().getScaledHeight() * 2 - 50, 14737632);
+								int divisor = ti.getFullResearchWorkRemaining();
+								if (divisor > 0) {
 
-								Minecraft.getInstance().textureManager.bindTexture(STATUS_TEXTURE);
+									Minecraft.getInstance().textureManager.bindTexture(STATUS_TEXTURE);
 
-								blit(20, 40, 31, 0, (int) (((1 - ((float) ti.getCurrenResearchWorkRemaining() / divisor))) * 100), 8, 256, 256);
-								// blit(this.x, this.y, (, (float) i + topOffset, this.width, this.height, 256, 256);
+									blit(event.getWindow().getScaledWidth() * 2 - 100 + 10, event.getWindow().getScaledHeight() * 2 - 20, 31, 0, (int) (((1 - ((float) ti.getCurrenResearchWorkRemaining() / divisor))) * 100), 8, 256, 256);
+									// blit(this.x, this.y, (, (float) i + topOffset, this.width, this.height, 256, 256);
 
+								}
 							}
-
 							RenderUnitQueues(team);
 
 						}
 					}
 				}
+
 			}
 			RenderUnitSelectionFrames();
 

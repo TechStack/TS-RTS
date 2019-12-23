@@ -112,7 +112,7 @@ public class GuiUtil {
 			return toolTip;
 
 		case 2:
-			toolTip.add("Defensive Buildings");
+			toolTip.add("Misc Buildings");
 			return toolTip;
 
 		case 3:

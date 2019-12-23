@@ -183,6 +183,13 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 
 							List<String> text = new ArrayList<String>();
 							text.add(ttc.getUnformattedComponentText());
+							if (player.getTeam() != null) {
+								List<String> rvList = rb.getCosts().getToolTipText(player.getTeam().getName());
+								for (int i = 0; i < rvList.size(); i++) {
+									text.add(rvList.get(i));
+								}
+							}
+
 							rb.renderTooltip(text, mouseX - this.guiLeft, mouseY - this.guiTop);
 						}
 					}
@@ -326,7 +333,7 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 			Research r = entry.getValue();
 			addButton(new ResearchButton((int) this.guiLeft + (int) r.getCurrentX(), (int) this.guiTop + (int) r.getCurrentY(), 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(r.getButtonIndexX()), GuiUtil.GetYStartForButtonImageXYIndex(r.getButtonIndexY()), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 				ModNetwork.SendToServer(new ResearchButtonClickPacketToServer(r.getKey()));
-			}, r.getNameTranslationKey(), this, (int) r.getCurrentX(), (int) r.getCurrentY(), r.getKey(), r.getParentKey(), (int) r.getParentX(), (int) r.getParentY()));
+			}, r.getNameTranslationKey(), this, (int) r.getCurrentX(), (int) r.getCurrentY(), r.getKey(), r.getParentKey(), (int) r.getParentX(), (int) r.getParentY(), r.getRv()));
 		}
 	}
 }

@@ -14,6 +14,17 @@
 "block.tsrts.watchblock":"Watch Block",
 "block.tsrts.researchcenterblock":"Research Center Block",
 
+"resourcevalues.food.name":"Food",
+"resourcevalues.wood.name":"Wood",
+"resourcevalues.stone.name":"Stone",
+"resourcevalues.iron.name":"Iron",
+"resourcevalues.gold.name":"Gold",
+"resourcevalues.diamond.name":"Diamond",
+"resourcevalues.emerald.name":"Emerald",
+
+
+
+
 "_comment":"Creative Tabs",
 "itemGroup.blocks":"TS RTS - Blocks",
 "itemGroup.weapons":"TS RTS - Weapons",

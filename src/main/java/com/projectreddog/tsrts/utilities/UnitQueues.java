@@ -3,6 +3,7 @@ package com.projectreddog.tsrts.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.reference.Reference;
 
 public class UnitQueues {
@@ -32,6 +33,7 @@ public class UnitQueues {
 
 	private void AddToBarracksQueue(int ID) {
 		getBarracks().add(ID);
+		TSRTS.LOGGER.info("Added :" + ID + " to the barraks QUEUE");
 		hasChanged = true;
 	}
 
@@ -47,6 +49,7 @@ public class UnitQueues {
 
 	public void RemoveFirstFromBarracksQueue() {
 		if (Barracks.size() > 0) {
+			TSRTS.LOGGER.info("REMOVING FROM barraks QUEUE");
 			Barracks.remove(0);
 			hasChanged = true;
 		}

@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.client.gui.widget.HoverImageButton;
 import com.projectreddog.tsrts.containers.UnitRecruitmentContainer;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -127,20 +128,20 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 
 		minion = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINION));
-		}, "gui.units.minion", this));
+		}, "gui.units.minion", this, null));
 		y = y + 20;
 
 		archer = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHER));
-		}, "gui.units.archer", this));
+		}, "gui.units.archer", this, ModResearch.getResearch("archer")));
 		y = y + 20;
 		lancer = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LANCER));
-		}, "gui.units.lancer", this));
+		}, "gui.units.lancer", this, ModResearch.getResearch("lancer")));
 		y = y + 20;
 		pikeman = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_PIKEMAN));
-		}, "gui.units.pikeman", this));
+		}, "gui.units.pikeman", this, ModResearch.getResearch("pikeman")));
 		y = y + 20;
 	}
 }
