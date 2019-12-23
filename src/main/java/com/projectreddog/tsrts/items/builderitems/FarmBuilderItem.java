@@ -76,7 +76,7 @@ public class FarmBuilderItem extends BuilderItem {
 
 	public Vec3i getSize() {
 
-		return new Vec3i(15, 4, 15);
+		return new Vec3i(11, 4, 11);
 	}
 
 	@Override
