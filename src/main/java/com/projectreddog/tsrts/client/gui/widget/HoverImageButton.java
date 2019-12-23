@@ -41,10 +41,10 @@ public class HoverImageButton extends ImageButton {
 			if (research != null) {
 				if (!(research.isUnlocked(team.getName()))) {
 					buttonState = ButtonState.LOCKED;
-					// this.active = false;
+					this.active = false;
 				} else {
 					buttonState = ButtonState.NORMAL;
-					// this.active = true;
+					this.active = true;
 				}
 			}
 		}
