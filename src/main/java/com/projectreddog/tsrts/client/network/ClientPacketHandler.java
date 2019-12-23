@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.client.gui.toast.AlertToast;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.AlertToastBackgroundType;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
@@ -40,6 +41,10 @@ public class ClientPacketHandler {
 
 	public static void AlertToastToClient(String title, String subTitle, AlertToastBackgroundType backgroundType) {
 		Minecraft.getInstance().getToastGui().add(new AlertToast(title, subTitle, backgroundType));
+	}
+
+	public static void SendResearchUnlockToClient(String key, String teamName) {
+		ModResearch.getResearch(key).setUnlocked(true, TeamEnum.getIDFromName(teamName));
 	}
 
 	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount) {

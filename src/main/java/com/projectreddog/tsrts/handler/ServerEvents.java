@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.init.ModResearch;
+import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
 import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
@@ -72,10 +73,12 @@ public class ServerEvents {
 					if (TSRTS.teamInfoArray[i].getCurrenResearchWorkRemaining() <= 0) {
 						if (TSRTS.teamInfoArray[i].getCurrenResearchKey() != "") {
 							ModResearch.getResearch(TSRTS.teamInfoArray[i].getCurrenResearchKey()).setUnlocked(true, i);
+							ModNetwork.SendToALLPlayers(new ResearchUnlockedPacketToClient(TSRTS.teamInfoArray[i].getCurrenResearchKey(), TeamEnum.values()[i].getName()));
 
 							TSRTS.teamInfoArray[i].setCurrenResearchKey("");
 							TSRTS.teamInfoArray[i].setCurrenResearchWorkRemaining(0);
 							TSRTS.teamInfoArray[i].setFullResearchWorkRemaining(0);
+
 						}
 					}
 

@@ -29,6 +29,7 @@ import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
+import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
@@ -986,6 +987,11 @@ public class Utilities {
 
 	public static void SendTeamToClient(String teamName) {
 		ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)], teamName));
+
+	}
+
+	public static void SendResearchUnlockToClient(String key, String teamName) {
+		ModNetwork.SendToALLPlayers(new ResearchUnlockedPacketToClient(key, teamName));
 
 	}
 
