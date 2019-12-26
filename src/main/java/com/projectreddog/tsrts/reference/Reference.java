@@ -26,6 +26,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_WALL_STEPS_BLOCK = "wallstepsblock";
 
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BLOCK = "lumberyardblock";
+	public static final String REIGSTRY_NAME_ARMORY_BLOCK = "armoryblock";
+	public static final String REIGSTRY_NAME_SIEGE_WORKSHOP_BLOCK = "siegeworkshopblock";
 
 	public static final String REIGSTRY_NAME_STABLES_BLOCK = "stablesblock";
 	public static final String REIGSTRY_NAME_RESERACH_CENTER_BLOCK = "researchcenterblock";
@@ -66,6 +68,9 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BUILDER_ITEM = "archeryrangebuilderitem";
 	public static final String REIGSTRY_NAME_STABLES_BUILDER_ITEM = "stablesbuilderitem";
 	public static final String REIGSTRY_NAME_RESEARCH_CENTER_BUILDER_ITEM = "researchcenterbuilderitem";
+
+	public static final String REIGSTRY_NAME_ARMORY_BUILDER_ITEM = "armorybuilderitem";
+	public static final String REIGSTRY_NAME_SIEGE_WORKSHOP_BUILDER_ITEM = "siegeworkshopbuilderitem";
 
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";

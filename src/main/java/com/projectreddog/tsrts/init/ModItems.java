@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.items.RallyPointToolItem;
 import com.projectreddog.tsrts.items.RetreateScepterItem;
 import com.projectreddog.tsrts.items.SampleItem;
 import com.projectreddog.tsrts.items.builderitems.ArcheryRangeBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.ArmoryBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.BarracksBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.FarmBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.GateBuilderItem;
@@ -16,6 +17,7 @@ import com.projectreddog.tsrts.items.builderitems.MinesiteGoldBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteIronBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteStoneBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.ResearchCenterBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.SiegeWorkshopBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.StablesBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.TownHallBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WallBuilderItem;
@@ -45,6 +47,12 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM)
 	public static TownHallBuilderItem TOWNHALLBUILDERITEM = new TownHallBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARMORY_BUILDER_ITEM)
+	public static ArmoryBuilderItem ARMORYBUILDERITEM = new ArmoryBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SIEGE_WORKSHOP_BUILDER_ITEM)
+	public static SiegeWorkshopBuilderItem SIEGEWORKSHOPBUILDERITEM = new SiegeWorkshopBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BUILDER_ITEM)
 	public static WallBuilderItem WALLBUILDERITEM = new WallBuilderItem();
@@ -121,6 +129,11 @@ public class ModItems {
 		RegisterItem(event, ModItems.WALLSTEPSBUILDERITEM);
 
 		RegisterItem(event, ModItems.RESEARCHCENTERBUILDERITEM);
+
+		RegisterItem(event, ModItems.ARMORYBUILDERITEM);
+
+		RegisterItem(event, ModItems.SIEGEWORKSHOPBUILDERITEM);
+
 	}
 
 	// Called to register every item.

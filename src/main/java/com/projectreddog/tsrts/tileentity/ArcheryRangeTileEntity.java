@@ -95,6 +95,18 @@ public class ArcheryRangeTileEntity extends OwnedCooldownTileEntity implements I
 
 	}
 
+	public void IncreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setArcheryrange(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getArcheryrange() + 1);
+
+	}
+
+	public void DecreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setArcheryrange(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getArcheryrange() - 1);
+
+	}
+
 	@Override
 	public float getDamagedHealthThreashold() {
 		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_ARCHERY_RANGE.get();

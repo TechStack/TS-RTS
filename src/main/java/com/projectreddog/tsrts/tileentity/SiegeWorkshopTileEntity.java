@@ -13,10 +13,10 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
-public class BarracksTileEntity extends OwnedCooldownTileEntity implements INamedContainerProvider, ITEGuiButtonHandler {
+public class SiegeWorkshopTileEntity extends OwnedCooldownTileEntity implements INamedContainerProvider, ITEGuiButtonHandler {
 
-	public BarracksTileEntity() {
-		super(ModBlocks.BARRACKS_TILE_ENTITY_TYPE);
+	public SiegeWorkshopTileEntity() {
+		super(ModBlocks.SIEGE_WORKSHOP_TILE_ENTITY_TYPE);
 	}
 
 	@Override
@@ -25,16 +25,11 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 		super.ActionAfterCooldown();
 
 		if (getOwner() != null) {
-			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().size() > 0) {
-				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
-				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromBarracksQueue();
+			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getSiegeWorkshop().size() > 0) {
+				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getSiegeWorkshop().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromSiegeWorkshopQueue();
 			}
-			// }
 
-//
-//			MinionEntity me = new MinionEntity(null, world);
-//
-//			world.addEntity(me);
 		}
 	}
 
@@ -63,25 +58,25 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 
 	public void IncreaseCount() {
 
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setBaracks(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getBaracks() + 1);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setSiegeworkshop(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getSiegeworkshop() + 1);
 
 	}
 
 	public void DecreaseCount() {
 
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setBaracks(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getBaracks() - 1);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setSiegeworkshop(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getSiegeworkshop() - 1);
 
 	}
 
 	@Override
 	public void StructureLost() {
 		super.StructureLost();
-		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.barracks");
+		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.siegeworkshop");
 
 	}
 
 	@Override
 	public float getDamagedHealthThreashold() {
-		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_BARRACKS.get();
+		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_SIEGE_WORKSHOP.get();
 	}
 }

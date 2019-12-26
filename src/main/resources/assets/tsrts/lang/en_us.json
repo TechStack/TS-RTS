@@ -1,6 +1,7 @@
 {
 "_comment":"Blocks here",
 "block.tsrts.barracksblock":"Barracks Control Block",
+"block.tsrts.armoryblock":"Armory Control Block",
 "block.tsrts.archeryrangeblock":"Archery Range Control Block",
 "block.tsrts.minesiteblock":"Mine Site Control Block",
 "block.tsrts.farmblock":"Farm Control Block",
@@ -13,6 +14,7 @@
 "block.tsrts.stablesblock":"Stables Block",
 "block.tsrts.watchblock":"Watch Block",
 "block.tsrts.researchcenterblock":"Research Center Block",
+"block.tsrts.siegeworkshopblock":"Siege Workshop Control Block",
 
 "resourcevalues.food.name":"Food",
 "resourcevalues.wood.name":"Wood",
@@ -36,6 +38,7 @@
 "item.tsrts.lanceitem":"Lance",
 "item.tsrts.pikeitem":"Pike",
 
+"item.tsrts.armorybuilderitem":"Armory",
 "item.tsrts.barracksbuilderitem":"Barracks",
 "item.tsrts.minesitediamondbuilderitem":"Diamond Mine",
 "item.tsrts.minesiteemeraldbuilderitem":"Emerald Mine",
@@ -52,6 +55,7 @@
 "item.tsrts.gatebuilderitem":"Gate",
 "item.tsrts.wallstepsbuilderitem":"Wall Tower",
 "item.tsrts.researchcenterbuilderitem":"Research Center",
+"item.tsrts.siegeworkshopbuilderitem":"Siege Workshop",
 
 "_comment":"custom messages here",
 
@@ -63,6 +67,7 @@
 
 
 "tsrts.destroy.archeryrange":"Archery Range Destroyed!",
+"tsrts.destroy.armory":"Armory Destroyed!",
 "tsrts.destroy.barracks":"Barracks Destroyed!",
 "tsrts.destroy.farm":"Farm Destroyed!",
 "tsrts.destroy.lumberyard":"Lumber Yard Destroyed!",
@@ -74,6 +79,7 @@
 "tsrts.destroy.gate":"Gate has been breached!",
 "tsrts.destroy.wallsteps":"Wall Steps Destroyed!",
 "tsrts.alerttoast.alert":"Alert!",
+"tsrts.destroy.siegeworkshop":"Siege Workshop Destroyed!",
 
 "_comment":"Gui Unit Recruitment",
 
