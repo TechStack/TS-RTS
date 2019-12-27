@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -29,6 +30,7 @@ import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
+import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
@@ -1013,6 +1015,17 @@ public class Utilities {
 	public static void SendTeamToClient(String teamName) {
 		ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)], teamName));
 
+	}
+
+	public static void SendResearchStatusToClient(ServerPlayerEntity player) {
+
+		// team
+		for (int i = 0; i < TeamEnum.values().length; i++) {
+			for (Map.Entry<String, Research> entry : ModResearch.research_topics.entrySet()) {
+
+				ModNetwork.SendToPlayer(player, new ResearchUnlockedPacketToClient(entry.getValue().getKey(), TeamEnum.values()[i].getName(), entry.getValue().isUnlocked(i)));
+			}
+		}
 	}
 
 	public static boolean hasNeededResource(String teamName, TeamInfo.Resources res, int amt) {
