@@ -43,8 +43,8 @@ public class ClientPacketHandler {
 		Minecraft.getInstance().getToastGui().add(new AlertToast(title, subTitle, backgroundType));
 	}
 
-	public static void SendResearchUnlockToClient(String key, String teamName) {
-		ModResearch.getResearch(key).setUnlocked(true, TeamEnum.getIDFromName(teamName));
+	public static void SendResearchUnlockToClient(String key, String teamName, boolean unLocked) {
+		ModResearch.getResearch(key).setUnlocked(unLocked, TeamEnum.getIDFromName(teamName));
 	}
 
 	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount) {
