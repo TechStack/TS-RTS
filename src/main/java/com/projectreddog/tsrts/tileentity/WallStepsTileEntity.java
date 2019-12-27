@@ -28,7 +28,7 @@ public class WallStepsTileEntity extends OwnedCooldownTileEntity implements INam
 
 		super.ActionAfterCooldown();
 
-		if (getOwner() != null) {
+		if (getOwner() != null && getTeam() != null) {
 
 		}
 	}

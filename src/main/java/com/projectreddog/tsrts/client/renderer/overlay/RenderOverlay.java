@@ -124,7 +124,7 @@ public class RenderOverlay extends Screen {
 									x = x + xTextWidth;
 								}
 							}
-							if (ti.getCurrenResearchKey() != null && !ti.getCurrenResearchKey().equals("")) {
+							if (ti != null && ti.getCurrenResearchKey() != null && !ti.getCurrenResearchKey().equals("")) {
 
 								String text = new TranslationTextComponent(ModResearch.getResearch(ti.getCurrenResearchKey()).getNameTranslationKey()).getUnformattedComponentText();
 								int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(text);

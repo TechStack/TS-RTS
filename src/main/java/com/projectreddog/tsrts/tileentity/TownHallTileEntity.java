@@ -20,7 +20,7 @@ public class TownHallTileEntity extends OwnedCooldownTileEntity {
 
 		super.ActionAfterCooldown();
 
-		if (getOwner() != null) {
+		if (getOwner() != null && getTeam() != null) {
 			// ModEntities.MINION.spawn(world, null, null, this.pos, SpawnReason.TRIGGERED, true, true);
 
 //			Utilities.AddResourcesToTeam(this.getTeam().getName(), TeamInfo.Resources.FOOD, Config.CONFIG_TOWN_HALL_GENERATE_FOOD.get());

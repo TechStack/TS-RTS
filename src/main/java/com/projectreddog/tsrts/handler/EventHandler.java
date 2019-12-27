@@ -57,6 +57,11 @@ public class EventHandler {
 			}
 
 			Utilities.setPlayerReady(pe, false);
+
+			// TODO: send to client all the unlocked research
+			Utilities.SendResearchStatusToClient((ServerPlayerEntity) pe);
+			// TODO: also send the client the cost of everything so it can ignore its local configs.
+			Utilities.SendCostsToClient((ServerPlayerEntity) pe);
 		} else if (event.getEntity() instanceof UnitEntity || event.getEntity() instanceof TargetEntity) {
 			if (event.getWorld() != null) {
 				if (event.getWorld().isRemote) {

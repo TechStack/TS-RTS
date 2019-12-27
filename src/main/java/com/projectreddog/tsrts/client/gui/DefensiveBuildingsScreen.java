@@ -123,7 +123,7 @@ public class DefensiveBuildingsScreen extends ContainerScreen<DefensiveBuildings
 		}, ModItems.WATCHTOWERBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("watchtower")));
 		y = y + 20;
 
-		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_RESEARCH_CENTER));
 		}, ModItems.RESEARCHCENTERBUILDERITEM.getTranslationKey(), this, null));
 		y = y + 20;

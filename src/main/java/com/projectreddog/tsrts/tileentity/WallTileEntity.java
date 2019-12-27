@@ -25,7 +25,7 @@ public class WallTileEntity extends OwnedCooldownTileEntity {
 
 		super.ActionAfterCooldown();
 
-		if (getOwner() != null) {
+		if (getOwner() != null && getTeam() != null) {
 
 		}
 	}

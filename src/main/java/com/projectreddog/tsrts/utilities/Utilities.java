@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -26,12 +27,14 @@ import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.network.AlertToastToClient;
+import com.projectreddog.tsrts.network.CostsPacketToClient;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.reference.Reference.RTS_COSTS;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.tileentity.WallTileEntity;
@@ -153,10 +156,127 @@ public class Utilities {
 		}
 	}
 
+	public static void SendCostsToClient(ServerPlayerEntity player) {
+		for (int i = 0; i < RTS_COSTS.values().length; i++) {
+			ModNetwork.SendToPlayer(player, new CostsPacketToClient(RTS_COSTS.values()[i], GetResourceValuesbyRTS_Costs(RTS_COSTS.values()[i])));
+		}
+	}
+
+	public static ResourceValues GetResourceValuesbyRTS_Costs(RTS_COSTS costs) {
+		switch (costs) {
+		case ARCHER:
+			return Config.CONFIG_UNIT_COSTS_ARCHER;
+
+		case ARCHERY_RANGE:
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE;
+
+		case BARRACKS:
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS;
+
+		case FARM:
+			return Config.CONFIG_BUILDING_COSTS_FARM;
+
+		case GATE:
+			return Config.CONFIG_BUILDING_COSTS_GATE;
+
+		case LANCER:
+			return Config.CONFIG_UNIT_COSTS_LANCER;
+
+		case LUMBER_YARD:
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD;
+
+		case MINE_DIAMOND:
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND;
+
+		case MINE_EMERALD:
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD;
+
+		case MINE_GOLD:
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD;
+
+		case MINE_IRON:
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON;
+
+		case MINE_STONE:
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE;
+
+		case MINION:
+			return Config.CONFIG_UNIT_COSTS_MINION;
+
+		case PIKEMAN:
+			return Config.CONFIG_UNIT_COSTS_PIKEMAN;
+
+		case RESEARCH_ADVANCED_ARMOR:
+			return Config.CONFIG_RESEARCH_COSTS_ADVCEDARMOR;
+
+		case RESEARCH_ARCHER:
+			return Config.CONFIG_RESEARCH_COSTS_ARCHER;
+
+		case RESEARCH_ARMORY:
+			return Config.CONFIG_RESEARCH_COSTS_ARMORY;
+
+		case RESEARCH_BATTERING_RAM:
+			return Config.CONFIG_RESEARCH_COSTS_BATTERINGRAMS;
+
+		case RESEARCH_CENTER:
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER;
+
+		case RESEARCH_CROSSBOW:
+			return Config.CONFIG_RESEARCH_COSTS_CROSSBOW;
+
+		case RESEARCH_LANCER:
+			return Config.CONFIG_RESEARCH_COSTS_LANCER;
+
+		case RESEARCH_MARKETPLACE:
+			return Config.CONFIG_RESEARCH_COSTS_MARKETPLACE;
+
+		case RESEARCH_MINION:
+			return Config.CONFIG_RESEARCH_COSTS_MINION;
+
+		case RESEARCH_PIKEMAN:
+			return Config.CONFIG_RESEARCH_COSTS_PIKEMAN;
+
+		case RESEARCH_SIEGE_WORKSHOP:
+			return Config.CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP;
+
+		case RESEARCH_TOWNHALL:
+			return Config.CONFIG_RESEARCH_COSTS_TOWNHALL;
+
+		case RESEARCH_TREBUCHET:
+			return Config.CONFIG_RESEARCH_COSTS_TREBUCHET;
+
+		case RESEARCH_WALL:
+			return Config.CONFIG_RESEARCH_COSTS_WALL;
+
+		case RESEARCH_WATCHTOWER:
+			return Config.CONFIG_RESEARCH_COSTS_WATCHTOWER;
+
+		case STABLES:
+			return Config.CONFIG_BUILDING_COSTS_STABLES;
+		case WALL:
+			return Config.CONFIG_BUILDING_COSTS_WALL;
+
+		case WALL_STEPS:
+			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS;
+
+		case WATCH_TOWER:
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER;
+
+		default:
+
+		}
+		return null;
+	}
+
 	public static void TownHallGuiHandler(int buttonId, ServerPlayerEntity player) {
+		String teamName = "";
+		// TODO: RESEARCH UPDATE WITH RESEARCH UNLOCKS AS NEEDED
+		if (player.getTeam() != null) {
+			teamName = player.getTeam().getName();
+		}
 		if (buttonId == Reference.GUI_BUTTON_BUY_BARRACKS) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.BARRACKSBUILDERITEM));
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHERY_RANGE) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHERY_RANGE && ModResearch.getResearch("archer").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.ARCHERYRANGEBUILDERITEM));
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_STONE) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITESTONEBUILDERITEM));
@@ -176,19 +296,19 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_FARM) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.FARMBUILDERITEM));
 
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_STABLES) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_STABLES && ModResearch.getResearch("lancer").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.STABLESBUILDERITEM));
 
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL && ModResearch.getResearch("wall").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLBUILDERITEM));
 
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER && ModResearch.getResearch("watchtower").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WATCHTOWERBUILDERITEM));
 
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL_STEPS) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL_STEPS && ModResearch.getResearch("wall").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLSTEPSBUILDERITEM));
 
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE && ModResearch.getResearch("wall").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.GATEBUILDERITEM));
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_RESEARCH_CENTER) {
@@ -204,7 +324,7 @@ public class Utilities {
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_MINION);
 				}
 			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHER) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHER && ModResearch.getResearch("archer").isUnlocked(teamName)) {
 
 			if (player.getTeam() != null) {
 				String team = player.getTeam().getName();
@@ -214,7 +334,7 @@ public class Utilities {
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_ARCHER);
 				}
 			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_LANCER) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_LANCER && ModResearch.getResearch("lancer").isUnlocked(teamName)) {
 
 			if (player.getTeam() != null) {
 				String team = player.getTeam().getName();
@@ -224,7 +344,7 @@ public class Utilities {
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_LANCER);
 				}
 			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_PIKEMAN) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_PIKEMAN && ModResearch.getResearch("pikeman").isUnlocked(teamName)) {
 
 			if (player.getTeam() != null) {
 				String team = player.getTeam().getName();
@@ -1016,9 +1136,13 @@ public class Utilities {
 
 	}
 
-	public static void SendResearchUnlockToClient(String key, String teamName) {
-		ModNetwork.SendToALLPlayers(new ResearchUnlockedPacketToClient(key, teamName));
-
+	public static void SendResearchStatusToClient(ServerPlayerEntity player) {
+		// team
+		for (int i = 0; i < TeamEnum.values().length; i++) {
+			for (Map.Entry<String, Research> entry : ModResearch.research_topics.entrySet()) {
+				ModNetwork.SendToPlayer(player, new ResearchUnlockedPacketToClient(entry.getValue().getKey(), TeamEnum.values()[i].getName(), entry.getValue().isUnlocked(i)));
+			}
+		}
 	}
 
 	public static boolean hasNeededResource(String teamName, TeamInfo.Resources res, int amt) {

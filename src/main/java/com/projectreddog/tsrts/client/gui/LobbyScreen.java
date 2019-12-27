@@ -18,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.GameType;
 
 public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 
@@ -62,8 +63,16 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 
 				Minecraft.getInstance().fontRenderer.drawString(playerName, playerNameColumnPosition, y + 5, 4210752);
 				if (networkplayerinfo.getPlayerTeam() != null) {
-					Minecraft.getInstance().fontRenderer.drawString(networkplayerinfo.getPlayerTeam().getColor() + networkplayerinfo.getPlayerTeam().getName(), playerTeamColumnPosition, y + 5, 4210752);
+					if (networkplayerinfo.getGameType() == GameType.SPECTATOR) {
+						Minecraft.getInstance().fontRenderer.drawString(networkplayerinfo.getPlayerTeam().getColor() + "Spectator", playerTeamColumnPosition - 5, y + 5, 4210752);
+					} else {
+						Minecraft.getInstance().fontRenderer.drawString(networkplayerinfo.getPlayerTeam().getColor() + networkplayerinfo.getPlayerTeam().getName(), playerTeamColumnPosition, y + 5, 4210752);
+					}
 
+				} else {
+					if (networkplayerinfo.getGameType() == GameType.SPECTATOR) {
+						Minecraft.getInstance().fontRenderer.drawString("Spectator", playerTeamColumnPosition - 5, y + 5, 4210752);
+					}
 				}
 
 				Minecraft.getInstance().fontRenderer.drawString(Utilities.getPlayerReady(playerName) ? "Ready!" : "Not Ready", playerReadyColumnPosition, y + 5, 4210752);

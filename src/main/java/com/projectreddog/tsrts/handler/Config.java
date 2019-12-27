@@ -273,6 +273,8 @@ public class Config {
 
 		CONFIG_START_AMT = new ResourceValues(StringToIntArray(CONFIG_START_AMT_STRING.get()));
 		CONFIG_TOWN_HALL_GENERATE = new ResourceValues(StringToIntArray(CONFIG_TOWN_HALL_GENERATE_STRING.get()));
+
+		// COSTS below These will need to be added to send to the client at startup
 		CONFIG_UNIT_COSTS_MINION = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_MINION_STRING.get()));
 		CONFIG_UNIT_COSTS_ARCHER = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_ARCHER_STRING.get()));
 		CONFIG_UNIT_COSTS_LANCER = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_LANCER_STRING.get()));
@@ -290,9 +292,7 @@ public class Config {
 		CONFIG_BUILDING_COSTS_WALL = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WALL_STRING.get()));
 		CONFIG_BUILDING_COSTS_WALL_STEPS = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WALL_STEPS_STRING.get()));
 		CONFIG_BUILDING_COSTS_GATE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_GATE_STRING.get()));
-
 		CONFIG_BUILDING_COSTS_RESEARCH_CENTER = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING.get()));
-
 		CONFIG_BUILDING_COSTS_STABLES = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_STABLES_STRING.get()));
 		CONFIG_BUILDING_COSTS_WATCH_TOWER = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING.get()));
 
