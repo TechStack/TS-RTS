@@ -152,49 +152,49 @@ public class ClientPacketHandler {
 			Config.CONFIG_UNIT_COSTS_PIKEMAN = rv;
 			break;
 		case RESEARCH_ADVANCED_ARMOR:
-			Config.CONFIG_RESEARCH_COSTS_ADVCEDARMOR = rv;
+			ModResearch.getResearch("advcedarmor").setRv(rv);
 			break;
 		case RESEARCH_ARCHER:
-			Config.CONFIG_RESEARCH_COSTS_ARCHER = rv;
+			ModResearch.getResearch("archer").setRv(rv);
 			break;
 		case RESEARCH_ARMORY:
-			Config.CONFIG_RESEARCH_COSTS_ARMORY = rv;
+			ModResearch.getResearch("armory").setRv(rv);
 			break;
 		case RESEARCH_BATTERING_RAM:
-			Config.CONFIG_RESEARCH_COSTS_BATTERINGRAMS = rv;
+			ModResearch.getResearch("batteringrams").setRv(rv);
 			break;
 		case RESEARCH_CENTER:
 			Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER = rv;
 			break;
 		case RESEARCH_CROSSBOW:
-			Config.CONFIG_RESEARCH_COSTS_CROSSBOW = rv;
+			ModResearch.getResearch("crossbow").setRv(rv);
 			break;
 		case RESEARCH_LANCER:
-			Config.CONFIG_RESEARCH_COSTS_LANCER = rv;
+			ModResearch.getResearch("lancer").setRv(rv);
 			break;
 		case RESEARCH_MARKETPLACE:
-			Config.CONFIG_RESEARCH_COSTS_MARKETPLACE = rv;
+			ModResearch.getResearch("marketplace").setRv(rv);
 			break;
 		case RESEARCH_MINION:
-			Config.CONFIG_RESEARCH_COSTS_MINION = rv;
+			ModResearch.getResearch("minion").setRv(rv);
 			break;
 		case RESEARCH_PIKEMAN:
-			Config.CONFIG_RESEARCH_COSTS_PIKEMAN = rv;
+			ModResearch.getResearch("pikeman").setRv(rv);
 			break;
 		case RESEARCH_SIEGE_WORKSHOP:
-			Config.CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP = rv;
+			ModResearch.getResearch("siegeworkshop").setRv(rv);
 			break;
 		case RESEARCH_TOWNHALL:
-			Config.CONFIG_RESEARCH_COSTS_TOWNHALL = rv;
+			ModResearch.getResearch("townhall").setRv(rv);
 			break;
 		case RESEARCH_TREBUCHET:
-			Config.CONFIG_RESEARCH_COSTS_TREBUCHET = rv;
+			ModResearch.getResearch("trebuchet").setRv(rv);
 			break;
 		case RESEARCH_WALL:
-			Config.CONFIG_RESEARCH_COSTS_WALL = rv;
+			ModResearch.getResearch("wall").setRv(rv);
 			break;
 		case RESEARCH_WATCHTOWER:
-			Config.CONFIG_RESEARCH_COSTS_WATCHTOWER = rv;
+			ModResearch.getResearch("watchtower").setRv(rv);
 			break;
 		case STABLES:
 			Config.CONFIG_BUILDING_COSTS_STABLES = rv;
