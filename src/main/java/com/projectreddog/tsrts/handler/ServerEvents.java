@@ -133,14 +133,14 @@ public class ServerEvents {
 	public static void WriteBuildingStats(String teamName, TeamInfo ti) {
 		String delimiter = ",";
 		if (writeBuildingHeader) {
-			TSRTS.LOGGER.info("BUILDINGSTATS-HEADER: Timestamp, TeamName, Archeryrange , Armory , Baracks , Farms , Gates , LumberYard , MineSiteDiamond , MineSiteEmerald , MineSiteEmerald , MineSiteGold , MineSiteIron , MineSiteIron , MineSiteStone , ResearchCenter , Siegeworkshop , Stables , TownHalls , Walls , Wallsteps , Watchtowers");
+			TSRTS.LOGGER.info("BUILDINGSTATS-HEADER: Timestamp, TeamName, Archeryrange , Armory , Baracks , Farms , Gates , LumberYard , MineSiteDiamond , MineSiteEmerald ,  MineSiteGold , MineSiteIron ,  MineSiteStone , ResearchCenter , Siegeworkshop , Stables , TownHalls , Walls , Wallsteps , Watchtowers");
 			writeBuildingHeader = false;
 
 		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		String timeStamp = dtf.format(now);
-		String tmp = "BUILDINGSTATS: " + delimiter + timeStamp + delimiter + teamName + delimiter + ti.getArcheryrange() + delimiter + ti.getArmory() + delimiter + ti.getBaracks() + delimiter + ti.getFarms() + delimiter + ti.getGates() + delimiter + ti.getLumberYard() + delimiter + ti.getMineSiteDiamond() + delimiter + ti.getMineSiteEmerald() + delimiter + ti.getMineSiteEmerald() + delimiter + ti.getMineSiteGold() + delimiter + ti.getMineSiteIron() + delimiter + ti.getMineSiteIron() + delimiter + ti.getMineSiteStone() + delimiter + ti.getResearchCenter() + delimiter + ti.getSiegeworkshop() + delimiter + ti.getStables() + delimiter + ti.getTownHalls() + delimiter + ti.getWalls() + delimiter + ti.getWallsteps() + delimiter + ti.getWatchtowers();
+		String tmp = "BUILDINGSTATS: " + delimiter + timeStamp + delimiter + teamName + delimiter + ti.getArcheryrange() + delimiter + ti.getArmory() + delimiter + ti.getBaracks() + delimiter + ti.getFarms() + delimiter + ti.getGates() + delimiter + ti.getLumberYard() + delimiter + ti.getMineSiteDiamond() + delimiter + ti.getMineSiteEmerald() + delimiter + ti.getMineSiteGold() + delimiter + ti.getMineSiteIron() + delimiter + ti.getMineSiteStone() + delimiter + ti.getResearchCenter() + delimiter + ti.getSiegeworkshop() + delimiter + ti.getStables() + delimiter + ti.getTownHalls() + delimiter + ti.getWalls() + delimiter + ti.getWallsteps() + delimiter + ti.getWatchtowers();
 
 		TSRTS.LOGGER.info(tmp);
 
