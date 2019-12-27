@@ -155,9 +155,14 @@ public class Utilities {
 	}
 
 	public static void TownHallGuiHandler(int buttonId, ServerPlayerEntity player) {
+		String teamName = "";
+		// TODO: RESEARCH UPDATE WITH RESEARCH UNLOCKS AS NEEDED
+		if (player.getTeam() != null) {
+			teamName = player.getTeam();
+		}
 		if (buttonId == Reference.GUI_BUTTON_BUY_BARRACKS) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.BARRACKSBUILDERITEM));
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHERY_RANGE) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHERY_RANGE && ModResearch.getResearch("archer").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.ARCHERYRANGEBUILDERITEM));
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINE_SITE_STONE) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MINESITESTONEBUILDERITEM));
@@ -177,19 +182,19 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_FARM) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.FARMBUILDERITEM));
 
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_STABLES) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_STABLES && ModResearch.getResearch("lancer").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.STABLESBUILDERITEM));
 
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL && ModResearch.getResearch("wall").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLBUILDERITEM));
 
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WATCH_TOWER && ModResearch.getResearch("watchtower").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WATCHTOWERBUILDERITEM));
 
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL_STEPS) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_WALL_STEPS && ModResearch.getResearch("wall").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.WALLSTEPSBUILDERITEM));
 
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE && ModResearch.getResearch("wall").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.GATEBUILDERITEM));
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_RESEARCH_CENTER) {
@@ -205,7 +210,7 @@ public class Utilities {
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_MINION);
 				}
 			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHER) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHER && ModResearch.getResearch("archer").isUnlocked(teamName)) {
 
 			if (player.getTeam() != null) {
 				String team = player.getTeam().getName();
@@ -215,7 +220,7 @@ public class Utilities {
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_ARCHER);
 				}
 			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_LANCER) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_LANCER && ModResearch.getResearch("lancer").isUnlocked(teamName)) {
 
 			if (player.getTeam() != null) {
 				String team = player.getTeam().getName();
@@ -225,7 +230,7 @@ public class Utilities {
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_LANCER);
 				}
 			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_PIKEMAN) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_PIKEMAN && ModResearch.getResearch("pikeman").isUnlocked(teamName)) {
 
 			if (player.getTeam() != null) {
 				String team = player.getTeam().getName();
@@ -1018,11 +1023,9 @@ public class Utilities {
 	}
 
 	public static void SendResearchStatusToClient(ServerPlayerEntity player) {
-
 		// team
 		for (int i = 0; i < TeamEnum.values().length; i++) {
 			for (Map.Entry<String, Research> entry : ModResearch.research_topics.entrySet()) {
-
 				ModNetwork.SendToPlayer(player, new ResearchUnlockedPacketToClient(entry.getValue().getKey(), TeamEnum.values()[i].getName(), entry.getValue().isUnlocked(i)));
 			}
 		}
