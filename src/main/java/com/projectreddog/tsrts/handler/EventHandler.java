@@ -6,6 +6,10 @@ import java.util.Map;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
+import com.projectreddog.tsrts.entities.ArcherMinionEntity;
+import com.projectreddog.tsrts.entities.MinionEntity;
+import com.projectreddog.tsrts.entities.MountedEntity;
+import com.projectreddog.tsrts.entities.PikemanEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.Config.Modes;
@@ -122,7 +126,23 @@ public class EventHandler {
 				}
 			}
 		}
+		if (event.getEntity() instanceof UnitEntity && !event.getEntity().world.isRemote) {
+			// one of mine
+			UnitEntity ue = (UnitEntity) event.getEntity();
+			if (ue.getTeam() != null) {
+				String teamName = ue.getTeam().getName();
+				if (ue instanceof MinionEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountMinion();
+				} else if (ue instanceof ArcherMinionEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountArcher();
+				} else if (ue instanceof MountedEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountLancer();
+				} else if (ue instanceof PikemanEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountPikeman();
+				}
+			}
 
+		}
 		Utilities.removeDeadEntityFromControlGroups(event.getEntity().getEntityId());
 	}
 

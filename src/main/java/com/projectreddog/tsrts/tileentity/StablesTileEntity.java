@@ -88,6 +88,18 @@ public class StablesTileEntity extends OwnedCooldownTileEntity implements INamed
 
 	}
 
+	public void IncreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setStables(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getStables() + 1);
+
+	}
+
+	public void DecreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setStables(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getStables() - 1);
+
+	}
+
 	@Override
 	public float getDamagedHealthThreashold() {
 		return .50f * Config.CONFIG_STRCTURE_TOTAL_HEALTH_STABLES.get();

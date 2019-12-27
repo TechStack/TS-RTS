@@ -3,12 +3,14 @@ package com.projectreddog.tsrts.init;
 import java.util.function.Supplier;
 
 import com.projectreddog.tsrts.blocks.ArcheryRangeBlock;
+import com.projectreddog.tsrts.blocks.ArmoryBlock;
 import com.projectreddog.tsrts.blocks.BarracksBlock;
 import com.projectreddog.tsrts.blocks.FarmBlock;
 import com.projectreddog.tsrts.blocks.GateBlock;
 import com.projectreddog.tsrts.blocks.LumberYardBlock;
 import com.projectreddog.tsrts.blocks.MineSite;
 import com.projectreddog.tsrts.blocks.ResearchCenterBlock;
+import com.projectreddog.tsrts.blocks.SiegeWorkshopBlock;
 import com.projectreddog.tsrts.blocks.StablesBlock;
 import com.projectreddog.tsrts.blocks.TownHallBlock;
 import com.projectreddog.tsrts.blocks.WallBlock;
@@ -17,12 +19,14 @@ import com.projectreddog.tsrts.blocks.WatchBlock;
 import com.projectreddog.tsrts.blocks.WatchTowerBlock;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.ArcheryRangeTileEntity;
+import com.projectreddog.tsrts.tileentity.ArmoryTileEntity;
 import com.projectreddog.tsrts.tileentity.BarracksTileEntity;
 import com.projectreddog.tsrts.tileentity.FarmTileEntity;
 import com.projectreddog.tsrts.tileentity.GateTileEntity;
 import com.projectreddog.tsrts.tileentity.LumberYardTileEntity;
 import com.projectreddog.tsrts.tileentity.MineSiteTileEntity;
 import com.projectreddog.tsrts.tileentity.ResearchCenterTileEntity;
+import com.projectreddog.tsrts.tileentity.SiegeWorkshopTileEntity;
 import com.projectreddog.tsrts.tileentity.StablesTileEntity;
 import com.projectreddog.tsrts.tileentity.TownHallTileEntity;
 import com.projectreddog.tsrts.tileentity.WallStepsTileEntity;
@@ -50,6 +54,12 @@ public class ModBlocks {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LUMBER_YARD_BLOCK)
 	public static LumberYardBlock LUMBER_YARD_BLOCK = new LumberYardBlock();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARMORY_BLOCK)
+	public static ArmoryBlock ARMORY_BLOCK = new ArmoryBlock();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SIEGE_WORKSHOP_BLOCK)
+	public static SiegeWorkshopBlock SIEGE_WORKSHOP_BLOCK = new SiegeWorkshopBlock();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_BLOCK)
 	public static MineSite MINE_SITE_BLOCK = new MineSite();
@@ -84,6 +94,12 @@ public class ModBlocks {
 	// TILE ENTITIES
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_BARRACKS_BLOCK)
 	public static TileEntityType<BarracksTileEntity> BARRACKS_TILE_ENTITY_TYPE;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARMORY_BLOCK)
+	public static TileEntityType<ArmoryTileEntity> ARMORY_TILE_ENTITY_TYPE;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SIEGE_WORKSHOP_BLOCK)
+	public static TileEntityType<SiegeWorkshopTileEntity> SIEGE_WORKSHOP_TILE_ENTITY_TYPE;
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARCHERY_RANGE_BLOCK)
 	public static TileEntityType<ArcheryRangeTileEntity> ARCHERY_RANGE_TILE_ENTITY_TYPE;
@@ -139,6 +155,11 @@ public class ModBlocks {
 		event.getRegistry().register(ModBlocks.GATE_BLOCK);
 
 		event.getRegistry().register(ModBlocks.WALL_STEPS_BLOCK);
+
+		event.getRegistry().register(ModBlocks.ARMORY_BLOCK);
+
+		event.getRegistry().register(ModBlocks.SIEGE_WORKSHOP_BLOCK);
+
 	}
 
 	public static void RegisterBlockItems(final RegistryEvent.Register<Item> event) {
@@ -156,6 +177,9 @@ public class ModBlocks {
 		RegisterBlockItem(event, ModBlocks.WALL_BLOCK);
 		RegisterBlockItem(event, ModBlocks.GATE_BLOCK);
 		RegisterBlockItem(event, ModBlocks.WALL_STEPS_BLOCK);
+
+		RegisterBlockItem(event, ModBlocks.ARMORY_BLOCK);
+		RegisterBlockItem(event, ModBlocks.SIEGE_WORKSHOP_BLOCK);
 
 	}
 
@@ -186,6 +210,10 @@ public class ModBlocks {
 		RegisterTileEntity(event, LumberYardTileEntity::new, ModBlocks.LUMBER_YARD_BLOCK);
 		RegisterTileEntity(event, GateTileEntity::new, ModBlocks.GATE_BLOCK);
 		RegisterTileEntity(event, WallStepsTileEntity::new, ModBlocks.WALL_STEPS_BLOCK);
+
+		RegisterTileEntity(event, ArmoryTileEntity::new, ModBlocks.ARMORY_BLOCK);
+
+		RegisterTileEntity(event, SiegeWorkshopTileEntity::new, ModBlocks.SIEGE_WORKSHOP_BLOCK);
 
 	}
 

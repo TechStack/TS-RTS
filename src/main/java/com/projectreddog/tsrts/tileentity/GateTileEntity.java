@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.tileentity;
 
 import java.util.List;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
@@ -116,6 +117,18 @@ public class GateTileEntity extends OwnedCooldownTileEntity implements INamedCon
 			BlockState bs = getBlockStateForGateFromTeam(this.getTeam().getName());
 			updateGate(d, bs);
 		}
+	}
+
+	public void IncreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setGates(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getGates() + 1);
+
+	}
+
+	public void DecreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setGates(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getGates() - 1);
+
 	}
 
 	@Override

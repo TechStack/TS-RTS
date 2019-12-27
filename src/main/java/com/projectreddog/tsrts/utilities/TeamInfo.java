@@ -15,8 +15,22 @@ public class TeamInfo {
 	private int mineSiteGold = 0;
 	private int mineSiteDiamond = 0;
 	private int mineSiteEmerald = 0;
-
 	private int researchCenter = 0;
+	private int baracks = 0;
+	private int archeryrange = 0;
+	private int stables = 0;
+	private int armory = 0;
+	private int siegeworkshop = 0;
+	private int walls = 0;
+	private int watchtowers = 0;
+	private int gates = 0;
+	private int wallsteps = 0;
+
+	private int unitCountMinion = 0;
+	private int unitCountArcher = 0;
+	private int unitCountLancer = 0;
+	private int unitCountPikeman = 0;
+	private int unitCountTrebuchet = 0;
 
 	private String CurrenResearchKey;
 
@@ -219,6 +233,158 @@ public class TeamInfo {
 
 	public void setResearchCenter(int researchCenter) {
 		this.researchCenter = researchCenter;
+	}
+
+	public int getBaracks() {
+		return baracks;
+	}
+
+	public void setBaracks(int baracks) {
+		this.baracks = baracks;
+	}
+
+	public int getArcheryrange() {
+		return archeryrange;
+	}
+
+	public void setArcheryrange(int archeryrange) {
+		this.archeryrange = archeryrange;
+	}
+
+	public int getStables() {
+		return stables;
+	}
+
+	public void setStables(int stables) {
+		this.stables = stables;
+	}
+
+	public int getArmory() {
+		return armory;
+	}
+
+	public void setArmory(int armory) {
+		this.armory = armory;
+	}
+
+	public int getSiegeworkshop() {
+		return siegeworkshop;
+	}
+
+	public void setSiegeworkshop(int siegeworkshop) {
+		this.siegeworkshop = siegeworkshop;
+	}
+
+	public int getWalls() {
+		return walls;
+	}
+
+	public void setWalls(int walls) {
+		this.walls = walls;
+	}
+
+	public int getWatchtowers() {
+		return watchtowers;
+	}
+
+	public void setWatchtowers(int watchtowers) {
+		this.watchtowers = watchtowers;
+	}
+
+	public int getGates() {
+		return gates;
+	}
+
+	public void setGates(int gates) {
+		this.gates = gates;
+	}
+
+	public int getWallsteps() {
+		return wallsteps;
+	}
+
+	public void setWallsteps(int wallsteps) {
+		this.wallsteps = wallsteps;
+	}
+
+	public int getUnitCountMinion() {
+		return unitCountMinion;
+	}
+
+	public void AddOneUnitCountMinion() {
+		this.unitCountMinion++;
+	}
+
+	public void AddOneUnitCountArcher() {
+		this.unitCountArcher++;
+	}
+
+	public void AddOneUnitCountLancer() {
+		this.unitCountLancer++;
+	}
+
+	public void AddOneUnitCountPikeman() {
+		this.unitCountPikeman++;
+	}
+
+	public void AddOneUnitCountTrebuchet() {
+		this.unitCountTrebuchet++;
+	}
+
+	public void RemoveOneUnitCountMinion() {
+		this.unitCountMinion--;
+	}
+
+	public void RemoveOneUnitCountArcher() {
+		this.unitCountArcher--;
+	}
+
+	public void RemoveOneUnitCountLancer() {
+		this.unitCountLancer--;
+	}
+
+	public void RemoveOneUnitCountPikeman() {
+		this.unitCountPikeman--;
+	}
+
+	public void RemoveOneUnitCountTrebuchet() {
+		this.unitCountTrebuchet--;
+	}
+
+	public void setUnitCountMinion(int unitCountMinion) {
+		this.unitCountMinion = unitCountMinion;
+	}
+
+	public int getUnitCountArcher() {
+		return unitCountArcher;
+	}
+
+	public void setUnitCountArcher(int unitCountArcher) {
+		this.unitCountArcher = unitCountArcher;
+	}
+
+	public int getUnitCountLancer() {
+		return unitCountLancer;
+	}
+
+	public void setUnitCountLancer(int unitCountLancer) {
+		this.unitCountLancer = unitCountLancer;
+	}
+
+	public int getUnitCountPikeman() {
+		return unitCountPikeman;
+	}
+
+	public void setUnitCountPikeman(int unitCountPikeman) {
+		this.unitCountPikeman = unitCountPikeman;
+	}
+
+	public int getUnitCountTrebuchet() {
+		return unitCountTrebuchet;
+	}
+
+	public void setUnitCountTrebuchet(int unitCountTrebuchet) {
+		this.unitCountTrebuchet = unitCountTrebuchet;
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.projectreddog.tsrts.tileentity;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.util.Direction;
@@ -102,14 +104,14 @@ public class WallTileEntity extends OwnedCooldownTileEntity {
 	@Override
 	public void IncreaseCount() {
 
-		// TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setTownHalls(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getTownHalls() + 1);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setWalls(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getWalls() + 1);
 
 	}
 
 	@Override
 	public void DecreaseCount() {
 
-		// TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setTownHalls(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getTownHalls() - 1);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setWalls(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getWalls() - 1);
 
 	}
 
