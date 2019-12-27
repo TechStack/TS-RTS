@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class ResourceValues {
@@ -39,60 +40,59 @@ public class ResourceValues {
 	}
 
 	public List<String> getToolTipText(String team) {
-		String colorWhite = "§f";
-		String colorRed = "§4";
-		String color = colorWhite;
+
+		String color = TextFormatting.WHITE.toString();
 
 		List<String> output = new ArrayList<String>();
 
 		if (Utilities.hasNeededResource(team, TeamInfo.Resources.FOOD, FOOD)) {
-			color = colorWhite;
+			color = TextFormatting.WHITE.toString();
 		} else {
-			color = colorRed;
+			color = TextFormatting.RED.toString();
 		}
-		output.add(colorWhite + new TranslationTextComponent("resourcevalues.food.name").getUnformattedComponentText() + ": " + color + FOOD);
+		output.add(TextFormatting.WHITE + new TranslationTextComponent("resourcevalues.food.name").getUnformattedComponentText() + ": " + color + FOOD);
 
 		if (Utilities.hasNeededResource(team, TeamInfo.Resources.WOOD, WOOD)) {
-			color = colorWhite;
+			color = TextFormatting.WHITE.toString();
 		} else {
-			color = colorRed;
+			color = TextFormatting.RED.toString();
 		}
-		output.add(colorWhite + new TranslationTextComponent("resourcevalues.wood.name").getUnformattedComponentText() + ": " + color + WOOD);
+		output.add(TextFormatting.WHITE + new TranslationTextComponent("resourcevalues.wood.name").getUnformattedComponentText() + ": " + color + WOOD);
 
 		if (Utilities.hasNeededResource(team, TeamInfo.Resources.STONE, STONE)) {
-			color = colorWhite;
+			color = TextFormatting.WHITE.toString();
 		} else {
-			color = colorRed;
+			color = TextFormatting.RED.toString();
 		}
-		output.add(colorWhite + new TranslationTextComponent("resourcevalues.stone.name").getUnformattedComponentText() + ": " + color + STONE);
+		output.add(TextFormatting.WHITE + new TranslationTextComponent("resourcevalues.stone.name").getUnformattedComponentText() + ": " + color + STONE);
 
 		if (Utilities.hasNeededResource(team, TeamInfo.Resources.IRON, IRON)) {
-			color = colorWhite;
+			color = TextFormatting.WHITE.toString();
 		} else {
-			color = colorRed;
+			color = TextFormatting.RED.toString();
 		}
-		output.add(colorWhite + new TranslationTextComponent("resourcevalues.iron.name").getUnformattedComponentText() + ": " + color + IRON);
+		output.add(TextFormatting.WHITE + new TranslationTextComponent("resourcevalues.iron.name").getUnformattedComponentText() + ": " + color + IRON);
 
 		if (Utilities.hasNeededResource(team, TeamInfo.Resources.GOLD, GOLD)) {
-			color = colorWhite;
+			color = TextFormatting.WHITE.toString();
 		} else {
-			color = colorRed;
+			color = TextFormatting.RED.toString();
 		}
-		output.add(colorWhite + new TranslationTextComponent("resourcevalues.gold.name").getUnformattedComponentText() + ": " + color + GOLD);
+		output.add(TextFormatting.WHITE + new TranslationTextComponent("resourcevalues.gold.name").getUnformattedComponentText() + ": " + color + GOLD);
 
 		if (Utilities.hasNeededResource(team, TeamInfo.Resources.DIAMOND, DIAMOND)) {
-			color = colorWhite;
+			color = TextFormatting.WHITE.toString();
 		} else {
-			color = colorRed;
+			color = TextFormatting.RED.toString();
 		}
-		output.add(colorWhite + new TranslationTextComponent("resourcevalues.diamond.name").getUnformattedComponentText() + ": " + color + DIAMOND);
+		output.add(TextFormatting.WHITE + new TranslationTextComponent("resourcevalues.diamond.name").getUnformattedComponentText() + ": " + color + DIAMOND);
 
 		if (Utilities.hasNeededResource(team, TeamInfo.Resources.EMERALD, EMERALD)) {
-			color = colorWhite;
+			color = TextFormatting.WHITE.toString();
 		} else {
-			color = colorRed;
+			color = TextFormatting.RED.toString();
 		}
-		output.add(colorWhite + new TranslationTextComponent("resourcevalues.emerald.name").getUnformattedComponentText() + ": " + color + EMERALD);
+		output.add(TextFormatting.WHITE + new TranslationTextComponent("resourcevalues.emerald.name").getUnformattedComponentText() + ": " + color + EMERALD);
 
 		return output;
 	}
