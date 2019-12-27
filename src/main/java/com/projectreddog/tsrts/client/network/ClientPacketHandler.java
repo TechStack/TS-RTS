@@ -6,10 +6,13 @@ import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.client.gui.toast.AlertToast;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModResearch;
+import com.projectreddog.tsrts.reference.Reference.RTS_COSTS;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.AlertToastBackgroundType;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
+import com.projectreddog.tsrts.utilities.ResourceValues;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.UnitQueues;
@@ -101,6 +104,113 @@ public class ClientPacketHandler {
 			PlayerEntity player = (PlayerEntity) e;
 
 			Utilities.setPlayerReady(player, isReady);
+		}
+	}
+
+	public static void CostsPacketToClient(RTS_COSTS costsType, ResourceValues rv) {
+		switch (costsType) {
+		case ARCHER:
+			Config.CONFIG_UNIT_COSTS_ARCHER = rv;
+			break;
+		case ARCHERY_RANGE:
+			Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE = rv;
+			break;
+		case BARRACKS:
+			Config.CONFIG_BUILDING_COSTS_BARRACKS = rv;
+			break;
+		case FARM:
+			Config.CONFIG_BUILDING_COSTS_FARM = rv;
+			break;
+		case GATE:
+			Config.CONFIG_BUILDING_COSTS_GATE = rv;
+			break;
+		case LANCER:
+			Config.CONFIG_UNIT_COSTS_LANCER = rv;
+			break;
+		case LUMBER_YARD:
+			Config.CONFIG_BUILDING_COSTS_LUMBER_YARD = rv;
+			break;
+		case MINE_DIAMOND:
+			Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND = rv;
+			break;
+		case MINE_EMERALD:
+			Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD = rv;
+			break;
+		case MINE_GOLD:
+			Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD = rv;
+			break;
+		case MINE_IRON:
+			Config.CONFIG_BUILDING_COSTS_MINESITE_IRON = rv;
+			break;
+		case MINE_STONE:
+			Config.CONFIG_BUILDING_COSTS_MINESITE_STONE = rv;
+			break;
+		case MINION:
+			Config.CONFIG_UNIT_COSTS_MINION = rv;
+			break;
+		case PIKEMAN:
+			Config.CONFIG_UNIT_COSTS_PIKEMAN = rv;
+			break;
+		case RESEARCH_ADVANCED_ARMOR:
+			Config.CONFIG_RESEARCH_COSTS_ADVCEDARMOR = rv;
+			break;
+		case RESEARCH_ARCHER:
+			Config.CONFIG_RESEARCH_COSTS_ARCHER = rv;
+			break;
+		case RESEARCH_ARMORY:
+			Config.CONFIG_RESEARCH_COSTS_ARMORY = rv;
+			break;
+		case RESEARCH_BATTERING_RAM:
+			Config.CONFIG_RESEARCH_COSTS_BATTERINGRAMS = rv;
+			break;
+		case RESEARCH_CENTER:
+			Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER = rv;
+			break;
+		case RESEARCH_CROSSBOW:
+			Config.CONFIG_RESEARCH_COSTS_CROSSBOW = rv;
+			break;
+		case RESEARCH_LANCER:
+			Config.CONFIG_RESEARCH_COSTS_LANCER = rv;
+			break;
+		case RESEARCH_MARKETPLACE:
+			Config.CONFIG_RESEARCH_COSTS_MARKETPLACE = rv;
+			break;
+		case RESEARCH_MINION:
+			Config.CONFIG_RESEARCH_COSTS_MINION = rv;
+			break;
+		case RESEARCH_PIKEMAN:
+			Config.CONFIG_RESEARCH_COSTS_PIKEMAN = rv;
+			break;
+		case RESEARCH_SIEGE_WORKSHOP:
+			Config.CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP = rv;
+			break;
+		case RESEARCH_TOWNHALL:
+			Config.CONFIG_RESEARCH_COSTS_TOWNHALL = rv;
+			break;
+		case RESEARCH_TREBUCHET:
+			Config.CONFIG_RESEARCH_COSTS_TREBUCHET = rv;
+			break;
+		case RESEARCH_WALL:
+			Config.CONFIG_RESEARCH_COSTS_WALL = rv;
+			break;
+		case RESEARCH_WATCHTOWER:
+			Config.CONFIG_RESEARCH_COSTS_WATCHTOWER = rv;
+			break;
+		case STABLES:
+			Config.CONFIG_BUILDING_COSTS_STABLES = rv;
+			break;
+		case WALL:
+			Config.CONFIG_BUILDING_COSTS_WALL = rv;
+			break;
+		case WALL_STEPS:
+			Config.CONFIG_BUILDING_COSTS_WALL_STEPS = rv;
+			break;
+		case WATCH_TOWER:
+			Config.CONFIG_BUILDING_COSTS_WATCH_TOWER = rv;
+			break;
+		default:
+			break;
+
 		}
 	}
 
