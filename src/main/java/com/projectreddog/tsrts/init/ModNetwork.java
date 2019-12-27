@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.init;
 
 import com.projectreddog.tsrts.network.AlertToastToClient;
+import com.projectreddog.tsrts.network.CostsPacketToClient;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.network.GenericGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.network.GuiRequestPacketToServer;
@@ -52,6 +53,7 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, ResearchButtonClickPacketToServer.class, ResearchButtonClickPacketToServer::encode, ResearchButtonClickPacketToServer::new, ResearchButtonClickPacketToServer::handle);
 
 		simpleChannel.registerMessage(MessageId++, ResearchUnlockedPacketToClient.class, ResearchUnlockedPacketToClient::encode, ResearchUnlockedPacketToClient::new, ResearchUnlockedPacketToClient::handle);
+		simpleChannel.registerMessage(MessageId++, CostsPacketToClient.class, CostsPacketToClient::encode, CostsPacketToClient::new, CostsPacketToClient::handle);
 
 	}
 
