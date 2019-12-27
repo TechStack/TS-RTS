@@ -158,7 +158,7 @@ public class Utilities {
 		String teamName = "";
 		// TODO: RESEARCH UPDATE WITH RESEARCH UNLOCKS AS NEEDED
 		if (player.getTeam() != null) {
-			teamName = player.getTeam();
+			teamName = player.getTeam().getName();
 		}
 		if (buttonId == Reference.GUI_BUTTON_BUY_BARRACKS) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.BARRACKSBUILDERITEM));
