@@ -61,6 +61,18 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 
 	}
 
+	public void IncreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setBaracks(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getBaracks() + 1);
+
+	}
+
+	public void DecreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setBaracks(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getBaracks() - 1);
+
+	}
+
 	@Override
 	public void StructureLost() {
 		super.StructureLost();

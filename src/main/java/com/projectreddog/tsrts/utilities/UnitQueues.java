@@ -3,12 +3,15 @@ package com.projectreddog.tsrts.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.reference.Reference;
 
 public class UnitQueues {
 	private List<Integer> Barracks;
 	private List<Integer> Stables;
 	private List<Integer> ArcheryRange;
+	private List<Integer> SiegeWorkshop;
+
 	public boolean hasChanged;
 
 	public void AddToProperQueue(int ID) {
@@ -32,6 +35,7 @@ public class UnitQueues {
 
 	private void AddToBarracksQueue(int ID) {
 		getBarracks().add(ID);
+		TSRTS.LOGGER.info("Added :" + ID + " to the barraks QUEUE");
 		hasChanged = true;
 	}
 
@@ -47,6 +51,7 @@ public class UnitQueues {
 
 	public void RemoveFirstFromBarracksQueue() {
 		if (Barracks.size() > 0) {
+			TSRTS.LOGGER.info("REMOVING FROM barraks QUEUE");
 			Barracks.remove(0);
 			hasChanged = true;
 		}
@@ -66,12 +71,20 @@ public class UnitQueues {
 		}
 	}
 
-	public UnitQueues(List<Integer> barracks, List<Integer> archeryRange, List<Integer> stables) {
+	public void RemoveFirstFromSiegeWorkshopQueue() {
+		if (SiegeWorkshop.size() > 0) {
+			SiegeWorkshop.remove(0);
+			hasChanged = true;
+		}
+	}
+
+	public UnitQueues(List<Integer> barracks, List<Integer> archeryRange, List<Integer> stables, List<Integer> siegeWorkshop) {
 		super();
 		Barracks = barracks;
 		Stables = stables;
 		ArcheryRange = archeryRange;
 		hasChanged = true;
+		SiegeWorkshop = siegeWorkshop;
 	}
 
 	public List<Integer> getBarracks() {
@@ -94,6 +107,13 @@ public class UnitQueues {
 			ArcheryRange = new ArrayList<Integer>();
 		}
 		return ArcheryRange;
+	}
+
+	public List<Integer> getSiegeWorkshop() {
+		if (SiegeWorkshop == null) {
+			SiegeWorkshop = new ArrayList<Integer>();
+		}
+		return SiegeWorkshop;
 	}
 
 }

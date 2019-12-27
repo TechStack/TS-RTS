@@ -2,11 +2,13 @@ package com.projectreddog.tsrts.tileentity;
 
 import java.util.List;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,6 +37,18 @@ public class WallStepsTileEntity extends OwnedCooldownTileEntity implements INam
 	public void StructureLost() {
 		super.StructureLost();
 		Utilities.SendMessageToTeam(this.getWorld(), this.getTeam().getName(), "tsrts.destroy.wallsteps");
+
+	}
+
+	public void IncreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setWallsteps(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getWallsteps() + 1);
+
+	}
+
+	public void DecreaseCount() {
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setWallsteps(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getWallsteps() - 1);
 
 	}
 

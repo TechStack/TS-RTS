@@ -9,6 +9,7 @@ public class Reference {
 	public static final int UNIT_ID_ARCHER = 2;
 	public static final int UNIT_ID_LANCER = 3;
 	public static final int UNIT_ID_PIKEMAN = 4;
+	public static final int UNIT_ID_TREBUCHET = 5;
 
 	// Block registry names
 	public static final String REIGSTRY_NAME_BARRACKS_BLOCK = "barracksblock";
@@ -26,6 +27,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_WALL_STEPS_BLOCK = "wallstepsblock";
 
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BLOCK = "lumberyardblock";
+	public static final String REIGSTRY_NAME_ARMORY_BLOCK = "armoryblock";
+	public static final String REIGSTRY_NAME_SIEGE_WORKSHOP_BLOCK = "siegeworkshopblock";
 
 	public static final String REIGSTRY_NAME_STABLES_BLOCK = "stablesblock";
 	public static final String REIGSTRY_NAME_RESERACH_CENTER_BLOCK = "researchcenterblock";
@@ -38,6 +41,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_TROOP_BUILDINGS_CONTAINER = "troopbulidingscontiner";
 	public static final String REIGSTRY_NAME_DEFENSIVE_BUILDINGS_CONTAINER = "defensivebulidingscontiner";
 	public static final String REIGSTRY_NAME_UNIT_RECRUITMENT_CONTAINER = "unitrecruitmentcontiner";
+	public static final String REIGSTRY_NAME_RESEARCH_CONTAINER = "researchcontiner";
+
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
 	public static final String REIGSTRY_NAME_RALLY_POINT_TOOL = "rallypointtool";
@@ -63,6 +68,10 @@ public class Reference {
 	public static final String REIGSTRY_NAME_BARRACKS_BUILDER_ITEM = "barracksbuilderitem";
 	public static final String REIGSTRY_NAME_ARCHERY_RANGE_BUILDER_ITEM = "archeryrangebuilderitem";
 	public static final String REIGSTRY_NAME_STABLES_BUILDER_ITEM = "stablesbuilderitem";
+	public static final String REIGSTRY_NAME_RESEARCH_CENTER_BUILDER_ITEM = "researchcenterbuilderitem";
+
+	public static final String REIGSTRY_NAME_ARMORY_BUILDER_ITEM = "armorybuilderitem";
+	public static final String REIGSTRY_NAME_SIEGE_WORKSHOP_BUILDER_ITEM = "siegeworkshopbuilderitem";
 
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";
@@ -100,6 +109,7 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_GATE = 17;
 
 	public static final int GUI_BUTTON_BUY_WALL_STEPS = 18;
+	public static final int GUI_BUTTON_BUY_RESEARCH_CENTER = 19;
 
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
@@ -114,6 +124,7 @@ public class Reference {
 	public static final int GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS = 11;
 	public static final int GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS = 12;
 	public static final int GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT = 13;
+	public static final int GUI_BUTTON_MAIN_MENU_RESEARCH = 15;
 
 	public static final int GUI_BUTTON_ENABLE_TE = 8000;
 	public static final int GUI_BUTTON_DISABLE_TE = 8001;

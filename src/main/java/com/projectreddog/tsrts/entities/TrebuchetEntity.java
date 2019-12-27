@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.entities;
 
+import com.projectreddog.tsrts.entities.ai.FireballAttackGoal;
 import com.projectreddog.tsrts.entities.ai.MoveToOwnerSpecifiedLocation;
 import com.projectreddog.tsrts.entities.ai.NearestAttackableVisionNotRequiredTargetGoal;
 import com.projectreddog.tsrts.entities.ai.RetreatToOwnerSpecifiedLocation;
@@ -13,7 +14,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 public class TrebuchetEntity extends UnitEntity {
 
 	public static final EntityPredicate VISION_NOT_REQUIRED = new EntityPredicate().setLineOfSiteRequired();
+	private FireballAttackGoal fbag = new FireballAttackGoal(this);
 
 	public TrebuchetEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
@@ -32,9 +33,10 @@ public class TrebuchetEntity extends UnitEntity {
 
 	protected void registerGoals() {
 		// this.goalSelector.addGoal(4, new ZombieEntity.AttackTurtleEggGoal(this, 1.0D, 3));
+		fbag = new FireballAttackGoal(this);
 		this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1D, true));
+		this.goalSelector.addGoal(2, fbag);
 		// this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new MoveToOwnerSpecifiedLocation(this, 1.1D, 32));
 		this.goalSelector.addGoal(1, new RetreatToOwnerSpecifiedLocation(this, 1.1D, 32));
@@ -63,5 +65,9 @@ public class TrebuchetEntity extends UnitEntity {
 		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getMAX_HEALTH());
 		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getMOVEMENT_SPEED());
 
+	}
+
+	public int getAttackStep() {
+		return fbag.attackStep;
 	}
 }

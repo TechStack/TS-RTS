@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.client.gui.toast.AlertToast;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.AlertToastBackgroundType;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
@@ -42,13 +43,21 @@ public class ClientPacketHandler {
 		Minecraft.getInstance().getToastGui().add(new AlertToast(title, subTitle, backgroundType));
 	}
 
-	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName) {
+	public static void SendResearchUnlockToClient(String key, String teamName) {
+		ModResearch.getResearch(key).setUnlocked(true, TeamEnum.getIDFromName(teamName));
+	}
+
+	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount) {
 		TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
 		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = new TeamInfo();
 		}
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SetResourceArray(resourceAmt);
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setCurrenResearchKey(currentResearchKey);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setCurrenResearchWorkRemaining(currentWorkAmount);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setFullResearchWorkRemaining(fullWorkAmount);
 
 	}
 
@@ -63,8 +72,8 @@ public class ClientPacketHandler {
 		}
 	}
 
-	public static void UnitQueueChangedPacketToClient(int teamOrd, List<Integer> barrcksQueue, List<Integer> archeryRangeQueue, List<Integer> stablesQueue) {
-		TSRTS.TeamQueues[teamOrd] = new UnitQueues(barrcksQueue, archeryRangeQueue, stablesQueue);
+	public static void UnitQueueChangedPacketToClient(int teamOrd, List<Integer> barrcksQueue, List<Integer> archeryRangeQueue, List<Integer> stablesQueue, List<Integer> siegeWorkshopQueue) {
+		TSRTS.TeamQueues[teamOrd] = new UnitQueues(barrcksQueue, archeryRangeQueue, stablesQueue, siegeWorkshopQueue);
 	}
 
 	public static void PlayerSelectionChangedPacketToClient(int[] entityIds) {

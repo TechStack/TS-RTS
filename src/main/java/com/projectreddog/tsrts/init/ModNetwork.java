@@ -8,6 +8,8 @@ import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
+import com.projectreddog.tsrts.network.ResearchButtonClickPacketToServer;
+import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.network.TESetRallyPointToServer;
@@ -46,6 +48,10 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, GuiRequestPacketToServer.class, GuiRequestPacketToServer::encode, GuiRequestPacketToServer::new, GuiRequestPacketToServer::handle);
 
 		simpleChannel.registerMessage(MessageId++, UnitQueueChangedPacketToClient.class, UnitQueueChangedPacketToClient::encode, UnitQueueChangedPacketToClient::new, UnitQueueChangedPacketToClient::handle);
+
+		simpleChannel.registerMessage(MessageId++, ResearchButtonClickPacketToServer.class, ResearchButtonClickPacketToServer::encode, ResearchButtonClickPacketToServer::new, ResearchButtonClickPacketToServer::handle);
+
+		simpleChannel.registerMessage(MessageId++, ResearchUnlockedPacketToClient.class, ResearchUnlockedPacketToClient::encode, ResearchUnlockedPacketToClient::new, ResearchUnlockedPacketToClient::handle);
 
 	}
 

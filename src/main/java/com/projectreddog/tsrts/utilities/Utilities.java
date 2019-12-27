@@ -12,7 +12,8 @@ import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
-import com.projectreddog.tsrts.containers.provider.MainMenuContinerProvider;
+import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
+import com.projectreddog.tsrts.containers.provider.ResearchContinerProvider;
 import com.projectreddog.tsrts.containers.provider.TroopBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.UnitRecruitmentContinerProvider;
 import com.projectreddog.tsrts.data.StructureData;
@@ -23,10 +24,12 @@ import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
+import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
@@ -34,6 +37,7 @@ import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.tileentity.WallTileEntity;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
+import com.projectreddog.tsrts.utilities.data.Research;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -106,12 +110,46 @@ public class Utilities {
 
 			break;
 
-		case Reference.GUI_ID_MAIN_MENU:
-			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new MainMenuContinerProvider());
+		case Reference.GUI_BUTTON_MAIN_MENU_ECO:
+			if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.LOBBY) {
+				NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new LobbyContinerProvider());
 
+			} else if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.RUNNINNG) {
+				NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new EcoBuildingsContinerProvider());
+			}
 			break;
 		default:
 			break;
+		}
+	}
+
+	public static void StartResearch(String key, String team) {
+		if (!ModResearch.getResearch(key).isUnlocked(team)) {
+
+			// CHECK if there is a research in progress still!
+			if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].getCurrenResearchWorkRemaining() > 0) {
+				// something is actively being researched so do nothing!
+
+			} else {
+
+				// set this as the active research
+				if (ModResearch.research_topics.containsKey(key)) {
+					Research r = ModResearch.getResearch(key);
+					if (!r.isUnlocked(team)) {
+
+						if (Utilities.hasNeededResourcesForResourceValues(team, r.getRv())) {
+							Utilities.spendResourcesForResourceValues(team, r.getRv());
+							TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setCurrenResearchKey(key);
+							TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setCurrenResearchWorkRemaining(r.getWorkRequired());
+							TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)].setFullResearchWorkRemaining(r.getWorkRequired());
+
+							SendTeamToClient(team);
+						}
+					}
+				}
+
+			}
+
 		}
 	}
 
@@ -152,6 +190,9 @@ public class Utilities {
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.GATEBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_RESEARCH_CENTER) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.RESEARCHCENTERBUILDERITEM));
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINION) {
 
@@ -291,7 +332,9 @@ public class Utilities {
 		case Reference.GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT:
 			NetworkHooks.openGui(player, new UnitRecruitmentContinerProvider());
 			break;
-
+		case Reference.GUI_BUTTON_MAIN_MENU_RESEARCH:
+			NetworkHooks.openGui(player, new ResearchContinerProvider());
+			break;
 		}
 		TSRTS.LOGGER.info("TEAM:" + player.getTeam().getName());
 
@@ -425,6 +468,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getFOOD();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getFOOD();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getFOOD();
 		}
 		return 0;
 	}
@@ -458,6 +503,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getWOOD();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getWOOD();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getWOOD();
 		}
 		return 0;
 	}
@@ -491,6 +538,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getSTONE();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getSTONE();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getSTONE();
 		}
 		return 0;
 	}
@@ -524,6 +573,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getIRON();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getIRON();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getIRON();
 		}
 
 		return 0;
@@ -558,6 +609,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getGOLD();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getGOLD();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getGOLD();
 		}
 		return 0;
 	}
@@ -591,6 +644,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getDIAMOND();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getDIAMOND();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getDIAMOND();
 		}
 
 		return 0;
@@ -625,6 +680,8 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS.getEMERALD();
 		} else if (item == ModItems.GATEBUILDERITEM) {
 			return Config.CONFIG_BUILDING_COSTS_GATE.getEMERALD();
+		} else if (item == ModItems.RESEARCHCENTERBUILDERITEM) {
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER.getEMERALD();
 		}
 		return 0;
 	}
@@ -654,17 +711,43 @@ public class Utilities {
 			return ModEntities.MOUNTED_ENTITY;
 		case Reference.UNIT_ID_PIKEMAN:
 			return ModEntities.PIKEMAN_ENTITY;
+		case Reference.UNIT_ID_TREBUCHET:
+			return ModEntities.TREBUCHET_ENTITY;
 
 		default:
 			return null;
 		}
 	}
 
+	public static void AddToUnitCounts(int unitID, String teamName) {
+		switch (unitID) {
+		case Reference.UNIT_ID_MINION:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountMinion();
+			break;
+		case Reference.UNIT_ID_ARCHER:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountArcher();
+			break;
+		case Reference.UNIT_ID_LANCER:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountLancer();
+			break;
+		case Reference.UNIT_ID_PIKEMAN:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountPikeman();
+			break;
+		case Reference.UNIT_ID_TREBUCHET:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountTrebuchet();
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	public static void SpawnUnitForTeam(int unitID, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
 		EntityType et = getEntityTypeForUnitID(unitID);
-
 		Entity e = SpawnUnit(et, Owner, world, pos, rallyPoint);
 		if (team != null) {
+			AddToUnitCounts(unitID, team.getName());
+
 			world.getScoreboard().addPlayerToTeam(e.getCachedUniqueIdString(), team);
 		}
 
@@ -930,6 +1013,11 @@ public class Utilities {
 
 	public static void SendTeamToClient(String teamName) {
 		ModNetwork.SendToALLPlayers(new SendTeamInfoPacketToClient(TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)], teamName));
+
+	}
+
+	public static void SendResearchUnlockToClient(String key, String teamName) {
+		ModNetwork.SendToALLPlayers(new ResearchUnlockedPacketToClient(key, teamName));
 
 	}
 

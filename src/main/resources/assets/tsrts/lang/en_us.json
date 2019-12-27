@@ -1,6 +1,7 @@
 {
 "_comment":"Blocks here",
 "block.tsrts.barracksblock":"Barracks Control Block",
+"block.tsrts.armoryblock":"Armory Control Block",
 "block.tsrts.archeryrangeblock":"Archery Range Control Block",
 "block.tsrts.minesiteblock":"Mine Site Control Block",
 "block.tsrts.farmblock":"Farm Control Block",
@@ -10,6 +11,20 @@
 "block.tsrts.watchtowerblock":"WatchTower Control Block",
 "block.tsrts.gateblock":"Gate Control Block",
 "block.tsrts.wallstepsblock":"Wall Tower Control Block",
+"block.tsrts.stablesblock":"Stables Block",
+"block.tsrts.watchblock":"Watch Block",
+"block.tsrts.researchcenterblock":"Research Center Block",
+"block.tsrts.siegeworkshopblock":"Siege Workshop Control Block",
+
+"resourcevalues.food.name":"Food",
+"resourcevalues.wood.name":"Wood",
+"resourcevalues.stone.name":"Stone",
+"resourcevalues.iron.name":"Iron",
+"resourcevalues.gold.name":"Gold",
+"resourcevalues.diamond.name":"Diamond",
+"resourcevalues.emerald.name":"Emerald",
+
+
 
 
 "_comment":"Creative Tabs",
@@ -23,6 +38,7 @@
 "item.tsrts.lanceitem":"Lance",
 "item.tsrts.pikeitem":"Pike",
 
+"item.tsrts.armorybuilderitem":"Armory",
 "item.tsrts.barracksbuilderitem":"Barracks",
 "item.tsrts.minesitediamondbuilderitem":"Diamond Mine",
 "item.tsrts.minesiteemeraldbuilderitem":"Emerald Mine",
@@ -38,6 +54,8 @@
 "item.tsrts.wallbuilderitem":"Wall",
 "item.tsrts.gatebuilderitem":"Gate",
 "item.tsrts.wallstepsbuilderitem":"Wall Tower",
+"item.tsrts.researchcenterbuilderitem":"Research Center",
+"item.tsrts.siegeworkshopbuilderitem":"Siege Workshop",
 
 "_comment":"custom messages here",
 
@@ -49,6 +67,7 @@
 
 
 "tsrts.destroy.archeryrange":"Archery Range Destroyed!",
+"tsrts.destroy.armory":"Armory Destroyed!",
 "tsrts.destroy.barracks":"Barracks Destroyed!",
 "tsrts.destroy.farm":"Farm Destroyed!",
 "tsrts.destroy.lumberyard":"Lumber Yard Destroyed!",
@@ -60,6 +79,31 @@
 "tsrts.destroy.gate":"Gate has been breached!",
 "tsrts.destroy.wallsteps":"Wall Steps Destroyed!",
 "tsrts.alerttoast.alert":"Alert!",
+"tsrts.destroy.siegeworkshop":"Siege Workshop Destroyed!",
+
+"_comment":"Gui Unit Recruitment",
+
+"gui.units.minion":"Minion",
+"gui.units.archer":"Archer",
+"gui.units.lancer":"Lancer",
+"gui.units.pikeman":"Pikeman",
+
+"gui.research.minion.name":"Minions",
+"gui.research.townhall.name":"Town Hall",
+"gui.research.archer.name":"Archery",
+"gui.research.lancer.name":"Lances",
+"gui.research.pikeman.name":"Pikeman",
+"gui.research.armory.name":"Armory",
+"gui.research.mareketplace.name":"Mareketplace",
+"gui.research.wall.name":"Walls",
+"gui.research.siegeworkshop.name":"Siege Workshop",
+"gui.research.crossbow.name":"Crossbows",
+"gui.research.advcedarmor.name":"Advanced Armor",
+"gui.research.watchtower.name":"Watch Tower",
+"gui.research.batteringrams.name":"Battering Rams",
+"gui.research.trebuchet.name":"Trebuchet",
+
+
 
 
 "_comment":"End here"

@@ -15,6 +15,7 @@ import com.projectreddog.tsrts.init.ModContainers;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.proxy.ClientProxy;
 import com.projectreddog.tsrts.proxy.IProxy;
 import com.projectreddog.tsrts.proxy.ServerProxy;
@@ -88,8 +89,10 @@ public class TSRTS {
 		MinecraftForge.EVENT_BUS.register(ServerEvents.class);
 
 		for (int i = 0; i < TeamQueues.length; i++) {
-			TeamQueues[i] = new UnitQueues(new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<Integer>());
+			TeamQueues[i] = new UnitQueues(new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<Integer>());
 		}
+
+		ModResearch.init();
 	}
 
 	// You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

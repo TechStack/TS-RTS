@@ -46,7 +46,7 @@ public class ClientEvents {
 	public static final KeyBinding controlGroup7 = new KeyBinding(Reference.MODID + ".key.controlgroup7", GLFW.GLFW_KEY_M, "key.categories." + Reference.MODID);
 	public static final KeyBinding controlGroup8 = new KeyBinding(Reference.MODID + ".key.controlgroup8", GLFW.GLFW_KEY_COMMA, "key.categories." + Reference.MODID);
 	public static final KeyBinding controlGroup9 = new KeyBinding(Reference.MODID + ".key.controlgroup9", GLFW.GLFW_KEY_PERIOD, "key.categories." + Reference.MODID);
-	public static final KeyBinding controlModifier = new KeyBinding(Reference.MODID + ".key.controlmodifier", GLFW.GLFW_MOD_CONTROL, "key.categories." + Reference.MODID);
+	public static final KeyBinding controlModifier = new KeyBinding(Reference.MODID + ".key.control", GLFW.GLFW_KEY_LEFT_CONTROL, "key.categories." + Reference.MODID);
 	public static final KeyBinding deselectAll = new KeyBinding(Reference.MODID + ".key.deselectall", GLFW.GLFW_KEY_G, "key.categories." + Reference.MODID);
 
 	public static final KeyBinding areaSelect = new KeyBinding(Reference.MODID + ".key.areaSelect", GLFW.GLFW_KEY_H, "key.categories." + Reference.MODID);
@@ -182,7 +182,7 @@ public class ClientEvents {
 
 				}
 				if (mainGuiOpen.isPressed()) {
-					ModNetwork.SendToServer(new GuiRequestPacketToServer(Reference.GUI_ID_MAIN_MENU));
+					ModNetwork.SendToServer(new GuiRequestPacketToServer(Reference.GUI_BUTTON_MAIN_MENU_ECO));
 				}
 			}
 
@@ -197,7 +197,8 @@ public class ClientEvents {
 		int size = uel.size();
 		for (Iterator iterator = uel.iterator(); iterator.hasNext();) {
 			UnitEntity unitEntity = (UnitEntity) iterator.next();
-			if (!unitEntity.getTeam().isSameTeam(team)) {
+
+			if (unitEntity.getTeam() != null && !unitEntity.getTeam().isSameTeam(team)) {
 				size = size - 1;
 			}
 		}
@@ -205,7 +206,7 @@ public class ClientEvents {
 		int[] tmp = new int[size];
 		// TODO CONSIDER TEAMS!
 		for (int i = 0; i < tmp.length; i++) {
-			if (uel.get(i).getTeam().isSameTeam(team)) {
+			if (uel.get(i).getTeam() != null && uel.get(i).getTeam().isSameTeam(team)) {
 				tmp[i] = uel.get(i).getEntityId();
 			}
 

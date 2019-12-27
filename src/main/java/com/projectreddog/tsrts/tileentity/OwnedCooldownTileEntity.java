@@ -79,7 +79,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 					currentStage = Stage.HALF_DESTROYED;
 					writeDirty = true;
 				}
-				if (getHealth() <= 0) {
+				if (getHealth() < 0.01) {
 					currentStage = Stage.RUBBLE;
 					writeDirty = true;
 				}
