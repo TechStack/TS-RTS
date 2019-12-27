@@ -26,6 +26,12 @@ public class TeamInfo {
 	private int gates = 0;
 	private int wallsteps = 0;
 
+	private int unitCountMinion = 0;
+	private int unitCountArcher = 0;
+	private int unitCountLancer = 0;
+	private int unitCountPikeman = 0;
+	private int unitCountTrebuchet = 0;
+
 	private String CurrenResearchKey;
 
 	private int currenResearchWorkRemaining;
@@ -299,6 +305,86 @@ public class TeamInfo {
 
 	public void setWallsteps(int wallsteps) {
 		this.wallsteps = wallsteps;
+	}
+
+	public int getUnitCountMinion() {
+		return unitCountMinion;
+	}
+
+	public void AddOneUnitCountMinion() {
+		this.unitCountMinion++;
+	}
+
+	public void AddOneUnitCountArcher() {
+		this.unitCountArcher++;
+	}
+
+	public void AddOneUnitCountLancer() {
+		this.unitCountLancer++;
+	}
+
+	public void AddOneUnitCountPikeman() {
+		this.unitCountPikeman++;
+	}
+
+	public void AddOneUnitCountTrebuchet() {
+		this.unitCountTrebuchet++;
+	}
+
+	public void RemoveOneUnitCountMinion() {
+		this.unitCountMinion--;
+	}
+
+	public void RemoveOneUnitCountArcher() {
+		this.unitCountArcher--;
+	}
+
+	public void RemoveOneUnitCountLancer() {
+		this.unitCountLancer--;
+	}
+
+	public void RemoveOneUnitCountPikeman() {
+		this.unitCountPikeman--;
+	}
+
+	public void RemoveOneUnitCountTrebuchet() {
+		this.unitCountTrebuchet--;
+	}
+
+	public void setUnitCountMinion(int unitCountMinion) {
+		this.unitCountMinion = unitCountMinion;
+	}
+
+	public int getUnitCountArcher() {
+		return unitCountArcher;
+	}
+
+	public void setUnitCountArcher(int unitCountArcher) {
+		this.unitCountArcher = unitCountArcher;
+	}
+
+	public int getUnitCountLancer() {
+		return unitCountLancer;
+	}
+
+	public void setUnitCountLancer(int unitCountLancer) {
+		this.unitCountLancer = unitCountLancer;
+	}
+
+	public int getUnitCountPikeman() {
+		return unitCountPikeman;
+	}
+
+	public void setUnitCountPikeman(int unitCountPikeman) {
+		this.unitCountPikeman = unitCountPikeman;
+	}
+
+	public int getUnitCountTrebuchet() {
+		return unitCountTrebuchet;
+	}
+
+	public void setUnitCountTrebuchet(int unitCountTrebuchet) {
+		this.unitCountTrebuchet = unitCountTrebuchet;
 	}
 
 }

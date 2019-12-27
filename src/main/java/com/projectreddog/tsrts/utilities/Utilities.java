@@ -711,17 +711,43 @@ public class Utilities {
 			return ModEntities.MOUNTED_ENTITY;
 		case Reference.UNIT_ID_PIKEMAN:
 			return ModEntities.PIKEMAN_ENTITY;
+		case Reference.UNIT_ID_TREBUCHET:
+			return ModEntities.TREBUCHET_ENTITY;
 
 		default:
 			return null;
 		}
 	}
 
+	public static void AddToUnitCounts(int unitID, String teamName) {
+		switch (unitID) {
+		case Reference.UNIT_ID_MINION:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountMinion();
+			break;
+		case Reference.UNIT_ID_ARCHER:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountArcher();
+			break;
+		case Reference.UNIT_ID_LANCER:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountLancer();
+			break;
+		case Reference.UNIT_ID_PIKEMAN:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountPikeman();
+			break;
+		case Reference.UNIT_ID_TREBUCHET:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountTrebuchet();
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	public static void SpawnUnitForTeam(int unitID, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
 		EntityType et = getEntityTypeForUnitID(unitID);
-
 		Entity e = SpawnUnit(et, Owner, world, pos, rallyPoint);
 		if (team != null) {
+			AddToUnitCounts(unitID, team.getName());
+
 			world.getScoreboard().addPlayerToTeam(e.getCachedUniqueIdString(), team);
 		}
 

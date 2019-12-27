@@ -9,6 +9,7 @@ public class Reference {
 	public static final int UNIT_ID_ARCHER = 2;
 	public static final int UNIT_ID_LANCER = 3;
 	public static final int UNIT_ID_PIKEMAN = 4;
+	public static final int UNIT_ID_TREBUCHET = 5;
 
 	// Block registry names
 	public static final String REIGSTRY_NAME_BARRACKS_BLOCK = "barracksblock";

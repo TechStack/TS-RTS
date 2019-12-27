@@ -21,7 +21,8 @@ public class ServerEvents {
 
 	private static int coolDownAmountRest = 20 * 10;
 	private static int coolDownAmountRemaining = coolDownAmountRest;
-	private static boolean writeHeader = true;
+	private static boolean writeBuildingHeader = true;
+	private static boolean writeUnitHeader = true;
 
 	@SubscribeEvent
 	public static void onServerTickEvent(final ServerTickEvent event) {
@@ -97,6 +98,7 @@ public class ServerEvents {
 
 					WriteToEcoStats(TeamEnum.values()[i].getName(), foodDelta, woodDelta, stoneDelta, ironDelta, goldDelta, diamondDelta, emeraldDelta, totFood, totWood, totStone, totIron, totGold, totDiamond, totEmerald);
 					WriteBuildingStats(TeamEnum.values()[i].getName(), TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())]);
+					WriteUnitStats(TeamEnum.values()[i].getName(), TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())]);
 				}
 
 			}
@@ -112,11 +114,27 @@ public class ServerEvents {
 		}
 	}
 
+	public static void WriteUnitStats(String teamName, TeamInfo ti) {
+		String delimiter = ",";
+		if (writeUnitHeader) {
+			TSRTS.LOGGER.info("UNITSTATUS-HEADER: Timestamp, TeamName, Minion , Archer, Lancer, Pikeman, Trebuchet ");
+			writeUnitHeader = false;
+
+		}
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		String timeStamp = dtf.format(now);
+		String tmp = "UNITSTATUS: " + delimiter + timeStamp + delimiter + teamName + delimiter + ti.getUnitCountMinion() + delimiter + ti.getUnitCountArcher() + delimiter + ti.getUnitCountLancer() + delimiter + ti.getUnitCountPikeman() + delimiter + ti.getUnitCountTrebuchet();
+
+		TSRTS.LOGGER.info(tmp);
+
+	}
+
 	public static void WriteBuildingStats(String teamName, TeamInfo ti) {
 		String delimiter = ",";
-		if (writeHeader) {
+		if (writeBuildingHeader) {
 			TSRTS.LOGGER.info("BUILDINGSTATS-HEADER: Timestamp, TeamName, Archeryrange , Armory , Baracks , Farms , Gates , LumberYard , MineSiteDiamond , MineSiteEmerald , MineSiteEmerald , MineSiteGold , MineSiteIron , MineSiteIron , MineSiteStone , ResearchCenter , Siegeworkshop , Stables , TownHalls , Walls , Wallsteps , Watchtowers");
-			writeHeader = false;
+			writeBuildingHeader = false;
 
 		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
