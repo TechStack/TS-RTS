@@ -23,7 +23,7 @@ public class StablesTileEntity extends OwnedCooldownTileEntity implements INamed
 
 		super.ActionAfterCooldown();
 
-		if (getOwner() != null) {
+		if (getOwner() != null && getTeam() != null) {
 			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getStables().size() > 0) {
 				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getStables().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
 				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromStablesQueue();

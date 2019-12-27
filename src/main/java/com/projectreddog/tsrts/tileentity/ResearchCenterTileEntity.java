@@ -22,7 +22,7 @@ public class ResearchCenterTileEntity extends OwnedCooldownTileEntity implements
 
 		super.ActionAfterCooldown();
 
-		if (getOwner() != null) {
+		if (getOwner() != null && getTeam() != null) {
 			// ModEntities.MINION.spawn(world, null, null, this.pos, SpawnReason.TRIGGERED, true, true);
 
 		}

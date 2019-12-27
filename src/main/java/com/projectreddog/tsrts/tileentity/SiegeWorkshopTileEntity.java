@@ -24,7 +24,7 @@ public class SiegeWorkshopTileEntity extends OwnedCooldownTileEntity implements 
 
 		super.ActionAfterCooldown();
 
-		if (getOwner() != null) {
+		if (getOwner() != null && getTeam() != null) {
 			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getSiegeWorkshop().size() > 0) {
 				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getSiegeWorkshop().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
 				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromSiegeWorkshopQueue();
