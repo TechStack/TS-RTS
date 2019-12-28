@@ -355,6 +355,17 @@ public class Utilities {
 				}
 			}
 
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_TREBUCHET) {// && ModResearch.getResearch("trebuchet").isUnlocked(teamName)) {
+
+			if (player.getTeam() != null) {
+				String team = player.getTeam().getName();
+				ResourceValues rv = Config.CONFIG_UNIT_COSTS_TREBUCHET;
+				if (hasNeededResourcesForResourceValues(team, rv)) {
+					spendResourcesForResourceValues(team, rv);
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_TREBUCHET);
+				}
+			}
+
 		}
 
 	}

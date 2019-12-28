@@ -28,9 +28,18 @@ public class UnitQueues {
 		case Reference.UNIT_ID_PIKEMAN:
 			AddToBarracksQueue(ID);
 			break;
+		case Reference.UNIT_ID_TREBUCHET:
+			AddToSiegeWorkshopQueue(ID);
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void AddToSiegeWorkshopQueue(int ID) {
+		getSiegeWorkshop().add(ID);
+		TSRTS.LOGGER.info("Added :" + ID + " to the siegeWorkshop QUEUE");
+		hasChanged = true;
 	}
 
 	private void AddToBarracksQueue(int ID) {

@@ -17,18 +17,41 @@ import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 
 public class TrebuchetEntity extends UnitEntity {
 
 	public static final EntityPredicate VISION_NOT_REQUIRED = new EntityPredicate().setLineOfSiteRequired();
 	private FireballAttackGoal fbag = new FireballAttackGoal(this);
+	private static final DataParameter<Float> ATTACK_STEP = EntityDataManager.createKey(TrebuchetEntity.class, DataSerializers.FLOAT);
+
+	public float attackStep = 0;
+
+	public float lastAttackStep = 0;
 
 	public TrebuchetEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
 		// this.world.getScoreboard().addPlayerToTeam(this.getCachedUniqueIdString(), scoreplayerteam);
 		// Minecraft.getInstance().player.getTeam()
+	}
 
+	@Override
+	public void tick() {
+
+		super.tick();
+		if (lastAttackStep != attackStep) {
+			this.dataManager.set(ATTACK_STEP, attackStep);
+			lastAttackStep = attackStep;
+		}
+
+	}
+
+	protected void registerData() {
+		super.registerData();
+		this.dataManager.register(ATTACK_STEP, (float) 0);
 	}
 
 	protected void registerGoals() {
@@ -67,7 +90,7 @@ public class TrebuchetEntity extends UnitEntity {
 
 	}
 
-	public int getAttackStep() {
-		return fbag.attackStep;
+	public float getAttackStep() {
+		return this.dataManager.get(ATTACK_STEP);
 	}
 }

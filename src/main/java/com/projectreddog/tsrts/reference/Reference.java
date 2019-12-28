@@ -111,6 +111,7 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_WALL_STEPS = 18;
 	public static final int GUI_BUTTON_BUY_RESEARCH_CENTER = 19;
 
+	public static final int GUI_BUTTON_BUY_TREBUCHET = 20;
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
 	public static final int GUI_BUTTON_LOBBY_BLUE = 5;

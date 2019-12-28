@@ -59,6 +59,11 @@ public class Config {
 // pikeman
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_PIKEMAN_STRING;
 	public static ResourceValues CONFIG_UNIT_COSTS_PIKEMAN;
+
+// trebuchet
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_TREBUCHET_STRING;
+	public static ResourceValues CONFIG_UNIT_COSTS_TREBUCHET;
+
 	// starting resrources
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_START_AMT_STRING;
@@ -280,6 +285,8 @@ public class Config {
 		CONFIG_UNIT_COSTS_LANCER = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_LANCER_STRING.get()));
 		CONFIG_UNIT_COSTS_PIKEMAN = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_PIKEMAN_STRING.get()));
 
+		CONFIG_UNIT_COSTS_TREBUCHET = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_TREBUCHET_STRING.get()));
+
 		CONFIG_BUILDING_COSTS_FARM = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_FARM_STRING.get()));
 		CONFIG_BUILDING_COSTS_LUMBER_YARD = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_LUMBER_YARD_STRING.get()));
 		CONFIG_BUILDING_COSTS_MINESITE_STONE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_MINESITE_STONE_STRING.get()));
@@ -380,6 +387,7 @@ public class Config {
 		CONFIG_UNIT_COSTS_LANCER_STRING = COMMON_BUILDER.comment("Defines the cost For the lancer").define("unitCostsLancer", "10,6,0,1,6,0,0");
 		CONFIG_UNIT_COSTS_PIKEMAN_STRING = COMMON_BUILDER.comment("Defines the cost For the pikeman").define("unitCostsPikeman", "5,6,0,2,5,0,0");
 
+		CONFIG_UNIT_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("unitCostsTrebuchet", "5,6,0,2,5,0,0");
 		COMMON_BUILDER.pop();
 	}
 
