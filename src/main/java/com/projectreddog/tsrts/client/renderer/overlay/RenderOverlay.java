@@ -73,6 +73,8 @@ public class RenderOverlay extends Screen {
 	private ResourceLocation FRAMES_TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/overlay/frame.png");
 	private ResourceLocation TEXTURE_QUEUES = new ResourceLocation(Reference.MODID, "textures/gui/overlay/queuebg.png");
 	private ResourceLocation STABLES_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/stablesblock_yellow_top.png");
+	private ResourceLocation SIEGE_WORKSHOP_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/siegeworkshopblock_yellow_top.png");
+
 	private ResourceLocation BARRACKS_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/barracksblock_yellow_top.png");
 
 	private ResourceLocation ARCHERY_RANGE_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/archeryrangeblock_yellow_top.png");
@@ -139,7 +141,7 @@ public class RenderOverlay extends Screen {
 
 								}
 							}
-							RenderUnitQueues(team);
+							RenderUnitQueues(team, event.getWindow().getScaledHeight() * 2 - 90);
 
 						}
 					}
@@ -202,17 +204,17 @@ public class RenderOverlay extends Screen {
 
 	}
 
-	public void RenderUnitQueues(String team) {
+	public void RenderUnitQueues(String team, int yValue) {
 		GL11.glPushMatrix();
 
 		// GL11.glScalef(2f, 2f, 2f);
 
 		// GL11.glScalef(.75f, .75f, .75f);
 		int teamOrd = TeamEnum.getIDFromName(team);
-		int y = 444;
+		int y = yValue;
 		Minecraft.getInstance().textureManager.bindTexture(TEXTURE_QUEUES);
 
-		ClientUtilities.renderTexture(0, y, 180, 60);
+		ClientUtilities.renderTexture(0, y, 180, 80);
 		int x = 5;
 
 		Minecraft.getInstance().textureManager.bindTexture(BARRACKS_QUEUE_ICON);
@@ -221,6 +223,8 @@ public class RenderOverlay extends Screen {
 		ClientUtilities.renderTexture(1, y + 22, 16, 16);
 		Minecraft.getInstance().textureManager.bindTexture(STABLES_QUEUE_ICON);
 		ClientUtilities.renderTexture(1, y + 42, 16, 16);
+		Minecraft.getInstance().textureManager.bindTexture(SIEGE_WORKSHOP_QUEUE_ICON);
+		ClientUtilities.renderTexture(1, y + 62, 16, 16);
 
 		if (TSRTS.TeamQueues[teamOrd].getBarracks() != null) {
 			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getBarracks().size() && i < 30; i++) {
@@ -245,6 +249,16 @@ public class RenderOverlay extends Screen {
 		if (TSRTS.TeamQueues[teamOrd].getStables() != null) {
 			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getStables().size() && i < 30; i++) {
 				int id = TSRTS.TeamQueues[teamOrd].getStables().get(i);
+
+//				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
+				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, 485);
+
+			}
+		}
+
+		if (TSRTS.TeamQueues[teamOrd].getSiegeWorkshop() != null) {
+			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getSiegeWorkshop().size() && i < 30; i++) {
+				int id = TSRTS.TeamQueues[teamOrd].getSiegeWorkshop().get(i);
 
 //				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
 				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, 485);
