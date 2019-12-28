@@ -2,6 +2,8 @@ package com.projectreddog.tsrts.handler;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
+import java.util.List;
 
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.init.ModNetwork;
@@ -13,9 +15,16 @@ import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 import com.projectreddog.tsrts.utilities.Utilities;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.GameType;
+import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
 public class ServerEvents {
 
@@ -23,6 +32,10 @@ public class ServerEvents {
 	private static int coolDownAmountRemaining = coolDownAmountRest;
 	private static boolean writeBuildingHeader = true;
 	private static boolean writeUnitHeader = true;
+
+	private static boolean[] hasPlacedTownHall = { false, false, false, false };
+
+	private static MinecraftServer server;
 
 	@SubscribeEvent
 	public static void onServerTickEvent(final ServerTickEvent event) {
@@ -44,6 +57,21 @@ public class ServerEvents {
 					int goldDelta = 0;
 					int diamondDelta = 0;
 					int emeraldDelta = 0;
+
+					if (!hasPlacedTownHall[i] && TSRTS.teamInfoArray[i].getTownHalls() > 0) {
+
+						// player placed a town hall on this team !
+						hasPlacedTownHall[i] = true;
+					}
+
+					if (hasPlacedTownHall[i] && TSRTS.teamInfoArray[i].getTownHalls() == 0) {
+						// this team is now "OUT"!
+
+						SetTeamToSpectator(server.getWorld(DimensionType.OVERWORLD), TeamEnum.values()[i].getName());
+
+						// reset it to false becuase they are out now and we dont want to re-set them over and over.
+						hasPlacedTownHall[i] = false;
+					}
 
 					foodDelta = foodDelta + (TSRTS.teamInfoArray[i].getTownHalls() * Config.CONFIG_TOWN_HALL_GENERATE.getFOOD());
 					woodDelta = woodDelta + (TSRTS.teamInfoArray[i].getTownHalls() * Config.CONFIG_TOWN_HALL_GENERATE.getWOOD());
@@ -158,4 +186,25 @@ public class ServerEvents {
 
 	}
 
+	public static void SetTeamToSpectator(World world, String TeamName) {
+		List<? extends PlayerEntity> players = world.getPlayers();
+		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
+			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
+			if (playerEntity.getTeam() != null) {
+				//
+				if (playerEntity.getTeam().getName().equals(TeamName)) {
+					// same team
+					playerEntity.setGameType(GameType.SPECTATOR);
+					playerEntity.playSound(SoundEvents.ENTITY_ZOMBIE_DEATH, 1, 1);
+				}
+			}
+
+		}
+
+	}
+
+	@SubscribeEvent
+	public static void onFMLServerStartingEvent(FMLServerStartingEvent event) {
+		server = event.getServer();
+	}
 }
