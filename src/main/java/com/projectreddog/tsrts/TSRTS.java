@@ -24,6 +24,7 @@ import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.UnitQueues;
+import com.projectreddog.tsrts.utilities.data.MapStructureData;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -63,6 +64,8 @@ public class TSRTS {
 	public static TeamInfo[] teamInfoArray = new TeamInfo[TeamEnum.values().length];
 	public static HashMap<String, Boolean> isPlayerReadyArray = new HashMap<>();
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+
+	public static HashMap<BlockPos, MapStructureData> Structures = new HashMap<BlockPos, MapStructureData>();
 
 	// Directly reference a log4j logger.
 	public static final Logger LOGGER = LogManager.getLogger();

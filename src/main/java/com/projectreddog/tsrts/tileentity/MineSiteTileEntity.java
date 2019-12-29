@@ -4,11 +4,13 @@ import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.reference.Reference.STRUCTURE_TYPE;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
+import com.projectreddog.tsrts.utilities.data.MapStructureData;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -29,6 +31,28 @@ public class MineSiteTileEntity extends OwnedCooldownTileEntity implements IName
 
 	public MineSiteTileEntity() {
 		super(ModBlocks.MINE_SITE_TILE_ENITTY_TYPE);
+	}
+
+	@Override
+	public STRUCTURE_TYPE getStructureType() {
+
+		switch (resource) {
+
+		case STONE:
+			return STRUCTURE_TYPE.MINE_SITE_STONE;
+
+		case IRON:
+			return STRUCTURE_TYPE.MINE_SITE_IRON;
+
+		case GOLD:
+			return STRUCTURE_TYPE.MINE_SITE_GOLD;
+
+		case DIAMOND:
+			return STRUCTURE_TYPE.MINE_SITE_DIAMOND;
+		case EMERALD:
+			return STRUCTURE_TYPE.MINE_SITE_EMERALD;
+		}
+		return null;
 	}
 
 	public void IncreaseCount() {
@@ -55,6 +79,8 @@ public class MineSiteTileEntity extends OwnedCooldownTileEntity implements IName
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteEmerald(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteEmerald() + 1);
 			break;
 		}
+		TSRTS.Structures.put(pos, new MapStructureData(pos, getStructureType(), this.getTeam().getName()));
+
 	}
 
 	public void DecreaseCount() {
@@ -81,6 +107,7 @@ public class MineSiteTileEntity extends OwnedCooldownTileEntity implements IName
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteEmerald(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteEmerald() - 1);
 			break;
 		}
+		TSRTS.Structures.remove(pos);
 	}
 
 	@Override

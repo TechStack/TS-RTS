@@ -247,4 +247,8 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 		return null;
 	}
 
+	public Reference.STRUCTURE_TYPE getStructureType() {
+		return null;
+	}
+
 }

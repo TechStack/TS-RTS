@@ -7,9 +7,11 @@ import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.reference.Reference.STRUCTURE_TYPE;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
+import com.projectreddog.tsrts.utilities.data.MapStructureData;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -40,16 +42,22 @@ public class WallStepsTileEntity extends OwnedCooldownTileEntity implements INam
 
 	}
 
+	@Override
+	public STRUCTURE_TYPE getStructureType() {
+		return STRUCTURE_TYPE.WALL_STEPS;
+	}
+
 	public void IncreaseCount() {
 
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setWallsteps(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getWallsteps() + 1);
+		TSRTS.Structures.put(pos, new MapStructureData(pos, getStructureType(), this.getTeam().getName()));
 
 	}
 
 	public void DecreaseCount() {
 
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setWallsteps(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getWallsteps() - 1);
-
+		TSRTS.Structures.remove(pos);
 	}
 
 	@Override
