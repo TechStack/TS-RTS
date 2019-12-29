@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.client.gui.EcoBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.LobbyScreen;
 import com.projectreddog.tsrts.client.gui.MainMenuScreen;
 import com.projectreddog.tsrts.client.gui.ResearchScreen;
+import com.projectreddog.tsrts.client.gui.TeamOptionsScreen;
 import com.projectreddog.tsrts.client.gui.TroopBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.UnitRecruitmentScreen;
 import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
@@ -59,6 +60,7 @@ public class ClientProxy implements IProxy {
 		ScreenManager.registerFactory(ModContainers.TROOP_BUILDINGS_CONTAINER, TroopBuildingsScreen::new);
 		ScreenManager.registerFactory(ModContainers.UNIT_RECRUITMENT_CONTAINER, UnitRecruitmentScreen::new);
 		ScreenManager.registerFactory(ModContainers.RESEARCH_CONTAINER, ResearchScreen::new);
+		ScreenManager.registerFactory(ModContainers.TEAM_OPTIONS_CONTAINER, TeamOptionsScreen::new);
 
 		MinecraftForge.EVENT_BUS.register(new RenderOverlay());
 		KeyBindings();

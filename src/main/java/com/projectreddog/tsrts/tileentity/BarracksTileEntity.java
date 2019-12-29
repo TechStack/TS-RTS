@@ -5,6 +5,7 @@ import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.ResourceValues;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
 
@@ -27,6 +28,16 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 		if (getOwner() != null && getTeam() != null) {
 			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().size() > 0) {
 				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+
+				if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].isInfinateBarracksQueue()) {
+
+					ResourceValues rv = Utilities.GetResourceValuesforUnitID(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0));
+
+					if (Utilities.hasNeededResourcesForResourceValues(getTeam().getName(), rv)) {
+						Utilities.spendResourcesForResourceValues(getTeam().getName(), rv);
+						TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].AddToProperQueue(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0));
+					}
+				}
 				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromBarracksQueue();
 			}
 			// }

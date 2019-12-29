@@ -14,7 +14,10 @@ public class UnitQueueChangedPacketToClient {
 	List<Integer> archeryRangeQueue;
 	List<Integer> stablesQueue;
 	List<Integer> siegeWorkshopQueue;
-
+	Boolean infinateBarracksQueue;
+	Boolean infinateArcheryRangeQueue;
+	Boolean infinateStablesQueue;
+	Boolean infinateSiegeWorkshopQueue;
 	int teamOrd;
 
 	public UnitQueueChangedPacketToClient(PacketBuffer buf) {
@@ -59,15 +62,24 @@ public class UnitQueueChangedPacketToClient {
 			siegeWorkshopQueue.add(tmp);
 		}
 
+		infinateBarracksQueue = buf.readBoolean();
+		infinateArcheryRangeQueue = buf.readBoolean();
+		infinateStablesQueue = buf.readBoolean();
+		infinateSiegeWorkshopQueue = buf.readBoolean();
 	}
 
-	public UnitQueueChangedPacketToClient(List<Integer> barracksQueue, List<Integer> archeryRangeQueue, List<Integer> stablesQueue, List<Integer> siegeWorkshopQueue, int teamOrd) {
+	public UnitQueueChangedPacketToClient(List<Integer> barracksQueue, List<Integer> archeryRangeQueue, List<Integer> stablesQueue, List<Integer> siegeWorkshopQueue, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue, int teamOrd) {
 		super();
 		this.barracksQueue = barracksQueue;
 		this.archeryRangeQueue = archeryRangeQueue;
 		this.stablesQueue = stablesQueue;
 		this.teamOrd = teamOrd;
 		this.siegeWorkshopQueue = siegeWorkshopQueue;
+		this.infinateBarracksQueue = infinateBarracksQueue;
+		this.infinateArcheryRangeQueue = infinateArcheryRangeQueue;
+		this.infinateStablesQueue = infinateStablesQueue;
+		this.infinateSiegeWorkshopQueue = infinateSiegeWorkshopQueue;
+
 	}
 
 	public void encode(PacketBuffer buf) {
@@ -116,13 +128,18 @@ public class UnitQueueChangedPacketToClient {
 
 		}
 
+		buf.writeBoolean(infinateBarracksQueue);
+		buf.writeBoolean(infinateArcheryRangeQueue);
+		buf.writeBoolean(infinateStablesQueue);
+		buf.writeBoolean(infinateSiegeWorkshopQueue);
+
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		// TODO Auto-generated method stub
 		ctx.get().enqueueWork(() -> {
 
-			ClientPacketHandler.UnitQueueChangedPacketToClient(teamOrd, barracksQueue, archeryRangeQueue, stablesQueue, siegeWorkshopQueue);
+			ClientPacketHandler.UnitQueueChangedPacketToClient(teamOrd, barracksQueue, archeryRangeQueue, stablesQueue, siegeWorkshopQueue, infinateBarracksQueue, infinateArcheryRangeQueue, infinateStablesQueue, infinateSiegeWorkshopQueue);
 
 		});
 		ctx.get().setPacketHandled(true);

@@ -12,6 +12,11 @@ public class UnitQueues {
 	private List<Integer> ArcheryRange;
 	private List<Integer> SiegeWorkshop;
 
+	private boolean infinateBarracksQueue;
+	private boolean infinateStablesQueue;
+	private boolean infinateArcheryRangeQueue;
+	private boolean infinateSiegeWorkshopQueue;
+
 	public boolean hasChanged;
 
 	public void AddToProperQueue(int ID) {
@@ -87,13 +92,17 @@ public class UnitQueues {
 		}
 	}
 
-	public UnitQueues(List<Integer> barracks, List<Integer> archeryRange, List<Integer> stables, List<Integer> siegeWorkshop) {
+	public UnitQueues(List<Integer> barracks, List<Integer> archeryRange, List<Integer> stables, List<Integer> siegeWorkshop, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue) {
 		super();
 		Barracks = barracks;
 		Stables = stables;
 		ArcheryRange = archeryRange;
 		hasChanged = true;
 		SiegeWorkshop = siegeWorkshop;
+		this.infinateBarracksQueue = infinateBarracksQueue;
+		this.infinateArcheryRangeQueue = infinateArcheryRangeQueue;
+		this.infinateStablesQueue = infinateStablesQueue;
+		this.infinateSiegeWorkshopQueue = infinateSiegeWorkshopQueue;
 	}
 
 	public List<Integer> getBarracks() {
@@ -123,6 +132,38 @@ public class UnitQueues {
 			SiegeWorkshop = new ArrayList<Integer>();
 		}
 		return SiegeWorkshop;
+	}
+
+	public boolean isInfinateBarracksQueue() {
+		return infinateBarracksQueue;
+	}
+
+	public void setInfinateBarracksQueue(boolean infinateBarracksQueue) {
+		this.infinateBarracksQueue = infinateBarracksQueue;
+	}
+
+	public boolean isInfinateStablesQueue() {
+		return infinateStablesQueue;
+	}
+
+	public void setInfinateStablesQueue(boolean infinateStablesQueue) {
+		this.infinateStablesQueue = infinateStablesQueue;
+	}
+
+	public boolean isInfinateArcheryRangeQueue() {
+		return infinateArcheryRangeQueue;
+	}
+
+	public void setInfinateArcheryRangeQueue(boolean infinateArcheryRangeQueue) {
+		this.infinateArcheryRangeQueue = infinateArcheryRangeQueue;
+	}
+
+	public boolean isInfinateSiegeWorkshopQueue() {
+		return infinateSiegeWorkshopQueue;
+	}
+
+	public void setInfinateSiegeWorkshopQueue(boolean infinateSiegeWorkshopQueue) {
+		this.infinateSiegeWorkshopQueue = infinateSiegeWorkshopQueue;
 	}
 
 }

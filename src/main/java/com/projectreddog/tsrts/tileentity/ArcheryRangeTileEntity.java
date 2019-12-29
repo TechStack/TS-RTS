@@ -5,6 +5,7 @@ import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.ResourceValues;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -28,6 +29,17 @@ public class ArcheryRangeTileEntity extends OwnedCooldownTileEntity implements I
 		if (getOwner() != null && getTeam() != null) {
 			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().size() > 0) {
 				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+
+				if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].isInfinateArcheryRangeQueue()) {
+
+					ResourceValues rv = Utilities.GetResourceValuesforUnitID(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().get(0));
+
+					if (Utilities.hasNeededResourcesForResourceValues(getTeam().getName(), rv)) {
+						Utilities.spendResourcesForResourceValues(getTeam().getName(), rv);
+						TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].AddToProperQueue(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().get(0));
+					}
+				}
+
 				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromArcheryRangeQueue();
 			}
 		}

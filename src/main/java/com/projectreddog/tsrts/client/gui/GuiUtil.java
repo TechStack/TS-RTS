@@ -34,7 +34,7 @@ public class GuiUtil {
 	 * public static final int GUI_BUTTON_MAIN_MENU_ECO = 10; public static final int GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS = 11; public static final int GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS = 12; public static final int GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT = 13; public static final int GUI_BUTTON_MAIN_MENU_RESEARCH = 15;
 	 */
 
-	private static final int TAB_COUNT = 5;
+	private static final int TAB_COUNT = 6;
 
 	public static int tabIndexToGUiID(int tabIndex) {
 		switch (tabIndex) {
@@ -48,6 +48,8 @@ public class GuiUtil {
 			return Reference.GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT;
 		case 4:
 			return Reference.GUI_BUTTON_MAIN_MENU_RESEARCH;
+		case 5:
+			return Reference.GUI_BUTTON_MAIN_MENU_TEAM_OPTIONS;
 		default:
 			return -1;
 		}
@@ -85,6 +87,8 @@ public class GuiUtil {
 			return new ItemStack(Items.DIAMOND_HELMET);
 		case 4:
 			return new ItemStack(Items.WRITABLE_BOOK);
+		case 5:
+			return new ItemStack(Items.PAPER);
 		default:
 			return ItemStack.EMPTY;
 		}
@@ -122,7 +126,9 @@ public class GuiUtil {
 		case 4:
 			toolTip.add("Research");
 			return toolTip;
-
+		case 5:
+			toolTip.add("Team Options");
+			return toolTip;
 		default:
 			return toolTip;
 		}

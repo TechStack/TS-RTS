@@ -133,7 +133,7 @@ public class ServerEvents {
 
 			for (int i = 0; i < TeamEnum.values().length; i++) {
 				if (TSRTS.TeamQueues[i].hasChanged) {
-					ModNetwork.SendToALLPlayers(new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), TSRTS.TeamQueues[i].getSiegeWorkshop(), i));
+					ModNetwork.SendToALLPlayers(new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), TSRTS.TeamQueues[i].getSiegeWorkshop(), TSRTS.TeamQueues[i].isInfinateBarracksQueue(), TSRTS.TeamQueues[i].isInfinateArcheryRangeQueue(), TSRTS.TeamQueues[i].isInfinateStablesQueue(), TSRTS.TeamQueues[i].isInfinateSiegeWorkshopQueue(), i));
 
 					TSRTS.TeamQueues[i].hasChanged = false;
 				}

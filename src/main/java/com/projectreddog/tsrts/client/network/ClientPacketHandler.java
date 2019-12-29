@@ -75,8 +75,8 @@ public class ClientPacketHandler {
 		}
 	}
 
-	public static void UnitQueueChangedPacketToClient(int teamOrd, List<Integer> barrcksQueue, List<Integer> archeryRangeQueue, List<Integer> stablesQueue, List<Integer> siegeWorkshopQueue) {
-		TSRTS.TeamQueues[teamOrd] = new UnitQueues(barrcksQueue, archeryRangeQueue, stablesQueue, siegeWorkshopQueue);
+	public static void UnitQueueChangedPacketToClient(int teamOrd, List<Integer> barrcksQueue, List<Integer> archeryRangeQueue, List<Integer> stablesQueue, List<Integer> siegeWorkshopQueue, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue) {
+		TSRTS.TeamQueues[teamOrd] = new UnitQueues(barrcksQueue, archeryRangeQueue, stablesQueue, siegeWorkshopQueue, infinateBarracksQueue, infinateArcheryRangeQueue, infinateStablesQueue, infinateSiegeWorkshopQueue);
 	}
 
 	public static void PlayerSelectionChangedPacketToClient(int[] entityIds) {

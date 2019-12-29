@@ -15,6 +15,7 @@ import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerPro
 import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
 import com.projectreddog.tsrts.containers.provider.ResearchContinerProvider;
+import com.projectreddog.tsrts.containers.provider.TeamOptionsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.TroopBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.UnitRecruitmentContinerProvider;
 import com.projectreddog.tsrts.data.StructureData;
@@ -268,6 +269,22 @@ public class Utilities {
 		return null;
 	}
 
+	public static ResourceValues GetResourceValuesforUnitID(int unitID) {
+		switch (unitID) {
+		case Reference.UNIT_ID_MINION:
+			return Config.CONFIG_UNIT_COSTS_MINION;
+		case Reference.UNIT_ID_ARCHER:
+			return Config.CONFIG_UNIT_COSTS_ARCHER;
+		case Reference.UNIT_ID_LANCER:
+			return Config.CONFIG_UNIT_COSTS_LANCER;
+		case Reference.UNIT_ID_PIKEMAN:
+			return Config.CONFIG_UNIT_COSTS_PIKEMAN;
+		case Reference.UNIT_ID_TREBUCHET:
+			return Config.CONFIG_UNIT_COSTS_TREBUCHET;
+		}
+		return null;
+	}
+
 	public static void TownHallGuiHandler(int buttonId, ServerPlayerEntity player) {
 		String teamName = "";
 		// TODO: RESEARCH UPDATE WITH RESEARCH UNLOCKS AS NEEDED
@@ -465,6 +482,10 @@ public class Utilities {
 			break;
 		case Reference.GUI_BUTTON_MAIN_MENU_RESEARCH:
 			NetworkHooks.openGui(player, new ResearchContinerProvider());
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_TEAM_OPTIONS:
+			NetworkHooks.openGui(player, new TeamOptionsContinerProvider());
 			break;
 		}
 		TSRTS.LOGGER.info("TEAM:" + player.getTeam().getName());
