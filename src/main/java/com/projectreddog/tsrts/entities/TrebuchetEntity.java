@@ -79,14 +79,14 @@ public class TrebuchetEntity extends UnitEntity {
 	protected void registerAttributes() {
 		super.registerAttributes();
 		// getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-		this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getARMOR());
-		this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getARMOR_TOUGHNESS());
-		this.getAttribute(SharedMonsterAttributes.ATTACK_KNOCKBACK).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getATTACK_KNOCKBACK());
-		this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getATTACK_DAMAGE());
-		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getFOLLOW_RANGE());
-		this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getKNOCK_BACK_RESISTANCE());
-		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getMAX_HEALTH());
-		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_MINION.getMOVEMENT_SPEED());
+		this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_TREBUCHET.getARMOR());
+		this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_TREBUCHET.getARMOR_TOUGHNESS());
+		this.getAttribute(SharedMonsterAttributes.ATTACK_KNOCKBACK).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_TREBUCHET.getATTACK_KNOCKBACK());
+		this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_TREBUCHET.getATTACK_DAMAGE());
+		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_TREBUCHET.getFOLLOW_RANGE());
+		this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_TREBUCHET.getKNOCK_BACK_RESISTANCE());
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_TREBUCHET.getMAX_HEALTH());
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_TREBUCHET.getMOVEMENT_SPEED());
 
 	}
 
