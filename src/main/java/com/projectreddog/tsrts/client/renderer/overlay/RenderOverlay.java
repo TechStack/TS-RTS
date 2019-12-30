@@ -279,6 +279,12 @@ public class RenderOverlay extends Screen {
 			return new ItemStack(ModItems.LANCEITEM);
 		case Reference.UNIT_ID_PIKEMAN:
 			return new ItemStack(ModItems.PIKEITEM);
+		case Reference.UNIT_ID_TREBUCHET:
+			return new ItemStack(Items.FIRE_CHARGE);
+		case Reference.UNIT_ID_KNIGHT:
+			return new ItemStack(Items.IRON_SWORD);
+		case Reference.UNIT_ID_ADVANCED_KNIGHT:
+			return new ItemStack(Items.DIAMOND_SWORD);
 
 		default:
 			break;

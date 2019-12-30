@@ -10,6 +10,8 @@ public class Reference {
 	public static final int UNIT_ID_LANCER = 3;
 	public static final int UNIT_ID_PIKEMAN = 4;
 	public static final int UNIT_ID_TREBUCHET = 5;
+	public static final int UNIT_ID_KNIGHT = 6;
+	public static final int UNIT_ID_ADVANCED_KNIGHT = 7;
 
 	// Block registry names
 	public static final String REIGSTRY_NAME_BARRACKS_BLOCK = "barracksblock";
@@ -74,6 +76,18 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ARMORY_BUILDER_ITEM = "armorybuilderitem";
 	public static final String REIGSTRY_NAME_SIEGE_WORKSHOP_BUILDER_ITEM = "siegeworkshopbuilderitem";
 
+	public static final String REIGSTRY_NAME_TEAM_IRON_ARMOR_HELMET = "teamironarmorhelmetitem";
+	public static final String REIGSTRY_NAME_TEAM_IRON_ARMOR_CHESTPLATE = "teamironarmorchestplateitem";
+
+	public static final String REIGSTRY_NAME_TEAM_IRON_ARMOR_LEGGINGS = "teamironarmorleggingsitem";
+
+	public static final String REIGSTRY_NAME_TEAM_IRON_ARMOR_BOOTS = "teamironarmorbootsitem";
+
+	public static final String REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_HELMET = "teamdiamondarmorhelmetitem";
+	public static final String REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_CHESTPLATE = "teamdiamondarmorchestplateitem";
+	public static final String REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_LEGGINGS = "teamdiamondarmorleggingsitem";
+	public static final String REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_BOOTS = "teamdiamondarmorbootsitem";
+
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";
 	public static final String REIGSTRY_NAME_ARCHER_MINION_ENTITY = "archerminion";
@@ -81,6 +95,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_MOUNTED_ENTITY = "mountedentity";
 	public static final String REIGSTRY_NAME_PIKEMAN_ENTITY = "pikemanentity";
 	public static final String REIGSTRY_NAME_TREBUCHET_ENTITY = "trebuchetentity";
+	public static final String REIGSTRY_NAME_KNIGHT_ENTITY = "knight";
+	public static final String REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY = "advancedknight";
 
 	// GUI BUTTONS
 
@@ -113,6 +129,12 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_RESEARCH_CENTER = 19;
 
 	public static final int GUI_BUTTON_BUY_TREBUCHET = 20;
+	public static final int GUI_BUTTON_BUY_KNIGHT = 21;
+
+	public static final int GUI_BUTTON_BUY_DIAMOND_KNIGHT = 22;
+
+	public static final int GUI_BUTTON_BUY_ARMORY = 23;
+
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
 	public static final int GUI_BUTTON_LOBBY_BLUE = 5;

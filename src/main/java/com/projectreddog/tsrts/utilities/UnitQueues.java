@@ -24,6 +24,13 @@ public class UnitQueues {
 		case Reference.UNIT_ID_MINION:
 			AddToBarracksQueue(ID);
 			break;
+		case Reference.UNIT_ID_ADVANCED_KNIGHT:
+			AddToBarracksQueue(ID);
+			break;
+
+		case Reference.UNIT_ID_KNIGHT:
+			AddToBarracksQueue(ID);
+			break;
 		case Reference.UNIT_ID_ARCHER:
 			AddToArcheryRangeQueue(ID);
 			break;

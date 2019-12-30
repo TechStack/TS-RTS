@@ -6,13 +6,16 @@ import java.util.Map;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
+import com.projectreddog.tsrts.entities.AdvancedKnightEntity;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
+import com.projectreddog.tsrts.entities.KnightEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.entities.PikemanEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.Config.Modes;
+import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
@@ -21,6 +24,8 @@ import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 
+import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -32,6 +37,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -144,6 +150,11 @@ public class EventHandler {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountLancer();
 				} else if (ue instanceof PikemanEntity) {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountPikeman();
+				} else if (ue instanceof KnightEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountKnight();
+				} else if (ue instanceof AdvancedKnightEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountAdvancedKnight();
+
 				}
 			}
 
@@ -281,4 +292,24 @@ public class EventHandler {
 		}
 	}
 
+	@SubscribeEvent
+	public static void OnColorHandlerEvent(final ColorHandlerEvent.Item event) {
+
+		final ItemColors itemColors = event.getItemColors();
+
+		final IItemColor itemColorHandler = (stack, tintIndex) -> {
+			return itemColors.getColor(stack, tintIndex);
+
+		};
+		itemColors.register(itemColorHandler, ModItems.TEAM_DIAMOND_ARMOR_BOOTS);
+		itemColors.register(itemColorHandler, ModItems.TEAM_DIAMOND_ARMOR_LEGGINGS);
+		itemColors.register(itemColorHandler, ModItems.TEAM_DIAMOND_ARMOR_CHESTPLATE);
+		itemColors.register(itemColorHandler, ModItems.TEAM_DIAMOND_ARMOR_HELMET);
+
+		itemColors.register(itemColorHandler, ModItems.TEAM_IRON_ARMOR_BOOTS);
+		itemColors.register(itemColorHandler, ModItems.TEAM_IRON_ARMOR_LEGGINGS);
+		itemColors.register(itemColorHandler, ModItems.TEAM_IRON_ARMOR_CHESTPLATE);
+		itemColors.register(itemColorHandler, ModItems.TEAM_IRON_ARMOR_HELMET);
+
+	}
 }
