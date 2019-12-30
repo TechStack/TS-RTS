@@ -24,6 +24,7 @@ import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.UnitQueues;
+import com.projectreddog.tsrts.utilities.data.MapStructureData;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -64,6 +65,8 @@ public class TSRTS {
 	public static HashMap<String, Boolean> isPlayerReadyArray = new HashMap<>();
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
+	public static HashMap<BlockPos, MapStructureData> Structures = new HashMap<BlockPos, MapStructureData>();
+
 	// Directly reference a log4j logger.
 	public static final Logger LOGGER = LogManager.getLogger();
 
@@ -89,7 +92,7 @@ public class TSRTS {
 		MinecraftForge.EVENT_BUS.register(ServerEvents.class);
 
 		for (int i = 0; i < TeamQueues.length; i++) {
-			TeamQueues[i] = new UnitQueues(new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<Integer>());
+			TeamQueues[i] = new UnitQueues(new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<Integer>(), false, false, false, false);
 		}
 
 		ModResearch.init();

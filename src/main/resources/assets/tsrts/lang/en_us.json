@@ -103,8 +103,10 @@
 "gui.research.batteringrams.name":"Battering Rams",
 "gui.research.trebuchet.name":"Trebuchet",
 
-
-
+"gui.options.infinite.barracks":"Barracks queue infinite mode",
+"gui.options.infinite.archeryrange":"Archery Range queue infinite mode",
+"gui.options.infinite.stables":"Stables queue infinite mode",
+"gui.options.infinite.siegeworkshop":"Siege Workshop queue infinite mode",
 
 "_comment":"End here"
 }

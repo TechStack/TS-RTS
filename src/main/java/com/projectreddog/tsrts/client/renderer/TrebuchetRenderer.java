@@ -50,9 +50,10 @@ public class TrebuchetRenderer<T extends TrebuchetEntity> extends EntityRenderer
 		GlStateManager.pushMatrix();
 
 		GlStateManager.translatef((float) x, (float) y, (float) z);
-		GlStateManager.rotatef(entity.rotationYaw - 180, 0.0F, 1.0F, 0.0F);
 
 		GlStateManager.scalef(-1.0F, -1.0F, 1.0F);
+		GlStateManager.rotatef(entity.rotationYaw - 180, 0.0F, 1.0F, 0.0F);
+
 		bindEntityTexture(entity);
 		GlStateManager.translatef((float) 0, (float) -3, (float) 0);
 

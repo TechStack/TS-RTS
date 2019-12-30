@@ -81,6 +81,9 @@ public class DefensiveBuildingsScreen extends ContainerScreen<DefensiveBuildings
 		y = y + yOffset;
 		GuiUtil.drawCosts(this, ModItems.RESEARCHCENTERBUILDERITEM, y, teamName);
 		y = y + yOffset;
+
+		GuiUtil.drawCosts(this, ModItems.ARMORYBUILDERITEM, y, teamName);
+		y = y + yOffset;
 		GL11.glPopMatrix();
 	}
 
@@ -127,5 +130,11 @@ public class DefensiveBuildingsScreen extends ContainerScreen<DefensiveBuildings
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_RESEARCH_CENTER));
 		}, ModItems.RESEARCHCENTERBUILDERITEM.getTranslationKey(), this, null));
 		y = y + 20;
+
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARMORY));
+		}, ModItems.ARMORYBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("armory")));
+		y = y + 20;
+
 	}
 }

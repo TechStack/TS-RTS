@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "tsrts:item/iron_helmet",
+        "layer1": "tsrts:item/iron_helmet_overlay"
+    }
+}

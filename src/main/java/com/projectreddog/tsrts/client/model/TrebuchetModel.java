@@ -81,12 +81,12 @@ public class TrebuchetModel extends EntityModel<TrebuchetEntity> {
 		slingEnd.cubeList.add(new ModelBox(slingEnd, 0, 0, -2.0F, 0.0F, -0.5F, 4, 4, 1, 0.0F, false));
 
 		counterWeightAttachment = new RendererModel(this);
-		counterWeightAttachment.setRotationPoint(0.0F, 10.0F, -11.0F);
+		counterWeightAttachment.setRotationPoint(0.0F, -2.0F, -11.0F);
 		PivotPoint.addChild(counterWeightAttachment);
-		counterWeightAttachment.cubeList.add(new ModelBox(counterWeightAttachment, 0, 0, -1.0F, -12.0F, 0.0F, 2, 3, 1, 0.0F, false));
+		counterWeightAttachment.cubeList.add(new ModelBox(counterWeightAttachment, 0, 0, -1.0F, 0.0F, 0.0F, 2, 3, 1, 0.0F, false));
 
 		counterWeightEnd = new RendererModel(this);
-		counterWeightEnd.setRotationPoint(0.0F, 3.0F, 0.5F);
+		counterWeightEnd.setRotationPoint(0.0F, 15.0F, 0.5F);
 		counterWeightAttachment.addChild(counterWeightEnd);
 		counterWeightEnd.cubeList.add(new ModelBox(counterWeightEnd, 0, 8, -3.0F, -12.0F, -4.0F, 6, 9, 8, 0.0F, false));
 	}
@@ -95,26 +95,103 @@ public class TrebuchetModel extends EntityModel<TrebuchetEntity> {
 	public void render(TrebuchetEntity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		setRotationsForAttackStep(entity);
 		parent.render(f5);
+//		entity.attackStep++;
+//		if (entity.attackStep > 12) {
+//			entity.attackStep = 0;
+//		}
+
+		// GlStateManager.rotatef(entity.attackStep + 15f, 1.0F, 0.0F, 0.0F);
+		// PivotPoint.postRender(f5);
 	}
 
 	public void setRotationsForAttackStep(TrebuchetEntity entity) {
 		if (entity.getAttackStep() == 0) {
-			setRotationAngle(PivotPoint, 0, 0, 0);
+			setRotationAngle(PivotPoint, (float) ((float) -57f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (-33f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (33f) * Math.PI / 180f), 0, 0);
 		}
 		if (entity.getAttackStep() == 1) {
-			setRotationAngle(PivotPoint, 10, 0, 0);
+			setRotationAngle(PivotPoint, (float) ((float) -45f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (-32f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (33f) * Math.PI / 180f), 0, 0);
+
 		}
 		if (entity.getAttackStep() == 2) {
-			setRotationAngle(PivotPoint, 45, 0, 0);
+			setRotationAngle(PivotPoint, (float) ((float) -21f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (-21f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (21f) * Math.PI / 180f), 0, 0);
+
 		}
 		if (entity.getAttackStep() == 3) {
-			setRotationAngle(PivotPoint, 90, 0, 0);
+			setRotationAngle(PivotPoint, (float) ((float) 15f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (21f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (-15f) * Math.PI / 180f), 0, 0);
+
 		}
 
 		if (entity.getAttackStep() == 4) {
-			setRotationAngle(PivotPoint, 180, 0, 0);
+			setRotationAngle(PivotPoint, (float) ((float) 48f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (40f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (-48f) * Math.PI / 180f), 0, 0);
+
 		}
 
+		if (entity.getAttackStep() == 5) {
+			setRotationAngle(PivotPoint, (float) ((float) 84f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (70f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (-84f) * Math.PI / 180f), 0, 0);
+
+		}
+
+		if (entity.getAttackStep() == 6) {
+			setRotationAngle(PivotPoint, (float) ((float) 110f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (100f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (-110f) * Math.PI / 180f), 0, 0);
+
+		}
+
+		if (entity.getAttackStep() == 7) {
+			setRotationAngle(PivotPoint, (float) ((float) 115f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (120f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (-115f) * Math.PI / 180f), 0, 0);
+
+		}
+
+		if (entity.getAttackStep() == 8) {
+			setRotationAngle(PivotPoint, (float) ((float) 90f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (160f) * Math.PI / 180f), 0, 0);
+
+			setRotationAngle(counterWeightAttachment, (float) ((float) (-90f) * Math.PI / 180f), 0, 0);
+
+		}
+
+		if (entity.getAttackStep() == 9) {
+			setRotationAngle(PivotPoint, (float) ((float) 70f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (200f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (-70f) * Math.PI / 180f), 0, 0);
+
+		}
+
+		if (entity.getAttackStep() == 10) {
+			setRotationAngle(PivotPoint, (float) ((float) 80f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (230f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (-80f) * Math.PI / 180f), 0, 0);
+
+		}
+
+		if (entity.getAttackStep() == 11) {
+			setRotationAngle(PivotPoint, (float) ((float) 90f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (270f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (-90f) * Math.PI / 180f), 0, 0);
+
+		}
+
+		if (entity.getAttackStep() == 12) {
+			setRotationAngle(PivotPoint, (float) ((float) 95f * Math.PI / 180f), 0, 0);
+			setRotationAngle(slingAttach, (float) ((float) (270f) * Math.PI / 180f), 0, 0);
+			setRotationAngle(counterWeightAttachment, (float) ((float) (-95f) * Math.PI / 180f), 0, 0);
+
+		}
 	}
 
 	public void setRotationAngle(RendererModel modelRenderer, float x, float y, float z) {

@@ -10,6 +10,8 @@ public class Reference {
 	public static final int UNIT_ID_LANCER = 3;
 	public static final int UNIT_ID_PIKEMAN = 4;
 	public static final int UNIT_ID_TREBUCHET = 5;
+	public static final int UNIT_ID_KNIGHT = 6;
+	public static final int UNIT_ID_ADVANCED_KNIGHT = 7;
 
 	// Block registry names
 	public static final String REIGSTRY_NAME_BARRACKS_BLOCK = "barracksblock";
@@ -42,6 +44,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_DEFENSIVE_BUILDINGS_CONTAINER = "defensivebulidingscontiner";
 	public static final String REIGSTRY_NAME_UNIT_RECRUITMENT_CONTAINER = "unitrecruitmentcontiner";
 	public static final String REIGSTRY_NAME_RESEARCH_CONTAINER = "researchcontiner";
+	public static final String REIGSTRY_NAME_TEAM_OPTIONS_CONTAINER = "teamoptionscontiner";
 
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
@@ -73,6 +76,18 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ARMORY_BUILDER_ITEM = "armorybuilderitem";
 	public static final String REIGSTRY_NAME_SIEGE_WORKSHOP_BUILDER_ITEM = "siegeworkshopbuilderitem";
 
+	public static final String REIGSTRY_NAME_TEAM_IRON_ARMOR_HELMET = "teamironarmorhelmetitem";
+	public static final String REIGSTRY_NAME_TEAM_IRON_ARMOR_CHESTPLATE = "teamironarmorchestplateitem";
+
+	public static final String REIGSTRY_NAME_TEAM_IRON_ARMOR_LEGGINGS = "teamironarmorleggingsitem";
+
+	public static final String REIGSTRY_NAME_TEAM_IRON_ARMOR_BOOTS = "teamironarmorbootsitem";
+
+	public static final String REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_HELMET = "teamdiamondarmorhelmetitem";
+	public static final String REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_CHESTPLATE = "teamdiamondarmorchestplateitem";
+	public static final String REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_LEGGINGS = "teamdiamondarmorleggingsitem";
+	public static final String REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_BOOTS = "teamdiamondarmorbootsitem";
+
 	// Entity Registry names
 	public static final String REIGSTRY_NAME_MINION_ENTITY = "minion";
 	public static final String REIGSTRY_NAME_ARCHER_MINION_ENTITY = "archerminion";
@@ -80,6 +95,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_MOUNTED_ENTITY = "mountedentity";
 	public static final String REIGSTRY_NAME_PIKEMAN_ENTITY = "pikemanentity";
 	public static final String REIGSTRY_NAME_TREBUCHET_ENTITY = "trebuchetentity";
+	public static final String REIGSTRY_NAME_KNIGHT_ENTITY = "knight";
+	public static final String REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY = "advancedknight";
 
 	// GUI BUTTONS
 
@@ -111,6 +128,13 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_WALL_STEPS = 18;
 	public static final int GUI_BUTTON_BUY_RESEARCH_CENTER = 19;
 
+	public static final int GUI_BUTTON_BUY_TREBUCHET = 20;
+	public static final int GUI_BUTTON_BUY_KNIGHT = 21;
+
+	public static final int GUI_BUTTON_BUY_DIAMOND_KNIGHT = 22;
+
+	public static final int GUI_BUTTON_BUY_ARMORY = 23;
+
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
 	public static final int GUI_BUTTON_LOBBY_BLUE = 5;
@@ -125,12 +149,21 @@ public class Reference {
 	public static final int GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS = 12;
 	public static final int GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT = 13;
 	public static final int GUI_BUTTON_MAIN_MENU_RESEARCH = 15;
+	public static final int GUI_BUTTON_MAIN_MENU_TEAM_OPTIONS = 16;
 
 	public static final int GUI_BUTTON_ENABLE_TE = 8000;
 	public static final int GUI_BUTTON_DISABLE_TE = 8001;
 
 	public static final int GUI_ID_TOWN_HALL = 1;
 	public static final int GUI_ID_MAIN_MENU = 2;
+
+	public static enum TEAM_OPTION_BUTTONS {
+		INFINATE_BARRACKS_QUEUE, INFINANTE_ARCHERY_RANGE_QUEUE, INFINANTE_STABLES_QUEUE, INFINANTE_SIEGE_WORKSHOP_QUEUE
+	}
+
+	public static enum STRUCTURE_TYPE {
+		ARCHERY_RANGE, ARMORY, BARRACKS, FARM, GATE, LUMBER_YARD, MINE_SITE_STONE, MINE_SITE_IRON, MINE_SITE_GOLD, MINE_SITE_DIAMOND, MINE_SITE_EMERALD, RESEARCH_CENTER, SIEGE_WORKSHOP, STABLES, TOWN_HALL, WALL_STEPS, WALL, WATCH_TOWER
+	}
 
 	public static enum RTS_COSTS {
 		MINION, ARCHER, LANCER, PIKEMAN, FARM, LUMBER_YARD, MINE_STONE, MINE_IRON, MINE_GOLD, MINE_DIAMOND, MINE_EMERALD, BARRACKS, ARCHERY_RANGE, WALL, WALL_STEPS, GATE, RESEARCH_CENTER, STABLES, WATCH_TOWER, RESEARCH_TOWNHALL, RESEARCH_MINION, RESEARCH_ARCHER, RESEARCH_PIKEMAN, RESEARCH_LANCER, RESEARCH_ARMORY, RESEARCH_MARKETPLACE, RESEARCH_WALL, RESEARCH_SIEGE_WORKSHOP, RESEARCH_CROSSBOW, RESEARCH_ADVANCED_ARMOR, RESEARCH_WATCHTOWER, RESEARCH_BATTERING_RAM, RESEARCH_TREBUCHET

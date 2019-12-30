@@ -12,11 +12,23 @@ public class UnitQueues {
 	private List<Integer> ArcheryRange;
 	private List<Integer> SiegeWorkshop;
 
+	private boolean infinateBarracksQueue;
+	private boolean infinateStablesQueue;
+	private boolean infinateArcheryRangeQueue;
+	private boolean infinateSiegeWorkshopQueue;
+
 	public boolean hasChanged;
 
 	public void AddToProperQueue(int ID) {
 		switch (ID) {
 		case Reference.UNIT_ID_MINION:
+			AddToBarracksQueue(ID);
+			break;
+		case Reference.UNIT_ID_ADVANCED_KNIGHT:
+			AddToBarracksQueue(ID);
+			break;
+
+		case Reference.UNIT_ID_KNIGHT:
 			AddToBarracksQueue(ID);
 			break;
 		case Reference.UNIT_ID_ARCHER:
@@ -28,9 +40,18 @@ public class UnitQueues {
 		case Reference.UNIT_ID_PIKEMAN:
 			AddToBarracksQueue(ID);
 			break;
+		case Reference.UNIT_ID_TREBUCHET:
+			AddToSiegeWorkshopQueue(ID);
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void AddToSiegeWorkshopQueue(int ID) {
+		getSiegeWorkshop().add(ID);
+		TSRTS.LOGGER.info("Added :" + ID + " to the siegeWorkshop QUEUE");
+		hasChanged = true;
 	}
 
 	private void AddToBarracksQueue(int ID) {
@@ -78,13 +99,17 @@ public class UnitQueues {
 		}
 	}
 
-	public UnitQueues(List<Integer> barracks, List<Integer> archeryRange, List<Integer> stables, List<Integer> siegeWorkshop) {
+	public UnitQueues(List<Integer> barracks, List<Integer> archeryRange, List<Integer> stables, List<Integer> siegeWorkshop, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue) {
 		super();
 		Barracks = barracks;
 		Stables = stables;
 		ArcheryRange = archeryRange;
 		hasChanged = true;
 		SiegeWorkshop = siegeWorkshop;
+		this.infinateBarracksQueue = infinateBarracksQueue;
+		this.infinateArcheryRangeQueue = infinateArcheryRangeQueue;
+		this.infinateStablesQueue = infinateStablesQueue;
+		this.infinateSiegeWorkshopQueue = infinateSiegeWorkshopQueue;
 	}
 
 	public List<Integer> getBarracks() {
@@ -114,6 +139,38 @@ public class UnitQueues {
 			SiegeWorkshop = new ArrayList<Integer>();
 		}
 		return SiegeWorkshop;
+	}
+
+	public boolean isInfinateBarracksQueue() {
+		return infinateBarracksQueue;
+	}
+
+	public void setInfinateBarracksQueue(boolean infinateBarracksQueue) {
+		this.infinateBarracksQueue = infinateBarracksQueue;
+	}
+
+	public boolean isInfinateStablesQueue() {
+		return infinateStablesQueue;
+	}
+
+	public void setInfinateStablesQueue(boolean infinateStablesQueue) {
+		this.infinateStablesQueue = infinateStablesQueue;
+	}
+
+	public boolean isInfinateArcheryRangeQueue() {
+		return infinateArcheryRangeQueue;
+	}
+
+	public void setInfinateArcheryRangeQueue(boolean infinateArcheryRangeQueue) {
+		this.infinateArcheryRangeQueue = infinateArcheryRangeQueue;
+	}
+
+	public boolean isInfinateSiegeWorkshopQueue() {
+		return infinateSiegeWorkshopQueue;
+	}
+
+	public void setInfinateSiegeWorkshopQueue(boolean infinateSiegeWorkshopQueue) {
+		this.infinateSiegeWorkshopQueue = infinateSiegeWorkshopQueue;
 	}
 
 }

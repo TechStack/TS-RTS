@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.client.gui.EcoBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.LobbyScreen;
 import com.projectreddog.tsrts.client.gui.MainMenuScreen;
 import com.projectreddog.tsrts.client.gui.ResearchScreen;
+import com.projectreddog.tsrts.client.gui.TeamOptionsScreen;
 import com.projectreddog.tsrts.client.gui.TroopBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.UnitRecruitmentScreen;
 import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
@@ -15,7 +16,9 @@ import com.projectreddog.tsrts.client.renderer.PikemanRenderer;
 import com.projectreddog.tsrts.client.renderer.TargetRenderer;
 import com.projectreddog.tsrts.client.renderer.TrebuchetRenderer;
 import com.projectreddog.tsrts.client.renderer.overlay.RenderOverlay;
+import com.projectreddog.tsrts.entities.AdvancedKnightEntity;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
+import com.projectreddog.tsrts.entities.KnightEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.entities.PikemanEntity;
@@ -49,6 +52,8 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(MountedEntity.class, MountedRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(PikemanEntity.class, PikemanRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(TrebuchetEntity.class, TrebuchetRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(KnightEntity.class, MinionRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(AdvancedKnightEntity.class, MinionRenderer::new);
 
 		// Client Gui
 		ScreenManager.registerFactory(ModContainers.BASIC_CONTAINER, BasicScreen::new);
@@ -59,6 +64,7 @@ public class ClientProxy implements IProxy {
 		ScreenManager.registerFactory(ModContainers.TROOP_BUILDINGS_CONTAINER, TroopBuildingsScreen::new);
 		ScreenManager.registerFactory(ModContainers.UNIT_RECRUITMENT_CONTAINER, UnitRecruitmentScreen::new);
 		ScreenManager.registerFactory(ModContainers.RESEARCH_CONTAINER, ResearchScreen::new);
+		ScreenManager.registerFactory(ModContainers.TEAM_OPTIONS_CONTAINER, TeamOptionsScreen::new);
 
 		MinecraftForge.EVENT_BUS.register(new RenderOverlay());
 		KeyBindings();

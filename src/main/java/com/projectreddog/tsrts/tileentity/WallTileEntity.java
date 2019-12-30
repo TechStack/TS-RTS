@@ -3,8 +3,10 @@ package com.projectreddog.tsrts.tileentity;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
+import com.projectreddog.tsrts.reference.Reference.STRUCTURE_TYPE;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
+import com.projectreddog.tsrts.utilities.data.MapStructureData;
 
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
@@ -102,9 +104,15 @@ public class WallTileEntity extends OwnedCooldownTileEntity {
 	}
 
 	@Override
+	public STRUCTURE_TYPE getStructureType() {
+		return STRUCTURE_TYPE.WALL;
+	}
+
+	@Override
 	public void IncreaseCount() {
 
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setWalls(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getWalls() + 1);
+		TSRTS.Structures.put(pos, new MapStructureData(pos, getStructureType(), this.getTeam().getName()));
 
 	}
 
@@ -112,7 +120,7 @@ public class WallTileEntity extends OwnedCooldownTileEntity {
 	public void DecreaseCount() {
 
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setWalls(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getWalls() - 1);
-
+		TSRTS.Structures.remove(pos);
 	}
 
 	@Override

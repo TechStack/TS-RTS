@@ -46,6 +46,12 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_MINION_STRING;
 	public static ResourceValues CONFIG_UNIT_COSTS_MINION;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_KNIGHT_STRING;
+	public static ResourceValues CONFIG_UNIT_COSTS_KNIGHT;
+
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_ADVANCED_KNIGHT_STRING;
+	public static ResourceValues CONFIG_UNIT_COSTS_ADVANCED_KNIGHT;
+
 	// archers
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_ARCHER_STRING;
@@ -59,6 +65,11 @@ public class Config {
 // pikeman
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_PIKEMAN_STRING;
 	public static ResourceValues CONFIG_UNIT_COSTS_PIKEMAN;
+
+// trebuchet
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_TREBUCHET_STRING;
+	public static ResourceValues CONFIG_UNIT_COSTS_TREBUCHET;
+
 	// starting resrources
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_START_AMT_STRING;
@@ -111,12 +122,24 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_STABLES_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_STABLES;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_ARMORY_STRING;
+	public static ResourceValues CONFIG_BUILDING_COSTS_ARMORY;
+
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_WATCH_TOWER;
 
 	/// UNIt attributes
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_MINION_ATTRIBUTES_STRING;
 	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_MINION;
+
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_TREBUCHET_ATTRIBUTES_STRING;
+	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_TREBUCHET;
+
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_KNIGHT_ATTRIBUTES_STRING;
+	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_KNIGHT;
+
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_ADVANCED_KNIGHT_ATTRIBUTES_STRING;
+	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_ADVANCED_KNIGHT;
 
 	/// UNIt attributes
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING;
@@ -264,6 +287,11 @@ public class Config {
 
 	private static void PostProcessConfigs() {
 		CONFIG_UNIT_ATTRIBUTES_MINION = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_MINION_ATTRIBUTES_STRING.get()));
+		CONFIG_UNIT_ATTRIBUTES_KNIGHT = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_KNIGHT_ATTRIBUTES_STRING.get()));
+
+		CONFIG_UNIT_ATTRIBUTES_ADVANCED_KNIGHT = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_ADVANCED_KNIGHT_ATTRIBUTES_STRING.get()));
+		CONFIG_UNIT_ATTRIBUTES_TREBUCHET = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_TREBUCHET_ATTRIBUTES_STRING.get()));
+
 		CONFIG_UNIT_ATTRIBUTES_ARCHER = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING.get()));
 		CONFIG_UNIT_ATTRIBUTES_MOUNTED = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING.get()));
 		CONFIG_UNIT_ATTRIBUTES_PIKEMAN = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING.get()));
@@ -280,6 +308,11 @@ public class Config {
 		CONFIG_UNIT_COSTS_LANCER = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_LANCER_STRING.get()));
 		CONFIG_UNIT_COSTS_PIKEMAN = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_PIKEMAN_STRING.get()));
 
+		CONFIG_UNIT_COSTS_TREBUCHET = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_TREBUCHET_STRING.get()));
+
+		CONFIG_UNIT_COSTS_KNIGHT = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_KNIGHT_STRING.get()));
+		CONFIG_UNIT_COSTS_ADVANCED_KNIGHT = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_ADVANCED_KNIGHT_STRING.get()));
+
 		CONFIG_BUILDING_COSTS_FARM = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_FARM_STRING.get()));
 		CONFIG_BUILDING_COSTS_LUMBER_YARD = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_LUMBER_YARD_STRING.get()));
 		CONFIG_BUILDING_COSTS_MINESITE_STONE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_MINESITE_STONE_STRING.get()));
@@ -294,6 +327,8 @@ public class Config {
 		CONFIG_BUILDING_COSTS_GATE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_GATE_STRING.get()));
 		CONFIG_BUILDING_COSTS_RESEARCH_CENTER = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING.get()));
 		CONFIG_BUILDING_COSTS_STABLES = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_STABLES_STRING.get()));
+		CONFIG_BUILDING_COSTS_ARMORY = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_ARMORY_STRING.get()));
+
 		CONFIG_BUILDING_COSTS_WATCH_TOWER = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING.get()));
 
 		// RESEARCH
@@ -320,7 +355,10 @@ public class Config {
 		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "10.0,0.0,0.30,2.0,0.0,0.0,3.0,24.0");
 		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "10.0,5.0,0.40,2.0,0.0,0.0,3.0,24.0");
 		CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are ").define("unit_pikeman_attributes", "15.0,5.0,0.33,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the KNIGHT. Atttributes are ").define("unit_knight_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_ADVANCED_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ADVANCED KNIGHT. Atttributes are ").define("unit_advanced_knight_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
 
+		CONFIG_UNIT_TREBUCHET_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
 		COMMON_BUILDER.pop();
 
 	}
@@ -368,6 +406,8 @@ public class Config {
 		CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING = COMMON_BUILDER.comment("Defines the cost For the Research Center").define("researchCenterBulidingCosts", "100,250,100,25,25,25,0");
 
 		CONFIG_BUILDING_COSTS_STABLES_STRING = COMMON_BUILDER.comment("Defines the cost For the Stables").define("stablesBulidingCosts", "66,120,40,30,35,0,0");
+		CONFIG_BUILDING_COSTS_ARMORY_STRING = COMMON_BUILDER.comment("Defines the cost For the Armory").define("stablesBulidingArmory", "100,250,100,100,50,0,0");
+
 		CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the Watch Tower").define("watchTowerBulidingCosts", "20,125,25,12,15,0,0");
 
 		COMMON_BUILDER.pop();
@@ -379,6 +419,11 @@ public class Config {
 		CONFIG_UNIT_COSTS_ARCHER_STRING = COMMON_BUILDER.comment("Defines the cost For the archer").define("unitCostsArcher", "5,6,2,4,4,0,0");
 		CONFIG_UNIT_COSTS_LANCER_STRING = COMMON_BUILDER.comment("Defines the cost For the lancer").define("unitCostsLancer", "10,6,0,1,6,0,0");
 		CONFIG_UNIT_COSTS_PIKEMAN_STRING = COMMON_BUILDER.comment("Defines the cost For the pikeman").define("unitCostsPikeman", "5,6,0,2,5,0,0");
+
+		CONFIG_UNIT_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("unitCostsTrebuchet", "5,6,0,2,5,0,0");
+
+		CONFIG_UNIT_COSTS_KNIGHT_STRING = COMMON_BUILDER.comment("Defines the cost For the knight").define("unitCostsKnight", "6,4,4,10,10,0,0");
+		CONFIG_UNIT_COSTS_ADVANCED_KNIGHT_STRING = COMMON_BUILDER.comment("Defines the cost For the Advanced Knight").define("unitCostsAdvancedKnight", "6,4,4,10,10,10,0");
 
 		COMMON_BUILDER.pop();
 	}

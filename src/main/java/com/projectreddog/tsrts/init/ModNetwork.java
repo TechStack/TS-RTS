@@ -15,6 +15,7 @@ import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.network.TESetRallyPointToServer;
 import com.projectreddog.tsrts.network.TeGuiButtonClickedPacketToServer;
+import com.projectreddog.tsrts.network.TeamOptionButtonToServer;
 import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
@@ -47,13 +48,11 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, AlertToastToClient.class, AlertToastToClient::encode, AlertToastToClient::new, AlertToastToClient::handle);
 		simpleChannel.registerMessage(MessageId++, TownHallButtonClickedPacketToServer.class, TownHallButtonClickedPacketToServer::encode, TownHallButtonClickedPacketToServer::new, TownHallButtonClickedPacketToServer::handle);
 		simpleChannel.registerMessage(MessageId++, GuiRequestPacketToServer.class, GuiRequestPacketToServer::encode, GuiRequestPacketToServer::new, GuiRequestPacketToServer::handle);
-
 		simpleChannel.registerMessage(MessageId++, UnitQueueChangedPacketToClient.class, UnitQueueChangedPacketToClient::encode, UnitQueueChangedPacketToClient::new, UnitQueueChangedPacketToClient::handle);
-
 		simpleChannel.registerMessage(MessageId++, ResearchButtonClickPacketToServer.class, ResearchButtonClickPacketToServer::encode, ResearchButtonClickPacketToServer::new, ResearchButtonClickPacketToServer::handle);
-
 		simpleChannel.registerMessage(MessageId++, ResearchUnlockedPacketToClient.class, ResearchUnlockedPacketToClient::encode, ResearchUnlockedPacketToClient::new, ResearchUnlockedPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, CostsPacketToClient.class, CostsPacketToClient::encode, CostsPacketToClient::new, CostsPacketToClient::handle);
+		simpleChannel.registerMessage(MessageId++, TeamOptionButtonToServer.class, TeamOptionButtonToServer::encode, TeamOptionButtonToServer::new, TeamOptionButtonToServer::handle);
 
 	}
 

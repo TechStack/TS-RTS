@@ -5,6 +5,10 @@ import com.projectreddog.tsrts.items.PikeItem;
 import com.projectreddog.tsrts.items.RallyPointToolItem;
 import com.projectreddog.tsrts.items.RetreateScepterItem;
 import com.projectreddog.tsrts.items.SampleItem;
+import com.projectreddog.tsrts.items.armor.TeamDiamond;
+import com.projectreddog.tsrts.items.armor.TeamDiamondArmor;
+import com.projectreddog.tsrts.items.armor.TeamIron;
+import com.projectreddog.tsrts.items.armor.TeamIronArmor;
 import com.projectreddog.tsrts.items.builderitems.ArcheryRangeBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.ArmoryBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.BarracksBuilderItem;
@@ -25,11 +29,17 @@ import com.projectreddog.tsrts.items.builderitems.WallStepsBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WatchTowerBuilderItem;
 import com.projectreddog.tsrts.reference.Reference;
 
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 public class ModItems {
+
+	public static TeamIron TEAM_IRON = new TeamIron();
+
+	public static TeamDiamond TEAM_DIAMOND = new TeamDiamond();
+
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SAMPLE_ITEM)
 	public static SampleItem SAMPLEITEM = new SampleItem();
 
@@ -99,6 +109,26 @@ public class ModItems {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MINE_SITE_STONE_BUILDER_ITEM)
 	public static MinesiteStoneBuilderItem MINESITESTONEBUILDERITEM = new MinesiteStoneBuilderItem();
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TEAM_IRON_ARMOR_HELMET)
+	public static TeamIronArmor TEAM_IRON_ARMOR_HELMET = new TeamIronArmor(EquipmentSlotType.HEAD);
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TEAM_IRON_ARMOR_CHESTPLATE)
+	public static TeamIronArmor TEAM_IRON_ARMOR_CHESTPLATE = new TeamIronArmor(EquipmentSlotType.CHEST);
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TEAM_IRON_ARMOR_LEGGINGS)
+	public static TeamIronArmor TEAM_IRON_ARMOR_LEGGINGS = new TeamIronArmor(EquipmentSlotType.LEGS);
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TEAM_IRON_ARMOR_BOOTS)
+	public static TeamIronArmor TEAM_IRON_ARMOR_BOOTS = new TeamIronArmor(EquipmentSlotType.FEET);
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_HELMET)
+	public static TeamDiamondArmor TEAM_DIAMOND_ARMOR_HELMET = new TeamDiamondArmor(EquipmentSlotType.HEAD);
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_CHESTPLATE)
+	public static TeamDiamondArmor TEAM_DIAMOND_ARMOR_CHESTPLATE = new TeamDiamondArmor(EquipmentSlotType.CHEST);
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_LEGGINGS)
+	public static TeamDiamondArmor TEAM_DIAMOND_ARMOR_LEGGINGS = new TeamDiamondArmor(EquipmentSlotType.LEGS);
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TEAM_DIAMOND_ARMOR_BOOTS)
+	public static TeamDiamondArmor TEAM_DIAMOND_ARMOR_BOOTS = new TeamDiamondArmor(EquipmentSlotType.FEET);
+
 	public static void RegisterItems(final RegistryEvent.Register<Item> event) {
 		RegisterItem(event, ModItems.SAMPLEITEM);
 		RegisterItem(event, ModItems.TOWNHALLBUILDERITEM);
@@ -134,10 +164,21 @@ public class ModItems {
 
 		RegisterItem(event, ModItems.SIEGEWORKSHOPBUILDERITEM);
 
+		RegisterItem(event, ModItems.TEAM_IRON_ARMOR_HELMET);
+		RegisterItem(event, ModItems.TEAM_IRON_ARMOR_CHESTPLATE);
+		RegisterItem(event, ModItems.TEAM_IRON_ARMOR_LEGGINGS);
+		RegisterItem(event, ModItems.TEAM_IRON_ARMOR_BOOTS);
+
+		RegisterItem(event, ModItems.TEAM_DIAMOND_ARMOR_HELMET);
+		RegisterItem(event, ModItems.TEAM_DIAMOND_ARMOR_CHESTPLATE);
+		RegisterItem(event, ModItems.TEAM_DIAMOND_ARMOR_LEGGINGS);
+		RegisterItem(event, ModItems.TEAM_DIAMOND_ARMOR_BOOTS);
+
 	}
 
 	// Called to register every item.
 	private static void RegisterItem(final RegistryEvent.Register<Item> event, Item item) {
 		event.getRegistry().register(item);
+
 	}
 }

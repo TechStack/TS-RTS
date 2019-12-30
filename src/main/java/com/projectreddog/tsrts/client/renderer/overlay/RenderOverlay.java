@@ -231,7 +231,7 @@ public class RenderOverlay extends Screen {
 				int id = TSRTS.TeamQueues[teamOrd].getBarracks().get(i);
 
 //				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
-				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, 445);
+				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, y + 2);
 
 			}
 		}
@@ -241,7 +241,7 @@ public class RenderOverlay extends Screen {
 				int id = TSRTS.TeamQueues[teamOrd].getArcheryRange().get(i);
 
 //				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
-				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, 465);
+				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, y + 22);
 
 			}
 		}
@@ -251,7 +251,7 @@ public class RenderOverlay extends Screen {
 				int id = TSRTS.TeamQueues[teamOrd].getStables().get(i);
 
 //				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
-				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, 485);
+				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, y + 42);
 
 			}
 		}
@@ -261,7 +261,7 @@ public class RenderOverlay extends Screen {
 				int id = TSRTS.TeamQueues[teamOrd].getSiegeWorkshop().get(i);
 
 //				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
-				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, 485);
+				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, y + 62);
 
 			}
 		}
@@ -279,6 +279,12 @@ public class RenderOverlay extends Screen {
 			return new ItemStack(ModItems.LANCEITEM);
 		case Reference.UNIT_ID_PIKEMAN:
 			return new ItemStack(ModItems.PIKEITEM);
+		case Reference.UNIT_ID_TREBUCHET:
+			return new ItemStack(Items.FIRE_CHARGE);
+		case Reference.UNIT_ID_KNIGHT:
+			return new ItemStack(Items.IRON_SWORD);
+		case Reference.UNIT_ID_ADVANCED_KNIGHT:
+			return new ItemStack(Items.DIAMOND_SWORD);
 
 		default:
 			break;

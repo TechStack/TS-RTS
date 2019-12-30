@@ -133,7 +133,7 @@ public class ServerEvents {
 
 			for (int i = 0; i < TeamEnum.values().length; i++) {
 				if (TSRTS.TeamQueues[i].hasChanged) {
-					ModNetwork.SendToALLPlayers(new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), TSRTS.TeamQueues[i].getSiegeWorkshop(), i));
+					ModNetwork.SendToALLPlayers(new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), TSRTS.TeamQueues[i].getSiegeWorkshop(), TSRTS.TeamQueues[i].isInfinateBarracksQueue(), TSRTS.TeamQueues[i].isInfinateArcheryRangeQueue(), TSRTS.TeamQueues[i].isInfinateStablesQueue(), TSRTS.TeamQueues[i].isInfinateSiegeWorkshopQueue(), i));
 
 					TSRTS.TeamQueues[i].hasChanged = false;
 				}
@@ -145,14 +145,14 @@ public class ServerEvents {
 	public static void WriteUnitStats(String teamName, TeamInfo ti) {
 		String delimiter = ",";
 		if (writeUnitHeader) {
-			TSRTS.LOGGER.info("UNITSTATUS-HEADER: Timestamp, TeamName, Minion , Archer, Lancer, Pikeman, Trebuchet ");
+			TSRTS.LOGGER.info("UNITSTATUS-HEADER: Timestamp, TeamName, Minion , Archer, Lancer, Pikeman, Trebuchet, Knight, Advanced Knight ");
 			writeUnitHeader = false;
 
 		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		String timeStamp = dtf.format(now);
-		String tmp = "UNITSTATUS: " + delimiter + timeStamp + delimiter + teamName + delimiter + ti.getUnitCountMinion() + delimiter + ti.getUnitCountArcher() + delimiter + ti.getUnitCountLancer() + delimiter + ti.getUnitCountPikeman() + delimiter + ti.getUnitCountTrebuchet();
+		String tmp = "UNITSTATUS: " + delimiter + timeStamp + delimiter + teamName + delimiter + ti.getUnitCountMinion() + delimiter + ti.getUnitCountArcher() + delimiter + ti.getUnitCountLancer() + delimiter + ti.getUnitCountPikeman() + delimiter + ti.getUnitCountTrebuchet() + delimiter + ti.getUnitCountKnight() + delimiter + ti.getUnitCountAdvancedKnight();
 
 		TSRTS.LOGGER.info(tmp);
 
