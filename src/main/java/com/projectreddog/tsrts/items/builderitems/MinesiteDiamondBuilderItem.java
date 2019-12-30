@@ -21,7 +21,7 @@ public class MinesiteDiamondBuilderItem extends BuilderItem {
 
 	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "diamond_yellow_100");
 	protected ResourceLocation templateNameYellow50 = null;
-	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "stoneyellow_0");
+	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "stone_yellow_0");
 
 	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "diamond_green_100");
 	protected ResourceLocation templateNameGreen50 = null;
