@@ -39,12 +39,17 @@ def readGameLog(file):
                 # Cut off the preceding bits we dont care about
                 cache1 = line.split(sep='ECOSTATS: ,')[1]
                 temp1.append(cache1.split(sep=','))
+            # Same for buildings data
             elif 'BUILDINGSTATS:' in line:
                 cache2 = line.split(sep='BUILDINGSTATS: ,')[1]
                 temp2.append(cache2.split(sep=','))
+            # Same for troop data
             elif 'UNITSTATUS:' in line:
                 cache3 = line.split(sep='UNITSTATUS: ,')[1]
                 temp3.append(cache3.split(sep=','))
+            # At the beginning of the match, each player joins a team
+            # TODO: Grab the player names in the match.
+
                 
                 
                 
@@ -72,11 +77,11 @@ def readGameLog(file):
 
 
     unitdat = data.append(temp3)
-    unitdat.columns = ['Time', 'Team', 'Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet']
+    unitdat.columns = ['Time', 'Team', 'Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin']
 
     unitdat.Time = pd.to_datetime(unitdat.Time)
     unitdat.Team = unitdat.Team.astype(str)
-    unitdat[['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet']] = unitdat[['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet']].astype(int)
+    unitdat[['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin']] = unitdat[['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin']].astype(int)
     logging.info('Troops: \n{}'.format(ecodat.dtypes))
 
     return ecodat, builddat, unitdat
@@ -182,7 +187,8 @@ def teamTroopPlot(df, team='red'):
     df.set_index(df.Time, inplace=True)
     
     fig, ax = plt.subplots(figsize=(19,7))
-    ax = df.plot(ax=ax, y=['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet'], color=['brown', 'red', 'g', 'k', 'gold'])
+    ax = df.plot(ax=ax, y=['Minion', 'Archer', 'Lancer', 'Pikeman', 'Trebuchet', 'Knight', 'Paladin'],
+                 color=['brown', 'red', 'g', 'k', 'gold', 'grey', 'cyan'])
     
     ax.set_title('{} Team Troops\n'.format(team.title()), fontsize=24)
     ax.set_xlabel(None)

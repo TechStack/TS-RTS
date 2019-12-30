@@ -43,7 +43,7 @@ async def nickel(ctx):
 
 @bot.command(name='gamestats', help='Creates game statistics based off the latest.log file.')
 async def gamestats(ctx):
-    response = 'This is WIP! Check back later...'
+    response = 'Gotcha, Chief! Just a minute here...'
     await ctx.send(response)
 
     import gameStats
@@ -59,10 +59,10 @@ async def gamestats(ctx):
 
         
     fig, ax = gameStats.ecoIndexPlot(ecodat)
-    fig.savefig('.\\out\\Econ_Summary.png')
+    fig.savefig('.\\out\\0_Econ_Summary.png')
 
     fig, ax = gameStats.troopIndexPlot(unitdat)
-    fig.savefig('.\\out\\Military_Summary.png')
+    fig.savefig('.\\out\\1_Military_Summary.png')
     
     # List comprehension of all the png files turned into discord file objects
     graphs = [discord.File('.\\out\\{}'.format(f)) for f in os.listdir('.\\out') if f.endswith('png')]
