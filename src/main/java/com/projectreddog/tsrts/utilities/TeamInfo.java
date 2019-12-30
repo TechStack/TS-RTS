@@ -31,6 +31,8 @@ public class TeamInfo {
 	private int unitCountLancer = 0;
 	private int unitCountPikeman = 0;
 	private int unitCountTrebuchet = 0;
+	private int unitCountKnight = 0;
+	private int unitCountAdvancedKnight = 0;
 
 	private String CurrenResearchKey;
 
@@ -315,6 +317,22 @@ public class TeamInfo {
 		this.unitCountMinion++;
 	}
 
+	public int getUnitCountKnight() {
+		return unitCountKnight;
+	}
+
+	public void AddOneUnitCountKnight() {
+		this.unitCountKnight++;
+	}
+
+	public int getUnitCountAdvancedKnight() {
+		return unitCountAdvancedKnight;
+	}
+
+	public void AddOneUnitCountAdvancedKnight() {
+		this.unitCountAdvancedKnight++;
+	}
+
 	public void AddOneUnitCountArcher() {
 		this.unitCountArcher++;
 	}
@@ -335,6 +353,14 @@ public class TeamInfo {
 		this.unitCountMinion--;
 	}
 
+	public void RemoveOneUnitCountKnight() {
+		this.unitCountKnight--;
+	}
+
+	public void RemoveOneUnitCountAdvancedKnight() {
+		this.unitCountAdvancedKnight--;
+	}
+
 	public void RemoveOneUnitCountArcher() {
 		this.unitCountArcher--;
 	}
@@ -353,6 +379,14 @@ public class TeamInfo {
 
 	public void setUnitCountMinion(int unitCountMinion) {
 		this.unitCountMinion = unitCountMinion;
+	}
+
+	public void setUnitCountKnight(int unitCountKnight) {
+		this.unitCountKnight = unitCountKnight;
+	}
+
+	public void setUnitCountAdvancedKnight(int unitCountAdvancedKnight) {
+		this.unitCountAdvancedKnight = unitCountAdvancedKnight;
 	}
 
 	public int getUnitCountArcher() {
