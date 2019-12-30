@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.items.builderitems.BuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WallBuilderItem;
@@ -18,6 +19,8 @@ import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.scoreboard.Team;
@@ -30,6 +33,7 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
@@ -313,4 +317,25 @@ public class ClientEvents {
 
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	@SubscribeEvent
+	public static void OnColorHandlerEvent(final ColorHandlerEvent.Item event) {
+
+		final ItemColors itemColors = event.getItemColors();
+
+		final IItemColor itemColorHandler = (stack, tintIndex) -> {
+			return itemColors.getColor(stack, tintIndex);
+
+		};
+		itemColors.register(itemColorHandler, ModItems.TEAM_DIAMOND_ARMOR_BOOTS);
+		itemColors.register(itemColorHandler, ModItems.TEAM_DIAMOND_ARMOR_LEGGINGS);
+		itemColors.register(itemColorHandler, ModItems.TEAM_DIAMOND_ARMOR_CHESTPLATE);
+		itemColors.register(itemColorHandler, ModItems.TEAM_DIAMOND_ARMOR_HELMET);
+
+		itemColors.register(itemColorHandler, ModItems.TEAM_IRON_ARMOR_BOOTS);
+		itemColors.register(itemColorHandler, ModItems.TEAM_IRON_ARMOR_LEGGINGS);
+		itemColors.register(itemColorHandler, ModItems.TEAM_IRON_ARMOR_CHESTPLATE);
+		itemColors.register(itemColorHandler, ModItems.TEAM_IRON_ARMOR_HELMET);
+
+	}
 }
