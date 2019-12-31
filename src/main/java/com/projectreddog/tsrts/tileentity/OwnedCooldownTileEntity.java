@@ -116,7 +116,7 @@ public class OwnedCooldownTileEntity extends OwnedTileEntity implements ITickabl
 			coolDownRemainig = coolDownRemainig - 1;
 			writeDirty = true;
 			if (coolDownRemainig <= 0) {
-				if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
+				if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN || Config.CONFIG_GAME_MODE.get() == Config.Modes.WAVESURVIVAL) {
 					if (getHealth() > 0) {
 						ActionAfterCooldown();
 					}
