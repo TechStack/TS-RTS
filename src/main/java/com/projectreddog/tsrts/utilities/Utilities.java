@@ -46,6 +46,7 @@ import com.projectreddog.tsrts.utilities.data.Research;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -1550,7 +1551,7 @@ public class Utilities {
 					}
 
 					if (y == 0) {
-						if (world.getBlockState(bp2.add(x, y - 1, z)).getBlock().isAir(world.getBlockState(bp2.add(x, y - 1, z)))) {
+						if (world.getBlockState(bp2.add(x, y - 1, z)).getBlock().isAir(world.getBlockState(bp2.add(x, y - 1, z))) || world.getBlockState(bp2.add(x, y - 1, z)).getMaterial() == Material.LAVA || world.getBlockState(bp2.add(x, y - 1, z)).getMaterial() == Material.WATER) {
 							result = false;
 							// No block under !!
 
