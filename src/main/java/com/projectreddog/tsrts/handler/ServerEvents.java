@@ -4,23 +4,33 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
 import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
+import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
+import com.projectreddog.tsrts.tileentity.TownHallTileEntity;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 import com.projectreddog.tsrts.utilities.Utilities;
+import com.projectreddog.tsrts.utilities.data.MapStructureData;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,6 +47,101 @@ public class ServerEvents {
 
 	private static MinecraftServer server;
 
+	private static BlockPos waveSurvivalTownhallPos = null;
+
+	private static BlockPos waveSurvivalSpawnPoint = null;
+
+	private static int wavertsTicksScienceLastSpawn = 0;
+	private static boolean waveSurvivalSetupComplete = false;
+
+	public static ScorePlayerTeam WAVE_SURVIVAL_TEAM = null;
+
+	public static void onWaveSruvivalTick() {
+		wavertsTicksScienceLastSpawn++;
+
+		if (wavertsTicksScienceLastSpawn >= 9) {
+
+			wavertsTicksScienceLastSpawn = 0;
+			ServerWorld world = server.getWorld(DimensionType.OVERWORLD);
+
+			if ((!waveSurvivalSetupComplete)) {
+				waveSurvivalSetupComplete = true;
+				for (Map.Entry<BlockPos, MapStructureData> entry : TSRTS.Structures.entrySet()) {
+					BlockPos bp = entry.getKey();
+					MapStructureData msd = entry.getValue();
+
+					if (msd.getTeamName().equals(Reference.WAVE_SURVIAL_AI_TEAM_NAME)) {
+						// found our AI Team here and need to process this to check for the town hall
+						TileEntity te = world.getTileEntity(bp);
+						if (te instanceof TownHallTileEntity) {
+							TownHallTileEntity townHall = (TownHallTileEntity) te;
+							waveSurvivalTownhallPos = bp;
+							waveSurvivalSpawnPoint = townHall.getRallyPoint();
+						}
+
+					}
+				}
+			}
+
+			int targettype = world.rand.nextInt(2);
+			BlockPos target = null;
+			if (targettype == 0) {
+				target = onWaveSruvivalChooseTownHallTarget(world);
+			} else if (targettype == 1) {
+				target = onWaveSruvivalChooseHighValueTarget(world);
+			}
+
+			if (target != null) {
+				for (int i = 0; i < 5; i++) {
+					Utilities.SpawnUnitForTeam(Reference.UNIT_ID_MINION, Reference.WAVE_SURVIAL_AI_NAME, world, waveSurvivalSpawnPoint, WAVE_SURVIVAL_TEAM, target);
+				}
+			}
+		}
+	}
+
+	public static BlockPos onWaveSruvivalChooseHighValueTarget(World world) {
+
+		int highestCost = 0;
+		BlockPos hightestCostbp = null;
+		for (Map.Entry<BlockPos, MapStructureData> entry : TSRTS.Structures.entrySet()) {
+			BlockPos bp = entry.getKey();
+			MapStructureData msd = entry.getValue();
+			if (!(msd.getTeamName().equals(Reference.WAVE_SURVIAL_AI_TEAM_NAME))) {
+				// found our AI Team here and need to process this to check for the town hall
+				TileEntity te = world.getTileEntity(bp);
+				if (!(te instanceof TownHallTileEntity)) {
+					if (te instanceof OwnedCooldownTileEntity) {
+						OwnedCooldownTileEntity cooldownTileEntity = (OwnedCooldownTileEntity) te;
+						int currentCosts = Utilities.getTotalCostsForStructureType(cooldownTileEntity.getStructureType());
+						if (highestCost < currentCosts) {
+							highestCost = currentCosts;
+							hightestCostbp = bp;
+						}
+					}
+
+				}
+			}
+		}
+		return hightestCostbp;
+
+	}
+
+	public static BlockPos onWaveSruvivalChooseTownHallTarget(World world) {
+		for (Map.Entry<BlockPos, MapStructureData> entry : TSRTS.Structures.entrySet()) {
+			BlockPos bp = entry.getKey();
+			MapStructureData msd = entry.getValue();
+			if (!(msd.getTeamName().equals(Reference.WAVE_SURVIAL_AI_TEAM_NAME))) {
+				// found our AI Team here and need to process this to check for the town hall
+				TileEntity te = world.getTileEntity(bp);
+				if (te instanceof TownHallTileEntity) {
+					return bp;
+				}
+			}
+		}
+		return null;
+
+	}
+
 	@SubscribeEvent
 	public static void onServerTickEvent(final ServerTickEvent event) {
 
@@ -47,6 +152,11 @@ public class ServerEvents {
 			if (coolDownAmountRemaining <= 0) {
 
 				coolDownAmountRemaining = coolDownAmountRest;
+
+				// if wave mode do AI for wave Commander in Chief.
+				if (Config.CONFIG_GAME_MODE.get() == Modes.WAVESURVIVAL) {
+					onWaveSruvivalTick();
+				}
 
 				for (int i = 0; i < TSRTS.teamInfoArray.length; i++) {
 

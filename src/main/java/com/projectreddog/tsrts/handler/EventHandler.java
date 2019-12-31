@@ -14,8 +14,11 @@ import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.entities.PikemanEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
+import com.projectreddog.tsrts.handler.Config.Modes;
+import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
+import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamEnum;
@@ -26,6 +29,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.ItemStack;
+import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -62,6 +67,20 @@ public class EventHandler {
 			Utilities.SendResearchStatusToClient((ServerPlayerEntity) pe);
 			// TODO: also send the client the cost of everything so it can ignore its local configs.
 			Utilities.SendCostsToClient((ServerPlayerEntity) pe);
+
+			if (TSRTS.CURRENT_GAME_STATE != GAMESTATE.RUNNINNG) {
+				if (Config.CONFIG_GAME_MODE.get() == Modes.WAVESURVIVAL) {
+					if (!TSRTS.WAVE_MODE_DATA.isTownhallGiven()) {
+						// this is the chosen one give them the town hall and set them to team YELLOW!
+						Utilities.GivePlayerItemStack(pe, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
+						ScorePlayerTeam team = pe.world.getScoreboard().getTeam(Reference.WAVE_SURVIAL_AI_TEAM_NAME);
+						pe.world.getScoreboard().addPlayerToTeam(pe.getScoreboardName(), team);
+						TSRTS.WAVE_MODE_DATA.setTownhallGiven(true);
+
+					}
+				}
+			}
+
 		} else if (event.getEntity() instanceof UnitEntity || event.getEntity() instanceof TargetEntity) {
 			if (event.getWorld() != null) {
 				if (event.getWorld().isRemote) {
@@ -159,7 +178,7 @@ public class EventHandler {
 	public static void onLoad(Load event) {
 		TSRTS.playerSelections.clear();
 		Utilities.CheckTeamsAndCreatedIfNeeded((World) event.getWorld());
-		if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN) {
+		if (Config.CONFIG_GAME_MODE.get() == Config.Modes.RUN || Config.CONFIG_GAME_MODE.get() == Config.Modes.WAVESURVIVAL) {
 			TSRTS.CURRENT_GAME_STATE = GAMESTATE.LOBBY;
 
 			// TODO KEEP INVENTORY?

@@ -23,6 +23,8 @@ import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.handler.Config.Modes;
+import com.projectreddog.tsrts.handler.ServerEvents;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModEntities;
 import com.projectreddog.tsrts.init.ModItems;
@@ -886,6 +888,64 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_ARMORY.getEMERALD();
 		}
 		return 0;
+	}
+
+	public static int getTotalCostsForStructureType(Reference.STRUCTURE_TYPE type) {
+		return getTotalCostsForResrouceValues(getResourceValuesByStructureType(type));
+	}
+
+	public static int getTotalCostsForResrouceValues(ResourceValues rv) {
+		if (rv != null) {
+			return rv.getFOOD() + rv.getWOOD() + rv.getSTONE() + rv.getIRON() + rv.getGOLD() + rv.getDIAMOND() + rv.getEMERALD();
+		} else {
+			return 0;
+		}
+
+	}
+
+	public static ResourceValues getResourceValuesByStructureType(Reference.STRUCTURE_TYPE type) {
+		switch (type) {
+		case ARCHERY_RANGE:
+			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE;
+		case ARMORY:
+			return Config.CONFIG_BUILDING_COSTS_ARMORY;
+		case BARRACKS:
+			return Config.CONFIG_BUILDING_COSTS_BARRACKS;
+		case FARM:
+			return Config.CONFIG_BUILDING_COSTS_FARM;
+		case GATE:
+			return Config.CONFIG_BUILDING_COSTS_GATE;
+		case LUMBER_YARD:
+			return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD;
+		case MINE_SITE_DIAMOND:
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_DIAMOND;
+		case MINE_SITE_EMERALD:
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_EMERALD;
+		case MINE_SITE_GOLD:
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_GOLD;
+		case MINE_SITE_IRON:
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_IRON;
+		case MINE_SITE_STONE:
+			return Config.CONFIG_BUILDING_COSTS_MINESITE_STONE;
+		case RESEARCH_CENTER:
+			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER;
+		case SIEGE_WORKSHOP:
+			return null;
+		case STABLES:
+			return Config.CONFIG_BUILDING_COSTS_STABLES;
+		case TOWN_HALL:
+			return new ResourceValues(0, 0, 0, 0, 0, 0, 0);
+		case WALL:
+			return Config.CONFIG_BUILDING_COSTS_WALL;
+		case WALL_STEPS:
+			return Config.CONFIG_BUILDING_COSTS_WALL_STEPS;
+		case WATCH_TOWER:
+			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER;
+		default:
+			break;
+
+		}
+		return null;
 	}
 
 	public static void GivePlayerItemStack(PlayerEntity player, ItemStack itemStack) {
@@ -2229,6 +2289,11 @@ public class Utilities {
 			}
 			if (!hasYellow) {
 				world.getScoreboard().createTeam("yellow").setColor(TextFormatting.YELLOW);
+			}
+			if (Config.CONFIG_GAME_MODE.get() == Modes.WAVESURVIVAL) {
+				world.getScoreboard().addPlayerToTeam(Reference.WAVE_SURVIAL_AI_NAME, world.getScoreboard().getTeam(Reference.WAVE_SURVIAL_AI_TEAM_NAME));
+
+				ServerEvents.WAVE_SURVIVAL_TEAM = world.getScoreboard().getTeam(Reference.WAVE_SURVIAL_AI_TEAM_NAME);
 			}
 		}
 	}

@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.projectreddog.tsrts.handler.ClientEvents;
 import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.handler.EventHandler;
 import com.projectreddog.tsrts.handler.ServerEvents;
 import com.projectreddog.tsrts.init.ModBlocks;
@@ -25,6 +26,7 @@ import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.UnitQueues;
 import com.projectreddog.tsrts.utilities.data.MapStructureData;
+import com.projectreddog.tsrts.utilities.data.WaveModeData;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -50,6 +52,7 @@ public class TSRTS {
 	public static HashMap<String, PlayerSelections> playerSelections = new HashMap<String, PlayerSelections>();
 	public static BlockPos RallyPointToolFrom = null;
 	public static BlockPos RallyPointToolTo = null;
+	public static WaveModeData WAVE_MODE_DATA = null;
 
 	public static int[] playerSelectionsControlGroup1 = null;
 	public static int[] playerSelectionsControlGroup2 = null;
@@ -96,6 +99,10 @@ public class TSRTS {
 		}
 
 		ModResearch.init();
+
+		if (Config.CONFIG_GAME_MODE.get() == Modes.WAVESURVIVAL) {
+			WAVE_MODE_DATA = new WaveModeData();
+		}
 	}
 
 	// You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

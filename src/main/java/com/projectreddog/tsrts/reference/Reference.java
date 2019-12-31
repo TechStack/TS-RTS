@@ -4,6 +4,9 @@ public class Reference {
 	// MOD ID
 	public static final String MODID = "tsrts";
 
+	public static final String WAVE_SURVIAL_AI_NAME = "WaveSurvivalAI";
+	public static final String WAVE_SURVIAL_AI_TEAM_NAME = "yellow";
+
 	// UNIT IDs for the queues
 	public static final int UNIT_ID_MINION = 1;
 	public static final int UNIT_ID_ARCHER = 2;
