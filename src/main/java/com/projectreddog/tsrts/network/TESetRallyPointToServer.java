@@ -76,18 +76,29 @@ public class TESetRallyPointToServer {
 							BlockPos bp = entry.getKey();
 							MapStructureData msd = entry.getValue();
 
-							if (msd.getTeamName().equals(teamName)) {
-								// same team
-								if (msd.getType() == sourceType) {
-									// same TYPE and team
-									// set the rally point of this msd location
-									TileEntity msdte = ctx.get().getSender().world.getTileEntity(msd.getPosition());
-									if (msdte instanceof OwnedCooldownTileEntity) {
-										OwnedCooldownTileEntity currentTe = (OwnedCooldownTileEntity) msdte;
-										currentTe.setRallyPoint(new BlockPos(toPosX, toPosY, toPosZ));
+							int distanceX = msd.getPosition().getX() - toPosX;
+							int distanceZ = msd.getPosition().getZ() - toPosZ;
 
+							int distanceSq = distanceX * distanceX + distanceZ * distanceZ;
+							int distanceLimitSq = 1024;
+
+							if (distanceSq <= distanceLimitSq) {
+
+								if (msd.getTeamName().equals(teamName)) {
+									// same team
+									if (msd.getType() == sourceType) {
+										// same TYPE and team
+										// set the rally point of this msd location
+										TileEntity msdte = ctx.get().getSender().world.getTileEntity(msd.getPosition());
+										if (msdte instanceof OwnedCooldownTileEntity) {
+											OwnedCooldownTileEntity currentTe = (OwnedCooldownTileEntity) msdte;
+											currentTe.setRallyPoint(new BlockPos(toPosX, toPosY, toPosZ));
+
+										}
 									}
 								}
+							} else {
+								TSRTS.LOGGER.info("distance to great not setting this rally point");
 							}
 						}
 					}
