@@ -435,7 +435,7 @@ public class Config {
 	}
 
 	public enum Modes {
-		RUN, WORLDBUILDER
+		RUN, WORLDBUILDER, WAVESURVIVAL
 	}
 
 	public static void loadConfig(ForgeConfigSpec spec, Path path) {
