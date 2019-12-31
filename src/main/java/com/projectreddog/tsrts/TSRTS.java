@@ -79,8 +79,8 @@ public class TSRTS {
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
-		Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("TSRTS-client.toml"));
-		Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("TSRTS-common.toml"));
+		Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("tsrts-client.toml"));
+		Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("tsrts-common.toml"));
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {

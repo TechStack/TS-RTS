@@ -14,7 +14,6 @@ import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.entities.PikemanEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
-import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
@@ -39,7 +38,6 @@ import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.event.world.WorldEvent.Load;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -138,19 +136,18 @@ public class EventHandler {
 			UnitEntity ue = (UnitEntity) event.getEntity();
 			if (ue.getTeam() != null) {
 				String teamName = ue.getTeam().getName();
-				if (ue instanceof MinionEntity) {
-					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountMinion();
-				} else if (ue instanceof ArcherMinionEntity) {
+				if (ue instanceof ArcherMinionEntity) {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountArcher();
 				} else if (ue instanceof MountedEntity) {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountLancer();
 				} else if (ue instanceof PikemanEntity) {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountPikeman();
-				} else if (ue instanceof KnightEntity) {
-					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountKnight();
 				} else if (ue instanceof AdvancedKnightEntity) {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountAdvancedKnight();
-
+				} else if (ue instanceof KnightEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountKnight();
+				} else if (ue instanceof MinionEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountMinion();
 				}
 			}
 
@@ -276,16 +273,16 @@ public class EventHandler {
 		event.setCanceled(shouldCancel);
 	}
 
-	@SubscribeEvent
-	public static void onBreakEvent(BreakEvent event) {
-		TileEntity te = event.getWorld().getTileEntity(event.getPos());
-
-		if (te instanceof OwnedCooldownTileEntity) {
-			OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) te;
-			if (Config.CONFIG_GAME_MODE.get() == Modes.RUN) {
-				octe.DecreaseCount();
-			}
-		}
-	}
+//	@SubscribeEvent
+//	public static void onBreakEvent(BreakEvent event) {
+//		TileEntity te = event.getWorld().getTileEntity(event.getPos());
+//
+//		if (te instanceof OwnedCooldownTileEntity) {
+//			OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) te;
+//			if (Config.CONFIG_GAME_MODE.get() == Modes.RUN) {
+//				// octe.DecreaseCount();
+//			}
+//		}
+//	}
 
 }
