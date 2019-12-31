@@ -77,7 +77,7 @@ public class ArmoryBuilderItem extends BuilderItem {
 
 	public Vec3i getSize() {
 
-		return new Vec3i(13, 10, 13);
+		return new Vec3i(19, 13, 19);
 	}
 
 	@Override
