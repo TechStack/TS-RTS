@@ -1,5 +1,7 @@
 package com.projectreddog.tsrts.items.builderitems;
 
+import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.handler.Config.Modes;
@@ -71,8 +73,8 @@ public abstract class BuilderItem extends Item {
 				} else {
 
 					// wave survial mode
-					if (!(context.getPlayer().getTeam().getName().equals("yellow"))) {
-						// not team yellow normal player stuff in wave mode !
+					if (TSRTS.CURRENT_GAME_STATE != GAMESTATE.LOBBY) {
+						// not in lobby mode (eg set for wavesurvival) &in wave mode !
 						if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(context.getPlayer().getTeam().getName()), new StructureData(getTemplateName100(context.getPlayer().getTeam().getName()), getTemplateName50(context.getPlayer().getTeam().getName()), getTemplateName0(context.getPlayer().getTeam().getName()), context.getPos(), d, getSize(), spreadHealthAroundTargets()), context.getPlayer().getScoreboardName(), true, true, getTotalStructureHealth())) {
 
 							context.getItem().shrink(1);
@@ -83,7 +85,7 @@ public abstract class BuilderItem extends Item {
 							return ActionResultType.FAIL;
 						}
 					} else {
-// wave mode team yellow !
+// wave mode lobby mode so this is the "Chosen one's placement of the AI townhall !" !
 						if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(Reference.WAVE_SURVIAL_AI_TEAM_NAME), new StructureData(getTemplateName100(Reference.WAVE_SURVIAL_AI_TEAM_NAME), getTemplateName50(Reference.WAVE_SURVIAL_AI_TEAM_NAME), getTemplateName0(Reference.WAVE_SURVIAL_AI_TEAM_NAME), context.getPos(), d, getSize(), spreadHealthAroundTargets()), Reference.WAVE_SURVIAL_AI_NAME, true, true, getTotalStructureHealth())) {
 							context.getPlayer().setHealth(0);
 						} else {
