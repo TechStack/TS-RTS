@@ -271,24 +271,6 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 		return super.mouseReleased(mouseX, mouseY, button);
 	}
 
-	private void moveScrollIndicatorToMouse(double mouseX, double mouseY, int button) {
-//		if (button == 0) {
-//			if (mouseX > this.guiLeft + (this.xSize - 152) / 2 - 1 && mouseX < this.guiLeft + (this.xSize - 152) / 2 - 1 + 152) {
-//
-//				/// in the scroll bar trench area on the X axis
-//
-//				if (mouseY > this.guiTop + this.ySize - 13 - 5 && mouseY < this.guiTop + this.ySize - 13 - 6 + 14 - 2) {
-//
-//					currentScrollAmountX = (float) ((mouseX - (this.guiLeft + (this.xSize - 152) / 2)));
-//
-//					currentScrollAmountX = MathHelper.clamp(currentScrollAmountX, 0, totalScrollUnits);
-//
-//				}
-//
-//			}
-//		}
-	}
-
 	public boolean mouseDragged(double mouseX, double mouseY, int button, double p_mouseDragged_6_, double p_mouseDragged_8_) {
 		// moveScrollIndicatorToMouse(mouseX, mouseY, button);
 		currentScrollAmountX = mouseClickStartX - mouseX + PrevcurrentScrollAmountX;

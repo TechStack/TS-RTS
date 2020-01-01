@@ -4,6 +4,7 @@ import com.projectreddog.tsrts.data.StructureData;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.utilities.ResourceValues;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.block.Block;
@@ -107,4 +108,35 @@ public abstract class BuilderItem extends Item {
 	public abstract boolean CanPlaceOn(Block block);
 
 	public abstract float getTotalStructureHealth();
+
+	public abstract ResourceValues getResourceCosts();
+
+	public int getFoodCosts() {
+		return this.getResourceCosts().getFOOD();
+	}
+
+	public int getWoodCosts() {
+		return this.getResourceCosts().getWOOD();
+	}
+
+	public int getStoneCosts() {
+		return this.getResourceCosts().getSTONE();
+	}
+
+	public int getIronCosts() {
+		return this.getResourceCosts().getIRON();
+	}
+
+	public int getGoldCosts() {
+		return this.getResourceCosts().getGOLD();
+	}
+
+	public int getDiamondCosts() {
+		return this.getResourceCosts().getDIAMOND();
+	}
+
+	public int getEmeraldCosts() {
+		return this.getResourceCosts().getEMERALD();
+	}
+
 }
