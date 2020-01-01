@@ -270,8 +270,10 @@ public class Utilities {
 
 		case WATCH_TOWER:
 			return Config.CONFIG_BUILDING_COSTS_WATCH_TOWER;
-
+		case SIEGE_WORKSHOP:
+			return Config.CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP;
 		default:
+			break;
 
 		}
 		return null;
