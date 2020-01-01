@@ -119,6 +119,9 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_RESEARCH_CENTER;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING;
+	public static ResourceValues CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP;
+
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_STABLES_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_STABLES;
 
@@ -326,6 +329,9 @@ public class Config {
 		CONFIG_BUILDING_COSTS_WALL_STEPS = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_WALL_STEPS_STRING.get()));
 		CONFIG_BUILDING_COSTS_GATE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_GATE_STRING.get()));
 		CONFIG_BUILDING_COSTS_RESEARCH_CENTER = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING.get()));
+
+		CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING.get()));
+
 		CONFIG_BUILDING_COSTS_STABLES = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_STABLES_STRING.get()));
 		CONFIG_BUILDING_COSTS_ARMORY = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_ARMORY_STRING.get()));
 
@@ -404,7 +410,7 @@ public class Config {
 		CONFIG_BUILDING_COSTS_WALL_STEPS_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall Steps").define("wallStepsBulidingCosts", "10,15,32,2,3,0,0");
 
 		CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING = COMMON_BUILDER.comment("Defines the cost For the Research Center").define("researchCenterBulidingCosts", "100,250,100,25,25,25,0");
-
+		CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the Siege Workshop").define("siegeWorkshopBulidingCosts", "100,250,100,25,25,50,0");
 		CONFIG_BUILDING_COSTS_STABLES_STRING = COMMON_BUILDER.comment("Defines the cost For the Stables").define("stablesBulidingCosts", "66,120,40,30,35,0,0");
 		CONFIG_BUILDING_COSTS_ARMORY_STRING = COMMON_BUILDER.comment("Defines the cost For the Armory").define("stablesBulidingArmory", "100,250,100,100,50,0,0");
 

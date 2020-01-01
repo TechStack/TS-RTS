@@ -3,6 +3,7 @@ package com.projectreddog.tsrts.items.builderitems;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.utilities.ResourceValues;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
@@ -98,4 +99,8 @@ public class WallStepsBuilderItem extends BuilderItem {
 		return Config.CONFIG_STRCTURE_TOTAL_HEALTH_WALL_STEPS.get();
 	}
 
+	@Override
+	public ResourceValues getResourceCosts() {
+		return Config.CONFIG_BUILDING_COSTS_WALL_STEPS;
+	}
 }

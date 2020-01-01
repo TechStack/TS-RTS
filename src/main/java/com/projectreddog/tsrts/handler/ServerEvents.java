@@ -53,6 +53,7 @@ public class ServerEvents {
 
 	private static int wavertsTicksScienceLastSpawn = 0;
 	private static boolean waveSurvivalSetupComplete = false;
+	private static int wavertsWaveCount = 0;
 
 	public static ScorePlayerTeam WAVE_SURVIVAL_TEAM = null;
 
@@ -92,10 +93,11 @@ public class ServerEvents {
 			}
 
 			if (target != null) {
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < ((int) (wavertsWaveCount * wavertsWaveCount * .5)); i++) {
 					Utilities.SpawnUnitForTeam(Reference.UNIT_ID_MINION, Reference.WAVE_SURVIAL_AI_NAME, world, waveSurvivalSpawnPoint, WAVE_SURVIVAL_TEAM, target);
 				}
 			}
+			wavertsWaveCount++;
 		}
 	}
 

@@ -8,7 +8,6 @@ import com.projectreddog.tsrts.reference.Reference.STRUCTURE_TYPE;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.utilities.ResourceValues;
 import com.projectreddog.tsrts.utilities.TeamEnum;
-import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
 import com.projectreddog.tsrts.utilities.data.MapStructureData;
 
@@ -44,39 +43,6 @@ public class StablesTileEntity extends OwnedCooldownTileEntity implements INamed
 
 			}
 		}
-	}
-
-	public boolean spendResources() {
-		String teamName = this.getTeam().getName();
-
-		boolean result = true;
-
-		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.FOOD, Config.CONFIG_UNIT_COSTS_LANCER.getFOOD());
-		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.WOOD, Config.CONFIG_UNIT_COSTS_LANCER.getWOOD());
-		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.STONE, Config.CONFIG_UNIT_COSTS_LANCER.getSTONE());
-		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.IRON, Config.CONFIG_UNIT_COSTS_LANCER.getIRON());
-		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.GOLD, Config.CONFIG_UNIT_COSTS_LANCER.getGOLD());
-		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.DIAMOND, Config.CONFIG_UNIT_COSTS_LANCER.getDIAMOND());
-		result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, Config.CONFIG_UNIT_COSTS_LANCER.getEMERALD());
-		Utilities.SendTeamToClient(teamName);
-
-		return result;
-	}
-
-	public boolean hasNeededResources() {
-		if (this.getTeam() == null) {
-			return false;
-		}
-		String teamName = this.getTeam().getName();
-		boolean result = true;
-		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.FOOD, Config.CONFIG_UNIT_COSTS_LANCER.getFOOD());
-		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.WOOD, Config.CONFIG_UNIT_COSTS_LANCER.getWOOD());
-		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.STONE, Config.CONFIG_UNIT_COSTS_LANCER.getSTONE());
-		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.IRON, Config.CONFIG_UNIT_COSTS_LANCER.getIRON());
-		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.GOLD, Config.CONFIG_UNIT_COSTS_LANCER.getGOLD());
-		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.DIAMOND, Config.CONFIG_UNIT_COSTS_LANCER.getDIAMOND());
-		result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.EMERALD, Config.CONFIG_UNIT_COSTS_LANCER.getEMERALD());
-		return result;
 	}
 
 	@Override

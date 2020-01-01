@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.init.ModNetwork;
+import com.projectreddog.tsrts.items.builderitems.BuilderItem;
 import com.projectreddog.tsrts.network.GenericGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.ResourceValues;
@@ -14,7 +15,6 @@ import com.projectreddog.tsrts.utilities.Utilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
@@ -257,17 +257,8 @@ public class GuiUtil {
 
 	}
 
-	public static void drawCosts(ContainerScreen screen, Item item, int y, String teamName) {
-
-		int foodCost = Utilities.getFoodCostsForBuilder(item);
-		int woodCost = Utilities.getWoodCostsForBuilder(item);
-		int stoneCost = Utilities.getStoneCostsForBuilder(item);
-		int ironCost = Utilities.getIronCostsForBuilder(item);
-		int goldCost = Utilities.getGoldCostsForBuilder(item);
-		int diamondCost = Utilities.getDiamondCostsForBuilder(item);
-		int emeraldCost = Utilities.getEmeraldCostsForBuilder(item);
-		ResourceValues rv = new ResourceValues(foodCost, woodCost, stoneCost, ironCost, goldCost, diamondCost, emeraldCost);
-		drawCosts(screen, rv, y, teamName);
+	public static void drawCosts(ContainerScreen screen, BuilderItem item, int y, String teamName) {
+		drawCosts(screen, item.getResourceCosts(), y, teamName);
 	}
 
 	public static int GetXStartForButtonImageXYIndex(int x) {

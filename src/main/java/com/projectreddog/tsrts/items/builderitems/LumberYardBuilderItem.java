@@ -3,6 +3,7 @@ package com.projectreddog.tsrts.items.builderitems;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.utilities.ResourceValues;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -95,4 +96,8 @@ public class LumberYardBuilderItem extends BuilderItem {
 		return Config.CONFIG_STRCTURE_TOTAL_HEALTH_LUMBER_YARD.get();
 	}
 
+	@Override
+	public ResourceValues getResourceCosts() {
+		return Config.CONFIG_BUILDING_COSTS_LUMBER_YARD;
+	}
 }

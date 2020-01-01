@@ -141,20 +141,6 @@ public class ModResearch {
 		return priorSpotSpace;
 	}
 
-	private static void calculateYvalueByCounting(int level) {
-		int count = research_topics.get("townhall").getTreeNodeValue();
-
-		int vertSpace = count * ySpacing;
-		int i = 0;
-		for (Map.Entry<String, Research> entry : research_topics.entrySet()) {
-			if (entry.getValue().getCalculatedLevel() == level) {
-
-				entry.getValue().setCurrentY((vertSpace / 2) - (i * ySpacing));
-				i++;
-			}
-		}
-	}
-
 	private static void calculateXvalue() {
 		for (Map.Entry<String, Research> entry : research_topics.entrySet()) {
 			entry.getValue().setCurrentX((entry.getValue().getCalculatedLevel() - 1) * xSpacing);
