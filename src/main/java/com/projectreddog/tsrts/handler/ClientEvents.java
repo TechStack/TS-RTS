@@ -147,7 +147,24 @@ public class ClientEvents {
 				}
 				if (areaSelect.isPressed()) {
 
-					SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16));
+					if (Minecraft.getInstance().player.isSneaking()) {
+						if (TSRTS.playerSelections.containsKey(Minecraft.getInstance().player.getScoreboardName())) {
+							if (TSRTS.playerSelections.get(Minecraft.getInstance().player.getScoreboardName()).selectedUnits.size() == 1) {
+
+								int entId = TSRTS.playerSelections.get(Minecraft.getInstance().player.getScoreboardName()).selectedUnits.get(0);
+								World w = Minecraft.getInstance().player.world;
+
+								Entity e = w.getEntityByID(entId);
+								if (e instanceof UnitEntity) {
+									UnitEntity ue = (UnitEntity) e;
+									SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), ue.getClass());
+								}
+							}
+						}
+					} else {
+						SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), UnitEntity.class);
+					}
+
 				}
 				if (boxSelect.isPressed()) {
 					if (TSRTS.playerSelections.containsKey(Minecraft.getInstance().player.getScoreboardName())) {
@@ -178,7 +195,7 @@ public class ClientEvents {
 
 								AxisAlignedBB bb = new AxisAlignedBB(xMin, yMin, zMin, xMax, yMax, zMax);
 
-								SelectUnitsInBoundingBox(bb.grow(0, 1, 0));
+								SelectUnitsInBoundingBox(bb.grow(0, 1, 0), UnitEntity.class);
 							}
 
 						}
@@ -193,9 +210,9 @@ public class ClientEvents {
 		}
 	}
 
-	public static void SelectUnitsInBoundingBox(AxisAlignedBB boxIn) {
+	public static void SelectUnitsInBoundingBox(AxisAlignedBB boxIn, Class<? extends UnitEntity> class1) {
 
-		List<UnitEntity> uel = Minecraft.getInstance().player.world.getEntitiesWithinAABB(UnitEntity.class, boxIn);
+		List<UnitEntity> uel = Minecraft.getInstance().player.world.getEntitiesWithinAABB(class1, boxIn);
 		Team team = Minecraft.getInstance().player.getTeam();
 
 		int size = uel.size();
