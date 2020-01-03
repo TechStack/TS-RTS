@@ -80,7 +80,7 @@ public class TESetRallyPointToServer {
 							int distanceZ = msd.getPosition().getZ() - toPosZ;
 
 							int distanceSq = distanceX * distanceX + distanceZ * distanceZ;
-							int distanceLimitSq = 1024;
+							int distanceLimitSq = 4096;
 
 							if (distanceSq <= distanceLimitSq) {
 
