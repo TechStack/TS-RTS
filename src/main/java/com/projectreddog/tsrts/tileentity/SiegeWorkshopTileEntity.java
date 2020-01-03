@@ -38,6 +38,8 @@ public class SiegeWorkshopTileEntity extends OwnedCooldownTileEntity implements 
 					if (Utilities.hasNeededResourcesForResourceValues(getTeam().getName(), rv)) {
 						Utilities.spendResourcesForResourceValues(getTeam().getName(), rv);
 						TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].AddToProperQueue(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getSiegeWorkshop().get(0));
+					} else {
+						Utilities.SendMessageToTeam(this.world, this.getTeam().getName(), "message.cannotrebuy", false);
 					}
 				}
 

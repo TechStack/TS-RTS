@@ -2058,6 +2058,10 @@ public class Utilities {
 	}
 
 	public static void SendMessageToTeam(World world, String team, String LangLookup) {
+		SendMessageToTeam(world, team, LangLookup, true);
+	}
+
+	public static void SendMessageToTeam(World world, String team, String LangLookup, boolean sendToast) {
 		List<? extends PlayerEntity> players = world.getPlayers();
 		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
 			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
@@ -2065,8 +2069,11 @@ public class Utilities {
 			if (playerEntity.getTeam() != null) {
 				if (playerEntity.getTeam().getName().equals(team)) {
 					playerEntity.sendMessage(new TranslationTextComponent(LangLookup));
-					if (playerEntity instanceof ServerPlayerEntity) {
-						ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("tsrts.alerttoast.alert", LangLookup, AlertToastBackgroundType.WARN));
+
+					if (sendToast) {
+						if (playerEntity instanceof ServerPlayerEntity) {
+							ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("tsrts.alerttoast.alert", LangLookup, AlertToastBackgroundType.WARN));
+						}
 					}
 				}
 			}
