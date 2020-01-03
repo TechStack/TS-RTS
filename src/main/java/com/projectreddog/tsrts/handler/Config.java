@@ -241,6 +241,8 @@ public class Config {
 		COMMON_BUILDER.comment("Options").push(CATEGORY_OPTIONS);
 
 		CONFIG_PLAYERS_CAN_ATTACK_BUILDINGS = COMMON_BUILDER.comment("Sets if players can attack buildings or not directly. if FALSE they must use troops to attack buildings").define("canPlayersAttackBulidings", false);
+		COMMON_BUILDER.pop();
+
 	}
 
 	private static void setupResearchCostConfig() {
