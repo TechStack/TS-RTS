@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.blocks;
 
 import com.projectreddog.tsrts.containers.provider.MainMenuContinerProvider;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.TownHallTileEntity;
 
 import net.minecraft.block.BlockState;
@@ -40,8 +41,14 @@ public class TownHallBlock extends OwnedBlock {
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
 
 		if (!world.isRemote) {
-			NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new MainMenuContinerProvider());
 
+			TileEntity te = world.getTileEntity(pos);
+			if (te instanceof INamedContainerProvider && te instanceof OwnedCooldownTileEntity) {
+				OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) te;
+				if (octe.getTeam() != null && octe.getTeam().isSameTeam(player.getTeam())) {
+					NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new MainMenuContinerProvider());
+				}
+			}
 			return true;
 
 		}
