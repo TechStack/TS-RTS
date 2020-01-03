@@ -1140,7 +1140,7 @@ public class Utilities {
 
 	}
 
-	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player, boolean isRetreatMove) {
+	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player, boolean isRetreatMove, boolean isHoldingGround) {
 		if (TSRTS.playerSelections.containsKey(ownerName)) {
 			// found the player in the hasmap get and loop thru the enitties 1
 			int count = TSRTS.playerSelections.get(ownerName).selectedUnits.size();
@@ -1155,6 +1155,7 @@ public class Utilities {
 						ue.ownerControlledDestination = lbp.get(i);/// context.getPos();
 						// TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
 						ue.isRetreating = isRetreatMove;
+						ue.isHoldingGround = isHoldingGround;
 					}
 				}
 			}
