@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.blocks;
 
+import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamProperty;
@@ -8,12 +9,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class OwnedBlock extends Block {
 
@@ -46,4 +52,25 @@ public class OwnedBlock extends Block {
 
 		}
 	}
+
+	@Override
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+
+		if (!world.isRemote) {
+			TileEntity te = world.getTileEntity(pos);
+			if (te instanceof INamedContainerProvider && te instanceof OwnedCooldownTileEntity) {
+				OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) te;
+				if (octe.getTeam() != null && octe.getTeam().isSameTeam(player.getTeam())) {
+					NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) te, te.getPos());
+				}
+			} else {
+				throw new IllegalStateException(" Our named container provider is missing !");
+			}
+			return true;
+
+		}
+
+		return super.onBlockActivated(state, world, pos, player, handIn, hit);
+	}
+
 }
