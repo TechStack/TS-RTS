@@ -1236,12 +1236,12 @@ public class Utilities {
 
 					if (i < remain) {
 
-						lbp.add(bp.offset(direction.rotateY(), (-widthOffset + i)).offset(direction.getOpposite(), j));
+						lbp.add(FindLocationAboveSolid(world, bp.offset(direction.rotateY(), (-widthOffset + i)).offset(direction.getOpposite(), j)));
 					}
 
 				} else {
 
-					lbp.add(bp.offset(direction.rotateY(), (-widthOffset + i)).offset(direction.getOpposite(), j));
+					lbp.add(FindLocationAboveSolid(world, bp.offset(direction.rotateY(), (-widthOffset + i)).offset(direction.getOpposite(), j)));
 				}
 
 			}
@@ -1249,9 +1249,23 @@ public class Utilities {
 
 		if (isEven && size <= 9) {
 
-			lbp.add(bp.offset(direction.getOpposite(), (depth - 1) + 1));
+			lbp.add(FindLocationAboveSolid(world, bp.offset(direction.getOpposite(), (depth - 1) + 1)));
 		}
 		return lbp;
+	}
+
+	private static BlockPos FindLocationAboveSolid(World world, BlockPos bp) {
+		if (!world.getBlockState(bp).getMaterial().isSolid()) {
+			return bp;
+		} else {
+			BlockPos bp2;
+			for (bp2 = bp.up(); bp2.getY() < world.getHeight() && world.getBlockState(bp).getMaterial().isSolid(); bp2 = bp2.up()) {
+				;
+			}
+			return bp2;
+
+		}
+
 	}
 
 	public static void clearAreaTELast(World world, BlockPos bp, Direction d, Vec3i size) {
