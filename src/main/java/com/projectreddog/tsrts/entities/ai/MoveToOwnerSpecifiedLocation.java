@@ -77,13 +77,15 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 			result = true;
 		}
 
-		if (lastPos.distanceTo(entPos) < .05d) {
+		if (lastPos.distanceTo(entPos) < .01d) {
 
 			timeUnableToMove++;
 			if (timeUnableToMove > 10) {
 				// half a second not able to move! ABORT and assume arrived so we don't tank TPS
 				result = true;
 			}
+		} else {
+			timeUnableToMove = 0;
 		}
 		lastPos = entPos;
 		return result;
