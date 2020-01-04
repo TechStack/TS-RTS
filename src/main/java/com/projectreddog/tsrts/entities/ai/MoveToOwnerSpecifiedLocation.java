@@ -15,6 +15,8 @@ import net.minecraft.world.IWorldReader;
 public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 	private boolean isAboveDestination;
 	UnitEntity ue;
+	private Vec3d lastPos = new Vec3d(0, -100, 0);
+	private int timeUnableToMove = 0;
 
 	public MoveToOwnerSpecifiedLocation(CreatureEntity creature, double speedIn, int length) {
 		super(creature, speedIn, length);
@@ -46,6 +48,12 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 		}
 	}
 
+	@Override
+	public void resetTask() {
+		timeUnableToMove = 0;
+		super.resetTask();
+	}
+
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
@@ -68,6 +76,16 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 			// NO target so arrived please
 			result = true;
 		}
+
+		if (lastPos.distanceTo(entPos) < .05d) {
+
+			timeUnableToMove++;
+			if (timeUnableToMove > 10) {
+				// half a second not able to move! ABORT and assume arrived so we don't tank TPS
+				result = true;
+			}
+		}
+		lastPos = entPos;
 		return result;
 	}
 
