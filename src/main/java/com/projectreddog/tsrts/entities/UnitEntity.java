@@ -40,6 +40,11 @@ public class UnitEntity extends MonsterEntity {
 	}
 
 	@Override
+	protected void collideWithNearbyEntities() {
+
+	}
+
+	@Override
 	public boolean canDespawn(double distanceToClosestPlayer) {
 		return false;
 	}
