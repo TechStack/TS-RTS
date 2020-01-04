@@ -1223,7 +1223,8 @@ public class Utilities {
 		}
 
 		int widthOffset = 0;
-
+		BlockPos lastWorkingPos = bp;
+		BlockPos suggestedpos = null;
 		widthOffset = (width - 1) / 2;
 		for (int j = 0; j < depth; j++) {
 			for (int i = 0; i < width; i++) {
@@ -1235,32 +1236,40 @@ public class Utilities {
 					widthOffset = (remain - 1) / 2;
 
 					if (i < remain) {
-
-						lbp.add(FindLocationAboveSolid(world, bp.offset(direction.rotateY(), (-widthOffset + i)).offset(direction.getOpposite(), j)));
+						suggestedpos = FindLocationAboveSolid(world, bp.offset(direction.rotateY(), (-widthOffset + i)).offset(direction.getOpposite(), j), lastWorkingPos);
+						lastWorkingPos = suggestedpos;
+						lbp.add(suggestedpos);
 					}
 
 				} else {
+					suggestedpos = FindLocationAboveSolid(world, bp.offset(direction.rotateY(), (-widthOffset + i)).offset(direction.getOpposite(), j), lastWorkingPos);
+					lastWorkingPos = suggestedpos;
 
-					lbp.add(FindLocationAboveSolid(world, bp.offset(direction.rotateY(), (-widthOffset + i)).offset(direction.getOpposite(), j)));
+					lbp.add(suggestedpos);
 				}
 
 			}
 		}
 
 		if (isEven && size <= 9) {
-
-			lbp.add(FindLocationAboveSolid(world, bp.offset(direction.getOpposite(), (depth - 1) + 1)));
+			suggestedpos = FindLocationAboveSolid(world, bp.offset(direction.getOpposite(), (depth - 1) + 1), lastWorkingPos);
+			lastWorkingPos = suggestedpos;
+			lbp.add(suggestedpos);
 		}
 		return lbp;
 	}
 
-	private static BlockPos FindLocationAboveSolid(World world, BlockPos bp) {
+	private static BlockPos FindLocationAboveSolid(World world, BlockPos bp, BlockPos altPos) {
 		if (!world.getBlockState(bp).getMaterial().isSolid()) {
 			return bp;
 		} else {
 			BlockPos bp2;
-			for (bp2 = bp.up(); bp2.getY() < world.getHeight() && world.getBlockState(bp).getMaterial().isSolid(); bp2 = bp2.up()) {
-				;
+			int attempts = 0;
+			for (bp2 = bp.up(); bp2.getY() < world.getHeight() && world.getBlockState(bp2).getMaterial().isSolid(); bp2 = bp2.up()) {
+				attempts++;
+				if (attempts >= 5) {
+					return altPos;
+				}
 			}
 			return bp2;
 
