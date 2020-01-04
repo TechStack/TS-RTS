@@ -41,6 +41,8 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 						if (((TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_ADVANCED_KNIGHT || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_KNIGHT) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getArmory() > 0) || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_MINION || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_PIKEMAN) {
 							TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].AddToProperQueue(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0));
 						}
+					} else {
+						Utilities.SendMessageToTeam(this.world, this.getTeam().getName(), "message.cannotrebuy", false);
 					}
 				}
 				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromBarracksQueue();

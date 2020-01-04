@@ -1140,7 +1140,7 @@ public class Utilities {
 
 	}
 
-	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player, boolean isRetreatMove) {
+	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player, boolean isRetreatMove, boolean isHoldingGround) {
 		if (TSRTS.playerSelections.containsKey(ownerName)) {
 			// found the player in the hasmap get and loop thru the enitties 1
 			int count = TSRTS.playerSelections.get(ownerName).selectedUnits.size();
@@ -1155,6 +1155,7 @@ public class Utilities {
 						ue.ownerControlledDestination = lbp.get(i);/// context.getPos();
 						// TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
 						ue.isRetreating = isRetreatMove;
+						ue.isHoldingGround = isHoldingGround;
 					}
 				}
 			}
@@ -2057,6 +2058,10 @@ public class Utilities {
 	}
 
 	public static void SendMessageToTeam(World world, String team, String LangLookup) {
+		SendMessageToTeam(world, team, LangLookup, true);
+	}
+
+	public static void SendMessageToTeam(World world, String team, String LangLookup, boolean sendToast) {
 		List<? extends PlayerEntity> players = world.getPlayers();
 		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
 			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
@@ -2064,8 +2069,11 @@ public class Utilities {
 			if (playerEntity.getTeam() != null) {
 				if (playerEntity.getTeam().getName().equals(team)) {
 					playerEntity.sendMessage(new TranslationTextComponent(LangLookup));
-					if (playerEntity instanceof ServerPlayerEntity) {
-						ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("tsrts.alerttoast.alert", LangLookup, AlertToastBackgroundType.WARN));
+
+					if (sendToast) {
+						if (playerEntity instanceof ServerPlayerEntity) {
+							ModNetwork.SendToPlayer((ServerPlayerEntity) playerEntity, new AlertToastToClient("tsrts.alerttoast.alert", LangLookup, AlertToastBackgroundType.WARN));
+						}
 					}
 				}
 			}

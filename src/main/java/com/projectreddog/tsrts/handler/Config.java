@@ -19,6 +19,8 @@ public class Config {
 
 	public static final String CATEGORY_GENERAL = "general";
 
+	public static final String CATEGORY_OPTIONS = "options";
+
 	public static final String CATEGORY_UNIT_COST = "unit_cost";
 
 	public static final String CATEGORY_BUILDING_COST = "building_cost";
@@ -218,9 +220,11 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_TREBUCHET_STRING;
 	public static ResourceValues CONFIG_RESEARCH_COSTS_TREBUCHET;
 
+	public static ForgeConfigSpec.BooleanValue CONFIG_PLAYERS_CAN_ATTACK_BUILDINGS;
 	static {
 
 		setupGeneralConfig();
+		setupOptionsConfig();
 		setupStartinResourcesConfig();
 		setupResourceGeneration();
 		setupUnitCostConfig();
@@ -231,6 +235,14 @@ public class Config {
 		setupResearchCostConfig();
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
+	}
+
+	private static void setupOptionsConfig() {
+		COMMON_BUILDER.comment("Options").push(CATEGORY_OPTIONS);
+
+		CONFIG_PLAYERS_CAN_ATTACK_BUILDINGS = COMMON_BUILDER.comment("Sets if players can attack buildings or not directly. if FALSE they must use troops to attack buildings").define("canPlayersAttackBulidings", false);
+		COMMON_BUILDER.pop();
+
 	}
 
 	private static void setupResearchCostConfig() {

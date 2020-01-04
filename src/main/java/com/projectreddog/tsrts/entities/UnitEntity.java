@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 public class UnitEntity extends MonsterEntity {
 	public boolean isRetreating = false;
-
+	public boolean isHoldingGround = false;
 	private String ownerName;
 
 	public BlockPos ownerControlledDestination;
@@ -146,11 +146,15 @@ public class UnitEntity extends MonsterEntity {
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
 		setOwnerName(compound.getString("onwerName"));
+		if (compound.contains("isHoldingGround")) {
+			isHoldingGround = compound.getBoolean("isHoldingGround");
+		}
 	}
 
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
 		compound.putString("onwerName", ownerName);
+		compound.putBoolean("isHoldingGround", isHoldingGround);
 	}
 
 	@Override

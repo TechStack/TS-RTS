@@ -51,8 +51,12 @@ public class RetreateScepterItem extends Item {
 
 						if (!worldIn.isRemote) {
 							TSRTS.LOGGER.info("Block HIT at:" + brtr.getPos());
+							if (playerIn.isSneaking()) {
+								Utilities.SelectedUnitsMoveToBlock(worldIn, brtr.getPos(), playerIn.getScoreboardName(), playerIn, true, true);
+							} else {
 
-							Utilities.SelectedUnitsMoveToBlock(worldIn, brtr.getPos(), playerIn.getScoreboardName(), playerIn, true);
+								Utilities.SelectedUnitsMoveToBlock(worldIn, brtr.getPos(), playerIn.getScoreboardName(), playerIn, true, false);
+							}
 						}
 					}
 				} else {

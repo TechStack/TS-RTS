@@ -33,9 +33,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -113,6 +115,24 @@ public class EventHandler {
 			if (event.getEntity() instanceof TargetEntity) {
 				// its a target entity
 				// check its ownedTEpos for a TE and update its health stat accordingly.
+
+				if (!Config.CONFIG_PLAYERS_CAN_ATTACK_BUILDINGS.get()) {
+					// check if player is attacking
+					if (event.getSource() instanceof EntityDamageSource) {
+						EntityDamageSource eds = (EntityDamageSource) event.getSource();
+						if (eds.getTrueSource() instanceof PlayerEntity) {
+							// it is a player that is attacking so cancel.
+							PlayerEntity pe = (PlayerEntity) eds.getTrueSource();
+							// toss in team check so a team can kill their own buildings
+							if (eds.getTrueSource().getTeam() != null && (!eds.getTrueSource().getTeam().isSameTeam(event.getEntity().getTeam()))) {
+								event.setCanceled(true);
+								pe.sendMessage(new TranslationTextComponent("message.attackingbuildingsasplayerdisabled"));
+								return;
+							}
+						}
+					}
+				}
+
 				TargetEntity targetEntity = (TargetEntity) event.getEntity();
 				if (targetEntity.getOwningTePos() != null) {
 					TileEntity te = targetEntity.world.getTileEntity(targetEntity.getOwningTePos());

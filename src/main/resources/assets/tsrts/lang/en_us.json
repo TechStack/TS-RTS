@@ -16,6 +16,10 @@
 "block.tsrts.researchcenterblock":"Research Center Block",
 "block.tsrts.siegeworkshopblock":"Siege Workshop Control Block",
 
+"_comment":"Feedback messages here",
+"message.attackingbuildingsasplayerdisabled":"Attacking enemy Buildings as a player is disabled on this server use your Troops!",
+"message.cannotrebuy":"Not enough resources. Unable to rebuy the troop.",
+
 "resourcevalues.food.name":"Food",
 "resourcevalues.wood.name":"Wood",
 "resourcevalues.stone.name":"Stone",

@@ -106,6 +106,18 @@ public class ArcherMinionEntity extends UnitEntity implements IRangedAttackMob {
 				this.setMotion(v2);
 			}
 		}
+
+		if (this.isHoldingGround == true && this.ownerControlledDestination == null) {
+
+			// cancel movement if holding ground && at destination
+			// arrived so set move speed to 0 ?
+
+			this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0);
+
+		} else {
+			this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getMOVEMENT_SPEED());
+
+		}
 		super.tick();
 
 	}
