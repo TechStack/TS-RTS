@@ -26,24 +26,26 @@ public class ArcheryRangeTileEntity extends OwnedCooldownTileEntity implements I
 	public void ActionAfterCooldown() {
 
 		super.ActionAfterCooldown();
+		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getCurrentPopulation() < TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getTeamPopulationCap()) {
 
-		if (getOwner() != null && getTeam() != null) {
-			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().size() > 0) {
-				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
+			if (getOwner() != null && getTeam() != null) {
+				if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().size() > 0) {
+					Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
 
-				if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].isInfinateArcheryRangeQueue()) {
+					if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].isInfinateArcheryRangeQueue()) {
 
-					ResourceValues rv = Utilities.GetResourceValuesforUnitID(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().get(0));
+						ResourceValues rv = Utilities.GetResourceValuesforUnitID(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().get(0));
 
-					if (Utilities.hasNeededResourcesForResourceValues(getTeam().getName(), rv)) {
-						Utilities.spendResourcesForResourceValues(getTeam().getName(), rv);
-						TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].AddToProperQueue(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().get(0));
-					} else {
-						Utilities.SendMessageToTeam(this.world, this.getTeam().getName(), "message.cannotrebuy", false);
+						if (Utilities.hasNeededResourcesForResourceValues(getTeam().getName(), rv)) {
+							Utilities.spendResourcesForResourceValues(getTeam().getName(), rv);
+							TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].AddToProperQueue(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getArcheryRange().get(0));
+						} else {
+							Utilities.SendMessageToTeam(this.world, this.getTeam().getName(), "message.cannotrebuy", false);
+						}
 					}
-				}
 
-				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromArcheryRangeQueue();
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromArcheryRangeQueue();
+				}
 			}
 		}
 	}

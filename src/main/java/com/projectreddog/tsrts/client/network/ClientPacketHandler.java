@@ -50,7 +50,7 @@ public class ClientPacketHandler {
 		ModResearch.getResearch(key).setUnlocked(unLocked, TeamEnum.getIDFromName(teamName));
 	}
 
-	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount) {
+	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount, int teamPopulationCap) {
 		TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
 		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
@@ -61,6 +61,7 @@ public class ClientPacketHandler {
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setCurrenResearchKey(currentResearchKey);
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setCurrenResearchWorkRemaining(currentWorkAmount);
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setFullResearchWorkRemaining(fullWorkAmount);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setTeamPopulationCap(teamPopulationCap);
 
 	}
 

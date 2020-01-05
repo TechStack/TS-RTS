@@ -35,6 +35,8 @@ public class TeamInfo {
 	private int unitCountAdvancedKnight = 0;
 
 	private String CurrenResearchKey;
+	private int teamPopulationCap;
+	private int teamPlayerCount;
 
 	private int currenResearchWorkRemaining;
 	private int fullResearchWorkRemaining;
@@ -42,6 +44,11 @@ public class TeamInfo {
 	public TeamInfo() {
 		super();
 		CurrenResearchKey = "";
+	}
+
+	public int getCurrentPopulation() {
+
+		return unitCountMinion + unitCountArcher + unitCountLancer + unitCountPikeman + unitCountTrebuchet + unitCountKnight + unitCountAdvancedKnight;
 	}
 
 	public int[] getResourceAmt() {
@@ -419,6 +426,22 @@ public class TeamInfo {
 
 	public void setUnitCountTrebuchet(int unitCountTrebuchet) {
 		this.unitCountTrebuchet = unitCountTrebuchet;
+	}
+
+	public int getTeamPopulationCap() {
+		return teamPopulationCap;
+	}
+
+	public void setTeamPopulationCap(int teamPopulationCap) {
+		this.teamPopulationCap = teamPopulationCap;
+	}
+
+	public int getTeamPlayerCount() {
+		return teamPlayerCount;
+	}
+
+	public void setTeamPlayerCount(int teamPlayerCount) {
+		this.teamPlayerCount = teamPlayerCount;
 	}
 
 }

@@ -28,25 +28,30 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 		super.ActionAfterCooldown();
 
 		if (getOwner() != null && getTeam() != null) {
-			if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().size() > 0) {
-				Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
 
-				if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].isInfinateBarracksQueue()) {
+			if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getCurrentPopulation() < TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getTeamPopulationCap()) {
 
-					ResourceValues rv = Utilities.GetResourceValuesforUnitID(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0));
+				if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().size() > 0) {
+					Utilities.SpawnUnitForTeam(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0), this.getOwner(), this.getWorld(), this.getPos(), this.getTeam(), this.getRallyPoint());
 
-					if (Utilities.hasNeededResourcesForResourceValues(getTeam().getName(), rv)) {
-						Utilities.spendResourcesForResourceValues(getTeam().getName(), rv);
+					if (TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].isInfinateBarracksQueue()) {
+
+						ResourceValues rv = Utilities.GetResourceValuesforUnitID(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0));
+
+						if (Utilities.hasNeededResourcesForResourceValues(getTeam().getName(), rv)) {
+							Utilities.spendResourcesForResourceValues(getTeam().getName(), rv);
 //check if we have the building reuqired for "SOME" units
-						if (((TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_ADVANCED_KNIGHT || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_KNIGHT) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getArmory() > 0) || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_MINION || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_PIKEMAN) {
-							TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].AddToProperQueue(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0));
+							if (((TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_ADVANCED_KNIGHT || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_KNIGHT) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getArmory() > 0) || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_MINION || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_PIKEMAN) {
+								TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].AddToProperQueue(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0));
+							}
+						} else {
+							Utilities.SendMessageToTeam(this.world, this.getTeam().getName(), "message.cannotrebuy", false);
 						}
-					} else {
-						Utilities.SendMessageToTeam(this.world, this.getTeam().getName(), "message.cannotrebuy", false);
 					}
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromBarracksQueue();
 				}
-				TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].RemoveFirstFromBarracksQueue();
 			}
+
 			// }
 //
 //			MinionEntity me = new MinionEntity(null, world);

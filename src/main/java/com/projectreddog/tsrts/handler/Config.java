@@ -220,7 +220,10 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_TREBUCHET_STRING;
 	public static ResourceValues CONFIG_RESEARCH_COSTS_TREBUCHET;
 
+	// OPTIONS
 	public static ForgeConfigSpec.BooleanValue CONFIG_PLAYERS_CAN_ATTACK_BUILDINGS;
+	public static ForgeConfigSpec.IntValue CONFIG_SERVER_MAX_POPULATION;
+
 	static {
 
 		setupGeneralConfig();
@@ -241,6 +244,8 @@ public class Config {
 		COMMON_BUILDER.comment("Options").push(CATEGORY_OPTIONS);
 
 		CONFIG_PLAYERS_CAN_ATTACK_BUILDINGS = COMMON_BUILDER.comment("Sets if players can attack buildings or not directly. if FALSE they must use troops to attack buildings").define("canPlayersAttackBulidings", false);
+
+		CONFIG_SERVER_MAX_POPULATION = COMMON_BUILDER.comment("Sets total population cap for the server. Will be divided by the total number of teams in the game to set a team population limit/cap. This is intended to help with lag by putting a maximum upper bound on the number fo troops in the world").defineInRange("serverMaxTroop", 1200, 0, 10000);
 		COMMON_BUILDER.pop();
 
 	}

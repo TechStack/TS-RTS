@@ -550,8 +550,18 @@ public class Utilities {
 
 			playerEntity.closeScreen();
 
+			if (playerEntity.getTeam() != null && !playerEntity.isSpectator()) {
+				String teamName = playerEntity.getTeam().getName();
+				int teamIndex = TeamEnum.getIDFromName(teamName);
+				TSRTS.teamInfoArray[teamIndex].setTeamPlayerCount(TSRTS.teamInfoArray[teamIndex].getTeamPlayerCount() + 1);
+			}
 		}
 
+		int teamCount = getTeamWithPlayerCount();
+
+		for (int i = 0; i < TSRTS.teamInfoArray.length; i++) {
+			TSRTS.teamInfoArray[i].setTeamPopulationCap(Config.CONFIG_SERVER_MAX_POPULATION.get() / teamCount);
+		}
 		// give teams resoruces
 		Collection<ScorePlayerTeam> teams = world.getScoreboard().getTeams();
 
@@ -564,6 +574,18 @@ public class Utilities {
 			String teamName = team.getName();
 			Utilities.setResourcesOfTeam(teamName, tmpRes);
 		}
+	}
+
+	private static int getTeamWithPlayerCount() {
+
+		int teamCount = 0;
+		for (int i = 0; i < TSRTS.teamInfoArray.length; i++) {
+			if (TSRTS.teamInfoArray[i].getTeamPlayerCount() > 0) {
+				teamCount++;
+			}
+		}
+
+		return teamCount;
 	}
 
 	private static void giveStartingItems(PlayerEntity playerEntity) {
