@@ -20,6 +20,14 @@ public class SendTeamInfoPacketToClient {
 	private int fullResearchWorkRemaining;
 	private int teamPopulationCap;
 
+	private int unitCountMinion = 0;
+	private int unitCountArcher = 0;
+	private int unitCountLancer = 0;
+	private int unitCountPikeman = 0;
+	private int unitCountTrebuchet = 0;
+	private int unitCountKnight = 0;
+	private int unitCountAdvancedKnight = 0;
+
 	public SendTeamInfoPacketToClient(PacketBuffer buf) {
 		// DECODE
 		for (int i = 0; i < resourceCount; i++) {
@@ -34,6 +42,14 @@ public class SendTeamInfoPacketToClient {
 		this.fullResearchWorkRemaining = buf.readInt();
 
 		this.teamPopulationCap = buf.readInt();
+
+		this.unitCountMinion = buf.readInt();
+		this.unitCountArcher = buf.readInt();
+		this.unitCountLancer = buf.readInt();
+		this.unitCountPikeman = buf.readInt();
+		this.unitCountTrebuchet = buf.readInt();
+		this.unitCountKnight = buf.readInt();
+		this.unitCountAdvancedKnight = buf.readInt();
 	}
 
 	public SendTeamInfoPacketToClient(TeamInfo ti, String teamName) {
@@ -46,6 +62,13 @@ public class SendTeamInfoPacketToClient {
 		this.currentResearchWorkRemaining = ti.getCurrenResearchWorkRemaining();
 		this.fullResearchWorkRemaining = ti.getFullResearchWorkRemaining();
 		this.teamPopulationCap = ti.getTeamPopulationCap();
+		this.unitCountMinion = ti.getUnitCountMinion();
+		this.unitCountArcher = ti.getUnitCountArcher();
+		this.unitCountLancer = ti.getUnitCountLancer();
+		this.unitCountPikeman = ti.getUnitCountPikeman();
+		this.unitCountTrebuchet = ti.getUnitCountTrebuchet();
+		this.unitCountKnight = ti.getUnitCountKnight();
+		this.unitCountAdvancedKnight = ti.getUnitCountAdvancedKnight();
 
 	}
 
@@ -66,12 +89,20 @@ public class SendTeamInfoPacketToClient {
 		buf.writeInt(this.fullResearchWorkRemaining);
 		buf.writeInt(this.teamPopulationCap);
 
+		buf.writeInt(this.unitCountMinion);
+		buf.writeInt(this.unitCountArcher);
+		buf.writeInt(this.unitCountLancer);
+		buf.writeInt(this.unitCountPikeman);
+		buf.writeInt(this.unitCountTrebuchet);
+		buf.writeInt(this.unitCountKnight);
+		buf.writeInt(this.unitCountAdvancedKnight);
+
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		// TODO Auto-generated method stub
 		ctx.get().enqueueWork(() -> {
-			ClientPacketHandler.SendTeamInfoPacketToClient(resourceAmt, teamName, CurrenResearchKey, currentResearchWorkRemaining, fullResearchWorkRemaining, teamPopulationCap);
+			ClientPacketHandler.SendTeamInfoPacketToClient(resourceAmt, teamName, CurrenResearchKey, currentResearchWorkRemaining, fullResearchWorkRemaining, teamPopulationCap, unitCountMinion, unitCountArcher, unitCountLancer, unitCountPikeman, unitCountTrebuchet, unitCountKnight, unitCountAdvancedKnight);
 
 		});
 		ctx.get().setPacketHandled(true);
