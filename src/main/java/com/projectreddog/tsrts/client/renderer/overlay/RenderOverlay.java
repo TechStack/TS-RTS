@@ -126,6 +126,9 @@ public class RenderOverlay extends Screen {
 									x = x + xTextWidth;
 								}
 							}
+
+							Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + ti.getCurrentPopulation() + " / " + ti.getTeamPopulationCap(), x, y + ytextOffset, 14737632);
+
 							if (ti != null && ti.getCurrenResearchKey() != null && !ti.getCurrenResearchKey().equals("")) {
 
 								String text = new TranslationTextComponent(ModResearch.getResearch(ti.getCurrenResearchKey()).getNameTranslationKey()).getUnformattedComponentText();

@@ -18,6 +18,7 @@ public class SendTeamInfoPacketToClient {
 
 	private int currentResearchWorkRemaining;
 	private int fullResearchWorkRemaining;
+	private int teamPopulationCap;
 
 	public SendTeamInfoPacketToClient(PacketBuffer buf) {
 		// DECODE
@@ -31,6 +32,8 @@ public class SendTeamInfoPacketToClient {
 		this.CurrenResearchKey = buf.readCharSequence(lenght, Charset.forName("UTF-8")).toString();
 		this.currentResearchWorkRemaining = buf.readInt();
 		this.fullResearchWorkRemaining = buf.readInt();
+
+		this.teamPopulationCap = buf.readInt();
 	}
 
 	public SendTeamInfoPacketToClient(TeamInfo ti, String teamName) {
@@ -42,6 +45,7 @@ public class SendTeamInfoPacketToClient {
 		this.CurrenResearchKey = ti.getCurrenResearchKey();
 		this.currentResearchWorkRemaining = ti.getCurrenResearchWorkRemaining();
 		this.fullResearchWorkRemaining = ti.getFullResearchWorkRemaining();
+		this.teamPopulationCap = ti.getTeamPopulationCap();
 
 	}
 
@@ -60,13 +64,14 @@ public class SendTeamInfoPacketToClient {
 		buf.writeInt(this.currentResearchWorkRemaining);
 
 		buf.writeInt(this.fullResearchWorkRemaining);
+		buf.writeInt(this.teamPopulationCap);
 
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		// TODO Auto-generated method stub
 		ctx.get().enqueueWork(() -> {
-			ClientPacketHandler.SendTeamInfoPacketToClient(resourceAmt, teamName, CurrenResearchKey, currentResearchWorkRemaining, fullResearchWorkRemaining);
+			ClientPacketHandler.SendTeamInfoPacketToClient(resourceAmt, teamName, CurrenResearchKey, currentResearchWorkRemaining, fullResearchWorkRemaining, teamPopulationCap);
 
 		});
 		ctx.get().setPacketHandled(true);
