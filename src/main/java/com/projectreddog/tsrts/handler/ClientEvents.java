@@ -41,6 +41,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ClientEvents {
 
+	public static boolean toggleDisplayInfo = true;
 	public static final KeyBinding controlGroup1 = new KeyBinding(Reference.MODID + ".key.controlgroup1", GLFW.GLFW_KEY_Z, "key.categories." + Reference.MODID);
 	public static final KeyBinding controlGroup2 = new KeyBinding(Reference.MODID + ".key.controlgroup2", GLFW.GLFW_KEY_X, "key.categories." + Reference.MODID);
 	public static final KeyBinding controlGroup3 = new KeyBinding(Reference.MODID + ".key.controlgroup3", GLFW.GLFW_KEY_C, "key.categories." + Reference.MODID);
@@ -67,6 +68,12 @@ public class ClientEvents {
 
 			if (Minecraft.getInstance() != null && Minecraft.getInstance().player != null) {
 				String playerScoreboardName = Minecraft.getInstance().player.getScoreboardName();
+
+				if (Minecraft.getInstance().player.isSpectator()) {
+					if (controlModifier.isPressed()) {
+						toggleDisplayInfo = !toggleDisplayInfo;
+					}
+				}
 
 				if (controlGroup1.isPressed()) {
 					// DO STUFF HERE

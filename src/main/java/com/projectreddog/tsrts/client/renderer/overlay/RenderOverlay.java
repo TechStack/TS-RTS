@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import org.lwjgl.opengl.GL11;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.handler.ClientEvents;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.reference.Reference;
@@ -75,6 +76,8 @@ public class RenderOverlay extends Screen {
 	private ResourceLocation STABLES_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/stablesblock_yellow_top.png");
 	private ResourceLocation SIEGE_WORKSHOP_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/siegeworkshopblock_yellow_top.png");
 
+	private ResourceLocation POP_CAP_ICON = new ResourceLocation(Reference.MODID, "textures/gui/overlay/popcapicon.png");
+
 	private ResourceLocation BARRACKS_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/barracksblock_yellow_top.png");
 
 	private ResourceLocation ARCHERY_RANGE_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/archeryrangeblock_yellow_top.png");
@@ -127,12 +130,17 @@ public class RenderOverlay extends Screen {
 								}
 							}
 
-							Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + ti.getCurrentPopulation() + " / " + ti.getTeamPopulationCap(), x, y + ytextOffset, 14737632);
+							String popCapText = "" + ti.getCurrentPopulation() + " / " + ti.getTeamPopulationCap();
+							int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(popCapText);
+							Minecraft.getInstance().fontRenderer.drawStringWithShadow(popCapText, x, y + ytextOffset, 14737632);
+
+							Minecraft.getInstance().textureManager.bindTexture(POP_CAP_ICON);
+							ClientUtilities.renderTexture(x + textWidth + 4, 4, 16, 16);
 
 							if (ti != null && ti.getCurrenResearchKey() != null && !ti.getCurrenResearchKey().equals("")) {
 
 								String text = new TranslationTextComponent(ModResearch.getResearch(ti.getCurrenResearchKey()).getNameTranslationKey()).getUnformattedComponentText();
-								int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(text);
+								textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(text);
 								Minecraft.getInstance().fontRenderer.drawStringWithShadow(text, event.getWindow().getScaledWidth() * 2 - textWidth - 10, event.getWindow().getScaledHeight() * 2 - 50, 14737632);
 								int divisor = ti.getFullResearchWorkRemaining();
 								if (divisor > 0) {
@@ -156,7 +164,7 @@ public class RenderOverlay extends Screen {
 			GL11.glPopMatrix();
 
 		} else if (event.getType() == ElementType.ALL) {
-			if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.isSpectator()) {
+			if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.isSpectator() && ClientEvents.toggleDisplayInfo) {
 
 				int width = event.getWindow().getWidth();
 				int height = event.getWindow().getHeight();
@@ -198,6 +206,14 @@ public class RenderOverlay extends Screen {
 
 					String teamName = TeamEnum.getNameFromID(j);
 					Minecraft.getInstance().fontRenderer.drawStringWithShadow(teamName, x - 10, y + ytextOffset, TeamEnum.values()[j].getColorCode());
+
+					x = x + 50;
+					String popCapText = "" + ti.getCurrentPopulation() + " / " + ti.getTeamPopulationCap();
+					int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(popCapText);
+					Minecraft.getInstance().fontRenderer.drawStringWithShadow(popCapText, x, y + ytextOffset, 14737632);
+
+					Minecraft.getInstance().textureManager.bindTexture(POP_CAP_ICON);
+					ClientUtilities.renderTexture(x + textWidth + 4, y, 16, 16);
 
 				}
 				GL11.glPopMatrix();
