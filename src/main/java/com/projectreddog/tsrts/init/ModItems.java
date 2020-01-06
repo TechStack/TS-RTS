@@ -15,6 +15,7 @@ import com.projectreddog.tsrts.items.builderitems.BarracksBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.FarmBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.GateBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.LumberYardBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.MarketplaceBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteDiamondBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteEmeraldBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.MinesiteGoldBuilderItem;
@@ -66,6 +67,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BUILDER_ITEM)
 	public static WallBuilderItem WALLBUILDERITEM = new WallBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MARKETPLACE_BUILDER_ITEM)
+	public static MarketplaceBuilderItem MARKETPLACEITEM = new MarketplaceBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RESEARCH_CENTER_BUILDER_ITEM)
 	public static ResearchCenterBuilderItem RESEARCHCENTERBUILDERITEM = new ResearchCenterBuilderItem();
@@ -153,6 +157,8 @@ public class ModItems {
 		RegisterItem(event, ModItems.WATCHTOWERBUILDERITEM);
 
 		RegisterItem(event, ModItems.WALLBUILDERITEM);
+
+		RegisterItem(event, ModItems.MARKETPLACEITEM);
 
 		RegisterItem(event, ModItems.GATEBUILDERITEM);
 

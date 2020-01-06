@@ -19,6 +19,7 @@ public class TeamInfo {
 	private int baracks = 0;
 	private int archeryrange = 0;
 	private int stables = 0;
+	private int marketplace = 0;
 	private int armory = 0;
 	private int siegeworkshop = 0;
 	private int walls = 0;
@@ -442,6 +443,14 @@ public class TeamInfo {
 
 	public void setTeamPlayerCount(int teamPlayerCount) {
 		this.teamPlayerCount = teamPlayerCount;
+	}
+
+	public int getMarketplace() {
+		return marketplace;
+	}
+
+	public void setMarketplace(int marketplace) {
+		this.marketplace = marketplace;
 	}
 
 }
