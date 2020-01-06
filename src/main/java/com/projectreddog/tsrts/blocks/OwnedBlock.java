@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.blocks;
 
+import com.projectreddog.tsrts.tileentity.GateTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.TeamEnum;
@@ -58,7 +59,7 @@ public class OwnedBlock extends Block {
 
 		if (!world.isRemote) {
 			TileEntity te = world.getTileEntity(pos);
-			if (te instanceof INamedContainerProvider && te instanceof OwnedCooldownTileEntity) {
+			if (te instanceof INamedContainerProvider && te instanceof OwnedCooldownTileEntity && !(te instanceof GateTileEntity)) {
 				OwnedCooldownTileEntity octe = (OwnedCooldownTileEntity) te;
 				if (octe.getTeam() != null && octe.getTeam().isSameTeam(player.getTeam())) {
 					NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) te, te.getPos());
