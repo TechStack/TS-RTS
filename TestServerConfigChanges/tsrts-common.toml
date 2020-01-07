@@ -1,0 +1,210 @@
+
+#General settings
+[general]
+	#Sets the game mode, 0 = RUN , 1 = WORLDBUILDER. World builder will not spawn units from structures
+	#Allowed Values: RUN, WORLDBUILDER, WAVESURVIVAL
+	gameMode = "RUN"
+
+#Research Costs
+[research_cost]
+	#Defines the cost For the crossbow
+	crossbowResearchCosts = "250,1000,0,250,100,100,0"
+	#Defines the cost For the archer
+	archerResearchCosts = "350,650,0,200,50,100,0"
+	#Defines the cost For the townhall
+	townhallResearchCosts = "0,0,0,0,0,0,0"
+	#Defines the cost For the watchtower
+	watchtowerResearchCosts = "300,400,650,50,50,250,0"
+	#Defines the cost For the siegeworkshop
+	siegeworkshopResearchCosts = "250,500,100,100,50,50,0"
+	#Defines the cost For the batteringrams
+	batteringramsResearchCosts = "250,500,100,50,50,50,0"
+	#Defines the cost For the trebuchet
+	trebuchetResearchCosts = "250,1000,200,100,100,100,0"
+	#Defines the cost For the armory
+	armoryResearchCosts = "250,100,0,500,50,50,0"
+	#Defines the cost For the advcedarmor
+	advcedarmorResearchCosts = "250,0,0,200,50,250,0"
+	#Defines the cost For the pikeman
+	pikemanResearchCosts = "400,350,0,350,75,100,0"
+	#Defines the cost For the lancer
+	lancerResearchCosts = "700,550,0,300,100,100,0"
+	#Defines the cost For the minion
+	minionResearchCosts = "0,0,0,0,0,0,0"
+	#Defines the cost For the marketplace
+	marketplaceResearchCosts = "100,100,100,100,250,250,0"
+	#Defines the cost For the wall
+	wallResearchCosts = "300,100,750,100,50,100,0"
+
+#resource generation
+[resource_generation]
+	#Defines the amount of emerald collected per emerald Mine
+	#Range: 0 ~ 1024
+	emeraldGeneration = 1
+	#Defines the amount of food the town hall generate per unit of time
+	townHallGenerates = "5,5,5,5,1,1,0"
+	#Defines the amount of food collected per farm
+	#Range: 0 ~ 1024
+	foodGeneration = 5
+	#Defines the amount of iron collected per iron Mine
+	#Range: 0 ~ 1024
+	ironGeneration = 4
+	#Defines the amount of gold collected per gold Mine
+	#Range: 0 ~ 1024
+	goldGeneration = 4
+	#Defines the amount of stone collected per stone Mine
+	#Range: 0 ~ 1024
+	stoneGeneration = 4
+	#Defines the amount of wood collected per lumber yard
+	#Range: 0 ~ 1024
+	woodGeneration = 7
+	#Defines the amount of diamond collected per diamond Mine
+	#Range: 0 ~ 1024
+	diamondGeneration = 2
+
+#Weapon ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS ATTACK_DAMAGE_MODIFIER, ATTACK_SPEED_MODIFIER: . They are comma separated list of floats Example : 8,-2.9
+[weapon_modifier_attributes]
+	#Defines a comma separted list of values for each attribute modifier in order for the pike
+	pike_attribute_modifier = "7,0"
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	lance_attribute_modifier = "8,-2.9"
+
+#Options
+[options]
+	#Sets if players can attack buildings or not directly. if FALSE they must use troops to attack buildings
+	canPlayersAttackBulidings = false
+	#Sets total population cap for the server. Will be divided by the total number of teams in the game to set a team population limit/cap. This is intended to help with lag by putting a maximum upper bound on the number fo troops in the world
+	#Range: 0 ~ 10000
+	serverMaxTroop = 1200
+
+#Unit Costs
+[unit_cost]
+	#Defines the cost For the archer
+	unitCostsArcher = "5,6,2,4,4,0,0"
+	#Defines the cost For the Advanced Knight
+	unitCostsAdvancedKnight = "6,4,4,10,10,10,0"
+	#Defines the cost For the trebuchet
+	unitCostsTrebuchet = "5,6,0,2,5,0,0"
+	#Defines the cost For the lancer
+	unitCostsLancer = "10,6,0,1,6,0,0"
+	#Defines the cost For the minion
+	unitCostsMinion = "6,4,4,4,0,0,0"
+	#Defines the cost For the knight
+	unitCostsKnight = "6,4,4,10,10,0,0"
+	#Defines the cost For the pikeman
+	unitCostsPikeman = "5,6,0,2,5,0,0"
+
+#Starting resources
+[startup_resources]
+	#Defines the starting amount for each resource
+	StartingAmount = "100,100,75,50,25,0,0"
+
+#Building Costs
+[building_cost]
+	#Defines the cost For the minesite Iron
+	minesiteIronBulidingCosts = "30,45,9,0,0,0,0"
+	#Defines the cost For the Watch Tower
+	watchTowerBulidingCosts = "30,250,75,25,40,0,0"
+	#Defines the cost For the Gate
+	gateBulidingCosts = "10,15,32,2,3,0,0"
+	#Defines the cost For the lumber Yard
+	lumberYardBulidingCosts = "10,0,15,5,0,0,0"
+	#Defines the cost For the Wall Steps
+	wallStepsBulidingCosts = "10,15,32,2,3,0,0"
+	#Defines the cost For the Archery Range
+	archeryRangeBulidingCosts = "44,100,46,36,17,0,0"
+	#Defines the cost For the minesite Emerald
+	minesiteEmeraldBulidingCosts = "600,5,2,3,2,0,0"
+	#Defines the cost For the minesite Stone
+	minesiteStoneBulidingCosts = "22,30,0,15,0,0,0"
+	#Defines the cost For the minesite Gold
+	minesiteGoldBulidingCosts = "36,38,9,20,0,0,0"
+	#Defines the cost For the minesite Diamond
+	minesiteDiamondBulidingCosts = "42,45,14,23,0,0,0"
+	#Defines the cost For the Stables
+	stablesBulidingCosts = "66,120,40,30,35,0,0"
+	#Defines the cost For the Armory
+	stablesBulidingArmory = "100,250,100,100,50,0,0"
+	#Defines the cost For the farm
+	farmBulidingCosts = "0,15,5,0,0,0,0"
+	#Defines the cost For the Wall
+	wallBulidingCosts = "10,15,32,2,3,0,0"
+	#Defines the cost For the Siege Workshop
+	siegeWorkshopBulidingCosts = "100,250,100,25,25,50,0"
+	#Defines the cost For the Research Center
+	researchCenterBulidingCosts = "100,250,100,25,25,25,0"
+	#Defines the cost For the barracks
+	barracksBulidingCosts = "44,70,38,29,11,0,0"
+
+#Sets the health of the various buildings. The health is evenly split between the target entities in the strcture.
+[structure_health]
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthMinesiteStone = 40
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthSiegeWorkshop = 160
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthArmory = 160
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthLumberYard = 40
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthArcheryRange = 160
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthFarm = 40
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthMinesiteDiamond = 40
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthBarracks = 80
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthMinesiteGold = 40
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthWallSteps = 400
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthWall = 400
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthMinesiteIron = 40
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthResearchCenter = 40
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthStables = 160
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthTownHall = 500
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthGate = 400
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthMinesiteEmerald = 40
+	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
+	#Range: 0 ~ 1024
+	buildingHealthWatchTower = 300
+
+#UNIT ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS : MAX_HEALTH,KNOCK_BACK_RESISTANCE, MOVEMENT_SPEED,ARMOR,ARMOR_TOUGHNESS,ATTACK_KNOCKBACK,ATTACKD_DAMAGE,FOLLOW_RANGE. They are comma separated list of floats Example : 20.0,0.0,0.25,2.0,0.0,0.0,3.0,35.0
+[unit_attributes]
+	#Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are 
+	unit_pikeman_attributes = "15.0,0.5,0.33,1.5,0.0,0.0,2.0,24.0"
+	#Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are 
+	unit_minion_attributes = "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0"
+	#Defines a comma separted list of values for each attribute in order for the ADVANCED KNIGHT. Atttributes are 
+	unit_advanced_knight_attributes = "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0"
+	#Defines a comma separted list of values for each attribute in order for the KNIGHT. Atttributes are 
+	unit_knight_attributes = "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0"
+	#Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are 
+	unit_archer_attributes = "10.0,0.0,0.30,2.0,0.0,0.0,3.0,24.0"
+	#Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are 
+	unit_mounted_attributes = "15.0,5.0,0.40,2.0,0.0,0.0,3.0,24.0"
+
