@@ -22,7 +22,7 @@
 	#Defines the cost For the trebuchet
 	trebuchetResearchCosts = "250,1000,200,100,100,100,0"
 	#Defines the cost For the armory
-	armoryResearchCosts = "250,100,0,500,50,50,0"
+	armoryResearchCosts = "500,800,250,200,100,0,0"
 	#Defines the cost For the advcedarmor
 	advcedarmorResearchCosts = "250,0,0,200,50,250,0"
 	#Defines the cost For the pikeman
@@ -34,7 +34,7 @@
 	#Defines the cost For the marketplace
 	marketplaceResearchCosts = "100,100,100,100,250,250,0"
 	#Defines the cost For the wall
-	wallResearchCosts = "300,100,750,100,50,100,0"
+	wallResearchCosts = "300,650,350,200,100,100,0"
 
 #resource generation
 [resource_generation]
@@ -104,15 +104,15 @@
 	#Defines the cost For the minesite Iron
 	minesiteIronBulidingCosts = "30,45,9,0,0,0,0"
 	#Defines the cost For the Watch Tower
-	watchTowerBulidingCosts = "30,250,75,25,40,0,0"
+	watchTowerBulidingCosts = "60,250,150,50,80,0,0"
 	#Defines the cost For the Gate
 	gateBulidingCosts = "10,15,32,2,3,0,0"
 	#Defines the cost For the lumber Yard
 	lumberYardBulidingCosts = "10,0,15,5,0,0,0"
 	#Defines the cost For the Wall Steps
-	wallStepsBulidingCosts = "10,15,32,2,3,0,0"
+	wallStepsBulidingCosts = "40,60,120,12,12,0,0"
 	#Defines the cost For the Archery Range
-	archeryRangeBulidingCosts = "44,100,46,36,17,0,0"
+	archeryRangeBulidingCosts = "160,450,160,150,80,0,0"
 	#Defines the cost For the minesite Emerald
 	minesiteEmeraldBulidingCosts = "600,5,2,3,2,0,0"
 	#Defines the cost For the minesite Stone
@@ -122,19 +122,19 @@
 	#Defines the cost For the minesite Diamond
 	minesiteDiamondBulidingCosts = "42,45,14,23,0,0,0"
 	#Defines the cost For the Stables
-	stablesBulidingCosts = "66,120,40,30,35,0,0"
+	stablesBulidingCosts = "240,500,120,120,140,0,0"
 	#Defines the cost For the Armory
-	stablesBulidingArmory = "100,250,100,100,50,0,0"
+	stablesBulidingArmory = "500,800,250,200,100,0,0"
 	#Defines the cost For the farm
 	farmBulidingCosts = "0,15,5,0,0,0,0"
 	#Defines the cost For the Wall
-	wallBulidingCosts = "10,15,32,2,3,0,0"
+	wallBulidingCosts = "40,60,120,12,12,0,0"
 	#Defines the cost For the Siege Workshop
 	siegeWorkshopBulidingCosts = "100,250,100,25,25,50,0"
 	#Defines the cost For the Research Center
 	researchCenterBulidingCosts = "100,250,100,25,25,25,0"
 	#Defines the cost For the barracks
-	barracksBulidingCosts = "44,70,38,29,11,0,0"
+	barracksBulidingCosts = "200,300,200,240,60,0,0"
 
 #Sets the health of the various buildings. The health is evenly split between the target entities in the strcture.
 [structure_health]
