@@ -108,6 +108,10 @@ public class MoveToOwnerSpecifiedLocation extends MoveToBlockGoal {
 				ue.ownerControlledDestination = null;
 
 			}
+
+			if (this.ue.isInWaterOrBubbleColumn() && this.ue.getRNG().nextFloat() < 0.8F) {
+				this.ue.getJumpController().setJumping();
+			}
 		}
 
 	}

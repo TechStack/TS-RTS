@@ -118,7 +118,7 @@ public class UnitEntity extends MonsterEntity {
 
 	public UnitEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
-
+		this.getNavigator().setCanSwim(true);
 	}
 
 	@Override
