@@ -8,6 +8,7 @@ import com.projectreddog.tsrts.blocks.BarracksBlock;
 import com.projectreddog.tsrts.blocks.FarmBlock;
 import com.projectreddog.tsrts.blocks.GateBlock;
 import com.projectreddog.tsrts.blocks.LumberYardBlock;
+import com.projectreddog.tsrts.blocks.MarketplaceBlock;
 import com.projectreddog.tsrts.blocks.MineSite;
 import com.projectreddog.tsrts.blocks.ResearchCenterBlock;
 import com.projectreddog.tsrts.blocks.SiegeWorkshopBlock;
@@ -24,6 +25,7 @@ import com.projectreddog.tsrts.tileentity.BarracksTileEntity;
 import com.projectreddog.tsrts.tileentity.FarmTileEntity;
 import com.projectreddog.tsrts.tileentity.GateTileEntity;
 import com.projectreddog.tsrts.tileentity.LumberYardTileEntity;
+import com.projectreddog.tsrts.tileentity.MarketplaceTileEntity;
 import com.projectreddog.tsrts.tileentity.MineSiteTileEntity;
 import com.projectreddog.tsrts.tileentity.ResearchCenterTileEntity;
 import com.projectreddog.tsrts.tileentity.SiegeWorkshopTileEntity;
@@ -69,6 +71,9 @@ public class ModBlocks {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TOWN_HALL_BLOCK)
 	public static TownHallBlock TOWN_HALL_BLOCK = new TownHallBlock();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MARKETPLACE_BLOCK)
+	public static MarketplaceBlock MARKETPLACE_BLOCK = new MarketplaceBlock();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WATCH_TOWER_BLOCK)
 	public static WatchTowerBlock WATCH_TOWER_BLOCK = new WatchTowerBlock();
@@ -137,6 +142,9 @@ public class ModBlocks {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_GATE_BLOCK)
 	public static TileEntityType<GateTileEntity> GATE_ENTITY_ENTITY_TYPE;
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MARKETPLACE_BLOCK)
+	public static TileEntityType<MarketplaceTileEntity> MARKETPLACE_ENTITY_TYPE;
+
 	public static void RegisterBlocks(final RegistryEvent.Register<Block> event) {
 		event.getRegistry().register(ModBlocks.BARRACKS_BLOCK);
 		event.getRegistry().register(ModBlocks.ARCHERY_RANGE_BLOCK);
@@ -160,6 +168,8 @@ public class ModBlocks {
 
 		event.getRegistry().register(ModBlocks.SIEGE_WORKSHOP_BLOCK);
 
+		event.getRegistry().register(ModBlocks.MARKETPLACE_BLOCK);
+
 	}
 
 	public static void RegisterBlockItems(final RegistryEvent.Register<Item> event) {
@@ -180,6 +190,8 @@ public class ModBlocks {
 
 		RegisterBlockItem(event, ModBlocks.ARMORY_BLOCK);
 		RegisterBlockItem(event, ModBlocks.SIEGE_WORKSHOP_BLOCK);
+
+		RegisterBlockItem(event, ModBlocks.MARKETPLACE_BLOCK);
 
 	}
 
@@ -214,6 +226,7 @@ public class ModBlocks {
 		RegisterTileEntity(event, ArmoryTileEntity::new, ModBlocks.ARMORY_BLOCK);
 
 		RegisterTileEntity(event, SiegeWorkshopTileEntity::new, ModBlocks.SIEGE_WORKSHOP_BLOCK);
+		RegisterTileEntity(event, MarketplaceTileEntity::new, ModBlocks.MARKETPLACE_BLOCK);
 
 	}
 

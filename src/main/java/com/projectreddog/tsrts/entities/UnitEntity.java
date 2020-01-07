@@ -64,21 +64,18 @@ public class UnitEntity extends MonsterEntity {
 	@Override
 	public boolean isGlowing() {
 		// TODO Auto-generated method stub
-		if (TSRTS.playerSelections.containsKey(ownerName)) {
-			for (int i = 0; i < TSRTS.playerSelections.get(ownerName).selectedUnits.size(); i++) {
-				if (TSRTS.playerSelections.get(ownerName).selectedUnits != null) {
+		if (this.world.isRemote) {
+			// client code
 
-					try {
-						if (TSRTS.playerSelections.get(ownerName).selectedUnits.get(i) == this.getEntityId()) {
-							return true;
-						}
-					} catch (Exception e) {
-						// Its possible for the user to UNselect the untis at the same time we are trying to process the list(diff threads)
-						// if this should happen just ignore as they are no longer selected now anyway.
+			if (TSRTS.playerSelections.containsKey(ownerName)) {
+
+				if (TSRTS.playerSelections.get(ownerName).selectedUnits != null) {
+					if (TSRTS.playerSelections.get(ownerName).selectedUnits.contains(getEntityId())) {
+						return true;
 					}
 				}
-			}
 
+			}
 		}
 		return false;
 	}
@@ -86,7 +83,7 @@ public class UnitEntity extends MonsterEntity {
 	@Override
 	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vec3d vec, Hand hand) {
 		if (!player.world.isRemote) {
-			if (player.getScoreboardName().equals(ownerName)) {
+			if (player.getTeam().isSameTeam(getTeam())) {
 				if (!player.isSneaking()) {
 					Utilities.serverSelectUnit(player, player.getScoreboardName(), this.getEntityId());
 				} else {
@@ -118,7 +115,7 @@ public class UnitEntity extends MonsterEntity {
 
 	public UnitEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
-
+		this.getNavigator().setCanSwim(true);
 	}
 
 	@Override
