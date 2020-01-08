@@ -21,6 +21,7 @@
 "_comment":"Feedback messages here",
 "message.attackingbuildingsasplayerdisabled":"Attacking enemy Buildings as a player is disabled on this server use your Troops!",
 "message.cannotrebuy":"Not enough resources. Unable to rebuy the troop.",
+"message.placetownhallfirst":"You need to place down a town hall first!",
 
 "resourcevalues.food.name":"Food",
 "resourcevalues.wood.name":"Wood",

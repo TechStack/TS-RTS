@@ -127,7 +127,15 @@ public class Utilities {
 				NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new LobbyContinerProvider());
 
 			} else if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.RUNNINNG) {
-				NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new EcoBuildingsContinerProvider());
+
+				if (TSRTS.hasPlayerPlacedTownHall.containsKey(player.getScoreboardName()) && TSRTS.hasPlayerPlacedTownHall.get(player.getScoreboardName())) {
+
+					// only open menu if they have placed a townhall !
+					NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) new EcoBuildingsContinerProvider());
+
+				} else {
+					player.sendMessage(new TranslationTextComponent("message.placetownhallfirst"));
+				}
 			}
 			break;
 		default:

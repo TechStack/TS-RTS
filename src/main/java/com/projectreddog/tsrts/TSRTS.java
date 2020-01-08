@@ -66,6 +66,7 @@ public class TSRTS {
 
 	public static TeamInfo[] teamInfoArray = new TeamInfo[TeamEnum.values().length];
 	public static HashMap<String, Boolean> isPlayerReadyArray = new HashMap<>();
+	public static HashMap<String, Boolean> hasPlayerPlacedTownHall = new HashMap<>();
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
 	public static HashMap<BlockPos, MapStructureData> Structures = new HashMap<BlockPos, MapStructureData>();
