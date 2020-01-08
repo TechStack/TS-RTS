@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.TSRTS.GAMESTATE;
@@ -22,6 +23,7 @@ import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 import com.projectreddog.tsrts.utilities.Utilities;
 import com.projectreddog.tsrts.utilities.data.MapStructureData;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.server.MinecraftServer;
@@ -55,7 +57,9 @@ public class ServerEvents {
 	private static int wavertsTicksScienceLastSpawn = 0;
 	private static boolean waveSurvivalSetupComplete = false;
 	private static int wavertsWaveCount = 0;
+	private static int timeTillServerStop = 6;
 
+	private static boolean countDownToStopStarted = false;
 	public static ScorePlayerTeam WAVE_SURVIVAL_TEAM = null;
 
 	public static void onWaveSruvivalTick() {
@@ -160,7 +164,8 @@ public class ServerEvents {
 				if (Config.CONFIG_GAME_MODE.get() == Modes.WAVESURVIVAL) {
 					onWaveSruvivalTick();
 				}
-
+				int countTeamsRemaining = 0;
+				String teamAlive = "";
 				for (int i = 0; i < TSRTS.teamInfoArray.length; i++) {
 
 					int foodDelta = 0;
@@ -182,9 +187,24 @@ public class ServerEvents {
 
 						SetTeamToSpectator(server.getWorld(DimensionType.OVERWORLD), TeamEnum.values()[i].getName());
 						WriteGameEvent("TEAM-OUT", TeamEnum.values()[i].getName(), "");
+						Utilities.SendMessageToEveryoneNoToast(server.getWorld(DimensionType.OVERWORLD), "message.teamout." + TeamEnum.values()[i].getName());
+						/// KILL ENTITIES
+						ServerWorld serverWorld = server.getWorld(DimensionType.OVERWORLD);
+						ScorePlayerTeam team = serverWorld.getScoreboard().getTeam(TeamEnum.values()[i].getName());
+						Predicate<Entity> p = e -> e.getTeam() != null && e.getTeam().isSameTeam(team) && !(e instanceof PlayerEntity);
+						List<Entity> entitesToKill = serverWorld.getEntities(null, p);
+						for (Entity entity : entitesToKill) {
+							entity.onKillCommand();
+						}
+						// END KILL ENTITTES
 
 						// reset it to false becuase they are out now and we dont want to re-set them over and over.
 						hasPlacedTownHall[i] = false;
+					}
+
+					if (hasPlacedTownHall[i]) {
+						countTeamsRemaining++;
+						teamAlive = TeamEnum.values()[i].getName();
 					}
 
 					foodDelta = foodDelta + (TSRTS.teamInfoArray[i].getTownHalls() * Config.CONFIG_TOWN_HALL_GENERATE.getFOOD());
@@ -242,10 +262,28 @@ public class ServerEvents {
 					WriteBuildingStats(TeamEnum.values()[i].getName(), TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())]);
 					WriteUnitStats(TeamEnum.values()[i].getName(), TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())]);
 				}
-
+				//
+				if (countTeamsRemaining == 1 && Utilities.getTeamWithPlayerCount() > 1 && !countDownToStopStarted) {
+					// only one team left with a town hall & and more than one team was playing now start the end game procedures !
+					Utilities.SendMessageToEveryoneNoToast(server.getWorld(DimensionType.OVERWORLD), "message.teamwin." + teamAlive);
+					SetTeamToSpectator(server.getWorld(DimensionType.OVERWORLD), teamAlive);
+					countDownToStopStarted = true;
+				}
+				if (countDownToStopStarted && Config.CONFIG_STOP_SERVER_AFTER_GAME.get()) {
+					timeTillServerStop--;
+					if (timeTillServerStop <= 1) {
+						Utilities.SendMessageToEveryoneNoToast(server.getWorld(DimensionType.OVERWORLD), "message.serverstoppingsoon");
+					}
+					if (timeTillServerStop <= 0) {
+						Utilities.SendMessageToEveryoneNoToast(server.getWorld(DimensionType.OVERWORLD), "message.serverstopping");
+						server.initiateShutdown(false);
+					}
+				}
 			}
 
-			for (int i = 0; i < TeamEnum.values().length; i++) {
+			for (
+
+					int i = 0; i < TeamEnum.values().length; i++) {
 				if (TSRTS.TeamQueues[i].hasChanged) {
 					ModNetwork.SendToALLPlayers(new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), TSRTS.TeamQueues[i].getSiegeWorkshop(), TSRTS.TeamQueues[i].isInfinateBarracksQueue(), TSRTS.TeamQueues[i].isInfinateArcheryRangeQueue(), TSRTS.TeamQueues[i].isInfinateStablesQueue(), TSRTS.TeamQueues[i].isInfinateSiegeWorkshopQueue(), i));
 
@@ -254,6 +292,7 @@ public class ServerEvents {
 			}
 
 		}
+
 	}
 
 	public static void WriteGameEvent(String EventName, String teamName, String Player) {

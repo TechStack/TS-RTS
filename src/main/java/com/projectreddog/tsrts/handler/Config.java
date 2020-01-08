@@ -229,6 +229,7 @@ public class Config {
 	// OPTIONS
 	public static ForgeConfigSpec.BooleanValue CONFIG_PLAYERS_CAN_ATTACK_BUILDINGS;
 	public static ForgeConfigSpec.IntValue CONFIG_SERVER_MAX_POPULATION;
+	public static ForgeConfigSpec.BooleanValue CONFIG_STOP_SERVER_AFTER_GAME;
 
 	static {
 
@@ -250,7 +251,7 @@ public class Config {
 		COMMON_BUILDER.comment("Options").push(CATEGORY_OPTIONS);
 
 		CONFIG_PLAYERS_CAN_ATTACK_BUILDINGS = COMMON_BUILDER.comment("Sets if players can attack buildings or not directly. if FALSE they must use troops to attack buildings").define("canPlayersAttackBulidings", false);
-
+		CONFIG_STOP_SERVER_AFTER_GAME = COMMON_BUILDER.comment("Usefull to rest the world if your server is set with an auto restart script").define("stopServerAfterGame", true);
 		CONFIG_SERVER_MAX_POPULATION = COMMON_BUILDER.comment("Sets total population cap for the server. Will be divided by the total number of teams in the game to set a team population limit/cap. This is intended to help with lag by putting a maximum upper bound on the number fo troops in the world").defineInRange("serverMaxTroop", 1200, 0, 10000);
 		COMMON_BUILDER.pop();
 

@@ -22,6 +22,17 @@
 "message.attackingbuildingsasplayerdisabled":"Attacking enemy Buildings as a player is disabled on this server use your Troops!",
 "message.cannotrebuy":"Not enough resources. Unable to rebuy the troop.",
 "message.placetownhallfirst":"You need to place down a town hall first!",
+"message.teamout.red":"Red team has lost!",
+"message.teamout.green":"Green team has lost!",
+"message.teamout.blue":"Blue team has lost!",
+"message.teamout.yellow":"Yellow team has lost!",
+"message.teamwin.red":"Red Wins!",
+"message.teamwin.green":"Green Wins!",
+"message.teamwin.yellow":"Yellow Wins!",
+"message.teamwin.blue":"Blue Wins!",
+"message.serverstoppingsoon":"The server will restart soon!",
+"message.serverstopping":"Stopping the server.",
+
 
 "resourcevalues.food.name":"Food",
 "resourcevalues.wood.name":"Wood",
