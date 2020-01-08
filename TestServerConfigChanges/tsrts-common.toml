@@ -45,7 +45,7 @@
 	townHallGenerates = "5,5,5,5,1,1,0"
 	#Defines the amount of food collected per farm
 	#Range: 0 ~ 1024
-	foodGeneration = 5
+	foodGeneration = 4
 	#Defines the amount of iron collected per iron Mine
 	#Range: 0 ~ 1024
 	ironGeneration = 4
@@ -57,7 +57,7 @@
 	stoneGeneration = 4
 	#Defines the amount of wood collected per lumber yard
 	#Range: 0 ~ 1024
-	woodGeneration = 7
+	woodGeneration = 4
 	#Defines the amount of diamond collected per diamond Mine
 	#Range: 0 ~ 1024
 	diamondGeneration = 2
