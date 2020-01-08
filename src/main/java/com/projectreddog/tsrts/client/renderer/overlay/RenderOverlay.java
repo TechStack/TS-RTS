@@ -76,7 +76,7 @@ public class RenderOverlay extends Screen {
 	private ResourceLocation STABLES_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/stablesblock_yellow_top.png");
 	private ResourceLocation SIEGE_WORKSHOP_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/siegeworkshopblock_yellow_top.png");
 
-	private ResourceLocation POP_CAP_ICON = new ResourceLocation(Reference.MODID, "textures/gui/overlay/popcapicon.png");
+	// private ResourceLocation POP_CAP_ICON = new ResourceLocation(Reference.MODID, "textures/gui/overlay/popcapicon.png");
 
 	private ResourceLocation BARRACKS_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/barracksblock_yellow_top.png");
 
@@ -134,8 +134,7 @@ public class RenderOverlay extends Screen {
 							int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(popCapText);
 							Minecraft.getInstance().fontRenderer.drawStringWithShadow(popCapText, x, y + ytextOffset, 14737632);
 
-							Minecraft.getInstance().textureManager.bindTexture(POP_CAP_ICON);
-							ClientUtilities.renderTexture(x + textWidth + 4, 4, 16, 16);
+							Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, new ItemStack(Items.PLAYER_HEAD), x + textWidth + 4, 4);
 
 							if (ti != null && ti.getCurrenResearchKey() != null && !ti.getCurrenResearchKey().equals("")) {
 
@@ -212,8 +211,7 @@ public class RenderOverlay extends Screen {
 					int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(popCapText);
 					Minecraft.getInstance().fontRenderer.drawStringWithShadow(popCapText, x, y + ytextOffset, 14737632);
 
-					Minecraft.getInstance().textureManager.bindTexture(POP_CAP_ICON);
-					ClientUtilities.renderTexture(x + textWidth + 4, y, 16, 16);
+					Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, new ItemStack(Items.PLAYER_HEAD), x + textWidth + 4, y);
 
 				}
 				GL11.glPopMatrix();
