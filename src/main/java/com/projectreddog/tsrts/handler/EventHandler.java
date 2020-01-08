@@ -146,9 +146,9 @@ public class EventHandler {
 						}
 
 						octe.setHealth(octe.getHealth() - damageAmount);
-						TSRTS.LOGGER.info("DAMAGE :" + damageAmount);
+						// TSRTS.LOGGER.info("DAMAGE :" + damageAmount);
 
-						TSRTS.LOGGER.info("remaining health : " + octe.getHealth());
+						// TSRTS.LOGGER.info("remaining health : " + octe.getHealth());
 
 					}
 				}

@@ -487,7 +487,7 @@ public class Utilities {
 			break;
 		case Reference.GUI_BUTTON_LOBBY_READY:
 			Utilities.setPlayerReady(player, !Utilities.getPlayerReady(player));
-			TSRTS.LOGGER.info("Lobby Button: READY:" + Utilities.getPlayerReady(player));
+			// TSRTS.LOGGER.info("Lobby Button: READY:" + Utilities.getPlayerReady(player));
 
 			break;
 		case Reference.GUI_BUTTON_LOBBY_START:
@@ -910,7 +910,7 @@ public class Utilities {
 	public static void serverDeSelectUnit(PlayerEntity player, String playerScoreboardname, int entityId) {
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			if (TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.contains(entityId)) {
-				TSRTS.LOGGER.info("DE-Select");
+				// TSRTS.LOGGER.info("DE-Select");
 				final Iterator<Integer> it = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.iterator();
 				while (it.hasNext()) {
 					int currentID = it.next();
@@ -935,7 +935,7 @@ public class Utilities {
 
 			} else {
 
-				TSRTS.LOGGER.info("Select");
+				// TSRTS.LOGGER.info("Select");
 				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityId);
 				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
 				for (int i = 0; i < tmpids.length; i++) {
@@ -952,7 +952,7 @@ public class Utilities {
 	}
 
 	public static void ServerControlGroupToSelectedUnits(ServerPlayerEntity player, String playerScoreboardname, int[] entityIds) {
-		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in ServerControlGroupToSelectedUnits for " + player.getName() + entityIds.toString());
+		// TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in ServerControlGroupToSelectedUnits for " + player.getName() + entityIds.toString());
 
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.clear();
@@ -967,7 +967,7 @@ public class Utilities {
 	}
 
 	public static void clientControlGroupToSelectedUnits(String playerScoreboardname, int controlGroupNumber) {
-		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in clientControlGroupToSelectedUnits for " + playerScoreboardname + " group " + controlGroupNumber);
+		// TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in clientControlGroupToSelectedUnits for " + playerScoreboardname + " group " + controlGroupNumber);
 		switch (controlGroupNumber) {
 		case 1:
 			if (TSRTS.playerSelectionsControlGroup1 != null) {
@@ -1060,7 +1060,7 @@ public class Utilities {
 	}
 
 	public static void clientSelectedUnitsToControlGroup(String playerScoreboardname, int controlGroupNumber) {
-		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in client selected units to control group for " + playerScoreboardname + " group " + controlGroupNumber);
+		// TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in client selected units to control group for " + playerScoreboardname + " group " + controlGroupNumber);
 		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
 			// already selected if we wanted this to be a toggle this is where we edit it be removed
 
@@ -1149,7 +1149,7 @@ public class Utilities {
 	public static boolean SpendResourcesFromTeam(String teamName, TeamInfo.Resources res, int amt) {
 
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].SpendResource(res, amt);
-		TSRTS.LOGGER.info("TEAM: " + teamName + " spent (RES ORD): " + res.ordinal() + " for amount: " + amt);
+		// TSRTS.LOGGER.info("TEAM: " + teamName + " spent (RES ORD): " + res.ordinal() + " for amount: " + amt);
 		return true;
 
 	}
@@ -1208,7 +1208,7 @@ public class Utilities {
 
 	public static List<BlockPos> SetFormationPoint(World world, BlockPos bp, int size, Direction direction) {
 		List<BlockPos> lbp = new ArrayList<BlockPos>();
-		TSRTS.LOGGER.info("size = :" + size);
+		// TSRTS.LOGGER.info("size = :" + size);
 		if (size == 0) {
 			return null;
 		}
@@ -1696,7 +1696,7 @@ public class Utilities {
 			if (octe != null) {
 				octe.setHealth(health);
 
-				TSRTS.LOGGER.info("Health set to :" + health);
+				// TSRTS.LOGGER.info("Health set to :" + health);
 			}
 		}
 
@@ -1827,7 +1827,7 @@ public class Utilities {
 				if (octe != null) {
 					octe.setHealth(health);
 
-					TSRTS.LOGGER.info("Health set to :" + health);
+					// TSRTS.LOGGER.info("Health set to :" + health);
 				}
 
 			}

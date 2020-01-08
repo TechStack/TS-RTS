@@ -98,7 +98,7 @@ public class TESetRallyPointToServer {
 									}
 								}
 							} else {
-								TSRTS.LOGGER.info("distance to great not setting this rally point");
+								// TSRTS.LOGGER.info("distance to great not setting this rally point");
 							}
 						}
 					}

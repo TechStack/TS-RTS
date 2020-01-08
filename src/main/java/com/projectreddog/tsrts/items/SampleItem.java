@@ -37,7 +37,7 @@ public class SampleItem extends Item {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		if (entityraytraceresult != null) {
 			// found entity so attack it if possible !
-			TSRTS.LOGGER.info("Hit entity:" + entityraytraceresult.getEntity().getName());
+			// TSRTS.LOGGER.info("Hit entity:" + entityraytraceresult.getEntity().getName());
 			if (entityraytraceresult.getEntity() instanceof LivingEntity) {
 				LivingEntity le = (LivingEntity) entityraytraceresult.getEntity();
 

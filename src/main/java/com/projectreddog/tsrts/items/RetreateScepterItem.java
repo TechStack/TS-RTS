@@ -1,6 +1,5 @@
 package com.projectreddog.tsrts.items;
 
-import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -50,7 +49,7 @@ public class RetreateScepterItem extends Item {
 						BlockRayTraceResult brtr = (BlockRayTraceResult) rtr;
 
 						if (!worldIn.isRemote) {
-							TSRTS.LOGGER.info("Block HIT at:" + brtr.getPos());
+							// TSRTS.LOGGER.info("Block HIT at:" + brtr.getPos());
 							if (playerIn.isSneaking()) {
 								Utilities.SelectedUnitsMoveToBlock(worldIn, brtr.getPos(), playerIn.getScoreboardName(), playerIn, true, true);
 							} else {
