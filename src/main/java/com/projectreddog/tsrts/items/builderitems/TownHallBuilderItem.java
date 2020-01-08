@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.items.builderitems;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
@@ -88,6 +89,8 @@ public class TownHallBuilderItem extends BuilderItem {
 	@Override
 	public void ActionAfterSpawn(World world, PlayerEntity player, BlockPos bp) {
 		player.setSpawnPoint(bp, true, player.dimension);
+
+		TSRTS.hasPlayerPlacedTownHall.put(player.getScoreboardName(), true);
 	}
 
 	@Override

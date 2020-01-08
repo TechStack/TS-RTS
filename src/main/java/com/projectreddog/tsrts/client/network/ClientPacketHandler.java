@@ -51,7 +51,7 @@ public class ClientPacketHandler {
 	}
 
 	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount, int teamPopulationCap, int unitCountMinion, int unitCountArcher, int unitCountLancer, int unitCountPikeman, int unitCountTrebuchet, int unitCountKnight, int unitCountAdvancedKnight) {
-		TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
+		// TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
 		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] = new TeamInfo();
@@ -88,7 +88,7 @@ public class ClientPacketHandler {
 	}
 
 	public static void PlayerSelectionChangedPacketToClient(int[] entityIds) {
-		TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in PlayerSelectionChangedPacketToClient( handler)  for " + entityIds.toString());
+		// TSRTS.LOGGER.info("CONTROLGROUPBUG:" + "in PlayerSelectionChangedPacketToClient( handler) for " + entityIds.toString());
 
 		if (Minecraft.getInstance() != null && Minecraft.getInstance().player != null) {
 			String playerScoreboardName = Minecraft.getInstance().player.getScoreboardName();
@@ -106,7 +106,7 @@ public class ClientPacketHandler {
 	public static void PlayerReadyUpPacketToClient(int playerEntityID, Boolean isReady) {
 		World world = Minecraft.getInstance().player.world;
 		Entity e = world.getEntityByID(playerEntityID);
-		TSRTS.LOGGER.info("READY UP PACKET CLIENT: " + isReady);
+		// TSRTS.LOGGER.info("READY UP PACKET CLIENT: " + isReady);
 
 		if (e instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) e;
