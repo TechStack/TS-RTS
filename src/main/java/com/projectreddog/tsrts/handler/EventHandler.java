@@ -40,6 +40,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.Arrow;
@@ -56,6 +57,17 @@ public class EventHandler {
 		if (event.getEntity() instanceof PlayerEntity && !event.getWorld().isRemote) {
 			// player and server !
 			PlayerEntity pe = (PlayerEntity) event.getEntity();
+			if (TSRTS.CURRENT_GAME_STATE == GAMESTATE.RUNNINNG) {
+				// game in progress check if they are on a team.
+				// if they are not kick them out to spectator
+
+				if (pe.getTeam() == null) {
+					// player not on a team
+					pe.setGameType(GameType.SPECTATOR);
+				}
+
+			}
+
 			if (!TSRTS.playerSelections.containsKey(pe.getScoreboardName())) {
 				TSRTS.playerSelections.put(pe.getScoreboardName(), new PlayerSelections());
 				Utilities.SendTeamToClient("red");
