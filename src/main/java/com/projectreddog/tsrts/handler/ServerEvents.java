@@ -181,7 +181,7 @@ public class ServerEvents {
 						// this team is now "OUT"!
 
 						SetTeamToSpectator(server.getWorld(DimensionType.OVERWORLD), TeamEnum.values()[i].getName());
-						WriteGameEvent("TEAM-OUT", TeamEnum.values()[i].getName());
+						WriteGameEvent("TEAM-OUT", TeamEnum.values()[i].getName(), "");
 
 						// reset it to false becuase they are out now and we dont want to re-set them over and over.
 						hasPlacedTownHall[i] = false;
@@ -256,12 +256,12 @@ public class ServerEvents {
 		}
 	}
 
-	public static void WriteGameEvent(String EventName, String teamName) {
+	public static void WriteGameEvent(String EventName, String teamName, String Player) {
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		String timeStamp = dtf.format(now);
-		TSRTS.LOGGER.info("GAME-EVENT:," + timeStamp + "," + EventName + "," + teamName);
+		TSRTS.LOGGER.info("GAME-EVENT:," + timeStamp + "," + EventName + "," + teamName + "," + Player);
 
 	}
 

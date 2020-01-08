@@ -543,7 +543,9 @@ public class Utilities {
 		// change the gamemode
 		// TODO later this should be the count down !
 		TSRTS.CURRENT_GAME_STATE = GAMESTATE.RUNNINNG;
-
+		if (!world.isRemote) {
+			ServerEvents.WriteGameEvent("GAME-START", "", "");
+		}
 		// give players items
 		List<? extends PlayerEntity> players = world.getPlayers();
 		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
@@ -557,6 +559,10 @@ public class Utilities {
 				String teamName = playerEntity.getTeam().getName();
 				int teamIndex = TeamEnum.getIDFromName(teamName);
 				TSRTS.teamInfoArray[teamIndex].setTeamPlayerCount(TSRTS.teamInfoArray[teamIndex].getTeamPlayerCount() + 1);
+
+				if (!world.isRemote) {
+					ServerEvents.WriteGameEvent("TEAM-PLAYER", teamName, playerEntity.getScoreboardName());
+				}
 			}
 		}
 
