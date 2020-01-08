@@ -18,6 +18,7 @@ import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
+import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
@@ -69,6 +70,11 @@ public class EventHandler {
 			Utilities.SendResearchStatusToClient((ServerPlayerEntity) pe);
 			// TODO: also send the client the cost of everything so it can ignore its local configs.
 			Utilities.SendCostsToClient((ServerPlayerEntity) pe);
+
+			// send team queues to players to "Clear" them
+			for (int i = 0; i < TeamEnum.values().length; i++) {
+				ModNetwork.SendToPlayer((ServerPlayerEntity) pe, new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), TSRTS.TeamQueues[i].getSiegeWorkshop(), TSRTS.TeamQueues[i].isInfinateBarracksQueue(), TSRTS.TeamQueues[i].isInfinateArcheryRangeQueue(), TSRTS.TeamQueues[i].isInfinateStablesQueue(), TSRTS.TeamQueues[i].isInfinateSiegeWorkshopQueue(), i));
+			}
 
 			if (TSRTS.CURRENT_GAME_STATE != GAMESTATE.RUNNINNG) {
 				if (Config.CONFIG_GAME_MODE.get() == Modes.WAVESURVIVAL) {
