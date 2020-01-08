@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.init.ModResearch;
@@ -147,7 +148,7 @@ public class ServerEvents {
 	@SubscribeEvent
 	public static void onServerTickEvent(final ServerTickEvent event) {
 
-		if (event.phase == Phase.END) {
+		if (event.phase == Phase.END && TSRTS.CURRENT_GAME_STATE == GAMESTATE.RUNNINNG) {
 
 			coolDownAmountRemaining--;
 
