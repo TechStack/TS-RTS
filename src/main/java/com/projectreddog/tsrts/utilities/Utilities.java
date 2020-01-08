@@ -593,7 +593,7 @@ public class Utilities {
 		}
 	}
 
-	private static int getTeamWithPlayerCount() {
+	public static int getTeamWithPlayerCount() {
 
 		int teamCount = 0;
 		for (int i = 0; i < TSRTS.teamInfoArray.length; i++) {
@@ -2121,6 +2121,14 @@ public class Utilities {
 
 	public static void SendMessageToTeam(World world, String team, String LangLookup) {
 		SendMessageToTeam(world, team, LangLookup, true);
+	}
+
+	public static void SendMessageToEveryoneNoToast(World world, String LangLookup) {
+		List<? extends PlayerEntity> players = world.getPlayers();
+		for (Iterator iterator = players.iterator(); iterator.hasNext();) {
+			PlayerEntity playerEntity = (PlayerEntity) iterator.next();
+			playerEntity.sendMessage(new TranslationTextComponent(LangLookup));
+		}
 	}
 
 	public static void SendMessageToTeam(World world, String team, String LangLookup, boolean sendToast) {
