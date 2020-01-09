@@ -129,17 +129,17 @@ public class RenderOverlay extends Screen {
 									x = x + xTextWidth;
 								}
 							}
+							if (ti != null) {
+								String popCapText = "" + ti.getCurrentPopulation() + " / " + ti.getTeamPopulationCap();
+								int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(popCapText);
+								Minecraft.getInstance().fontRenderer.drawStringWithShadow(popCapText, x, y + ytextOffset, 14737632);
 
-							String popCapText = "" + ti.getCurrentPopulation() + " / " + ti.getTeamPopulationCap();
-							int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(popCapText);
-							Minecraft.getInstance().fontRenderer.drawStringWithShadow(popCapText, x, y + ytextOffset, 14737632);
-
-							Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, new ItemStack(Items.PLAYER_HEAD), x + textWidth + 4, 4);
-
+								Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, new ItemStack(Items.PLAYER_HEAD), x + textWidth + 4, 4);
+							}
 							if (ti != null && ti.getCurrenResearchKey() != null && !ti.getCurrenResearchKey().equals("")) {
 
 								String text = new TranslationTextComponent(ModResearch.getResearch(ti.getCurrenResearchKey()).getNameTranslationKey()).getUnformattedComponentText();
-								textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(text);
+								int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(text);
 								Minecraft.getInstance().fontRenderer.drawStringWithShadow(text, event.getWindow().getScaledWidth() * 2 - textWidth - 10, event.getWindow().getScaledHeight() * 2 - 50, 14737632);
 								int divisor = ti.getFullResearchWorkRemaining();
 								if (divisor > 0) {
