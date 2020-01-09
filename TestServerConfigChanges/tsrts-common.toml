@@ -65,9 +65,9 @@
 #Weapon ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS ATTACK_DAMAGE_MODIFIER, ATTACK_SPEED_MODIFIER: . They are comma separated list of floats Example : 8,-2.9
 [weapon_modifier_attributes]
 	#Defines a comma separted list of values for each attribute modifier in order for the pike
-	pike_attribute_modifier = "7,0"
+	pike_attribute_modifier = "6,0"
 	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
-	lance_attribute_modifier = "8,-2.9"
+	lance_attribute_modifier = "7,-2.9"
 
 #Options
 [options]
@@ -80,7 +80,7 @@
 #Unit Costs
 [unit_cost]
 	#Defines the cost For the archer
-	unitCostsArcher = "5,6,2,4,4,0,0"
+	unitCostsArcher = "6,6,2,4,4,0,0"
 	#Defines the cost For the Advanced Knight
 	unitCostsAdvancedKnight = "6,4,4,10,10,10,0"
 	#Defines the cost For the trebuchet
@@ -88,11 +88,11 @@
 	#Defines the cost For the lancer
 	unitCostsLancer = "10,6,0,1,6,0,0"
 	#Defines the cost For the minion
-	unitCostsMinion = "6,4,4,4,0,0,0"
+	unitCostsMinion = "5,4,4,4,0,0,0"
 	#Defines the cost For the knight
 	unitCostsKnight = "6,4,4,10,10,0,0"
 	#Defines the cost For the pikeman
-	unitCostsPikeman = "5,6,0,2,5,0,0"
+	unitCostsPikeman = "8,8,0,8,8,0,0"
 
 #Starting resources
 [startup_resources]

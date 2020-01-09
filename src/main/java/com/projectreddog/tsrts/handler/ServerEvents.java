@@ -263,12 +263,12 @@ public class ServerEvents {
 					WriteUnitStats(TeamEnum.values()[i].getName(), TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())]);
 				}
 				//
-				if (countTeamsRemaining == 1 && Utilities.getTeamWithPlayerCount() > 1 && !countDownToStopStarted) {
-					// only one team left with a town hall & and more than one team was playing now start the end game procedures !
-					Utilities.SendMessageToEveryoneNoToast(server.getWorld(DimensionType.OVERWORLD), "message.teamwin." + teamAlive);
-					SetTeamToSpectator(server.getWorld(DimensionType.OVERWORLD), teamAlive);
-					countDownToStopStarted = true;
-				}
+//				if (countTeamsRemaining == 1 && Utilities.getTeamWithPlayerCount() > 1 && !countDownToStopStarted) {
+//					// only one team left with a town hall & and more than one team was playing now start the end game procedures !
+//					Utilities.SendMessageToEveryoneNoToast(server.getWorld(DimensionType.OVERWORLD), "message.teamwin." + teamAlive);
+//					SetTeamToSpectator(server.getWorld(DimensionType.OVERWORLD), teamAlive);
+//					countDownToStopStarted = true;
+//				}
 				if (countDownToStopStarted && Config.CONFIG_STOP_SERVER_AFTER_GAME.get()) {
 					timeTillServerStop--;
 					if (timeTillServerStop <= 1) {
