@@ -1,0 +1,9 @@
+This directory will hold all images used in the wiki and documentation.
+
+All images should be labeled first with the page/section they belong to, and then a sequential number.
+PNG format is preferred.
+
+Examples could include:
+   troops_0.png
+   stables_2.png
+   combat_10.png
