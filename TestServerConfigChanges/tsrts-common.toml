@@ -14,7 +14,7 @@
 	#Defines the cost For the townhall
 	townhallResearchCosts = "0,0,0,0,0,0,0"
 	#Defines the cost For the watchtower
-	watchtowerResearchCosts = "300,400,650,50,50,250,0"
+	watchtowerResearchCosts = "300,500,800,100,100,250"
 	#Defines the cost For the siegeworkshop
 	siegeworkshopResearchCosts = "250,500,100,100,50,50,0"
 	#Defines the cost For the batteringrams
@@ -104,7 +104,7 @@
 	#Defines the cost For the minesite Iron
 	minesiteIronBulidingCosts = "30,45,9,0,0,0,0"
 	#Defines the cost For the Watch Tower
-	watchTowerBulidingCosts = "60,250,150,50,80,0,0"
+	watchTowerBulidingCosts = "200,350,400,150,100,0,0"
 	#Defines the cost For the Gate
 	gateBulidingCosts = "10,15,32,2,3,0,0"
 	#Defines the cost For the lumber Yard
