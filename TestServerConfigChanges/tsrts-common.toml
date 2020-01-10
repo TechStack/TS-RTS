@@ -14,7 +14,7 @@
 	#Defines the cost For the townhall
 	townhallResearchCosts = "0,0,0,0,0,0,0"
 	#Defines the cost For the watchtower
-	watchtowerResearchCosts = "300,500,800,100,100,250"
+	watchtowerResearchCosts = "300,500,800,100,100,250,0"
 	#Defines the cost For the siegeworkshop
 	siegeworkshopResearchCosts = "250,500,100,100,50,50,0"
 	#Defines the cost For the batteringrams
