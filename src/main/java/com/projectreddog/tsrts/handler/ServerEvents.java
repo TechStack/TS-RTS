@@ -59,6 +59,12 @@ public class ServerEvents {
 	private static int wavertsWaveCount = 0;
 	private static int timeTillServerStop = 6;
 
+	private static TeamState[] teamState = { TeamState.NOTPLAYING, TeamState.NOTPLAYING, TeamState.NOTPLAYING, TeamState.NOTPLAYING };
+
+	private enum TeamState {
+		NOTPLAYING, PLAYING, LOST, WINNER
+	};
+
 	private static boolean countDownToStopStarted = false;
 	public static ScorePlayerTeam WAVE_SURVIVAL_TEAM = null;
 
@@ -176,6 +182,13 @@ public class ServerEvents {
 					int diamondDelta = 0;
 					int emeraldDelta = 0;
 
+					if (teamState[i] != TeamState.NOTPLAYING) {
+						if (TSRTS.teamInfoArray[i].getTeamPlayerCount() > 0) {
+							teamState[i] = TeamState.PLAYING;
+						}
+
+					}
+
 					if (!hasPlacedTownHall[i] && TSRTS.teamInfoArray[i].getTownHalls() > 0) {
 
 						// player placed a town hall on this team !
@@ -200,6 +213,9 @@ public class ServerEvents {
 
 						// reset it to false becuase they are out now and we dont want to re-set them over and over.
 						hasPlacedTownHall[i] = false;
+
+						teamState[i] = TeamState.LOST;
+
 					}
 
 					if (hasPlacedTownHall[i]) {
@@ -262,13 +278,24 @@ public class ServerEvents {
 					WriteBuildingStats(TeamEnum.values()[i].getName(), TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())]);
 					WriteUnitStats(TeamEnum.values()[i].getName(), TSRTS.teamInfoArray[TeamEnum.getIDFromName(TeamEnum.values()[i].getName())]);
 				}
-				//
-//				if (countTeamsRemaining == 1 && Utilities.getTeamWithPlayerCount() > 1 && !countDownToStopStarted) {
-//					// only one team left with a town hall & and more than one team was playing now start the end game procedures !
-//					Utilities.SendMessageToEveryoneNoToast(server.getWorld(DimensionType.OVERWORLD), "message.teamwin." + teamAlive);
-//					SetTeamToSpectator(server.getWorld(DimensionType.OVERWORLD), teamAlive);
-//					countDownToStopStarted = true;
-//				}
+
+				int teamsPlaying = 0;
+				int teamsLost = 0;
+				for (int j = 0; j < teamState.length; j++) {
+					if (teamState[j] == TeamState.LOST) {
+						teamsLost++;
+					}
+					if (teamState[j] == TeamState.PLAYING) {
+						teamsPlaying++;
+					}
+				}
+
+				if (teamsLost > 0 && teamsPlaying == 1 && !countDownToStopStarted) {
+					// only one team left with a town hall & and more than one team was playing now start the end game procedures !
+					Utilities.SendMessageToEveryoneNoToast(server.getWorld(DimensionType.OVERWORLD), "message.teamwin." + teamAlive);
+					SetTeamToSpectator(server.getWorld(DimensionType.OVERWORLD), teamAlive);
+					countDownToStopStarted = true;
+				}
 				if (countDownToStopStarted && Config.CONFIG_STOP_SERVER_AFTER_GAME.get()) {
 					timeTillServerStop--;
 					if (timeTillServerStop <= 1) {
