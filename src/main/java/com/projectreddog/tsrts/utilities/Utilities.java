@@ -1329,7 +1329,7 @@ public class Utilities {
 		}
 		if (d == Direction.SOUTH) {
 			r = Rotation.CLOCKWISE_180;
-			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2)).offset(d, (1));
+			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2));
 		}
 
 		if (d == Direction.WEST) {
@@ -1341,7 +1341,7 @@ public class Utilities {
 
 		if (d == Direction.EAST) {
 			r = Rotation.CLOCKWISE_90;
-			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2)).offset(d, (1));
+			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2));
 		}
 
 		List<BlockPos> tePos = new ArrayList<BlockPos>();
