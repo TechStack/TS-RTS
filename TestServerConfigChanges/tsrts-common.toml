@@ -196,7 +196,7 @@
 #UNIT ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS : MAX_HEALTH,KNOCK_BACK_RESISTANCE, MOVEMENT_SPEED,ARMOR,ARMOR_TOUGHNESS,ATTACK_KNOCKBACK,ATTACKD_DAMAGE,FOLLOW_RANGE. They are comma separated list of floats Example : 20.0,0.0,0.25,2.0,0.0,0.0,3.0,35.0
 [unit_attributes]
 	#Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are 
-	unit_pikeman_attributes = "15.0,0.5,0.33,1.5,0.0,0.0,2.0,24.0"
+	unit_pikeman_attributes = "15.0,0,0.33,1.5,0.0,0.0,2.0,24.0"
 	#Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are 
 	unit_minion_attributes = "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0"
 	#Defines a comma separted list of values for each attribute in order for the ADVANCED KNIGHT. Atttributes are 
