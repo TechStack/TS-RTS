@@ -182,7 +182,7 @@ public class ServerEvents {
 					int diamondDelta = 0;
 					int emeraldDelta = 0;
 
-					if (teamState[i] != TeamState.NOTPLAYING) {
+					if (teamState[i] == TeamState.NOTPLAYING) {
 						if (TSRTS.teamInfoArray[i].getTeamPlayerCount() > 0) {
 							teamState[i] = TeamState.PLAYING;
 						}
