@@ -229,9 +229,6 @@ public class Utilities {
 		case RESEARCH_ARCHER:
 			return Config.CONFIG_RESEARCH_COSTS_ARCHER;
 
-		case RESEARCH_ARMORY:
-			return Config.CONFIG_RESEARCH_COSTS_ARMORY;
-
 		case RESEARCH_BATTERING_RAM:
 			return Config.CONFIG_RESEARCH_COSTS_BATTERINGRAMS;
 
@@ -282,7 +279,10 @@ public class Utilities {
 			return Config.CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP;
 		case MARKETPLACE:
 			return Config.CONFIG_BUILDING_COSTS_MAKRETPLACE;
-
+		case RESEARCH_ARMOR:
+			return Config.CONFIG_RESEARCH_COSTS_ARMOR;
+		case RESEARCH_BLACKSMITHING:
+			return Config.CONFIG_RESEARCH_COSTS_BLACKSMITHING;
 		default:
 			break;
 
@@ -413,7 +413,7 @@ public class Utilities {
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_LANCER);
 				}
 			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_PIKEMAN && ModResearch.getResearch("pikeman").isUnlocked(teamName)) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_PIKEMAN && ModResearch.getResearch("pikeman").isUnlocked(teamName) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].getArmory() > 0) {
 
 			if (player.getTeam() != null) {
 				String team = player.getTeam().getName();

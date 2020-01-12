@@ -107,21 +107,42 @@
 "gui.units.archer":"Archer",
 "gui.units.lancer":"Lancer",
 "gui.units.pikeman":"Pikeman",
+"gui.units.knight":"Knight",
+"gui.units.advancedknight":"Advanced Knight",
 
 "gui.research.minion.name":"Minions",
 "gui.research.townhall.name":"Town Hall",
 "gui.research.archer.name":"Archery",
 "gui.research.lancer.name":"Cavalry",
 "gui.research.pikeman.name":"Polearms",
-"gui.research.armory.name":"Blacksmithing",
-"gui.research.mareketplace.name":"Commerce",
+"gui.research.armor.name":"Blacksmithing",
 "gui.research.wall.name":"Walls",
-"gui.research.siegeworkshop.name":"Siege Warfare",
-"gui.research.crossbow.name":"Crossbows",
 "gui.research.advcedarmor.name":"Advanced Armor",
 "gui.research.watchtower.name":"Watch Towers",
-"gui.research.batteringrams.name":"Battering Ram",
-"gui.research.trebuchet.name":"Trebuchet",
+"gui.research.blacksmithing.name":"Blacksmithing",
+
+"gui.research.minion.description":"Unlocks: Minions
+The most basic unit in the game fights with his fists.",
+"gui.research.townhall.description":"Unlocks: Town Hall
+Your team cannot survive without a town hall.
+Defend it at all costs!",
+"gui.research.archer.description":"Unlocks: Archers
+A basic ranged unit.",
+"gui.research.lancer.description":"Unlocks: Lancers
+A fast mounted unit suited to counter archers.",
+"gui.research.pikeman.description":"Unlocks: Pikemen
+A long weapon great for taking out mounted units.",
+"gui.research.armor.description":"Unlocks: Knights
+A knight that has full iron armor and a iron sword.",
+"gui.research.wall.description":"Unlocks: Walls, Gates and Wall Towers
+A Defensive building to fortify your territory.",
+"gui.research.advcedarmor.description":"Unlocks: Advanced Knights
+A knight in Diamond gear.",
+"gui.research.watchtower.description":"Unlocks: Watch Towers
+A defensive building that can shoot arrows at aproching troops",
+"gui.research.blacksmithing.description":"Unlocks: Armory
+A building needed to make meele weapons and armor.",
+
 
 "gui.options.infinite.barracks":"Barracks queue infinite mode",
 "gui.options.infinite.archeryrange":"Archery Range queue infinite mode",

@@ -23,17 +23,18 @@ public class ModResearch {
 		registerResearchTopic("townhall", null, true, Config.CONFIG_RESEARCH_COSTS_TOWNHALL, 100, 4, 3);
 		registerResearchTopic("minion", "townhall", true, Config.CONFIG_RESEARCH_COSTS_MINION, 100, 0, 3);
 		registerResearchTopic("archer", "townhall", false, Config.CONFIG_RESEARCH_COSTS_ARCHER, 100, 1, 3);
-		registerResearchTopic("pikeman", "townhall", false, Config.CONFIG_RESEARCH_COSTS_PIKEMAN, 100, 3, 3);
 		registerResearchTopic("lancer", "townhall", false, Config.CONFIG_RESEARCH_COSTS_LANCER, 100, 2, 3);
-		registerResearchTopic("armory", "townhall", false, Config.CONFIG_RESEARCH_COSTS_ARMORY, 100, 0, 5);
-		registerResearchTopic("marketplace", "townhall", false, Config.CONFIG_RESEARCH_COSTS_MARKETPLACE, 100, 1, 1);
+		registerResearchTopic("blacksmithing", "townhall", false, Config.CONFIG_RESEARCH_COSTS_BLACKSMITHING, 100, 2, 1);
+		registerResearchTopic("pikeman", "blacksmithing", false, Config.CONFIG_RESEARCH_COSTS_PIKEMAN, 100, 3, 3);
+		registerResearchTopic("armor", "blacksmithing", false, Config.CONFIG_RESEARCH_COSTS_ARMOR, 100, 0, 5);
+		// registerResearchTopic("marketplace", "townhall", false, Config.CONFIG_RESEARCH_COSTS_MARKETPLACE, 100, 1, 1);
 		registerResearchTopic("wall", "townhall", false, Config.CONFIG_RESEARCH_COSTS_WALL, 100, 9, 0);
-		registerResearchTopic("siegeworkshop", "townhall", false, Config.CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP, 100, 1, 1);
-		registerResearchTopic("crossbow", "archer", false, Config.CONFIG_RESEARCH_COSTS_CROSSBOW, 100, 1, 1);
-		registerResearchTopic("advcedarmor", "armory", false, Config.CONFIG_RESEARCH_COSTS_ADVCEDARMOR, 100, 1, 5);
+		// registerResearchTopic("siegeworkshop", "townhall", false, Config.CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP, 100, 1, 1);
+		// registerResearchTopic("crossbow", "archer", false, Config.CONFIG_RESEARCH_COSTS_CROSSBOW, 100, 1, 1);
+		registerResearchTopic("advcedarmor", "armor", false, Config.CONFIG_RESEARCH_COSTS_ADVCEDARMOR, 100, 1, 5);
 		registerResearchTopic("watchtower", "wall", false, Config.CONFIG_RESEARCH_COSTS_WATCHTOWER, 100, 0, 1);
-		registerResearchTopic("batteringrams", "siegeworkshop", false, Config.CONFIG_RESEARCH_COSTS_BATTERINGRAMS, 100, 1, 1);
-		registerResearchTopic("trebuchet", "batteringrams", false, Config.CONFIG_RESEARCH_COSTS_TREBUCHET, 100, 1, 1);
+		// registerResearchTopic("batteringrams", null, false, Config.CONFIG_RESEARCH_COSTS_BATTERINGRAMS, 100, 1, 1);
+		// registerResearchTopic("trebuchet", "batteringrams", false, Config.CONFIG_RESEARCH_COSTS_TREBUCHET, 100, 1, 1);
 		updateAllCalcs();
 
 	}

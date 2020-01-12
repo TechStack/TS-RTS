@@ -22,6 +22,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class ResearchScreen extends ContainerScreen<ResearchContainer> {
@@ -189,7 +190,15 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 									text.add(rvList.get(i));
 								}
 							}
-
+							ttc = new TranslationTextComponent(rb.getDescription());
+							String[] lines = ttc.getUnformattedComponentText().split("\n");
+							for (int i = 0; i < lines.length; i++) {
+								if (i == 0) {
+									text.add(TextFormatting.BLUE.toString() + lines[i].replace("\r", ""));
+								} else {
+									text.add(TextFormatting.WHITE.toString() + lines[i].replace("\r", ""));
+								}
+							}
 							rb.renderTooltip(text, mouseX - this.guiLeft, mouseY - this.guiTop);
 						}
 					}
@@ -315,7 +324,7 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 			Research r = entry.getValue();
 			addButton(new ResearchButton((int) this.guiLeft + (int) r.getCurrentX(), (int) this.guiTop + (int) r.getCurrentY(), 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(r.getButtonIndexX()), GuiUtil.GetYStartForButtonImageXYIndex(r.getButtonIndexY()), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 				ModNetwork.SendToServer(new ResearchButtonClickPacketToServer(r.getKey()));
-			}, r.getNameTranslationKey(), this, (int) r.getCurrentX(), (int) r.getCurrentY(), r.getKey(), r.getParentKey(), (int) r.getParentX(), (int) r.getParentY(), r.getRv()));
+			}, r.getNameTranslationKey(), r.getDescrptionTranslationKey(), this, (int) r.getCurrentX(), (int) r.getCurrentY(), r.getKey(), r.getParentKey(), (int) r.getParentX(), (int) r.getParentY(), r.getRv()));
 		}
 	}
 }

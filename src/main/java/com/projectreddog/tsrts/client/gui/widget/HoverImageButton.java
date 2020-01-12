@@ -29,6 +29,7 @@ public class HoverImageButton extends ImageButton {
 	private ButtonState buttonState = ButtonState.NORMAL;
 
 	public HoverImageButton(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation resourceLocationIn, Button.IPressable onPressIn, String textIn, ContainerScreen screen, Research research) {
+
 		super(xIn, yIn, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, resourceLocationIn, 256, 256, onPressIn, textIn);
 		font = Minecraft.getInstance().fontRenderer;
 		this.screen = screen;
