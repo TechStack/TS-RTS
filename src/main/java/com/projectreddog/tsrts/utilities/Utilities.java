@@ -371,7 +371,7 @@ public class Utilities {
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_MINION);
 				}
 			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_KNIGHT && ModResearch.getResearch("armory").isUnlocked(teamName) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].getArmory() > 0) {
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_KNIGHT && ModResearch.getResearch("armor").isUnlocked(teamName) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].getArmory() > 0) {
 
 			if (player.getTeam() != null) {
 				String team = player.getTeam().getName();
