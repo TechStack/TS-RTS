@@ -104,8 +104,8 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 		y = y + yOffset;
 		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_PIKEMAN, y, teamName);
 		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_TREBUCHET, y, teamName);
-		y = y + yOffset;
+//		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_TREBUCHET, y, teamName);
+//		y = y + yOffset;
 
 		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_KNIGHT, y, teamName);
 		y = y + yOffset;
@@ -152,14 +152,14 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 		}, "gui.units.pikeman", this, ModResearch.getResearch("pikeman")));
 		y = y + 20;
 
-		pikeman = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_TREBUCHET));
-		}, "gui.units.trebuchet", this, ModResearch.getResearch("trebuchet")));
-		y = y + 20;
+//		pikeman = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+//			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_TREBUCHET));
+//		}, "gui.units.trebuchet", this, ModResearch.getResearch("trebuchet")));
+//		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(5), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_KNIGHT));
-		}, "gui.units.knight", this, ModResearch.getResearch("armory")));
+		}, "gui.units.knight", this, ModResearch.getResearch("armor")));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(6), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {

@@ -165,9 +165,7 @@ public class ClientPacketHandler {
 		case RESEARCH_ARCHER:
 			ModResearch.getResearch("archer").setRv(rv);
 			break;
-		case RESEARCH_ARMORY:
-			ModResearch.getResearch("armory").setRv(rv);
-			break;
+
 		case RESEARCH_BATTERING_RAM:
 			ModResearch.getResearch("batteringrams").setRv(rv);
 			break;
@@ -215,6 +213,20 @@ public class ClientPacketHandler {
 			break;
 		case WATCH_TOWER:
 			Config.CONFIG_BUILDING_COSTS_WATCH_TOWER = rv;
+			break;
+		case MARKETPLACE:
+			break;
+		case RESEARCH_ARMOR:
+			ModResearch.getResearch("armor").setRv(rv);
+
+			break;
+		case RESEARCH_BLACKSMITHING:
+			ModResearch.getResearch("blacksmithing").setRv(rv);
+
+			break;
+		case SIEGE_WORKSHOP:
+			ModResearch.getResearch("siegeworkshop").setRv(rv);
+
 			break;
 		default:
 			break;

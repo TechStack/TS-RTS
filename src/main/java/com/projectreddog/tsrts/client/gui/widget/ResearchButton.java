@@ -53,15 +53,18 @@ public class ResearchButton extends ImageButton {
 	private int statusTextXoffset = 0;
 	private int statusTextYoffset = 0;
 
-	private ResearchButton(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation resourceLocationIn, Button.IPressable onPressIn, String textIn, ContainerScreen screen) {
+	private String description;
+
+	private ResearchButton(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation resourceLocationIn, Button.IPressable onPressIn, String textIn, String descriptionIn, ContainerScreen screen) {
 		super(xIn, yIn, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, resourceLocationIn, 256, 256, onPressIn, textIn);
 		font = Minecraft.getInstance().fontRenderer;
 		this.screen = screen;
+		description = descriptionIn;
 
 	}
 
-	public ResearchButton(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation resourceLocationIn, IPressable onPressIn, String textIn, ContainerScreen screen, int offsetX, int offsetY, String key, String parentKey, int parentOffsetX, int parentOffsetY, ResourceValues costs) {
-		this(xIn, yIn, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, resourceLocationIn, onPressIn, textIn, screen);
+	public ResearchButton(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation resourceLocationIn, IPressable onPressIn, String textIn, String descriptionIn, ContainerScreen screen, int offsetX, int offsetY, String key, String parentKey, int parentOffsetX, int parentOffsetY, ResourceValues costs) {
+		this(xIn, yIn, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, resourceLocationIn, onPressIn, textIn, descriptionIn, screen);
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 		this.key = key;
@@ -75,6 +78,7 @@ public class ResearchButton extends ImageButton {
 		startWidth = this.width;
 		startHeight = this.height;
 		this.costs = costs;
+		this.description = descriptionIn;
 	}
 
 	public void Cull(int left, int top, int right, int bottom) {
@@ -163,6 +167,10 @@ public class ResearchButton extends ImageButton {
 		return this.height;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
 	@Override
 	public void render(int mouseX, int mouseY, float p_render_3_) {
 
@@ -214,7 +222,9 @@ public class ResearchButton extends ImageButton {
 	}
 
 	public void renderTooltip(List<String> p_renderTooltip_1_, int mouseX, int mouseY) {
-		net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(p_renderTooltip_1_, mouseX, mouseY, screen.width, screen.height, -1, font);
+
+		int width = 200;
+		net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(p_renderTooltip_1_, mouseX, mouseY, screen.width, screen.height, width, font);
 
 		GlStateManager.enableLighting();
 		GlStateManager.enableDepthTest();

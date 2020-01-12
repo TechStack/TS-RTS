@@ -207,8 +207,10 @@ public class Config {
 	public static ResourceValues CONFIG_RESEARCH_COSTS_PIKEMAN;
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_LANCER_STRING;
 	public static ResourceValues CONFIG_RESEARCH_COSTS_LANCER;
-	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORY_STRING;
-	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORY;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_BLACKSMITHING_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_BLACKSMITHING;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMOR_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMOR;
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_MARKETPLACE_STRING;
 	public static ResourceValues CONFIG_RESEARCH_COSTS_MARKETPLACE;
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_WALL_STRING;
@@ -262,18 +264,19 @@ public class Config {
 
 		CONFIG_RESEARCH_COSTS_TOWNHALL_STRING = COMMON_BUILDER.comment("Defines the cost For the townhall").define("townhallResearchCosts", "0,0,0,0,0,0,0");
 		CONFIG_RESEARCH_COSTS_MINION_STRING = COMMON_BUILDER.comment("Defines the cost For the minion").define("minionResearchCosts", "0,0,0,0,0,0,0");
-		CONFIG_RESEARCH_COSTS_ARCHER_STRING = COMMON_BUILDER.comment("Defines the cost For the archer").define("archerResearchCosts", "250,500,0,0,50,50,0");
-		CONFIG_RESEARCH_COSTS_PIKEMAN_STRING = COMMON_BUILDER.comment("Defines the cost For the pikeman").define("pikemanResearchCosts", "250,250,0,250,50,50,0");
-		CONFIG_RESEARCH_COSTS_LANCER_STRING = COMMON_BUILDER.comment("Defines the cost For the lancer").define("lancerResearchCosts", "500,500,0,250,50,50,0");
-		CONFIG_RESEARCH_COSTS_ARMORY_STRING = COMMON_BUILDER.comment("Defines the cost For the armory").define("armoryResearchCosts", "250,100,0,500,50,50,0");
+		CONFIG_RESEARCH_COSTS_ARCHER_STRING = COMMON_BUILDER.comment("Defines the cost For the archer").define("archerResearchCosts", "350,650,0,200,50,100,0");
+		CONFIG_RESEARCH_COSTS_PIKEMAN_STRING = COMMON_BUILDER.comment("Defines the cost For the pikeman").define("pikemanResearchCosts", "400,350,0,350,75,100,0");
+		CONFIG_RESEARCH_COSTS_LANCER_STRING = COMMON_BUILDER.comment("Defines the cost For the lancer").define("lancerResearchCosts", "700,550,0,300,100,100,0");
+		CONFIG_RESEARCH_COSTS_BLACKSMITHING_STRING = COMMON_BUILDER.comment("Defines the cost For the blacksmithing").define("blacksmithingResearchCosts", "350,300,100,300,100,100,0");
+		CONFIG_RESEARCH_COSTS_ARMOR_STRING = COMMON_BUILDER.comment("Defines the cost For the armor").define("armorResearchCosts", "450,550,200,600,100,100,0");
 		CONFIG_RESEARCH_COSTS_MARKETPLACE_STRING = COMMON_BUILDER.comment("Defines the cost For the marketplace").define("marketplaceResearchCosts", "100,100,100,100,250,250,0");
-		CONFIG_RESEARCH_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the wall").define("wallResearchCosts", "250,50,500,0,50,50,0");
-		CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the siegeworkshop").define("siegeworkshopResearchCosts", "250,500,100,100,50,50,0");
-		CONFIG_RESEARCH_COSTS_CROSSBOW_STRING = COMMON_BUILDER.comment("Defines the cost For the crossbow").define("crossbowResearchCosts", "250,1000,0,250,100,100,0");
-		CONFIG_RESEARCH_COSTS_ADVCEDARMOR_STRING = COMMON_BUILDER.comment("Defines the cost For the advcedarmor").define("advcedarmorResearchCosts", "250,0,0,200,50,250,0");
-		CONFIG_RESEARCH_COSTS_WATCHTOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the watchtower").define("watchtowerResearchCosts", "250,200,500,50,50,50,0");
-		CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING = COMMON_BUILDER.comment("Defines the cost For the batteringrams").define("batteringramsResearchCosts", "250,500,100,50,50,50,0");
-		CONFIG_RESEARCH_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("trebuchetResearchCosts", "250,1000,200,100,100,100,0");
+		CONFIG_RESEARCH_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the wall").define("wallResearchCosts", "300,100,750,100,50,100,0");
+		CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the siegeworkshop").define("siegeworkshopResearchCosts", "350,650,250,200,50,100,0");
+		CONFIG_RESEARCH_COSTS_CROSSBOW_STRING = COMMON_BUILDER.comment("Defines the cost For the crossbow").define("crossbowResearchCosts", "350,1000,0,250,100,100,0");
+		CONFIG_RESEARCH_COSTS_ADVCEDARMOR_STRING = COMMON_BUILDER.comment("Defines the cost For the advcedarmor").define("advcedarmorResearchCosts", "200,200,200,200,50,500,0");
+		CONFIG_RESEARCH_COSTS_WATCHTOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the watchtower").define("watchtowerResearchCosts", "300,500,800,100,100,250,0");
+		CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING = COMMON_BUILDER.comment("Defines the cost For the batteringrams").define("batteringramsResearchCosts", "300,500,250,100,50,100,0");
+		CONFIG_RESEARCH_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("trebuchetResearchCosts", "300,1000,350,100,100,100,0");
 		COMMON_BUILDER.pop();
 	}
 
@@ -371,7 +374,8 @@ public class Config {
 		CONFIG_RESEARCH_COSTS_ARCHER = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARCHER_STRING.get()));
 		CONFIG_RESEARCH_COSTS_PIKEMAN = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_PIKEMAN_STRING.get()));
 		CONFIG_RESEARCH_COSTS_LANCER = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_LANCER_STRING.get()));
-		CONFIG_RESEARCH_COSTS_ARMORY = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORY_STRING.get()));
+		CONFIG_RESEARCH_COSTS_BLACKSMITHING = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_BLACKSMITHING_STRING.get()));
+		CONFIG_RESEARCH_COSTS_ARMOR = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMOR_STRING.get()));
 		CONFIG_RESEARCH_COSTS_MARKETPLACE = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_MARKETPLACE_STRING.get()));
 		CONFIG_RESEARCH_COSTS_WALL = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_WALL_STRING.get()));
 		CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP_STRING.get()));

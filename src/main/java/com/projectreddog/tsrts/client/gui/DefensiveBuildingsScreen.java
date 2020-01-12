@@ -133,7 +133,7 @@ public class DefensiveBuildingsScreen extends ContainerScreen<DefensiveBuildings
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARMORY));
-		}, ModItems.ARMORYBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("armory")));
+		}, ModItems.ARMORYBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("blacksmithing")));
 		y = y + 20;
 
 	}
