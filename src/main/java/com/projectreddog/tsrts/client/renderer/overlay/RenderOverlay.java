@@ -207,12 +207,14 @@ public class RenderOverlay extends Screen {
 					Minecraft.getInstance().fontRenderer.drawStringWithShadow(teamName, x - 10, y + ytextOffset, TeamEnum.values()[j].getColorCode());
 
 					x = x + 50;
-					String popCapText = "" + ti.getCurrentPopulation() + " / " + ti.getTeamPopulationCap();
-					int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(popCapText);
-					Minecraft.getInstance().fontRenderer.drawStringWithShadow(popCapText, x, y + ytextOffset, 14737632);
+					if (ti != null) {
 
-					Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, new ItemStack(Items.PLAYER_HEAD), x + textWidth + 4, y);
+						String popCapText = "" + ti.getCurrentPopulation() + " / " + ti.getTeamPopulationCap();
+						int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(popCapText);
+						Minecraft.getInstance().fontRenderer.drawStringWithShadow(popCapText, x, y + ytextOffset, 14737632);
 
+						Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, new ItemStack(Items.PLAYER_HEAD), x + textWidth + 4, y);
+					}
 				}
 				GL11.glPopMatrix();
 
