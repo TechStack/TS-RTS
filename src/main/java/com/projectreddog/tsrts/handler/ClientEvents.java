@@ -12,6 +12,7 @@ import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.items.builderitems.BuilderItem;
+import com.projectreddog.tsrts.items.builderitems.TownHallBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WallBuilderItem;
 import com.projectreddog.tsrts.network.GuiRequestPacketToServer;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
@@ -268,8 +269,15 @@ public class ClientEvents {
 				GlStateManager.translated(-playerX, -playerY, -playerZ);
 
 				GlStateManager.rotatef(d.getHorizontalAngle(), 0, 1, 0);
+
+				// Sphere of influence
 				if ((!(Minecraft.getInstance().player.getHeldItemMainhand().getItem() instanceof WallBuilderItem) && Utilities.isValidLocation(Minecraft.getInstance().player.world, blockpos, d, v3) || (Minecraft.getInstance().player.getHeldItemMainhand().getItem() instanceof WallBuilderItem && Utilities.IsLocationValidForWall(Minecraft.getInstance().player.world, blockpos, d))) && ((BuilderItem) Minecraft.getInstance().player.getHeldItemMainhand().getItem()).CanPlaceOn(Minecraft.getInstance().player.world.getBlockState(blockpos).getBlock())) {
-					GlStateManager.color4f(255, 255, 255, 128);
+
+					if (Utilities.isInSphereOfInfluence(Minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(Minecraft.getInstance().player.getScoreboardName()), blockpos) || (Minecraft.getInstance().player.getHeldItemMainhand().getItem() instanceof TownHallBuilderItem)) {
+						GlStateManager.color4f(255, 255, 255, 128);
+					} else {
+						GlStateManager.color4f(0, 0, 0, 128);
+					}
 				} else if (!((BuilderItem) Minecraft.getInstance().player.getHeldItemMainhand().getItem()).CanPlaceOn(Minecraft.getInstance().player.world.getBlockState(blockpos).getBlock()) && Utilities.isValidLocation(Minecraft.getInstance().player.world, blockpos, d, v3)) {
 
 					GlStateManager.color4f(255, 255, 0, 128);

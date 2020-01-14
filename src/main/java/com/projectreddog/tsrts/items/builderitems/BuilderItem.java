@@ -60,7 +60,7 @@ public abstract class BuilderItem extends Item {
 			if (CanPlaceOn(context.getPlayer().world.getBlockState(context.getPos()).getBlock())) {
 
 				if (!(Config.CONFIG_GAME_MODE.get() == Modes.WAVESURVIVAL)) {
-					if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(context.getPlayer().getTeam().getName()), new StructureData(getTemplateName100(context.getPlayer().getTeam().getName()), getTemplateName50(context.getPlayer().getTeam().getName()), getTemplateName0(context.getPlayer().getTeam().getName()), context.getPos(), d, getSize(), spreadHealthAroundTargets()), context.getPlayer().getScoreboardName(), true, true, getTotalStructureHealth())) {
+					if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(context.getPlayer().getTeam().getName()), new StructureData(getTemplateName100(context.getPlayer().getTeam().getName()), getTemplateName50(context.getPlayer().getTeam().getName()), getTemplateName0(context.getPlayer().getTeam().getName()), context.getPos(), d, getSize(), spreadHealthAroundTargets()), context.getPlayer().getScoreboardName(), true, true, getTotalStructureHealth(), shouldCheckSphereofInfluence())) {
 
 						context.getItem().shrink(1);
 						context.getPlayer().container.detectAndSendChanges();
@@ -75,7 +75,7 @@ public abstract class BuilderItem extends Item {
 					// wave survial mode
 					if (TSRTS.CURRENT_GAME_STATE != GAMESTATE.LOBBY) {
 						// not in lobby mode (eg set for wavesurvival) &in wave mode !
-						if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(context.getPlayer().getTeam().getName()), new StructureData(getTemplateName100(context.getPlayer().getTeam().getName()), getTemplateName50(context.getPlayer().getTeam().getName()), getTemplateName0(context.getPlayer().getTeam().getName()), context.getPos(), d, getSize(), spreadHealthAroundTargets()), context.getPlayer().getScoreboardName(), true, true, getTotalStructureHealth())) {
+						if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(context.getPlayer().getTeam().getName()), new StructureData(getTemplateName100(context.getPlayer().getTeam().getName()), getTemplateName50(context.getPlayer().getTeam().getName()), getTemplateName0(context.getPlayer().getTeam().getName()), context.getPos(), d, getSize(), spreadHealthAroundTargets()), context.getPlayer().getScoreboardName(), true, true, getTotalStructureHealth(), shouldCheckSphereofInfluence())) {
 
 							context.getItem().shrink(1);
 							context.getPlayer().container.detectAndSendChanges();
@@ -86,7 +86,7 @@ public abstract class BuilderItem extends Item {
 						}
 					} else {
 // wave mode lobby mode so this is the "Chosen one's placement of the AI townhall !" !
-						if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(Reference.WAVE_SURVIAL_AI_TEAM_NAME), new StructureData(getTemplateName100(Reference.WAVE_SURVIAL_AI_TEAM_NAME), getTemplateName50(Reference.WAVE_SURVIAL_AI_TEAM_NAME), getTemplateName0(Reference.WAVE_SURVIAL_AI_TEAM_NAME), context.getPos(), d, getSize(), spreadHealthAroundTargets()), Reference.WAVE_SURVIAL_AI_NAME, true, true, getTotalStructureHealth())) {
+						if (Utilities.LoadStructure(context.getWorld(), getTemplateName100(Reference.WAVE_SURVIAL_AI_TEAM_NAME), new StructureData(getTemplateName100(Reference.WAVE_SURVIAL_AI_TEAM_NAME), getTemplateName50(Reference.WAVE_SURVIAL_AI_TEAM_NAME), getTemplateName0(Reference.WAVE_SURVIAL_AI_TEAM_NAME), context.getPos(), d, getSize(), spreadHealthAroundTargets()), Reference.WAVE_SURVIAL_AI_NAME, true, true, getTotalStructureHealth(), shouldCheckSphereofInfluence())) {
 							context.getPlayer().setHealth(0);
 						} else {
 							return ActionResultType.FAIL;
@@ -108,6 +108,10 @@ public abstract class BuilderItem extends Item {
 	public abstract void ActionAfterSpawn(World world, PlayerEntity Player, BlockPos bp);
 
 	public abstract boolean CanPlaceOn(Block block);
+
+	public boolean shouldCheckSphereofInfluence() {
+		return true;
+	}
 
 	public abstract float getTotalStructureHealth();
 

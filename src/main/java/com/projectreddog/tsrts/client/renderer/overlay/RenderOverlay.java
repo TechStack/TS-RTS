@@ -102,6 +102,20 @@ public class RenderOverlay extends Screen {
 						if (Minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(Minecraft.getInstance().player.getScoreboardName()) != null) {
 							String team = Minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(Minecraft.getInstance().player.getScoreboardName()).getName();
 
+							// in sphere
+
+							String soi;
+							// out of sphere
+							if (Utilities.isInSphereOfInfluence(Minecraft.getInstance().player.world.getScoreboard().getPlayersTeam(Minecraft.getInstance().player.getScoreboardName()), Minecraft.getInstance().player.getPosition())) {
+								soi = new TranslationTextComponent("gui.overlay.in").getUnformattedComponentText();
+
+							} else {
+								soi = new TranslationTextComponent("gui.overlay.out").getUnformattedComponentText();
+							}
+							int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(soi);
+
+							Minecraft.getInstance().fontRenderer.drawStringWithShadow(soi, event.getWindow().getScaledWidth() * 2 - textWidth - 10, 8, 14737632);
+
 							TeamInfo ti = TSRTS.teamInfoArray[TeamEnum.getIDFromName(team)];
 							TeamInfo.Resources[] res = TeamInfo.Resources.values();
 							int x = 5;
@@ -131,7 +145,7 @@ public class RenderOverlay extends Screen {
 							}
 							if (ti != null) {
 								String popCapText = "" + ti.getCurrentPopulation() + " / " + ti.getTeamPopulationCap();
-								int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(popCapText);
+								textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(popCapText);
 								Minecraft.getInstance().fontRenderer.drawStringWithShadow(popCapText, x, y + ytextOffset, 14737632);
 
 								Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, new ItemStack(Items.PLAYER_HEAD), x + textWidth + 4, 4);
@@ -139,14 +153,14 @@ public class RenderOverlay extends Screen {
 							if (ti != null && ti.getCurrenResearchKey() != null && !ti.getCurrenResearchKey().equals("")) {
 
 								String text = new TranslationTextComponent(ModResearch.getResearch(ti.getCurrenResearchKey()).getNameTranslationKey()).getUnformattedComponentText();
-								int textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(text);
+								textWidth = Minecraft.getInstance().fontRenderer.getStringWidth(text);
 								Minecraft.getInstance().fontRenderer.drawStringWithShadow(text, event.getWindow().getScaledWidth() * 2 - textWidth - 10, event.getWindow().getScaledHeight() * 2 - 50, 14737632);
 								int divisor = ti.getFullResearchWorkRemaining();
 								if (divisor > 0) {
 
 									Minecraft.getInstance().textureManager.bindTexture(STATUS_TEXTURE);
 
-									blit(event.getWindow().getScaledWidth() * 2 - 100 + 10, event.getWindow().getScaledHeight() * 2 - 20, 31, 0, (int) (((1 - ((float) ti.getCurrenResearchWorkRemaining() / divisor))) * 100), 8, 256, 256);
+									blit(event.getWindow().getScaledWidth() * 2 - 100 - 10, event.getWindow().getScaledHeight() * 2 - 20, 31, 0, (int) (((1 - ((float) ti.getCurrenResearchWorkRemaining() / divisor))) * 100), 8, 256, 256);
 									// blit(this.x, this.y, (, (float) i + topOffset, this.width, this.height, 256, 256);
 
 								}
@@ -162,7 +176,9 @@ public class RenderOverlay extends Screen {
 
 			GL11.glPopMatrix();
 
-		} else if (event.getType() == ElementType.ALL) {
+		} else if (event.getType() == ElementType.ALL)
+
+		{
 			if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.isSpectator() && ClientEvents.toggleDisplayInfo) {
 
 				int width = event.getWindow().getWidth();

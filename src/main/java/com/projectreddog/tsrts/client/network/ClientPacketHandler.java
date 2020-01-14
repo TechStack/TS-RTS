@@ -1,6 +1,8 @@
 package com.projectreddog.tsrts.client.network;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.client.gui.toast.AlertToast;
@@ -11,12 +13,14 @@ import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.reference.Reference.RTS_COSTS;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.AlertToastBackgroundType;
+import com.projectreddog.tsrts.utilities.MapStructureUtilities;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.ResourceValues;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.UnitQueues;
 import com.projectreddog.tsrts.utilities.Utilities;
+import com.projectreddog.tsrts.utilities.data.MapStructureData;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -231,6 +235,14 @@ public class ClientPacketHandler {
 		default:
 			break;
 
+		}
+	}
+
+	public static void SendMapDataPacketToClient(HashMap<BlockPos, MapStructureData> structures) {
+		TSRTS.Structures.clear();
+		for (Map.Entry<BlockPos, MapStructureData> entry : structures.entrySet()) {
+			MapStructureData msd = entry.getValue();
+			MapStructureUtilities.Add(msd.getPosition(), msd);
 		}
 	}
 

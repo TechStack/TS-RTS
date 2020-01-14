@@ -7,6 +7,7 @@ import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.reference.Reference.STRUCTURE_TYPE;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
+import com.projectreddog.tsrts.utilities.MapStructureUtilities;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
@@ -79,7 +80,7 @@ public class MineSiteTileEntity extends OwnedCooldownTileEntity implements IName
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteEmerald(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteEmerald() + 1);
 			break;
 		}
-		TSRTS.Structures.put(pos, new MapStructureData(pos, getStructureType(), this.getTeam().getName()));
+		MapStructureUtilities.Add(pos, new MapStructureData(pos, getStructureType(), this.getTeam().getName()));
 
 	}
 
@@ -107,7 +108,7 @@ public class MineSiteTileEntity extends OwnedCooldownTileEntity implements IName
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setMineSiteEmerald(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getMineSiteEmerald() - 1);
 			break;
 		}
-		TSRTS.Structures.remove(pos);
+		MapStructureUtilities.Remove(pos);
 	}
 
 	@Override

@@ -13,10 +13,12 @@ import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
+import com.projectreddog.tsrts.network.SendMapDataPacketToClient;
 import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.TownHallTileEntity;
+import com.projectreddog.tsrts.utilities.MapStructureUtilities;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
@@ -305,6 +307,13 @@ public class ServerEvents {
 						Utilities.SendMessageToEveryoneNoToast(server.getWorld(DimensionType.OVERWORLD), "message.serverstopping");
 						server.initiateShutdown(false);
 					}
+				}
+			} else {
+				// Not DURING RTS TICK
+				if (MapStructureUtilities.isChanged()) {
+
+					ModNetwork.SendToALLPlayers(new SendMapDataPacketToClient());
+					MapStructureUtilities.markUnchanged();
 				}
 			}
 

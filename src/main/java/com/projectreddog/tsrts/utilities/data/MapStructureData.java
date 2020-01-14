@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.utilities.data;
 
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.reference.Reference.STRUCTURE_TYPE;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 
 import net.minecraft.util.math.BlockPos;
 
@@ -39,6 +40,14 @@ public class MapStructureData {
 
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
+	}
+
+	public void setTeamByOrd(int id) {
+		this.teamName = TeamEnum.getNameFromID(id);
+	}
+
+	public int getTeamOrdFromName() {
+		return TeamEnum.getIDFromName(teamName);
 	}
 
 }
