@@ -11,6 +11,7 @@ import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
 import com.projectreddog.tsrts.network.ResearchButtonClickPacketToServer;
 import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
+import com.projectreddog.tsrts.network.SendMapDataPacketToClient;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.network.TEOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.network.TESetRallyPointToServer;
@@ -53,6 +54,7 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, ResearchUnlockedPacketToClient.class, ResearchUnlockedPacketToClient::encode, ResearchUnlockedPacketToClient::new, ResearchUnlockedPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, CostsPacketToClient.class, CostsPacketToClient::encode, CostsPacketToClient::new, CostsPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, TeamOptionButtonToServer.class, TeamOptionButtonToServer::encode, TeamOptionButtonToServer::new, TeamOptionButtonToServer::handle);
+		simpleChannel.registerMessage(MessageId++, SendMapDataPacketToClient.class, SendMapDataPacketToClient::encode, SendMapDataPacketToClient::new, SendMapDataPacketToClient::handle);
 
 	}
 

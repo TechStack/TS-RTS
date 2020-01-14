@@ -40,11 +40,13 @@ import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.reference.Reference.RTS_COSTS;
+import com.projectreddog.tsrts.reference.Reference.STRUCTURE_TYPE;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.tileentity.WallTileEntity;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
+import com.projectreddog.tsrts.utilities.data.MapStructureData;
 import com.projectreddog.tsrts.utilities.data.Research;
 
 import net.minecraft.block.BlockState;
@@ -302,7 +304,6 @@ public class Utilities {
 			return Config.CONFIG_UNIT_COSTS_PIKEMAN;
 		case Reference.UNIT_ID_TREBUCHET:
 			return Config.CONFIG_UNIT_COSTS_TREBUCHET;
-
 		case Reference.UNIT_ID_KNIGHT:
 			return Config.CONFIG_UNIT_COSTS_KNIGHT;
 		case Reference.UNIT_ID_ADVANCED_KNIGHT:
@@ -1379,6 +1380,33 @@ public class Utilities {
 
 	}
 
+	public static boolean isInSphereOfInfluence(ScorePlayerTeam team, BlockPos bp) {
+		if (Config.CONFIG_ENFORCE_SPHERE_OF_INFLUENCE.get() == false) {
+			return true;
+		}
+
+		String teamName = team.getName();
+		if (teamName == null) {
+			return false;
+		}
+		for (Map.Entry<BlockPos, MapStructureData> entry : TSRTS.Structures.entrySet()) {
+			MapStructureData msd = entry.getValue();
+			if (msd.getTeamName().equals(teamName)) {
+				BlockPos keyBP = entry.getKey();
+				double distanceSq = ((bp.getX() - keyBP.getX()) * (bp.getX() - keyBP.getX())) + ((bp.getY() - keyBP.getY()) * (bp.getY() - keyBP.getY())) + ((bp.getZ() - keyBP.getZ()) * (bp.getZ() - keyBP.getZ()));
+				double checkDistance = 1024;// same as 32 * 32;
+				if (msd.getType() == STRUCTURE_TYPE.TOWN_HALL) {
+					checkDistance = 4096;// same as 64 * 64;
+				}
+				if (distanceSq <= checkDistance) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	public static boolean isValidLocation(World world, BlockPos bp, Direction d, Vec3i size) {
 		boolean result = true;
 
@@ -1560,7 +1588,7 @@ public class Utilities {
 			bsDeco2 = GetWallBlockDeco2ForTeam(teamName);
 		}
 
-		if ((!(IsLocationValidForWall(world, blockPos, d)) && !destroyMode)) {
+		if ((!(IsLocationValidForWall(world, blockPos, d)) && !destroyMode) || !isInSphereOfInfluence(world.getScoreboard().getPlayersTeam(ownerName), blockPos)) {
 			return false;
 		}
 
@@ -1717,13 +1745,14 @@ public class Utilities {
 		return true;
 	}
 
-	public static boolean LoadStructure(World world, ResourceLocation templateName, StructureData structureData, String ownerName, boolean shouldCheckifValid, boolean setHealth, float healthTarget) {
+	public static boolean LoadStructure(World world, ResourceLocation templateName, StructureData structureData, String ownerName, boolean shouldCheckifValid, boolean setHealth, float healthTarget, boolean checkSphere) {
 
 		BlockPos pos = structureData.getSpawnPoint();
 		Direction d = structureData.getDirection();
 		Vec3i size = structureData.getSize();
+
 		boolean spreadHealthAroundTargets = structureData.GetSpreadHealthAroundTargets();
-		if (isValidLocation(world, pos, d, size) || !shouldCheckifValid) {
+		if (isValidLocation(world, pos, d, size) && (!checkSphere || isInSphereOfInfluence(world.getScoreboard().getPlayersTeam(ownerName), pos)) || !shouldCheckifValid) {
 
 			// TODO need to consider if the player is on the same team as the entity or not !
 

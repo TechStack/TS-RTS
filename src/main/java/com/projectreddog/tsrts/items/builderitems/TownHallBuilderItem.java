@@ -98,6 +98,10 @@ public class TownHallBuilderItem extends BuilderItem {
 		return Config.CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL.get();
 	}
 
+	public boolean shouldCheckSphereofInfluence() {
+		return false;
+	}
+
 	@Override
 	public ResourceValues getResourceCosts() {
 		return new ResourceValues(0, 0, 0, 0, 0, 0, 0);

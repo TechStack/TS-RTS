@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.reference.Reference.STRUCTURE_TYPE;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
+import com.projectreddog.tsrts.utilities.MapStructureUtilities;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
 import com.projectreddog.tsrts.utilities.data.MapStructureData;
@@ -31,14 +32,14 @@ public class ArmoryTileEntity extends OwnedCooldownTileEntity implements INamedC
 	public void IncreaseCount() {
 
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setArmory(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getArmory() + 1);
-		TSRTS.Structures.put(pos, new MapStructureData(pos, getStructureType(), this.getTeam().getName()));
+		MapStructureUtilities.Add(pos, new MapStructureData(pos, getStructureType(), this.getTeam().getName()));
 
 	}
 
 	public void DecreaseCount() {
 
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].setArmory(TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getArmory() - 1);
-		TSRTS.Structures.remove(pos);
+		MapStructureUtilities.Remove(pos);
 	}
 
 	@Override

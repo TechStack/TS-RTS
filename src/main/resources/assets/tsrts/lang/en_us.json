@@ -149,5 +149,13 @@ A building needed to make meele weapons and armor.",
 "gui.options.infinite.stables":"Stables queue infinite mode",
 "gui.options.infinite.siegeworkshop":"Siege Workshop queue infinite mode",
 
+
+"gui.overlay.in":"In",
+"gui.overlay.out":"Out",
+
+"gui.loby.name":"Name",
+"gui.loby.team":"Team",
+"gui.loby.ready":"Ready",
+
 "_comment":"End here"
 }

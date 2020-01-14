@@ -18,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameType;
 
 public class LobbyScreen extends ContainerScreen<LobbyContainer> {
@@ -45,7 +46,7 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 		this.minecraft.getTextureManager().bindTexture(TEXTURE);
 		int x = ((this.width - this.xSize) / 2) - 20;
 
-		int y = ((this.height - this.ySize) / 2) - 20;
+		int y = ((this.height - this.ySize) / 2) - 30;
 
 		ClientUtilities.renderTexture(x, y, 256, 256);
 		this.blit(x, y, 0, 0, this.xSize, this.ySize);
@@ -57,6 +58,14 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 		int playerTeamColumnPosition = playerNameColumnPosition + 100;
 		int playerReadyColumnPosition = playerTeamColumnPosition + 50;
 		Boolean isEveryoneReady = true;
+
+		Minecraft.getInstance().fontRenderer.drawString(new TranslationTextComponent("gui.loby.name").getUnformattedComponentText(), playerNameColumnPosition, y + 5, 4210752);
+
+		Minecraft.getInstance().fontRenderer.drawString(new TranslationTextComponent("gui.loby.team").getUnformattedComponentText(), playerTeamColumnPosition - 5, y + 5, 4210752);
+
+		Minecraft.getInstance().fontRenderer.drawString(new TranslationTextComponent("gui.loby.ready").getUnformattedComponentText(), playerReadyColumnPosition, y + 5, 4210752);
+		y = y + 15;
+
 		for (NetworkPlayerInfo networkplayerinfo : list) {
 			if (networkplayerinfo != null && networkplayerinfo.getGameProfile() != null) {
 				String playerName = networkplayerinfo.getGameProfile().getName();
@@ -66,7 +75,7 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 					if (networkplayerinfo.getGameType() == GameType.SPECTATOR) {
 						Minecraft.getInstance().fontRenderer.drawString(networkplayerinfo.getPlayerTeam().getColor() + "Spectator", playerTeamColumnPosition - 5, y + 5, 4210752);
 					} else {
-						Minecraft.getInstance().fontRenderer.drawString(networkplayerinfo.getPlayerTeam().getColor() + networkplayerinfo.getPlayerTeam().getName(), playerTeamColumnPosition, y + 5, 4210752);
+						Minecraft.getInstance().fontRenderer.drawString(networkplayerinfo.getPlayerTeam().getColor() + networkplayerinfo.getPlayerTeam().getName(), playerTeamColumnPosition - 5, y + 5, 4210752);
 					}
 
 				} else {
@@ -101,12 +110,12 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 	@Override
 	protected void init() {
 		super.init();
-		int x = ((this.width - this.xSize) / 2) - 20;
+		int x = ((this.width - this.xSize) / 2) - 14;
 		int y = ((this.height - this.ySize) / 2);
 
-		y = y + 170;
+		y = y + 139;
 
-		btnReady = addButton(new Button(x + 200, y, 50, 20, "Ready", (button) -> {
+		btnReady = addButton(new Button(x + 196, y, 48, 20, "Ready", (button) -> {
 
 			if (!Utilities.getPlayerReady(playerEntity)) {
 				btnRed.active = false;
@@ -127,36 +136,36 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 
 		btnReady.active = false;
 
-		btnRed = addButton(new Button(x, y, 50, 20, "Red", (button) -> {
+		btnRed = addButton(new Button(x, y, 48, 20, "Red", (button) -> {
 			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_RED));
 			btnReady.active = true;
 		}));
 
-		btnBlue = addButton(new Button(x + 50, y, 50, 20, "Blue", (button) -> {
+		btnBlue = addButton(new Button(x + 49, y, 48, 20, "Blue", (button) -> {
 			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_BLUE));
 			btnReady.active = true;
 
 		}));
 
-		btnGreen = addButton(new Button(x + 100, y, 50, 20, "Green", (button) -> {
+		btnGreen = addButton(new Button(x + 98, y, 48, 20, "Green", (button) -> {
 			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_GREEN));
 			btnReady.active = true;
 
 		}));
 
-		btnYellow = addButton(new Button(x + 150, y, 50, 20, "Yellow", (button) -> {
+		btnYellow = addButton(new Button(x + 147, y, 48, 20, "Yellow", (button) -> {
 			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_YELLOW));
 			btnReady.active = true;
 
 		}));
 
-		btnStart = addButton(new Button(x + 200, y + 20, 50, 20, "Start", (button) -> {
+		btnStart = addButton(new Button(x + 196, y + 21, 48, 20, "Start", (button) -> {
 			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_START));
 
 		}));
 		btnStart.active = false;
 
-		btnSpectate = addButton(new Button(x, y + 20, 50, 20, "Spectate", (button) -> {
+		btnSpectate = addButton(new Button(x, y + 21, 48, 20, "Spectate", (button) -> {
 			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_SEPECTATE));
 
 		}));
