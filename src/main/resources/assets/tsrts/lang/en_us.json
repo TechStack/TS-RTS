@@ -152,5 +152,10 @@ A building needed to make meele weapons and armor.",
 
 "gui.overlay.in":"In",
 "gui.overlay.out":"Out",
+
+"gui.loby.name":"Name",
+"gui.loby.team":"Team",
+"gui.loby.ready":"Ready",
+
 "_comment":"End here"
 }
