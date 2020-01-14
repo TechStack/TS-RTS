@@ -264,9 +264,14 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 	/// TABS Code:
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+
+		GuiUtil.MouseClick(this, (int) mouseX, (int) mouseY);
+
+		if (GuiUtil.getTabIndexFromXY(this, (int) mouseX, (int) mouseY) >= 0) {
+			return super.mouseClicked(mouseX, mouseY, button);
+		}
 		mouseClickStartX = mouseX;
 		mouseClickStartY = mouseY;
-		GuiUtil.MouseClick(this, (int) mouseX, (int) mouseY);
 		// moveScrollIndicatorToMouse(mouseX, mouseY, button);
 		return super.mouseClicked(mouseX, mouseY, button);
 
@@ -282,6 +287,10 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 
 	public boolean mouseDragged(double mouseX, double mouseY, int button, double p_mouseDragged_6_, double p_mouseDragged_8_) {
 		// moveScrollIndicatorToMouse(mouseX, mouseY, button);
+
+		if (GuiUtil.getTabIndexFromXY(this, (int) mouseX, (int) mouseY) >= 0) {
+			return super.mouseDragged(mouseX, mouseY, button, p_mouseDragged_6_, p_mouseDragged_8_);
+		}
 		currentScrollAmountX = mouseClickStartX - mouseX + PrevcurrentScrollAmountX;
 		currentScrollAmountX = MathHelper.clamp(currentScrollAmountX, -totalScrollUnitsX, totalScrollUnitsX);
 
@@ -319,12 +328,17 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 //		}, "gui.units.archer", this, GuiUtil.LEFT_BUTTON_OFFSET, y - this.guiTop));
 //		y = y + 20;
 //		
-
+		double minY = 0;
 		for (Map.Entry<String, Research> entry : ModResearch.research_topics.entrySet()) {
 			Research r = entry.getValue();
 			addButton(new ResearchButton((int) this.guiLeft + (int) r.getCurrentX(), (int) this.guiTop + (int) r.getCurrentY(), 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(r.getButtonIndexX()), GuiUtil.GetYStartForButtonImageXYIndex(r.getButtonIndexY()), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 				ModNetwork.SendToServer(new ResearchButtonClickPacketToServer(r.getKey()));
 			}, r.getNameTranslationKey(), r.getDescrptionTranslationKey(), this, (int) r.getCurrentX(), (int) r.getCurrentY(), r.getKey(), r.getParentKey(), (int) r.getParentX(), (int) r.getParentY(), r.getRv()));
+			if (minY > r.getCurrentY()) {
+				minY = r.getCurrentY();
+			}
 		}
+
+		currentScrollAmountY = minY;
 	}
 }
