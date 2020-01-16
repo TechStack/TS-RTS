@@ -167,9 +167,9 @@ public class ClientEvents {
 								Entity e = w.getEntityByID(entId);
 								if (e instanceof UnitEntity) {
 									UnitEntity ue = (UnitEntity) e;
-									if (ue instanceof KnightEntity) {
+									if (ue instanceof AdvancedKnightEntity) {
 										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), KnightEntity.class);
-									} else if (ue instanceof AdvancedKnightEntity) {
+									} else if (ue instanceof KnightEntity) {
 										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), AdvancedKnightEntity.class);
 									} else {
 
