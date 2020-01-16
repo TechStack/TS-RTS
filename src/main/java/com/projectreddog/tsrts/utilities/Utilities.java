@@ -689,6 +689,53 @@ public class Utilities {
 
 	}
 
+	public static Vec3i getSizeByStructureType(Reference.STRUCTURE_TYPE type) {
+		switch (type) {
+		case ARCHERY_RANGE:
+			return ModItems.ARCHERYRANGEBUILDERITEM.getSize();
+		case ARMORY:
+			return ModItems.ARMORYBUILDERITEM.getSize();
+
+		case BARRACKS:
+			return ModItems.BARRACKSBUILDERITEM.getSize();
+		case FARM:
+			return ModItems.FARMBUILDERITEM.getSize();
+		case GATE:
+			return ModItems.GATEBUILDERITEM.getSize();
+		case LUMBER_YARD:
+			return ModItems.LUMBERYARDBUILDERITEM.getSize();
+		case MARKETPLACE:
+			return ModItems.MARKETPLACEITEM.getSize();
+		case MINE_SITE_DIAMOND:
+			return ModItems.MINESITEDIAMONDBUILDERITEM.getSize();
+		case MINE_SITE_EMERALD:
+			return ModItems.MINESITEEMERALDBUILDERITEM.getSize();
+		case MINE_SITE_GOLD:
+			return ModItems.MINESITEGOLDBUILDERITEM.getSize();
+		case MINE_SITE_IRON:
+			return ModItems.MINESITEIRONBUILDERITEM.getSize();
+		case MINE_SITE_STONE:
+			return ModItems.MINESITESTONEBUILDERITEM.getSize();
+		case RESEARCH_CENTER:
+			return ModItems.RESEARCHCENTERBUILDERITEM.getSize();
+		case SIEGE_WORKSHOP:
+			return ModItems.SIEGEWORKSHOPBUILDERITEM.getSize();
+		case STABLES:
+			return ModItems.STABLESBUILDERITEM.getSize();
+		case TOWN_HALL:
+			return ModItems.TOWNHALLBUILDERITEM.getSize();
+		case WALL:
+			return ModItems.WALLBUILDERITEM.getSize();
+		case WALL_STEPS:
+			return ModItems.WALLSTEPSBUILDERITEM.getSize();
+		case WATCH_TOWER:
+			return ModItems.WATCHTOWERBUILDERITEM.getSize();
+		default:
+			return new Vec3i(0, 0, 0);
+
+		}
+	}
+
 	public static ResourceValues getResourceValuesByStructureType(Reference.STRUCTURE_TYPE type) {
 		switch (type) {
 		case ARCHERY_RANGE:

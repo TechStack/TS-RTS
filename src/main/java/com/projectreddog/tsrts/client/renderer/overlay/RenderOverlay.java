@@ -1,6 +1,7 @@
 package com.projectreddog.tsrts.client.renderer.overlay;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import org.lwjgl.opengl.GL11;
@@ -14,13 +15,18 @@ import com.projectreddog.tsrts.utilities.ClientUtilities;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.Utilities;
+import com.projectreddog.tsrts.utilities.data.MapStructureData;
 
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -29,8 +35,11 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderOverlay extends Screen {
+	private DynamicTexture mapTexture;
+	private ResourceLocation location;
 
 	public RenderOverlay() {
+
 		super(new ITextComponent() {
 
 			@Override
@@ -68,6 +77,7 @@ public class RenderOverlay extends Screen {
 				return null;
 			}
 		});
+
 	}
 
 	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/overlay/overlay.png");
@@ -85,7 +95,11 @@ public class RenderOverlay extends Screen {
 
 	@SubscribeEvent
 	public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
+		if (mapTexture == null) {
+			mapTexture = new DynamicTexture(128, 128, true);
+			this.location = Minecraft.getInstance().textureManager.getDynamicTextureLocation("map/tsrts", this.mapTexture);
 
+		}
 		if (event.getType() == ElementType.HOTBAR) {
 
 			int width = event.getWindow().getWidth();
@@ -166,6 +180,7 @@ public class RenderOverlay extends Screen {
 								}
 							}
 							RenderUnitQueues(team, event.getWindow().getScaledHeight() * 2 - 90);
+							RenderMiniMap(team);
 
 						}
 					}
@@ -236,6 +251,52 @@ public class RenderOverlay extends Screen {
 
 			}
 		}
+
+	}
+
+	public void UpdateMapTexture(BlockPos playerPos) {
+		for (int i = 0; i < 128; ++i) {
+			for (int j = 0; j < 128; ++j) {
+
+				int l = MaterialColor.GRASS.getMapColor(3);
+				this.mapTexture.getTextureData().setPixelRGBA(j, i, l);
+
+			}
+		}
+
+		for (Map.Entry<BlockPos, MapStructureData> entry : TSRTS.Structures.entrySet()) {
+			BlockPos bp = entry.getKey();
+			MapStructureData msd = entry.getValue();
+
+			int x = bp.getX() - playerPos.getX() + 64;
+			int z = bp.getZ() - playerPos.getZ() + 64;
+
+			Vec3i v = Utilities.getSizeByStructureType(msd.getType());
+
+			for (int x2 = 0; x2 < v.getX(); x2++) {
+				for (int z2 = 0; z2 < v.getZ(); z2++) {
+					int x1 = x2 + x;
+					int z1 = z2 + z;
+					if (x1 >= 0 && x1 < 128) {
+						if (z1 >= 0 && z1 < 128) {
+
+							int l = MaterialColor.OBSIDIAN.getMapColor(3);
+							this.mapTexture.getTextureData().setPixelRGBA(x1, z1, l);
+						}
+					}
+
+				}
+			}
+
+		}
+		this.mapTexture.updateDynamicTexture();
+
+	}
+
+	public void RenderMiniMap(String team) {
+		UpdateMapTexture(Minecraft.getInstance().player.getPosition());
+		Minecraft.getInstance().textureManager.bindTexture(this.location);
+		blit(100, 100, 0, 0, 128, 128, 128, 128);
 
 	}
 
