@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.init;
 
+import com.projectreddog.tsrts.items.CreeperBagItem;
 import com.projectreddog.tsrts.items.LanceItem;
 import com.projectreddog.tsrts.items.PikeItem;
 import com.projectreddog.tsrts.items.RallyPointToolItem;
@@ -49,6 +50,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_PIKE_ITEM)
 	public static PikeItem PIKEITEM = new PikeItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_CREEPER_BAG_ITEM)
+	public static CreeperBagItem CREEPERBAGITEM = new CreeperBagItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_RETREAT_SEPTER_ITEM)
 	public static RetreateScepterItem RETREATESEPTERITEM = new RetreateScepterItem();
@@ -154,6 +158,9 @@ public class ModItems {
 		RegisterItem(event, ModItems.LANCEITEM);
 
 		RegisterItem(event, ModItems.PIKEITEM);
+
+		RegisterItem(event, ModItems.CREEPERBAGITEM);
+
 		RegisterItem(event, ModItems.WATCHTOWERBUILDERITEM);
 
 		RegisterItem(event, ModItems.WALLBUILDERITEM);
