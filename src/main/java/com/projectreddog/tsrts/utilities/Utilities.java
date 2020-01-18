@@ -285,11 +285,11 @@ public class Utilities {
 			return Config.CONFIG_RESEARCH_COSTS_ARMOR;
 		case RESEARCH_BLACKSMITHING:
 			return Config.CONFIG_RESEARCH_COSTS_BLACKSMITHING;
+		case ARMORY:
+			return Config.CONFIG_BUILDING_COSTS_ARMORY;
 		default:
-			break;
-
+			throw new IllegalArgumentException("case Cost Type not handled");
 		}
-		return null;
 	}
 
 	public static ResourceValues GetResourceValuesforUnitID(int unitID) {

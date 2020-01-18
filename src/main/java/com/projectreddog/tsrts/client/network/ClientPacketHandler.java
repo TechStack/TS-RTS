@@ -169,7 +169,6 @@ public class ClientPacketHandler {
 		case RESEARCH_ARCHER:
 			ModResearch.getResearch("archer").setRv(rv);
 			break;
-
 		case RESEARCH_BATTERING_RAM:
 			ModResearch.getResearch("batteringrams").setRv(rv);
 			break;
@@ -222,18 +221,19 @@ public class ClientPacketHandler {
 			break;
 		case RESEARCH_ARMOR:
 			ModResearch.getResearch("armor").setRv(rv);
-
 			break;
 		case RESEARCH_BLACKSMITHING:
 			ModResearch.getResearch("blacksmithing").setRv(rv);
-
 			break;
 		case SIEGE_WORKSHOP:
 			ModResearch.getResearch("siegeworkshop").setRv(rv);
+			break;
+		case ARMORY:
+			Config.CONFIG_BUILDING_COSTS_ARMORY = rv;
 
 			break;
 		default:
-			break;
+			throw new IllegalArgumentException("Case not handled");
 
 		}
 	}
