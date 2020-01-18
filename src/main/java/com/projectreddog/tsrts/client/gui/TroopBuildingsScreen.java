@@ -109,16 +109,16 @@ public class TroopBuildingsScreen extends ContainerScreen<TroopBuildingsContaine
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_BARRACKS));
-		}, ModItems.BARRACKSBUILDERITEM.getTranslationKey(), this, null));
+		}, ModItems.BARRACKSBUILDERITEM.getTranslationKey(), this, null, "gui.troopbuilding.barracks.description"));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHERY_RANGE));
-		}, ModItems.ARCHERYRANGEBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("archer")));
+		}, ModItems.ARCHERYRANGEBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("archer"), "gui.troopbuilding.archeryrange.description"));
 		y = y + 20;
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_STABLES));
-		}, ModItems.STABLESBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("lancer")));
+		}, ModItems.STABLESBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("lancer"), "gui.troopbuilding.stables.description"));
 		y = y + 20;
 
 	}

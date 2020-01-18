@@ -73,7 +73,7 @@ public class SapperEntity extends UnitEntity {
 	}
 
 	/**
-	 * Creates an explosion as determined by this creeper's power and explosion radius.
+	 * Creates an explosion
 	 */
 	private void explode() {
 		if (!this.world.isRemote) {

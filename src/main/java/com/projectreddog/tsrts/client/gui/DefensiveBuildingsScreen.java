@@ -108,32 +108,32 @@ public class DefensiveBuildingsScreen extends ContainerScreen<DefensiveBuildings
 //wall
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(9), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WALL));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("wall")));
+		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("wall"), "gui.miscbuildings.wall.description"));
 		y = y + 20;
 //steps
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(10), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WALL_STEPS));
-		}, ModItems.WALLSTEPSBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("wall")));
+		}, ModItems.WALLSTEPSBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("wall"), "gui.miscbuildings.walltower.description"));
 		y = y + 20;
 //gate
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(11), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_GATE));
-		}, ModItems.GATEBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("wall")));
+		}, ModItems.GATEBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("wall"), "gui.miscbuildings.gate.description"));
 		y = y + 20;
 // watch tower
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_WATCH_TOWER));
-		}, ModItems.WATCHTOWERBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("watchtower")));
+		}, ModItems.WATCHTOWERBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("watchtower"), "gui.miscbuildings.watchtower.description"));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_RESEARCH_CENTER));
-		}, ModItems.RESEARCHCENTERBUILDERITEM.getTranslationKey(), this, null));
+		}, ModItems.RESEARCHCENTERBUILDERITEM.getTranslationKey(), this, null, "gui.miscbuildings.researchcenter.description"));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARMORY));
-		}, ModItems.ARMORYBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("blacksmithing")));
+		}, ModItems.ARMORYBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("blacksmithing"), "gui.miscbuildings.armory.description"));
 		y = y + 20;
 
 	}

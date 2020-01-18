@@ -136,20 +136,20 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 
 		minion = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINION));
-		}, "gui.units.minion", this, null));
+		}, "gui.units.minion", this, null, "gui.troop.minion.description"));
 		y = y + 20;
 
 		archer = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHER));
-		}, "gui.units.archer", this, ModResearch.getResearch("archer")));
+		}, "gui.units.archer", this, ModResearch.getResearch("archer"), "gui.troop.archer.description"));
 		y = y + 20;
 		lancer = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LANCER));
-		}, "gui.units.lancer", this, ModResearch.getResearch("lancer")));
+		}, "gui.units.lancer", this, ModResearch.getResearch("lancer"), "gui.troop.lancer.description"));
 		y = y + 20;
 		pikeman = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_PIKEMAN));
-		}, "gui.units.pikeman", this, ModResearch.getResearch("pikeman")));
+		}, "gui.units.pikeman", this, ModResearch.getResearch("pikeman"), "gui.troop.pikeman.description"));
 		y = y + 20;
 
 //		pikeman = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
@@ -159,12 +159,12 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(5), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_KNIGHT));
-		}, "gui.units.knight", this, ModResearch.getResearch("armor")));
+		}, "gui.units.knight", this, ModResearch.getResearch("armor"), "gui.troop.knight.description"));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(6), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_DIAMOND_KNIGHT));
-		}, "gui.units.advancedknight", this, ModResearch.getResearch("advcedarmor")));
+		}, "gui.units.advancedknight", this, ModResearch.getResearch("advcedarmor"), "gui.troop.advancedknight.description"));
 		y = y + 20;
 	}
 }
