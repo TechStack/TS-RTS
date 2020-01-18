@@ -13,6 +13,7 @@ import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MountedRenderer;
 import com.projectreddog.tsrts.client.renderer.PikemanRenderer;
+import com.projectreddog.tsrts.client.renderer.SapperRenderer;
 import com.projectreddog.tsrts.client.renderer.TargetRenderer;
 import com.projectreddog.tsrts.client.renderer.TrebuchetRenderer;
 import com.projectreddog.tsrts.client.renderer.overlay.RenderOverlay;
@@ -22,6 +23,7 @@ import com.projectreddog.tsrts.entities.KnightEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.entities.PikemanEntity;
+import com.projectreddog.tsrts.entities.SapperEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.TrebuchetEntity;
 import com.projectreddog.tsrts.handler.ClientEvents;
@@ -43,7 +45,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void init() {
-		// Entity Rendereers
+		// Entity Renderers
 		RenderingRegistry.registerEntityRenderingHandler(MinionEntity.class, MinionRenderer::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(ArcherMinionEntity.class, ArcherMinionRenderer::new);
@@ -54,6 +56,7 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(TrebuchetEntity.class, TrebuchetRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(KnightEntity.class, MinionRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(AdvancedKnightEntity.class, MinionRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(SapperEntity.class, SapperRenderer::new);
 
 		// Client Gui
 		ScreenManager.registerFactory(ModContainers.BASIC_CONTAINER, BasicScreen::new);

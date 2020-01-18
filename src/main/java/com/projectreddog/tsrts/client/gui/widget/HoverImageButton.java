@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -27,6 +28,12 @@ public class HoverImageButton extends ImageButton {
 	TextComponent t;
 	Research research;
 	private ButtonState buttonState = ButtonState.NORMAL;
+	private String additionalText;
+
+	public HoverImageButton(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation resourceLocationIn, Button.IPressable onPressIn, String textIn, ContainerScreen screen, Research research, String additionalText) {
+		this(xIn, yIn, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, resourceLocationIn, onPressIn, textIn, screen, research);
+		this.additionalText = additionalText;
+	}
 
 	public HoverImageButton(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation resourceLocationIn, Button.IPressable onPressIn, String textIn, ContainerScreen screen, Research research) {
 
@@ -65,6 +72,19 @@ public class HoverImageButton extends ImageButton {
 
 					List<String> text = new ArrayList<String>();
 					text.add(ttc.getUnformattedComponentText());
+
+					if (additionalText != null) {
+						String[] lines = new TranslationTextComponent(additionalText).getUnformattedComponentText().split("\n");
+						for (int i = 0; i < lines.length; i++) {
+							if (i == 0) {
+								text.add(TextFormatting.BLUE.toString() + lines[i].replace("\r", ""));
+							} else {
+								text.add(TextFormatting.WHITE.toString() + lines[i].replace("\r", ""));
+							}
+						}
+
+					}
+
 					this.renderTooltip(text, mouseX, mouseY);
 				}
 			}

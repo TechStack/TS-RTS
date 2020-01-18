@@ -120,33 +120,33 @@ public class EcoBuildingsScreen extends ContainerScreen<EcoBuildingsContainer> {
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_FARM));
-		}, ModItems.FARMBUILDERITEM.getTranslationKey(), this, null));
+		}, ModItems.FARMBUILDERITEM.getTranslationKey(), this, null, "gui.eco.farm.description"));
 
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(4), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LUMBER_YARD));
-		}, ModItems.LUMBERYARDBUILDERITEM.getTranslationKey(), this, null));
+		}, ModItems.LUMBERYARDBUILDERITEM.getTranslationKey(), this, null, "gui.eco.lumberyard.description"));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(5), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_STONE));
-		}, ModItems.MINESITESTONEBUILDERITEM.getTranslationKey(), this, null));
+		}, ModItems.MINESITESTONEBUILDERITEM.getTranslationKey(), this, null, "gui.eco.stone.description"));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(6), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_IRON));
-		}, ModItems.MINESITEIRONBUILDERITEM.getTranslationKey(), this, null));
+		}, ModItems.MINESITEIRONBUILDERITEM.getTranslationKey(), this, null, "gui.eco.iron.description"));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(7), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_GOLD));
-		}, ModItems.MINESITEGOLDBUILDERITEM.getTranslationKey(), this, null));
+		}, ModItems.MINESITEGOLDBUILDERITEM.getTranslationKey(), this, null, "gui.eco.gold.description"));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(8), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND));
-		}, ModItems.MINESITEDIAMONDBUILDERITEM.getTranslationKey(), this, null));
+		}, ModItems.MINESITEDIAMONDBUILDERITEM.getTranslationKey(), this, null, "gui.eco.diamond.description"));
 		y = y + 20;
 
 	}

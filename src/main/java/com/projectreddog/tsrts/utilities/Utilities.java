@@ -1407,6 +1407,45 @@ public class Utilities {
 		return false;
 	}
 
+	public static boolean isClearOfEntities(World world, BlockPos bp, Direction d, Vec3i size) {
+
+		BlockPos bp2 = bp;
+
+		int xSize = size.getX();
+		int ySize = size.getY();
+		int zSize = size.getZ();
+
+		if (d == Direction.NORTH) {
+			bp2 = bp.up().offset(d.rotateYCCW(), (xSize / 2)).offset(d, zSize).offset(d, (-1));
+		}
+		if (d == Direction.SOUTH) {
+			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2));
+		}
+
+		if (d == Direction.WEST) {
+
+			bp2 = bp.up().offset(d.rotateYCCW(), -(zSize / 2)).offset(d, (xSize)).offset(d, (-1));
+		}
+
+		if (d == Direction.EAST) {
+			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2));
+		}
+
+		BlockPos bp3 = bp2.add(xSize - 1, ySize - 1, zSize - 1);
+
+		AxisAlignedBB aabb = new AxisAlignedBB(bp2, bp3);
+
+		List<Entity> list = world.getEntitiesWithinAABB(PlayerEntity.class, aabb);
+		if (list.size() > 0) {
+			return false;
+		}
+		list = world.getEntitiesWithinAABB(UnitEntity.class, aabb);
+		if (list.size() > 0) {
+			return false;
+		}
+		return true;
+	}
+
 	public static boolean isValidLocation(World world, BlockPos bp, Direction d, Vec3i size) {
 		boolean result = true;
 
@@ -1416,24 +1455,20 @@ public class Utilities {
 		int ySize = size.getY();
 		int zSize = size.getZ();
 
-		Rotation r = Rotation.NONE;
 		if (d == Direction.NORTH) {
 			bp2 = bp.up().offset(d.rotateYCCW(), (xSize / 2)).offset(d, zSize).offset(d, (-1));
 		}
 		if (d == Direction.SOUTH) {
-			r = Rotation.CLOCKWISE_180;
 			bp2 = bp.up().offset(d.rotateYCCW(), -(xSize / 2));
 		}
 
 		if (d == Direction.WEST) {
-			r = Rotation.COUNTERCLOCKWISE_90;
 
 			bp2 = bp.up().offset(d.rotateYCCW(), -(zSize / 2)).offset(d, (xSize)).offset(d, (-1));
 
 		}
 
 		if (d == Direction.EAST) {
-			r = Rotation.CLOCKWISE_90;
 			bp2 = bp.up().offset(d.rotateYCCW(), (zSize / 2));
 		}
 
@@ -1461,6 +1496,49 @@ public class Utilities {
 		}
 
 		return result;
+	}
+
+	public static boolean IsWallClearOfEntities(World world, BlockPos blockPos, Direction d) {
+
+		int deep = 3;
+		int width = 3;
+		int height = 5;
+
+		BlockPos bp = blockPos.offset(d.rotateYCCW(), (width / 2)).offset(d, deep);
+		BlockPos bp2 = bp;
+		if (d == Direction.NORTH) {
+			bp2 = bp;
+
+		}
+		if (d == Direction.SOUTH) {
+			bp2 = blockPos.offset(d.rotateYCCW(), -(width / 2)).offset(d, (1));
+		}
+
+		if (d == Direction.WEST) {
+
+			bp2 = blockPos.offset(d.rotateYCCW(), -(deep / 2)).offset(d, (width));
+
+		}
+
+		if (d == Direction.EAST) {
+			bp2 = blockPos.offset(d.rotateYCCW(), (deep / 2)).offset(d, (1));
+		}
+
+		// 3 wide 3 deep
+		BlockPos bp3 = bp2.add(width - 1, height - 1, deep - 1);
+
+		AxisAlignedBB aabb = new AxisAlignedBB(bp2, bp3);
+
+		List<Entity> list = world.getEntitiesWithinAABB(PlayerEntity.class, aabb);
+		if (list.size() > 0) {
+			return false;
+		}
+		list = world.getEntitiesWithinAABB(UnitEntity.class, aabb);
+		if (list.size() > 0) {
+			return false;
+		}
+		return true;
+
 	}
 
 	public static boolean IsLocationValidForWall(World world, BlockPos blockPos, Direction d) {
@@ -1589,6 +1667,9 @@ public class Utilities {
 		}
 
 		if ((!(IsLocationValidForWall(world, blockPos, d)) && !destroyMode) || !isInSphereOfInfluence(world.getScoreboard().getPlayersTeam(ownerName), blockPos)) {
+			return false;
+		}
+		if (!IsWallClearOfEntities(world, blockPos, d)) {
 			return false;
 		}
 
@@ -1755,6 +1836,14 @@ public class Utilities {
 		if (isValidLocation(world, pos, d, size) && (!checkSphere || isInSphereOfInfluence(world.getScoreboard().getPlayersTeam(ownerName), pos)) || !shouldCheckifValid) {
 
 			// TODO need to consider if the player is on the same team as the entity or not !
+
+			if (shouldCheckifValid) {
+				// check for entities in the area!
+				if (!(isClearOfEntities(world, pos, d, size))) {
+					// FOUND AN ENTITY WE DONT WANT TO smother!
+					return false;
+				}
+			}
 
 			TemplateManager templateManager = ((ServerWorld) world).getStructureTemplateManager();
 

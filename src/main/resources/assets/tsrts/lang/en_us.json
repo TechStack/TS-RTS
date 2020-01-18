@@ -149,6 +149,71 @@ A building needed to make meele weapons and armor.",
 "gui.options.infinite.stables":"Stables queue infinite mode",
 "gui.options.infinite.siegeworkshop":"Siege Workshop queue infinite mode",
 
+"gui.research.blacksmithing.description":"Unlocks: Armory
+A building needed to make meele weapons and armor.",
+
+
+"gui.eco.farm.description":"Generates food
+",
+
+"gui.eco.lumberyard.description":"Generates wood
+",
+"gui.eco.stone.description":"Generates stone
+",
+"gui.eco.iron.description":"Generates iron
+",
+"gui.eco.gold.description":"Generates gold
+",
+"gui.eco.diamond.description":"Generates diamond
+",
+
+"gui.troopbuilding.barracks.description":"Melee troop production
+Types: Minions, Pikeman, Knight, Advanced Knight
+Research Required: None",
+
+"gui.troopbuilding.archeryrange.description":"Ranged troop production
+Types: Archers
+Reserch Required: Archery",
+"gui.troopbuilding.stables.description":"Mounted troop production
+Types: Lancers
+Reserch Required: Cavalry",
+
+
+"gui.miscbuildings.wall.description":"A fortification used to keep out the enemies
+Reserch Required: Walls",
+"gui.miscbuildings.walltower.description":"Stairs to get on your walls
+Reserch Required: Walls",
+"gui.miscbuildings.gate.description":"You can open and close it
+Reserch Required: Walls",
+"gui.miscbuildings.watchtower.description":"Fires arrows at enemy troops and players
+Reserch Required: Watch Towers",
+"gui.miscbuildings.researchcenter.description":"Works on selected research
+Reserch Required: None",
+"gui.miscbuildings.armory.description":"You need one to recruit: Pikemen , Knights & Advanced Knights.
+Reserch Required: Blacksmithing",
+
+"gui.troop.minion.description":"A basic melee troop
+Reserch Required: None
+Trained in: Barracks",
+"gui.troop.archer.description":"A ranged troop with a bow
+Reserch Required: Archery
+Trained in: Archery Range",
+"gui.troop.lancer.description":"A mounted troop armed with a lance
+Reserch Required: Cavalry
+Trained in: Stables",
+"gui.troop.pikeman.description":"A melee troop armed with a pike
+Reserch Required: Polearms
+Required Buildings: Armory
+Trained in: Barracks",
+"gui.troop.knight.description":"A melee troop equipped with an iron sword and armor
+Reserch Required: Armor
+Required Buildings: Armory
+Trained in: Barracks",
+"gui.troop.advancedknight.description":"A melee troop equipped with a diamond sword and armor
+Reserch Required: Advanced Armor
+Required Buildings: Armory
+Trained in: Barracks",
+
 
 "gui.overlay.in":"In",
 "gui.overlay.out":"Out",

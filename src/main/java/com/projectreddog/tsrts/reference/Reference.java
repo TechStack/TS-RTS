@@ -58,6 +58,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_LANCE_ITEM = "lanceitem";
 	public static final String REIGSTRY_NAME_PIKE_ITEM = "pikeitem";
 
+	public static final String REIGSTRY_NAME_CREEPER_BAG_ITEM = "creeperbag";
+
 	public static final String REIGSTRY_NAME_TOWN_HALL_BUILDER_ITEM = "townhallbuilderitem";
 	public static final String REIGSTRY_NAME_WATCH_TOWER_BUILDER_ITEM = "watchtowerbuilderitem";
 	public static final String REIGSTRY_NAME_WALL_BUILDER_ITEM = "wallbuilderitem";
@@ -103,6 +105,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_TREBUCHET_ENTITY = "trebuchetentity";
 	public static final String REIGSTRY_NAME_KNIGHT_ENTITY = "knight";
 	public static final String REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY = "advancedknight";
+	public static final String REIGSTRY_NAME_SAPPER_ENTITY = "sapper";
 
 	// GUI BUTTONS
 
