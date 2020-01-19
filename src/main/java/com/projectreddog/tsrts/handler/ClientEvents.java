@@ -10,6 +10,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.AdvancedKnightEntity;
 import com.projectreddog.tsrts.entities.KnightEntity;
+import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
@@ -168,9 +169,11 @@ public class ClientEvents {
 								if (e instanceof UnitEntity) {
 									UnitEntity ue = (UnitEntity) e;
 									if (ue instanceof AdvancedKnightEntity) {
-										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), KnightEntity.class);
-									} else if (ue instanceof KnightEntity) {
 										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), AdvancedKnightEntity.class);
+									} else if (ue instanceof KnightEntity) {
+										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), KnightEntity.class);
+									} else if (ue instanceof MinionEntity) {
+										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), MinionEntity.class);
 									} else {
 
 										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), ue.getClass());
