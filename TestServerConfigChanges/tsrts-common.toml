@@ -178,10 +178,10 @@
 	buildingHealthWallSteps = 400
 	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
 	#Range: 0 ~ 1024
-	buildingHealthWall = 400
+	buildingHealthMarketplace = 40
 	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
 	#Range: 0 ~ 1024
-	buildingHealthMarketplace = 40
+	buildingHealthWall = 400
 	#Defines a comma separted list of values for each attribute modifier in order for the LANCE
 	#Range: 0 ~ 1024
 	buildingHealthMinesiteIron = 40

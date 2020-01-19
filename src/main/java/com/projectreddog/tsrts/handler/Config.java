@@ -279,12 +279,12 @@ public class Config {
 		CONFIG_RESEARCH_COSTS_ARMOR_STRING = COMMON_BUILDER.comment("Defines the cost For the armor").define("armorResearchCosts", "450,550,200,600,100,100,0");
 		CONFIG_RESEARCH_COSTS_MARKETPLACE_STRING = COMMON_BUILDER.comment("Defines the cost For the marketplace").define("marketplaceResearchCosts", "100,100,100,100,250,250,0");
 		CONFIG_RESEARCH_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the wall").define("wallResearchCosts", "300,100,750,100,50,100,0");
-		CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the siegeworkshop").define("siegeworkshopResearchCosts", "350,650,250,200,50,100,0");
-		CONFIG_RESEARCH_COSTS_CROSSBOW_STRING = COMMON_BUILDER.comment("Defines the cost For the crossbow").define("crossbowResearchCosts", "350,1000,0,250,100,100,0");
-		CONFIG_RESEARCH_COSTS_ADVCEDARMOR_STRING = COMMON_BUILDER.comment("Defines the cost For the advcedarmor").define("advcedarmorResearchCosts", "200,200,200,200,50,500,0");
+		CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the siegeworkshop").define("siegeworkshopResearchCosts", "250,500,100,100,50,50,0");
+		CONFIG_RESEARCH_COSTS_CROSSBOW_STRING = COMMON_BUILDER.comment("Defines the cost For the crossbow").define("crossbowResearchCosts", "250,1000,0,250,100,100,0");
+		CONFIG_RESEARCH_COSTS_ADVCEDARMOR_STRING = COMMON_BUILDER.comment("Defines the cost For the advcedarmor").define("advcedarmorResearchCosts", "250,0,0,200,50,250,0");
 		CONFIG_RESEARCH_COSTS_WATCHTOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the watchtower").define("watchtowerResearchCosts", "300,500,800,100,100,250,0");
-		CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING = COMMON_BUILDER.comment("Defines the cost For the batteringrams").define("batteringramsResearchCosts", "300,500,250,100,50,100,0");
-		CONFIG_RESEARCH_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("trebuchetResearchCosts", "300,1000,350,100,100,100,0");
+		CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING = COMMON_BUILDER.comment("Defines the cost For the batteringrams").define("batteringramsResearchCosts", "250,500,100,50,50,50,0");
+		CONFIG_RESEARCH_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("trebuchetResearchCosts", "250,1000,200,100,100,100,0");
 		COMMON_BUILDER.pop();
 	}
 
@@ -319,8 +319,8 @@ public class Config {
 
 	private static void setupWeaponAttributeConfig() {
 		COMMON_BUILDER.comment("Weapon ATTRIBUTES. ATTRIBUTES ARE ORDERED LIKE THIS ATTACK_DAMAGE_MODIFIER, ATTACK_SPEED_MODIFIER: . They are comma separated list of floats Example : 8,-2.9").push(CATEGORY_WEAPON_MODIFIER_ATTRIBUTES);
-		CONFIG_LANCE_WEAPON_MODIFIER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").define("lance_attribute_modifier", "8,-2.9");
-		CONFIG_PIKE_WEAPON_MODIFIER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the pike").define("pike_attribute_modifier", "7,0");
+		CONFIG_LANCE_WEAPON_MODIFIER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").define("lance_attribute_modifier", "7,-2.9");
+		CONFIG_PIKE_WEAPON_MODIFIER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the pike").define("pike_attribute_modifier", "6,0");
 		COMMON_BUILDER.pop();
 
 	}
@@ -401,8 +401,8 @@ public class Config {
 
 		CONFIG_UNIT_MINION_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
 		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "10.0,0.0,0.30,2.0,0.0,0.0,3.0,24.0");
-		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "10.0,5.0,0.40,2.0,0.0,0.0,3.0,24.0");
-		CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are ").define("unit_pikeman_attributes", "15.0,5.0,0.33,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "15.0,5.0,0.40,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are ").define("unit_pikeman_attributes", "15.0,0,0.33,1.5,0.0,0.0,2.0,24.0");
 		CONFIG_UNIT_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the KNIGHT. Atttributes are ").define("unit_knight_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
 		CONFIG_UNIT_ADVANCED_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ADVANCED KNIGHT. Atttributes are ").define("unit_advanced_knight_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
 
@@ -425,13 +425,13 @@ public class Config {
 
 		CONFIG_TOWN_HALL_GENERATE_STRING = COMMON_BUILDER.comment("Defines the amount of food the town hall generate per unit of time").define("townHallGenerates", "5,5,5,5,1,1,0");
 
-		CONFIG_RATE_GENRATE_FOOD = COMMON_BUILDER.comment("Defines the amount of food collected per farm").defineInRange("foodGeneration", 12, 0, 1024);
-		CONFIG_RATE_GENRATE_WOOD = COMMON_BUILDER.comment("Defines the amount of wood collected per lumber yard").defineInRange("woodGeneration", 17, 0, 1024);
-		CONFIG_RATE_GENRATE_STONE = COMMON_BUILDER.comment("Defines the amount of stone collected per stone Mine").defineInRange("stoneGeneration", 9, 0, 1024);
-		CONFIG_RATE_GENRATE_IRON = COMMON_BUILDER.comment("Defines the amount of iron collected per iron Mine").defineInRange("ironGeneration", 10, 0, 1024);
-		CONFIG_RATE_GENRATE_GOLD = COMMON_BUILDER.comment("Defines the amount of gold collected per gold Mine").defineInRange("goldGeneration", 9, 0, 1024);
-		CONFIG_RATE_GENRATE_DIAMOND = COMMON_BUILDER.comment("Defines the amount of diamond collected per diamond Mine").defineInRange("diamondGeneration", 7, 0, 1024);
-		CONFIG_RATE_GENRATE_EMERALD = COMMON_BUILDER.comment("Defines the amount of emerald collected per emerald Mine").defineInRange("emeraldGeneration", 5, 0, 1024);
+		CONFIG_RATE_GENRATE_FOOD = COMMON_BUILDER.comment("Defines the amount of food collected per farm").defineInRange("foodGeneration", 4, 0, 1024);
+		CONFIG_RATE_GENRATE_WOOD = COMMON_BUILDER.comment("Defines the amount of wood collected per lumber yard").defineInRange("woodGeneration", 4, 0, 1024);
+		CONFIG_RATE_GENRATE_STONE = COMMON_BUILDER.comment("Defines the amount of stone collected per stone Mine").defineInRange("stoneGeneration", 4, 0, 1024);
+		CONFIG_RATE_GENRATE_IRON = COMMON_BUILDER.comment("Defines the amount of iron collected per iron Mine").defineInRange("ironGeneration", 4, 0, 1024);
+		CONFIG_RATE_GENRATE_GOLD = COMMON_BUILDER.comment("Defines the amount of gold collected per gold Mine").defineInRange("goldGeneration", 4, 0, 1024);
+		CONFIG_RATE_GENRATE_DIAMOND = COMMON_BUILDER.comment("Defines the amount of diamond collected per diamond Mine").defineInRange("diamondGeneration", 2, 0, 1024);
+		CONFIG_RATE_GENRATE_EMERALD = COMMON_BUILDER.comment("Defines the amount of emerald collected per emerald Mine").defineInRange("emeraldGeneration", 1, 0, 1024);
 
 		COMMON_BUILDER.pop();
 
@@ -440,37 +440,37 @@ public class Config {
 	private static void setupBuildingCostConfig() {
 		COMMON_BUILDER.comment("Building Costs").push(CATEGORY_BUILDING_COST);
 
-		CONFIG_BUILDING_COSTS_FARM_STRING = COMMON_BUILDER.comment("Defines the cost For the farm").define("farmBulidingCosts", "10,15,5,0,0,0,0");
-		CONFIG_BUILDING_COSTS_LUMBER_YARD_STRING = COMMON_BUILDER.comment("Defines the cost For the lumber Yard").define("lumberYardBulidingCosts", "10,10,15,5,0,0,0");
-		CONFIG_BUILDING_COSTS_MINESITE_STONE_STRING = COMMON_BUILDER.comment("Defines the cost For the minesite Stone").define("minesiteStoneBulidingCosts", "2,30,15,15,0,0,0");
-		CONFIG_BUILDING_COSTS_MINESITE_IRON_STRING = COMMON_BUILDER.comment("Defines the cost For the minesite Iron").define("minesiteIronBulidingCosts", "30,45,9,8,0,0,0");
+		CONFIG_BUILDING_COSTS_FARM_STRING = COMMON_BUILDER.comment("Defines the cost For the farm").define("farmBulidingCosts", "0,15,5,0,0,0,0");
+		CONFIG_BUILDING_COSTS_LUMBER_YARD_STRING = COMMON_BUILDER.comment("Defines the cost For the lumber Yard").define("lumberYardBulidingCosts", "10,0,15,5,0,0,0");
+		CONFIG_BUILDING_COSTS_MINESITE_STONE_STRING = COMMON_BUILDER.comment("Defines the cost For the minesite Stone").define("minesiteStoneBulidingCosts", "22,30,0,15,0,0,0");
+		CONFIG_BUILDING_COSTS_MINESITE_IRON_STRING = COMMON_BUILDER.comment("Defines the cost For the minesite Iron").define("minesiteIronBulidingCosts", "30,45,9,0,0,0,0");
 		CONFIG_BUILDING_COSTS_MINESITE_GOLD_STRING = COMMON_BUILDER.comment("Defines the cost For the minesite Gold").define("minesiteGoldBulidingCosts", "36,38,9,20,0,0,0");
 		CONFIG_BUILDING_COSTS_MINESITE_DIAMOND_STRING = COMMON_BUILDER.comment("Defines the cost For the minesite Diamond").define("minesiteDiamondBulidingCosts", "42,45,14,23,0,0,0");
 		CONFIG_BUILDING_COSTS_MINESITE_EMERALD_STRING = COMMON_BUILDER.comment("Defines the cost For the minesite Emerald").define("minesiteEmeraldBulidingCosts", "600,5,2,3,2,0,0");
-		CONFIG_BUILDING_COSTS_BARRACKS_STRING = COMMON_BUILDER.comment("Defines the cost For the barracks").define("barracksBulidingCosts", "44,70,38,29,11,0,0");
-		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STRING = COMMON_BUILDER.comment("Defines the cost For the Archery Range").define("archeryRangeBulidingCosts", "44,100,46,36,17,0,0");
-		CONFIG_BUILDING_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall").define("wallBulidingCosts", "10,15,32,2,3,0,0");
+		CONFIG_BUILDING_COSTS_BARRACKS_STRING = COMMON_BUILDER.comment("Defines the cost For the barracks").define("barracksBulidingCosts", "200,300,200,240,60,0,0");
+		CONFIG_BUILDING_COSTS_ARCHERY_RANGE_STRING = COMMON_BUILDER.comment("Defines the cost For the Archery Range").define("archeryRangeBulidingCosts", "160,450,160,150,80,0,0");
+		CONFIG_BUILDING_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall").define("wallBulidingCosts", "40,60,120,12,12,0,0");
 		CONFIG_BUILDING_COSTS_GATE_STRING = COMMON_BUILDER.comment("Defines the cost For the Gate").define("gateBulidingCosts", "10,15,32,2,3,0,0");
 
 		CONFIG_BUILDING_COSTS_MAKRETPLACE_STRING = COMMON_BUILDER.comment("Defines the cost For the Marketplace").define("maketplaceBulidingCosts", "100,250,50,50,100,10,0");
-		CONFIG_BUILDING_COSTS_WALL_STEPS_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall Steps").define("wallStepsBulidingCosts", "10,15,32,2,3,0,0");
+		CONFIG_BUILDING_COSTS_WALL_STEPS_STRING = COMMON_BUILDER.comment("Defines the cost For the Wall Steps").define("wallStepsBulidingCosts", "40,60,120,12,12,0,0");
 
-		CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING = COMMON_BUILDER.comment("Defines the cost For the Research Center").define("researchCenterBulidingCosts", "100,250,100,25,25,25,0");
+		CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING = COMMON_BUILDER.comment("Defines the cost For the Research Center").define("researchCenterBulidingCosts", "300,650,350,200,100,100,0");
 		CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the Siege Workshop").define("siegeWorkshopBulidingCosts", "100,250,100,25,25,50,0");
-		CONFIG_BUILDING_COSTS_STABLES_STRING = COMMON_BUILDER.comment("Defines the cost For the Stables").define("stablesBulidingCosts", "66,120,40,30,35,0,0");
-		CONFIG_BUILDING_COSTS_ARMORY_STRING = COMMON_BUILDER.comment("Defines the cost For the Armory").define("stablesBulidingArmory", "100,250,100,100,50,0,0");
+		CONFIG_BUILDING_COSTS_STABLES_STRING = COMMON_BUILDER.comment("Defines the cost For the Stables").define("stablesBulidingCosts", "240,500,120,120,140,0,0");
+		CONFIG_BUILDING_COSTS_ARMORY_STRING = COMMON_BUILDER.comment("Defines the cost For the Armory").define("stablesBulidingArmory", "500,800,250,200,100,0,0");
 
-		CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the Watch Tower").define("watchTowerBulidingCosts", "20,125,25,12,15,0,0");
+		CONFIG_BUILDING_COSTS_WATCH_TOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the Watch Tower").define("watchTowerBulidingCosts", "200,350,400,150,100,0,0");
 
 		COMMON_BUILDER.pop();
 	}
 
 	private static void setupUnitCostConfig() {
 		COMMON_BUILDER.comment("Unit Costs").push(CATEGORY_UNIT_COST);
-		CONFIG_UNIT_COSTS_MINION_STRING = COMMON_BUILDER.comment("Defines the cost For the minion").define("unitCostsMinion", "6,4,4,4,0,0,0");
-		CONFIG_UNIT_COSTS_ARCHER_STRING = COMMON_BUILDER.comment("Defines the cost For the archer").define("unitCostsArcher", "5,6,2,4,4,0,0");
+		CONFIG_UNIT_COSTS_MINION_STRING = COMMON_BUILDER.comment("Defines the cost For the minion").define("unitCostsMinion", "5,4,4,4,0,0,0");
+		CONFIG_UNIT_COSTS_ARCHER_STRING = COMMON_BUILDER.comment("Defines the cost For the archer").define("unitCostsArcher", "6,6,2,4,4,0,0");
 		CONFIG_UNIT_COSTS_LANCER_STRING = COMMON_BUILDER.comment("Defines the cost For the lancer").define("unitCostsLancer", "10,6,0,1,6,0,0");
-		CONFIG_UNIT_COSTS_PIKEMAN_STRING = COMMON_BUILDER.comment("Defines the cost For the pikeman").define("unitCostsPikeman", "5,6,0,2,5,0,0");
+		CONFIG_UNIT_COSTS_PIKEMAN_STRING = COMMON_BUILDER.comment("Defines the cost For the pikeman").define("unitCostsPikeman", "8,8,0,8,8,0,0");
 
 		CONFIG_UNIT_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("unitCostsTrebuchet", "5,6,0,2,5,0,0");
 
