@@ -3,6 +3,7 @@ package com.projectreddog.tsrts.entities;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
+import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.EntityType;
@@ -25,6 +26,10 @@ public class UnitEntity extends MonsterEntity {
 	private String ownerName;
 
 	public BlockPos ownerControlledDestination;
+
+	public Reference.UNIT_TYPES getUnitType() {
+		return null;
+	}
 
 	@Override
 	public void tick() {

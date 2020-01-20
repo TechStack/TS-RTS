@@ -4,6 +4,8 @@ import com.projectreddog.tsrts.entities.ai.MoveToOwnerSpecifiedLocation;
 import com.projectreddog.tsrts.entities.ai.NearestAttackableVisionNotRequiredTargetGoal;
 import com.projectreddog.tsrts.entities.ai.RetreatToOwnerSpecifiedLocation;
 import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPredicate;
@@ -32,6 +34,10 @@ public class SapperEntity extends UnitEntity {
 		// this.world.getScoreboard().addPlayerToTeam(this.getCachedUniqueIdString(), scoreplayerteam);
 		// Minecraft.getInstance().player.getTeam()
 
+	}
+
+	public Reference.UNIT_TYPES getUnitType() {
+		return UNIT_TYPES.SAPPER;
 	}
 
 	protected void registerGoals() {

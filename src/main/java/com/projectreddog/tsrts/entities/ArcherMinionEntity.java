@@ -3,6 +3,8 @@ package com.projectreddog.tsrts.entities;
 import com.projectreddog.tsrts.entities.ai.MoveToOwnerSpecifiedLocation;
 import com.projectreddog.tsrts.entities.ai.RetreatToOwnerSpecifiedLocation;
 import com.projectreddog.tsrts.handler.Config;
+import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -32,6 +34,10 @@ public class ArcherMinionEntity extends UnitEntity implements IRangedAttackMob {
 		super(type, worldIn);
 		// this.world.getScoreboard().addPlayerToTeam(this.getCachedUniqueIdString(), scoreplayerteam);
 		// Minecraft.getInstance().player.getTeam()
+	}
+
+	public Reference.UNIT_TYPES getUnitType() {
+		return UNIT_TYPES.ARCHER;
 	}
 
 	protected void registerGoals() {

@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import org.lwjgl.opengl.GL11;
 
 import com.projectreddog.tsrts.TSRTS;
+import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.ClientEvents;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModResearch;
@@ -18,12 +19,14 @@ import com.projectreddog.tsrts.utilities.Utilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -167,6 +170,22 @@ public class RenderOverlay extends Screen {
 							}
 							RenderUnitQueues(team, event.getWindow().getScaledHeight() * 2 - 90);
 
+							int[] unitCounts = getSelectedUnitTypeCounts();
+
+							x = 40;
+							y = 2;
+							int countDispalyed = 0;
+							for (int i = 0; i < unitCounts.length; i++) {
+								if (unitCounts[i] > 0) {
+
+									// We have one so show it
+
+									Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(Reference.UNIT_TYPES.values()[i]), x + (countDispalyed * 20), y + 2);
+									Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + unitCounts[i], x + (countDispalyed * 20), y + 20, 14737632);
+									countDispalyed++;
+								}
+							}
+
 						}
 					}
 				}
@@ -239,6 +258,32 @@ public class RenderOverlay extends Screen {
 
 	}
 
+	public int[] getSelectedUnitTypeCounts() {
+		World world = Minecraft.getInstance().player.world;
+		int unitTypeCount = Reference.UNIT_TYPES.values().length;
+
+		int[] returnValue = new int[unitTypeCount];
+
+		String playerScoreboardname = Minecraft.getInstance().player.getScoreboardName();
+		if (TSRTS.playerSelections.containsKey(playerScoreboardname)) {
+			for (int i = 0; i < TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size(); i++) {
+				Entity e = world.getEntityByID(TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i));
+				if (e instanceof UnitEntity) {
+					UnitEntity ue = (UnitEntity) e;
+					for (int j = 0; j < unitTypeCount; j++) {
+						if (j == ue.getUnitType().ordinal()) {
+							returnValue[j]++;
+
+						}
+					}
+				}
+			}
+		}
+
+		return returnValue;
+
+	}
+
 	public void RenderUnitQueues(String team, int yValue) {
 		GL11.glPushMatrix();
 
@@ -302,6 +347,31 @@ public class RenderOverlay extends Screen {
 		}
 
 		GL11.glPopMatrix();
+	}
+
+	public ItemStack getUnitRenderItemIcon(Reference.UNIT_TYPES type) {
+		switch (type) {
+		case ADVANCED_KNIGHT:
+			return new ItemStack(Items.DIAMOND_SWORD);
+		case ARCHER:
+			return new ItemStack(Items.BOW);
+		case KNIGHT:
+			return new ItemStack(Items.IRON_SWORD);
+		case LANCER:
+			return new ItemStack(ModItems.LANCEITEM);
+		case MINION:
+			return new ItemStack(Items.STICK);
+		case PIKEMAN:
+			return new ItemStack(ModItems.PIKEITEM);
+		case SAPPER:
+			return new ItemStack(Items.CREEPER_HEAD);
+		case TREBUCHET:
+			return new ItemStack(Items.FIRE_CHARGE);
+		default:
+			break;
+
+		}
+		return ItemStack.EMPTY;
 	}
 
 	public ItemStack getUnitRenderItemIcon(int id) {
