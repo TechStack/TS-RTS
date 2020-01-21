@@ -356,6 +356,9 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE && ModResearch.getResearch("wall").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.GATEBUILDERITEM));
 
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_SIEGE_WORKSHOP && ModResearch.getResearch("siegeworkshop").isUnlocked(teamName)) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.SIEGEWORKSHOPBUILDERITEM));
+
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_RESEARCH_CENTER) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.RESEARCHCENTERBUILDERITEM));
 

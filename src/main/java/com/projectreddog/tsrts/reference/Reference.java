@@ -144,6 +144,8 @@ public class Reference {
 
 	public static final int GUI_BUTTON_BUY_ARMORY = 23;
 
+	public static final int GUI_BUTTON_BUY_SIEGE_WORKSHOP = 24;
+
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
 	public static final int GUI_BUTTON_LOBBY_BLUE = 5;

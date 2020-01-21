@@ -177,7 +177,9 @@ Reserch Required: Archery",
 "gui.troopbuilding.stables.description":"Mounted troop production
 Types: Lancers
 Reserch Required: Cavalry",
-
+"gui.troopbuilding.siegeworkshop.description":"Siege troop & machine production
+Types: Sappers
+Reserch Required: Siege Workshop",
 
 "gui.miscbuildings.wall.description":"A fortification used to keep out the enemies
 Reserch Required: Walls",
