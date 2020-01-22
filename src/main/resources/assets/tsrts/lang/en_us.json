@@ -109,6 +109,7 @@
 "gui.units.pikeman":"Pikeman",
 "gui.units.knight":"Knight",
 "gui.units.advancedknight":"Advanced Knight",
+"gui.units.sapper":"Sapper",
 
 "gui.research.minion.name":"Minions",
 "gui.research.townhall.name":"Town Hall",
@@ -120,7 +121,10 @@
 "gui.research.advcedarmor.name":"Advanced Armor",
 "gui.research.watchtower.name":"Watch Towers",
 "gui.research.blacksmithing.name":"Blacksmithing",
+"gui.research.siegeworkshop.name":"Siege Workshop",
 
+"gui.research.siegeworkshop.description":"Unlocks: Sappers & Siege Workshop
+A unit carrying a baby creeper that explodes on death or when attacking.",
 "gui.research.minion.description":"Unlocks: Minions
 The most basic unit in the game fights with his fists.",
 "gui.research.townhall.description":"Unlocks: Town Hall
@@ -197,6 +201,9 @@ Reserch Required: Blacksmithing",
 "gui.troop.minion.description":"A basic melee troop
 Reserch Required: None
 Trained in: Barracks",
+"gui.troop.sapper.description":"An explosive unit.
+Reserch Required: Seige Workshop
+Trained in: Siege Workshop",
 "gui.troop.archer.description":"A ranged troop with a bow
 Reserch Required: Archery
 Trained in: Archery Range",
