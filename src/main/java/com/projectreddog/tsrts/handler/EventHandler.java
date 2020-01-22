@@ -12,6 +12,7 @@ import com.projectreddog.tsrts.entities.KnightEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.entities.PikemanEntity;
+import com.projectreddog.tsrts.entities.SapperEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.Config.Modes;
@@ -36,6 +37,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -151,6 +153,15 @@ public class EventHandler {
 					}
 				}
 
+				if (event.getSource() instanceof EntityDamageSource) {
+					EntityDamageSource eds = (EntityDamageSource) event.getSource();
+
+					if (eds.getTrueSource() instanceof SapperEntity && event.getSource().damageType.equals("explosion.player")) {
+						event.setAmount(MathHelper.clamp(event.getAmount() * 4, 25, 100));
+
+					}
+				}
+
 				TargetEntity targetEntity = (TargetEntity) event.getEntity();
 				if (targetEntity.getOwningTePos() != null) {
 					TileEntity te = targetEntity.world.getTileEntity(targetEntity.getOwningTePos());
@@ -164,7 +175,7 @@ public class EventHandler {
 						}
 
 						octe.setHealth(octe.getHealth() - damageAmount);
-						// TSRTS.LOGGER.info("DAMAGE :" + damageAmount);
+						TSRTS.LOGGER.info("DAMAGE :" + damageAmount);
 
 						// TSRTS.LOGGER.info("remaining health : " + octe.getHealth());
 
@@ -205,6 +216,8 @@ public class EventHandler {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountKnight();
 				} else if (ue instanceof MinionEntity) {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountMinion();
+				} else if (ue instanceof SapperEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountSapper();
 				}
 			}
 

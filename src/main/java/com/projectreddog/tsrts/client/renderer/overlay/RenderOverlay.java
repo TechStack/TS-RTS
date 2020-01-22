@@ -390,6 +390,8 @@ public class RenderOverlay extends Screen {
 			return new ItemStack(Items.IRON_SWORD);
 		case Reference.UNIT_ID_ADVANCED_KNIGHT:
 			return new ItemStack(Items.DIAMOND_SWORD);
+		case Reference.UNIT_ID_SAPPER:
+			return new ItemStack(Items.CREEPER_HEAD);
 
 		default:
 			break;

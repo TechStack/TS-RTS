@@ -34,6 +34,7 @@ public class TeamInfo {
 	private int unitCountTrebuchet = 0;
 	private int unitCountKnight = 0;
 	private int unitCountAdvancedKnight = 0;
+	private int unitCountSapper = 0;
 
 	private String CurrenResearchKey;
 	private int teamPopulationCap;
@@ -49,7 +50,7 @@ public class TeamInfo {
 
 	public int getCurrentPopulation() {
 
-		return unitCountMinion + unitCountArcher + unitCountLancer + unitCountPikeman + unitCountTrebuchet + unitCountKnight + unitCountAdvancedKnight;
+		return unitCountMinion + unitCountArcher + unitCountLancer + unitCountPikeman + unitCountTrebuchet + unitCountKnight + unitCountAdvancedKnight + unitCountSapper;
 	}
 
 	public int[] getResourceAmt() {
@@ -325,6 +326,14 @@ public class TeamInfo {
 		this.unitCountMinion++;
 	}
 
+	public int getUnitCountSapper() {
+		return unitCountSapper;
+	}
+
+	public void AddOneUnitCountSapper() {
+		this.unitCountSapper++;
+	}
+
 	public int getUnitCountKnight() {
 		return unitCountKnight;
 	}
@@ -361,6 +370,10 @@ public class TeamInfo {
 		this.unitCountMinion--;
 	}
 
+	public void RemoveOneUnitCountSapper() {
+		this.unitCountSapper--;
+	}
+
 	public void RemoveOneUnitCountKnight() {
 		this.unitCountKnight--;
 	}
@@ -387,6 +400,10 @@ public class TeamInfo {
 
 	public void setUnitCountMinion(int unitCountMinion) {
 		this.unitCountMinion = unitCountMinion;
+	}
+
+	public void setUnitCountSapper(int unitCountSapper) {
+		this.unitCountSapper = unitCountSapper;
 	}
 
 	public void setUnitCountKnight(int unitCountKnight) {

@@ -15,6 +15,7 @@ public class Reference {
 	public static final int UNIT_ID_TREBUCHET = 5;
 	public static final int UNIT_ID_KNIGHT = 6;
 	public static final int UNIT_ID_ADVANCED_KNIGHT = 7;
+	public static final int UNIT_ID_SAPPER = 8;
 
 	// Block registry names
 	public static final String REIGSTRY_NAME_BARRACKS_BLOCK = "barracksblock";
@@ -145,6 +146,8 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_ARMORY = 23;
 
 	public static final int GUI_BUTTON_BUY_SIEGE_WORKSHOP = 24;
+
+	public static final int GUI_BUTTON_BUY_SAPPER = 25;
 
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;

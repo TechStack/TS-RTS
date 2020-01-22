@@ -124,7 +124,7 @@ public class TroopBuildingsScreen extends ContainerScreen<TroopBuildingsContaine
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_SIEGE_WORKSHOP));
-		}, ModItems.SIEGEWORKSHOPBUILDERITEM.getTranslationKey(), this, null, "gui.troopbuilding.siegeworkshop.description"));
+		}, ModItems.SIEGEWORKSHOPBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("siegeworkshop"), "gui.troopbuilding.siegeworkshop.description"));
 		y = y + 20;
 
 	}

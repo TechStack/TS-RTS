@@ -20,16 +20,14 @@ import net.minecraft.util.text.ITextComponent;
 
 public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContainer> {
 
-	Button minion;
-	Button archer;
-	Button lancer;
-	Button pikeman;
 	PlayerEntity player;
 	private ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/barracks_gui.png");
 	int ytextOffset = 20;
 	int xtextOffset = 5;
 	int xTextWidth = 25;
 	String teamName = "";
+
+	int page = 1;
 
 	public UnitRecruitmentScreen(UnitRecruitmentContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
@@ -96,28 +94,42 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 		int y = GuiUtil.GetResourceCostYStartValue(this);
 		GuiUtil.drawResourceIconHeaders(this);
 
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_MINION, y, teamName);
-		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_ARCHER, y, teamName);
-		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_LANCER, y, teamName);
-		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_PIKEMAN, y, teamName);
-		y = y + yOffset;
+		if (page == 1) {
+			GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_MINION, y, teamName);
+			y = y + yOffset;
+			GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_ARCHER, y, teamName);
+			y = y + yOffset;
+			GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_LANCER, y, teamName);
+			y = y + yOffset;
+			GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_PIKEMAN, y, teamName);
+			y = y + yOffset;
 //		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_TREBUCHET, y, teamName);
 //		y = y + yOffset;
 
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_KNIGHT, y, teamName);
-		y = y + yOffset;
-		GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_ADVANCED_KNIGHT, y, teamName);
-		y = y + yOffset;
-
+			GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_KNIGHT, y, teamName);
+			y = y + yOffset;
+			GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_ADVANCED_KNIGHT, y, teamName);
+			y = y + yOffset;
+		} else if (page == 2) {
+			GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_SAPPER, y, teamName);
+			y = y + yOffset;
+		}
 		GL11.glPopMatrix();
 	}
 
 	@Override
 	protected void init() {
 		super.init();
+		addButtonsForPage();
+	}
+
+	private void clearButtons() {
+		this.buttons.clear();
+		this.children.clear();
+	}
+
+	private void addButtonsForPage() {
+		clearButtons();
 		teamName = Minecraft.getInstance().player.getTeam().getName();
 
 		int x = (this.width - this.xSize) / 2;
@@ -134,37 +146,65 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 
 		int height = 20;
 
-		minion = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINION));
-		}, "gui.units.minion", this, null, "gui.troop.minion.description"));
-		y = y + 20;
+		if (page == 1) {
 
-		archer = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHER));
-		}, "gui.units.archer", this, ModResearch.getResearch("archer"), "gui.troop.archer.description"));
-		y = y + 20;
-		lancer = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LANCER));
-		}, "gui.units.lancer", this, ModResearch.getResearch("lancer"), "gui.troop.lancer.description"));
-		y = y + 20;
-		pikeman = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_PIKEMAN));
-		}, "gui.units.pikeman", this, ModResearch.getResearch("pikeman"), "gui.troop.pikeman.description"));
-		y = y + 20;
+			addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINION));
+			}, "gui.units.minion", this, null, "gui.troop.minion.description"));
+			y = y + 20;
 
-//		pikeman = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
-//			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_TREBUCHET));
-//		}, "gui.units.trebuchet", this, ModResearch.getResearch("trebuchet")));
-//		y = y + 20;
+			addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_ARCHER));
+			}, "gui.units.archer", this, ModResearch.getResearch("archer"), "gui.troop.archer.description"));
+			y = y + 20;
+			addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LANCER));
+			}, "gui.units.lancer", this, ModResearch.getResearch("lancer"), "gui.troop.lancer.description"));
+			y = y + 20;
+			addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_PIKEMAN));
+			}, "gui.units.pikeman", this, ModResearch.getResearch("pikeman"), "gui.troop.pikeman.description"));
+			y = y + 20;
 
-		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(5), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_KNIGHT));
-		}, "gui.units.knight", this, ModResearch.getResearch("armor"), "gui.troop.knight.description"));
-		y = y + 20;
+//	pikeman = addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+//		ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_TREBUCHET));
+//	}, "gui.units.trebuchet", this, ModResearch.getResearch("trebuchet")));
+//	y = y + 20;
 
-		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(6), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
-			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_DIAMOND_KNIGHT));
-		}, "gui.units.advancedknight", this, ModResearch.getResearch("advcedarmor"), "gui.troop.advancedknight.description"));
-		y = y + 20;
+			addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(5), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_KNIGHT));
+			}, "gui.units.knight", this, ModResearch.getResearch("armor"), "gui.troop.knight.description"));
+			y = y + 20;
+
+			addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(6), GuiUtil.GetYStartForButtonImageXYIndex(3), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_DIAMOND_KNIGHT));
+			}, "gui.units.advancedknight", this, ModResearch.getResearch("advcedarmor"), "gui.troop.advancedknight.description"));
+			y = y + 20;
+
+		} else if (page == 2) {
+
+			addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(4), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_SAPPER));
+			}, "gui.units.sapper", this, ModResearch.getResearch("siegeworkshop"), "gui.troop.sapper.description"));
+			y = y + 20;
+		}
+
+		Button back = addButton(new Button(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, this.guiTop + GuiUtil.TOP_BUTTON_OFFSET + 20 * 6, 20, 20, "<", (button) -> {
+			this.page--;
+			addButtonsForPage();
+		}));
+
+		Button next = addButton(new Button(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 100, this.guiTop + GuiUtil.TOP_BUTTON_OFFSET + 20 * 6, 20, 20, ">", (button) -> {
+			this.page++;
+			addButtonsForPage();
+		}));
+
+		if (page == 1) {
+			back.active = false;
+		} else if (page == 2) {
+			next.active = false;
+
+		}
+
 	}
 }
