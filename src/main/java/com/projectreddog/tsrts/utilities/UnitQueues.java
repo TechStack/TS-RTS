@@ -42,6 +42,10 @@ public class UnitQueues {
 		case Reference.UNIT_ID_TREBUCHET:
 			AddToSiegeWorkshopQueue(ID);
 			break;
+		case Reference.UNIT_ID_SAPPER:
+			AddToSiegeWorkshopQueue(ID);
+			break;
+
 		default:
 			break;
 		}

@@ -29,7 +29,7 @@ public class ModResearch {
 		registerResearchTopic("armor", "blacksmithing", false, Config.CONFIG_RESEARCH_COSTS_ARMOR, 100, 0, 5);
 		// registerResearchTopic("marketplace", "townhall", false, Config.CONFIG_RESEARCH_COSTS_MARKETPLACE, 100, 1, 1);
 		registerResearchTopic("wall", "townhall", false, Config.CONFIG_RESEARCH_COSTS_WALL, 100, 9, 0);
-		// registerResearchTopic("siegeworkshop", "townhall", false, Config.CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP, 100, 1, 1);
+		registerResearchTopic("siegeworkshop", "townhall", false, Config.CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP, 100, 3, 1);
 		// registerResearchTopic("crossbow", "archer", false, Config.CONFIG_RESEARCH_COSTS_CROSSBOW, 100, 1, 1);
 		registerResearchTopic("advcedarmor", "armor", false, Config.CONFIG_RESEARCH_COSTS_ADVCEDARMOR, 100, 1, 5);
 		registerResearchTopic("watchtower", "wall", false, Config.CONFIG_RESEARCH_COSTS_WATCHTOWER, 100, 0, 1);

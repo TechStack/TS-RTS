@@ -54,6 +54,9 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_ADVANCED_KNIGHT_STRING;
 	public static ResourceValues CONFIG_UNIT_COSTS_ADVANCED_KNIGHT;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_SAPPER_STRING;
+	public static ResourceValues CONFIG_UNIT_COSTS_SAPPER;
+
 	// archers
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_ARCHER_STRING;
@@ -354,7 +357,7 @@ public class Config {
 
 		CONFIG_UNIT_COSTS_KNIGHT = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_KNIGHT_STRING.get()));
 		CONFIG_UNIT_COSTS_ADVANCED_KNIGHT = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_ADVANCED_KNIGHT_STRING.get()));
-
+		CONFIG_UNIT_COSTS_SAPPER = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_SAPPER_STRING.get()));
 		CONFIG_BUILDING_COSTS_FARM = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_FARM_STRING.get()));
 		CONFIG_BUILDING_COSTS_LUMBER_YARD = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_LUMBER_YARD_STRING.get()));
 		CONFIG_BUILDING_COSTS_MINESITE_STONE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_MINESITE_STONE_STRING.get()));
@@ -476,6 +479,7 @@ public class Config {
 
 		CONFIG_UNIT_COSTS_KNIGHT_STRING = COMMON_BUILDER.comment("Defines the cost For the knight").define("unitCostsKnight", "6,4,4,10,10,0,0");
 		CONFIG_UNIT_COSTS_ADVANCED_KNIGHT_STRING = COMMON_BUILDER.comment("Defines the cost For the Advanced Knight").define("unitCostsAdvancedKnight", "6,4,4,10,10,10,0");
+		CONFIG_UNIT_COSTS_SAPPER_STRING = COMMON_BUILDER.comment("Defines the cost For the sapper").define("unitCostsSapper", "5,4,4,0,15,20,0");
 
 		COMMON_BUILDER.pop();
 	}

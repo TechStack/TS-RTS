@@ -308,6 +308,8 @@ public class Utilities {
 			return Config.CONFIG_UNIT_COSTS_KNIGHT;
 		case Reference.UNIT_ID_ADVANCED_KNIGHT:
 			return Config.CONFIG_UNIT_COSTS_ADVANCED_KNIGHT;
+		case Reference.UNIT_ID_SAPPER:
+			return Config.CONFIG_UNIT_COSTS_SAPPER;
 
 		}
 		return null;
@@ -356,6 +358,9 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_GATE && ModResearch.getResearch("wall").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.GATEBUILDERITEM));
 
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_SIEGE_WORKSHOP && ModResearch.getResearch("siegeworkshop").isUnlocked(teamName)) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.SIEGEWORKSHOPBUILDERITEM));
+
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_RESEARCH_CENTER) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.RESEARCHCENTERBUILDERITEM));
 
@@ -390,6 +395,16 @@ public class Utilities {
 				if (hasNeededResourcesForResourceValues(team, rv)) {
 					spendResourcesForResourceValues(team, rv);
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_ADVANCED_KNIGHT);
+				}
+			}
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_SAPPER && ModResearch.getResearch("siegeworkshop").isUnlocked(teamName)) {
+
+			if (player.getTeam() != null) {
+				String team = player.getTeam().getName();
+				ResourceValues rv = Config.CONFIG_UNIT_COSTS_SAPPER;
+				if (hasNeededResourcesForResourceValues(team, rv)) {
+					spendResourcesForResourceValues(team, rv);
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_SAPPER);
 				}
 			}
 		}
@@ -765,6 +780,8 @@ public class Utilities {
 			return ModEntities.PIKEMAN_ENTITY;
 		case Reference.UNIT_ID_TREBUCHET:
 			return ModEntities.TREBUCHET_ENTITY;
+		case Reference.UNIT_ID_SAPPER:
+			return ModEntities.SAPPER;
 
 		default:
 			return null;
@@ -794,7 +811,9 @@ public class Utilities {
 		case Reference.UNIT_ID_ADVANCED_KNIGHT:
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountAdvancedKnight();
 			break;
-
+		case Reference.UNIT_ID_SAPPER:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountSapper();
+			break;
 		default:
 			break;
 		}
