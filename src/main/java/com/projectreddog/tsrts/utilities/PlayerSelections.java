@@ -7,5 +7,5 @@ public class PlayerSelections {
 
 	// entityid's
 	public List<Integer> selectedUnits = new ArrayList<Integer>();
-
+	public boolean hasChanged = false;
 }

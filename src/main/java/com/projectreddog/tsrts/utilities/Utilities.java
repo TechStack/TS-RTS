@@ -950,6 +950,8 @@ public class Utilities {
 					int currentID = it.next();
 					if (currentID == entityId) {
 						it.remove();
+						TSRTS.playerSelections.get(playerScoreboardname).hasChanged = true;
+
 					}
 				}
 				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
@@ -971,6 +973,7 @@ public class Utilities {
 
 				// TSRTS.LOGGER.info("Select");
 				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityId);
+				TSRTS.playerSelections.get(playerScoreboardname).hasChanged = true;
 				int[] tmpids = new int[TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.size()];
 				for (int i = 0; i < tmpids.length; i++) {
 					tmpids[i] = TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.get(i);
@@ -992,6 +995,7 @@ public class Utilities {
 			TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.clear();
 			for (int i = 0; i < entityIds.length; i++) {
 				TSRTS.playerSelections.get(playerScoreboardname).selectedUnits.add(entityIds[i]);
+				TSRTS.playerSelections.get(playerScoreboardname).hasChanged = true;
 
 			}
 		}

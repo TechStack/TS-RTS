@@ -85,6 +85,7 @@ public class RenderOverlay extends Screen {
 
 	private ResourceLocation ARCHERY_RANGE_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/archeryrangeblock_yellow_top.png");
 	private static ResourceLocation STATUS_TEXTURE = new ResourceLocation(Reference.MODID, "textures/gui/guiwidgets.png");
+	private int[] unitCounts;
 
 	@SubscribeEvent
 	public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
@@ -170,7 +171,17 @@ public class RenderOverlay extends Screen {
 							}
 							RenderUnitQueues(team, event.getWindow().getScaledHeight() * 2 - 90);
 
-							int[] unitCounts = getSelectedUnitTypeCounts();
+							if (unitCounts == null || (TSRTS.playerSelections.containsKey(Minecraft.getInstance().player.getScoreboardName()) && TSRTS.playerSelections.get(Minecraft.getInstance().player.getScoreboardName()).hasChanged)) {
+
+								unitCounts = getSelectedUnitTypeCounts();
+							} else if (!TSRTS.playerSelections.containsKey(Minecraft.getInstance().player.getScoreboardName())) {
+								// no sleection to behad so clear the counts out!
+								unitCounts = new int[Reference.UNIT_TYPES.values().length];
+							}
+
+							if (TSRTS.playerSelections.containsKey(Minecraft.getInstance().player.getScoreboardName())) {
+								TSRTS.playerSelections.get(Minecraft.getInstance().player.getScoreboardName()).hasChanged = false;
+							}
 
 							x = 40;
 							y = 2;

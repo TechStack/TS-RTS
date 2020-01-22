@@ -99,6 +99,8 @@ public class ClientPacketHandler {
 		if (Minecraft.getInstance() != null && Minecraft.getInstance().player != null) {
 			String playerScoreboardName = Minecraft.getInstance().player.getScoreboardName();
 			PlayerSelections ps = new PlayerSelections();
+			ps.hasChanged = true;
+
 			for (int i = 0; i < entityIds.length; i++) {
 				ps.selectedUnits.add(entityIds[i]);
 			}

@@ -196,6 +196,7 @@ public class EventHandler {
 				if (currentEntityID == event.getEntity().getEntityId()) {
 					// found a match it died remove it from the selections!
 					i.remove();
+					p.hasChanged = true;
 				}
 			}
 		}
