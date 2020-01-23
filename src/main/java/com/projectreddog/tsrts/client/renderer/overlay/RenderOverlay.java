@@ -378,6 +378,10 @@ public class RenderOverlay extends Screen {
 			return new ItemStack(Items.CREEPER_HEAD);
 		case TREBUCHET:
 			return new ItemStack(Items.FIRE_CHARGE);
+
+		case LONGBOWMAN:
+			return new ItemStack(Items.BOW);
+
 		default:
 			break;
 

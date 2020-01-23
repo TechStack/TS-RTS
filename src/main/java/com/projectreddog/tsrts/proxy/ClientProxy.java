@@ -10,6 +10,7 @@ import com.projectreddog.tsrts.client.gui.TeamOptionsScreen;
 import com.projectreddog.tsrts.client.gui.TroopBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.UnitRecruitmentScreen;
 import com.projectreddog.tsrts.client.renderer.ArcherMinionRenderer;
+import com.projectreddog.tsrts.client.renderer.LongbowmanRenderer;
 import com.projectreddog.tsrts.client.renderer.MinionRenderer;
 import com.projectreddog.tsrts.client.renderer.MountedRenderer;
 import com.projectreddog.tsrts.client.renderer.PikemanRenderer;
@@ -20,6 +21,7 @@ import com.projectreddog.tsrts.client.renderer.overlay.RenderOverlay;
 import com.projectreddog.tsrts.entities.AdvancedKnightEntity;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
 import com.projectreddog.tsrts.entities.KnightEntity;
+import com.projectreddog.tsrts.entities.LongBowmanEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.entities.PikemanEntity;
@@ -57,6 +59,7 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(KnightEntity.class, MinionRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(AdvancedKnightEntity.class, MinionRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(SapperEntity.class, SapperRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(LongBowmanEntity.class, LongbowmanRenderer::new);
 
 		// Client Gui
 		ScreenManager.registerFactory(ModContainers.BASIC_CONTAINER, BasicScreen::new);

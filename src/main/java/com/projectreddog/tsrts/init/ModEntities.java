@@ -3,6 +3,7 @@ package com.projectreddog.tsrts.init;
 import com.projectreddog.tsrts.entities.AdvancedKnightEntity;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
 import com.projectreddog.tsrts.entities.KnightEntity;
+import com.projectreddog.tsrts.entities.LongBowmanEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.entities.PikemanEntity;
@@ -30,6 +31,9 @@ public class ModEntities {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ARCHER_MINION_ENTITY)
 	public static EntityType<ArcherMinionEntity> ARCHER_MINION;
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LONGBOWMAN_ENTITY)
+	public static EntityType<LongBowmanEntity> LONGBOWMAN;
+
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TARGET_ENTITY)
 	public static EntityType<TargetEntity> TARGET_ENTITY;
 
@@ -48,6 +52,9 @@ public class ModEntities {
 	public static void RegisterEntites(final RegistryEvent.Register<EntityType<?>> event) {
 		event.getRegistry().register(EntityType.Builder.create(MinionEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_MINION_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_MINION_ENTITY));
 		event.getRegistry().register(EntityType.Builder.create(ArcherMinionEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_ARCHER_MINION_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_ARCHER_MINION_ENTITY));
+
+		event.getRegistry().register(EntityType.Builder.create(LongBowmanEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_LONGBOWMAN_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_LONGBOWMAN_ENTITY));
+
 		event.getRegistry().register(EntityType.Builder.create(TargetEntity::new, EntityClassification.CREATURE).size(1F, 1F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_TARGET_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_TARGET_ENTITY));
 
 		event.getRegistry().register(EntityType.Builder.create(MountedEntity::new, EntityClassification.MONSTER).size(.5F, 1.75F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_MOUNTED_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_MOUNTED_ENTITY));

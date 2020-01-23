@@ -159,6 +159,9 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING;
 	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_ARCHER;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_LONGBOWMAN_ATTRIBUTES_STRING;
+	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_LONGBOWMAN;
+
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING;
 	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_MOUNTED;
 
@@ -338,6 +341,8 @@ public class Config {
 		CONFIG_UNIT_ATTRIBUTES_TREBUCHET = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_TREBUCHET_ATTRIBUTES_STRING.get()));
 
 		CONFIG_UNIT_ATTRIBUTES_ARCHER = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING.get()));
+		CONFIG_UNIT_ATTRIBUTES_LONGBOWMAN = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_LONGBOWMAN_ATTRIBUTES_STRING.get()));
+
 		CONFIG_UNIT_ATTRIBUTES_MOUNTED = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING.get()));
 		CONFIG_UNIT_ATTRIBUTES_PIKEMAN = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING.get()));
 
@@ -404,6 +409,9 @@ public class Config {
 
 		CONFIG_UNIT_MINION_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
 		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "10.0,0.0,0.30,2.0,0.0,0.0,3.0,24.0");
+
+		CONFIG_UNIT_LONGBOWMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the LONGBOWMAN. Atttributes are ").define("unit_longbowman_attributes", "15.0,0.0,0.28,2.0,0.0,0.0,4.5,24.0");
+
 		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "15.0,5.0,0.40,2.0,0.0,0.0,3.0,24.0");
 		CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are ").define("unit_pikeman_attributes", "15.0,0,0.33,1.5,0.0,0.0,2.0,24.0");
 		CONFIG_UNIT_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the KNIGHT. Atttributes are ").define("unit_knight_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");

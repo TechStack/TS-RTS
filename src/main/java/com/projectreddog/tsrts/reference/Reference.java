@@ -58,6 +58,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_RETREAT_SEPTER_ITEM = "retreatescepteritem";
 	public static final String REIGSTRY_NAME_LANCE_ITEM = "lanceitem";
 	public static final String REIGSTRY_NAME_PIKE_ITEM = "pikeitem";
+	public static final String REIGSTRY_NAME_LONGBOW_ITEM = "longbowitem";
 
 	public static final String REIGSTRY_NAME_CREEPER_BAG_ITEM = "creeperbag";
 
@@ -107,7 +108,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_KNIGHT_ENTITY = "knight";
 	public static final String REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY = "advancedknight";
 	public static final String REIGSTRY_NAME_SAPPER_ENTITY = "sapper";
-
+	public static final String REIGSTRY_NAME_LONGBOWMAN_ENTITY = "longbowman";
 	// GUI BUTTONS
 
 	public static final int GUI_BUTTON_DEBUG_TESTERYELLOW = 99999;
@@ -184,7 +185,7 @@ public class Reference {
 	}
 
 	public static enum UNIT_TYPES {
-		MINION, ARCHER, LANCER, PIKEMAN, KNIGHT, ADVANCED_KNIGHT, SAPPER, TREBUCHET
+		MINION, ARCHER, LANCER, PIKEMAN, KNIGHT, ADVANCED_KNIGHT, SAPPER, TREBUCHET, LONGBOWMAN
 	}
 
 }
