@@ -107,7 +107,7 @@ public class LongBowmanEntity extends UnitEntity implements IRangedAttackMob {
 
 		double d2 = target.posZ - this.posZ;
 		double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
-		abstractarrowentity.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (0));
+		abstractarrowentity.shoot(d0, d1 + d3 * (double) 0.2F, d2, 2F, (float) (0));
 		this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
 		this.world.addEntity(abstractarrowentity);
 	}
