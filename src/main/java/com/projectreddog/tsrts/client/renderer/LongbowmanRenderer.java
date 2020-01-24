@@ -13,11 +13,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class LongbowmanRenderer extends BipedRenderer<LongBowmanEntity, LongBowmanModel> {
 
-	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/archer_yellow.png");
-	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/archer_yellow.png");
-	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation(Reference.MODID, "textures/entity/archer_blue.png");
-	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation(Reference.MODID, "textures/entity/archer_green.png");
-	private static ResourceLocation TEXTURE_RED = new ResourceLocation(Reference.MODID, "textures/entity/archer_red.png");
+	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/longbowmen_yellow.png");
+	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/longbowmen_yellow.png");
+	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation(Reference.MODID, "textures/entity/longbowmen_blue.png");
+	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation(Reference.MODID, "textures/entity/longbowmen_green.png");
+	private static ResourceLocation TEXTURE_RED = new ResourceLocation(Reference.MODID, "textures/entity/longbowmen_red.png");
 
 	public LongbowmanRenderer(EntityRendererManager manager) {
 		super(manager, new LongBowmanModel(), .5f);
