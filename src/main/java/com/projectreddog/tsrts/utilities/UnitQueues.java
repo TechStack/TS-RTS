@@ -45,7 +45,8 @@ public class UnitQueues {
 		case Reference.UNIT_ID_SAPPER:
 			AddToSiegeWorkshopQueue(ID);
 			break;
-
+		case Reference.UNIT_ID_LONGBOWMAN:
+			AddToArcheryRangeQueue(ID);
 		default:
 			break;
 		}

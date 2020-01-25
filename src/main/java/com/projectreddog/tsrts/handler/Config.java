@@ -57,6 +57,8 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_SAPPER_STRING;
 	public static ResourceValues CONFIG_UNIT_COSTS_SAPPER;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_LONGBOWMEN_STRING;
+	public static ResourceValues CONFIG_UNIT_COSTS_LONGBOWMEN;
 	// archers
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_ARCHER_STRING;
@@ -237,6 +239,8 @@ public class Config {
 	public static ResourceValues CONFIG_RESEARCH_COSTS_BATTERINGRAMS;
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_TREBUCHET_STRING;
 	public static ResourceValues CONFIG_RESEARCH_COSTS_TREBUCHET;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_LONGBOWS_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_LONGBOWS;
 
 	// OPTIONS
 	public static ForgeConfigSpec.BooleanValue CONFIG_PLAYERS_CAN_ATTACK_BUILDINGS;
@@ -291,6 +295,7 @@ public class Config {
 		CONFIG_RESEARCH_COSTS_WATCHTOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the watchtower").define("watchtowerResearchCosts", "300,500,800,100,100,250,0");
 		CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING = COMMON_BUILDER.comment("Defines the cost For the batteringrams").define("batteringramsResearchCosts", "250,500,100,50,50,50,0");
 		CONFIG_RESEARCH_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("trebuchetResearchCosts", "250,1000,200,100,100,100,0");
+		CONFIG_RESEARCH_COSTS_LONGBOWS_STRING = COMMON_BUILDER.comment("Defines the cost For the longbows").define("longbowsResearchCosts", "700,1300,0,400,100,250,0");
 		COMMON_BUILDER.pop();
 	}
 
@@ -363,6 +368,9 @@ public class Config {
 		CONFIG_UNIT_COSTS_KNIGHT = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_KNIGHT_STRING.get()));
 		CONFIG_UNIT_COSTS_ADVANCED_KNIGHT = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_ADVANCED_KNIGHT_STRING.get()));
 		CONFIG_UNIT_COSTS_SAPPER = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_SAPPER_STRING.get()));
+
+		CONFIG_UNIT_COSTS_LONGBOWMEN = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_LONGBOWMEN_STRING.get()));
+
 		CONFIG_BUILDING_COSTS_FARM = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_FARM_STRING.get()));
 		CONFIG_BUILDING_COSTS_LUMBER_YARD = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_LUMBER_YARD_STRING.get()));
 		CONFIG_BUILDING_COSTS_MINESITE_STONE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_MINESITE_STONE_STRING.get()));
@@ -402,6 +410,7 @@ public class Config {
 		CONFIG_RESEARCH_COSTS_WATCHTOWER = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_WATCHTOWER_STRING.get()));
 		CONFIG_RESEARCH_COSTS_BATTERINGRAMS = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING.get()));
 		CONFIG_RESEARCH_COSTS_TREBUCHET = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_TREBUCHET_STRING.get()));
+		CONFIG_RESEARCH_COSTS_LONGBOWS = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_LONGBOWS_STRING.get()));
 	}
 
 	private static void setupUnitAttributeConfig() {
@@ -488,7 +497,7 @@ public class Config {
 		CONFIG_UNIT_COSTS_KNIGHT_STRING = COMMON_BUILDER.comment("Defines the cost For the knight").define("unitCostsKnight", "6,4,4,10,10,0,0");
 		CONFIG_UNIT_COSTS_ADVANCED_KNIGHT_STRING = COMMON_BUILDER.comment("Defines the cost For the Advanced Knight").define("unitCostsAdvancedKnight", "6,4,4,10,10,10,0");
 		CONFIG_UNIT_COSTS_SAPPER_STRING = COMMON_BUILDER.comment("Defines the cost For the sapper").define("unitCostsSapper", "5,4,4,0,15,20,0");
-
+		CONFIG_UNIT_COSTS_LONGBOWMEN_STRING = COMMON_BUILDER.comment("Defines the cost For the longbowmen").define("unitCostsLongbowmen", "10,8,2,6,8,0,0");
 		COMMON_BUILDER.pop();
 	}
 

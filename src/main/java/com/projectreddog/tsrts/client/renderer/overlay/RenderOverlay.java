@@ -380,7 +380,7 @@ public class RenderOverlay extends Screen {
 			return new ItemStack(Items.FIRE_CHARGE);
 
 		case LONGBOWMAN:
-			return new ItemStack(Items.BOW);
+			return new ItemStack(ModItems.LONGBOW);
 
 		default:
 			break;
@@ -407,6 +407,8 @@ public class RenderOverlay extends Screen {
 			return new ItemStack(Items.DIAMOND_SWORD);
 		case Reference.UNIT_ID_SAPPER:
 			return new ItemStack(Items.CREEPER_HEAD);
+		case Reference.UNIT_ID_LONGBOWMAN:
+			return new ItemStack(ModItems.LONGBOW);
 
 		default:
 			break;

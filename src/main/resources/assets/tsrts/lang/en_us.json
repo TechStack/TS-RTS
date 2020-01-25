@@ -110,6 +110,7 @@
 "gui.units.knight":"Knight",
 "gui.units.advancedknight":"Advanced Knight",
 "gui.units.sapper":"Sapper",
+"gui.units.longbowmen":"Longbowmen",
 
 "gui.research.minion.name":"Minions",
 "gui.research.townhall.name":"Town Hall",
@@ -122,7 +123,10 @@
 "gui.research.watchtower.name":"Watch Towers",
 "gui.research.blacksmithing.name":"Blacksmithing",
 "gui.research.siegeworkshop.name":"Siege Workshop",
+"gui.research.longbows.name":"Longbows",
 
+"gui.research.longbows.description":"Unlocks: Longbowmen
+A ranged unit carrying a longbow that has more health, range and attack damage than an archer.",
 "gui.research.siegeworkshop.description":"Unlocks: Sappers & Siege Workshop
 A unit carrying a baby creeper that explodes on death or when attacking.",
 "gui.research.minion.description":"Unlocks: Minions
@@ -207,6 +211,10 @@ Trained in: Siege Workshop",
 "gui.troop.archer.description":"A ranged troop with a bow
 Reserch Required: Archery
 Trained in: Archery Range",
+"gui.troop.longbowmen.description":"A ranged troop with a longbow
+Reserch Required: Longbows
+Trained in: Archery Range",
+
 "gui.troop.lancer.description":"A mounted troop armed with a lance
 Reserch Required: Cavalry
 Trained in: Stables",

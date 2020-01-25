@@ -287,6 +287,13 @@ public class Utilities {
 			return Config.CONFIG_RESEARCH_COSTS_BLACKSMITHING;
 		case ARMORY:
 			return Config.CONFIG_BUILDING_COSTS_ARMORY;
+
+		case SAPPER:
+			return Config.CONFIG_UNIT_COSTS_SAPPER;
+
+		case LONGBOWMEN:
+			return Config.CONFIG_UNIT_COSTS_LONGBOWMEN;
+
 		default:
 			throw new IllegalArgumentException("case Cost Type not handled");
 		}
@@ -310,7 +317,8 @@ public class Utilities {
 			return Config.CONFIG_UNIT_COSTS_ADVANCED_KNIGHT;
 		case Reference.UNIT_ID_SAPPER:
 			return Config.CONFIG_UNIT_COSTS_SAPPER;
-
+		case Reference.UNIT_ID_LONGBOWMAN:
+			return Config.CONFIG_UNIT_COSTS_LONGBOWMEN;
 		}
 		return null;
 	}
@@ -405,6 +413,18 @@ public class Utilities {
 				if (hasNeededResourcesForResourceValues(team, rv)) {
 					spendResourcesForResourceValues(team, rv);
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_SAPPER);
+				}
+			}
+		}
+
+		else if (buttonId == Reference.GUI_BUTTON_BUY_LONGBOWMEN && ModResearch.getResearch("longbows").isUnlocked(teamName)) {
+
+			if (player.getTeam() != null) {
+				String team = player.getTeam().getName();
+				ResourceValues rv = Config.CONFIG_UNIT_COSTS_LONGBOWMEN;
+				if (hasNeededResourcesForResourceValues(team, rv)) {
+					spendResourcesForResourceValues(team, rv);
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_LONGBOWMAN);
 				}
 			}
 		}
@@ -782,7 +802,8 @@ public class Utilities {
 			return ModEntities.TREBUCHET_ENTITY;
 		case Reference.UNIT_ID_SAPPER:
 			return ModEntities.SAPPER;
-
+		case Reference.UNIT_ID_LONGBOWMAN:
+			return ModEntities.LONGBOWMAN;
 		default:
 			return null;
 		}
@@ -813,6 +834,10 @@ public class Utilities {
 			break;
 		case Reference.UNIT_ID_SAPPER:
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountSapper();
+			break;
+
+		case Reference.UNIT_ID_LONGBOWMAN:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountLongbowmen();
 			break;
 		default:
 			break;
@@ -921,6 +946,10 @@ public class Utilities {
 			}
 			if (entityType == ModEntities.ARCHER_MINION) {
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+			}
+
+			if (entityType == ModEntities.LONGBOWMAN) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.LONGBOW));
 			}
 
 			if (entityType == ModEntities.MOUNTED_ENTITY) {
