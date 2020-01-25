@@ -1,0 +1,6 @@
+{
+    "parent": "tsrts:item/longbowitem",
+    "textures": {
+        "layer0": "tsrts:item/longbow_pulling_2"
+    }
+}

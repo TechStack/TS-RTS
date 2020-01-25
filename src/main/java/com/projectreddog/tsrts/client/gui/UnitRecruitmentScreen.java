@@ -113,6 +113,8 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 		} else if (page == 2) {
 			GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_SAPPER, y, teamName);
 			y = y + yOffset;
+			GuiUtil.drawCosts(this, Config.CONFIG_UNIT_COSTS_LONGBOWMEN, y, teamName);
+			y = y + yOffset;
 		}
 		GL11.glPopMatrix();
 	}
@@ -186,6 +188,11 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 			addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(4), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_SAPPER));
 			}, "gui.units.sapper", this, ModResearch.getResearch("siegeworkshop"), "gui.troop.sapper.description"));
+			y = y + 20;
+
+			addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(5), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+				ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_LONGBOWMEN));
+			}, "gui.units.longbowmen", this, ModResearch.getResearch("longbows"), "gui.troop.longbowmen.description"));
 			y = y + 20;
 		}
 

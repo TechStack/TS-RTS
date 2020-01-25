@@ -9,6 +9,7 @@ import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
 import com.projectreddog.tsrts.entities.AdvancedKnightEntity;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
 import com.projectreddog.tsrts.entities.KnightEntity;
+import com.projectreddog.tsrts.entities.LongBowmanEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
 import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.entities.PikemanEntity;
@@ -196,6 +197,7 @@ public class EventHandler {
 				if (currentEntityID == event.getEntity().getEntityId()) {
 					// found a match it died remove it from the selections!
 					i.remove();
+					p.hasChanged = true;
 				}
 			}
 		}
@@ -218,6 +220,8 @@ public class EventHandler {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountMinion();
 				} else if (ue instanceof SapperEntity) {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountSapper();
+				} else if (ue instanceof LongBowmanEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountLongbowmen();
 				}
 			}
 

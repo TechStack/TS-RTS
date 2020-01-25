@@ -54,7 +54,7 @@ public class ClientPacketHandler {
 		ModResearch.getResearch(key).setUnlocked(unLocked, TeamEnum.getIDFromName(teamName));
 	}
 
-	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount, int teamPopulationCap, int unitCountMinion, int unitCountArcher, int unitCountLancer, int unitCountPikeman, int unitCountTrebuchet, int unitCountKnight, int unitCountAdvancedKnight, int unitCountSapper) {
+	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount, int teamPopulationCap, int unitCountMinion, int unitCountArcher, int unitCountLancer, int unitCountPikeman, int unitCountTrebuchet, int unitCountKnight, int unitCountAdvancedKnight, int unitCountSapper, int unitCountLongbowmen) {
 		// TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
 		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
@@ -75,6 +75,8 @@ public class ClientPacketHandler {
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountKnight(unitCountKnight);
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountAdvancedKnight(unitCountAdvancedKnight);
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountSapper(unitCountSapper);
+
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountLongbowmen(unitCountLongbowmen);
 
 	}
 
@@ -99,6 +101,8 @@ public class ClientPacketHandler {
 		if (Minecraft.getInstance() != null && Minecraft.getInstance().player != null) {
 			String playerScoreboardName = Minecraft.getInstance().player.getScoreboardName();
 			PlayerSelections ps = new PlayerSelections();
+			ps.hasChanged = true;
+
 			for (int i = 0; i < entityIds.length; i++) {
 				ps.selectedUnits.add(entityIds[i]);
 			}
@@ -232,6 +236,10 @@ public class ClientPacketHandler {
 			break;
 		case ARMORY:
 			Config.CONFIG_BUILDING_COSTS_ARMORY = rv;
+		case SAPPER:
+			Config.CONFIG_UNIT_COSTS_SAPPER = rv;
+		case LONGBOWMEN:
+			Config.CONFIG_UNIT_COSTS_LONGBOWMEN = rv;
 
 			break;
 		default:

@@ -343,14 +343,14 @@ public class ServerEvents {
 	public static void WriteUnitStats(String teamName, TeamInfo ti) {
 		String delimiter = ",";
 		if (writeUnitHeader) {
-			TSRTS.LOGGER.info("UNITSTATUS-HEADER: Timestamp, TeamName, Minion , Archer, Lancer, Pikeman, Trebuchet, Knight, Advanced Knight, Sapper ");
+			TSRTS.LOGGER.info("UNITSTATUS-HEADER: Timestamp, TeamName, Minion , Archer, Lancer, Pikeman, Trebuchet, Knight, Advanced Knight, Sapper, Longbowmen");
 			writeUnitHeader = false;
 
 		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		String timeStamp = dtf.format(now);
-		String tmp = "UNITSTATUS: " + delimiter + timeStamp + delimiter + teamName + delimiter + ti.getUnitCountMinion() + delimiter + ti.getUnitCountArcher() + delimiter + ti.getUnitCountLancer() + delimiter + ti.getUnitCountPikeman() + delimiter + ti.getUnitCountTrebuchet() + delimiter + ti.getUnitCountKnight() + delimiter + ti.getUnitCountAdvancedKnight() + delimiter + ti.getUnitCountSapper();
+		String tmp = "UNITSTATUS: " + delimiter + timeStamp + delimiter + teamName + delimiter + ti.getUnitCountMinion() + delimiter + ti.getUnitCountArcher() + delimiter + ti.getUnitCountLancer() + delimiter + ti.getUnitCountPikeman() + delimiter + ti.getUnitCountTrebuchet() + delimiter + ti.getUnitCountKnight() + delimiter + ti.getUnitCountAdvancedKnight() + delimiter + ti.getUnitCountSapper() + delimiter + ti.getUnitCountLongbowmen();
 
 		TSRTS.LOGGER.info(tmp);
 
