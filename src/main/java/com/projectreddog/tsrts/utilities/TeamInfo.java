@@ -36,6 +36,7 @@ public class TeamInfo {
 	private int unitCountAdvancedKnight = 0;
 	private int unitCountSapper = 0;
 	private int unitCountLongbowmen = 0;
+	private int unitCountCrossbowmen = 0;
 
 	private String CurrenResearchKey;
 	private int teamPopulationCap;
@@ -343,6 +344,14 @@ public class TeamInfo {
 		this.unitCountLongbowmen++;
 	}
 
+	public int getUnitCountCrossbowmen() {
+		return unitCountCrossbowmen;
+	}
+
+	public void AddOneUnitCountCrossbowmen() {
+		this.unitCountCrossbowmen++;
+	}
+
 	public int getUnitCountKnight() {
 		return unitCountKnight;
 	}
@@ -387,6 +396,10 @@ public class TeamInfo {
 		this.unitCountLongbowmen--;
 	}
 
+	public void RemoveOneUnitCountCrossbowmen() {
+		this.unitCountCrossbowmen--;
+	}
+
 	public void RemoveOneUnitCountKnight() {
 		this.unitCountKnight--;
 	}
@@ -421,6 +434,10 @@ public class TeamInfo {
 
 	public void setUnitCountLongbowmen(int unitCountLongbowmen) {
 		this.unitCountLongbowmen = unitCountLongbowmen;
+	}
+
+	public void setUnitCountCrossbowmen(int unitCountCrossbowmen) {
+		this.unitCountCrossbowmen = unitCountCrossbowmen;
 	}
 
 	public void setUnitCountKnight(int unitCountKnight) {

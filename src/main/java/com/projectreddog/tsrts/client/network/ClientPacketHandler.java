@@ -54,7 +54,7 @@ public class ClientPacketHandler {
 		ModResearch.getResearch(key).setUnlocked(unLocked, TeamEnum.getIDFromName(teamName));
 	}
 
-	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount, int teamPopulationCap, int unitCountMinion, int unitCountArcher, int unitCountLancer, int unitCountPikeman, int unitCountTrebuchet, int unitCountKnight, int unitCountAdvancedKnight, int unitCountSapper, int unitCountLongbowmen) {
+	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount, int teamPopulationCap, int unitCountMinion, int unitCountArcher, int unitCountLancer, int unitCountPikeman, int unitCountTrebuchet, int unitCountKnight, int unitCountAdvancedKnight, int unitCountSapper, int unitCountLongbowmen, int unitCountCrossbowmen) {
 		// TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
 		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
@@ -77,6 +77,7 @@ public class ClientPacketHandler {
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountSapper(unitCountSapper);
 
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountLongbowmen(unitCountLongbowmen);
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountCrossbowmen(unitCountCrossbowmen);
 
 	}
 

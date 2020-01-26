@@ -319,6 +319,9 @@ public class Utilities {
 			return Config.CONFIG_UNIT_COSTS_SAPPER;
 		case Reference.UNIT_ID_LONGBOWMAN:
 			return Config.CONFIG_UNIT_COSTS_LONGBOWMEN;
+
+		case Reference.UNIT_ID_CROSSBOWMAN:
+			return Config.CONFIG_UNIT_COSTS_CROSSBOWMEN;
 		}
 		return null;
 	}
@@ -425,6 +428,18 @@ public class Utilities {
 				if (hasNeededResourcesForResourceValues(team, rv)) {
 					spendResourcesForResourceValues(team, rv);
 					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_LONGBOWMAN);
+				}
+			}
+		}
+
+		else if (buttonId == Reference.GUI_BUTTON_BUY_CROSSBOWMEN && ModResearch.getResearch("crossbows").isUnlocked(teamName)) {
+
+			if (player.getTeam() != null) {
+				String team = player.getTeam().getName();
+				ResourceValues rv = Config.CONFIG_UNIT_COSTS_CROSSBOWMEN;
+				if (hasNeededResourcesForResourceValues(team, rv)) {
+					spendResourcesForResourceValues(team, rv);
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_CROSSBOWMAN);
 				}
 			}
 		}
@@ -804,6 +819,9 @@ public class Utilities {
 			return ModEntities.SAPPER;
 		case Reference.UNIT_ID_LONGBOWMAN:
 			return ModEntities.LONGBOWMAN;
+
+		case Reference.UNIT_ID_CROSSBOWMAN:
+			return ModEntities.CROSSBOWMAN;
 		default:
 			return null;
 		}
@@ -838,6 +856,10 @@ public class Utilities {
 
 		case Reference.UNIT_ID_LONGBOWMAN:
 			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountLongbowmen();
+			break;
+
+		case Reference.UNIT_ID_CROSSBOWMAN:
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountCrossbowmen();
 			break;
 		default:
 			break;

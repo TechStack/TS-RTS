@@ -381,7 +381,8 @@ public class RenderOverlay extends Screen {
 
 		case LONGBOWMAN:
 			return new ItemStack(ModItems.LONGBOW);
-
+		case CROSSBOWMAN:
+			return new ItemStack(Items.CROSSBOW);
 		default:
 			break;
 
@@ -409,6 +410,8 @@ public class RenderOverlay extends Screen {
 			return new ItemStack(Items.CREEPER_HEAD);
 		case Reference.UNIT_ID_LONGBOWMAN:
 			return new ItemStack(ModItems.LONGBOW);
+		case Reference.UNIT_ID_CROSSBOWMAN:
+			return new ItemStack(Items.CROSSBOW);
 
 		default:
 			break;

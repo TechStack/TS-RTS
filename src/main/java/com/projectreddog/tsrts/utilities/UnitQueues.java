@@ -47,6 +47,9 @@ public class UnitQueues {
 			break;
 		case Reference.UNIT_ID_LONGBOWMAN:
 			AddToArcheryRangeQueue(ID);
+
+		case Reference.UNIT_ID_CROSSBOWMAN:
+			AddToArcheryRangeQueue(ID);
 		default:
 			break;
 		}

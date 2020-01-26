@@ -17,6 +17,7 @@ public class Reference {
 	public static final int UNIT_ID_ADVANCED_KNIGHT = 7;
 	public static final int UNIT_ID_SAPPER = 8;
 	public static final int UNIT_ID_LONGBOWMAN = 9;
+	public static final int UNIT_ID_CROSSBOWMAN = 10;
 
 	// Block registry names
 	public static final String REIGSTRY_NAME_BARRACKS_BLOCK = "barracksblock";
@@ -110,6 +111,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY = "advancedknight";
 	public static final String REIGSTRY_NAME_SAPPER_ENTITY = "sapper";
 	public static final String REIGSTRY_NAME_LONGBOWMAN_ENTITY = "longbowman";
+	public static final String REIGSTRY_NAME_CROSSBOWMAN_ENTITY = "crossbowman";
+
 	// GUI BUTTONS
 
 	public static final int GUI_BUTTON_DEBUG_TESTERYELLOW = 99999;
@@ -151,6 +154,7 @@ public class Reference {
 
 	public static final int GUI_BUTTON_BUY_SAPPER = 25;
 	public static final int GUI_BUTTON_BUY_LONGBOWMEN = 26;
+	public static final int GUI_BUTTON_BUY_CROSSBOWMEN = 27;
 
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
@@ -187,7 +191,7 @@ public class Reference {
 	}
 
 	public static enum UNIT_TYPES {
-		MINION, ARCHER, LANCER, PIKEMAN, KNIGHT, ADVANCED_KNIGHT, SAPPER, TREBUCHET, LONGBOWMAN
+		MINION, ARCHER, LANCER, PIKEMAN, KNIGHT, ADVANCED_KNIGHT, SAPPER, TREBUCHET, LONGBOWMAN, CROSSBOWMAN
 	}
 
 }

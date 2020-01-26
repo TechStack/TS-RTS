@@ -29,6 +29,7 @@ public class SendTeamInfoPacketToClient {
 	private int unitCountAdvancedKnight = 0;
 	private int unitCountSapper = 0;
 	private int unitCountLongbowmen = 0;
+	private int unitCountCrossbowmen = 0;
 
 	public SendTeamInfoPacketToClient(PacketBuffer buf) {
 		// DECODE
@@ -54,6 +55,8 @@ public class SendTeamInfoPacketToClient {
 		this.unitCountAdvancedKnight = buf.readInt();
 		this.unitCountSapper = buf.readInt();
 		this.unitCountLongbowmen = buf.readInt();
+		this.unitCountCrossbowmen = buf.readInt();
+
 	}
 
 	public SendTeamInfoPacketToClient(TeamInfo ti, String teamName) {
@@ -75,6 +78,7 @@ public class SendTeamInfoPacketToClient {
 		this.unitCountAdvancedKnight = ti.getUnitCountAdvancedKnight();
 		this.unitCountSapper = ti.getUnitCountSapper();
 		this.unitCountLongbowmen = ti.getUnitCountLongbowmen();
+		this.unitCountCrossbowmen = ti.getUnitCountCrossbowmen();
 
 	}
 
@@ -104,12 +108,14 @@ public class SendTeamInfoPacketToClient {
 		buf.writeInt(this.unitCountAdvancedKnight);
 		buf.writeInt(this.unitCountSapper);
 		buf.writeInt(this.unitCountLongbowmen);
+		buf.writeInt(this.unitCountCrossbowmen);
+
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		// TODO Auto-generated method stub
 		ctx.get().enqueueWork(() -> {
-			ClientPacketHandler.SendTeamInfoPacketToClient(resourceAmt, teamName, CurrenResearchKey, currentResearchWorkRemaining, fullResearchWorkRemaining, teamPopulationCap, unitCountMinion, unitCountArcher, unitCountLancer, unitCountPikeman, unitCountTrebuchet, unitCountKnight, unitCountAdvancedKnight, unitCountSapper, unitCountLongbowmen);
+			ClientPacketHandler.SendTeamInfoPacketToClient(resourceAmt, teamName, CurrenResearchKey, currentResearchWorkRemaining, fullResearchWorkRemaining, teamPopulationCap, unitCountMinion, unitCountArcher, unitCountLancer, unitCountPikeman, unitCountTrebuchet, unitCountKnight, unitCountAdvancedKnight, unitCountSapper, unitCountLongbowmen, unitCountCrossbowmen);
 
 		});
 		ctx.get().setPacketHandled(true);

@@ -8,6 +8,7 @@ import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
 import com.projectreddog.tsrts.entities.AdvancedKnightEntity;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
+import com.projectreddog.tsrts.entities.CrossbowmanEntity;
 import com.projectreddog.tsrts.entities.KnightEntity;
 import com.projectreddog.tsrts.entities.LongBowmanEntity;
 import com.projectreddog.tsrts.entities.MinionEntity;
@@ -222,6 +223,8 @@ public class EventHandler {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountSapper();
 				} else if (ue instanceof LongBowmanEntity) {
 					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountLongbowmen();
+				} else if (ue instanceof CrossbowmanEntity) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCountCrossbowmen();
 				}
 			}
 
