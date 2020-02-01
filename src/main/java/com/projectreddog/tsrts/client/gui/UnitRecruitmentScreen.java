@@ -95,20 +95,15 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 		int yOffset = GuiUtil.GetResourceCostYOffsetValue();
 		int y = GuiUtil.GetResourceCostYStartValue(this);
 		GuiUtil.drawResourceIconHeaders(this);
-		if (page == 1) {
 
-			for (int i = 0; i < pageUnitTypes.length; i++) {
+		for (int i = 0; i < pageUnitTypes.length; i++) {
+			if (pageUnitTypes[i] != null) {
+
 				GuiUtil.drawCosts(this, Utilities.GetResourceValuesforUnitID(pageUnitTypes[i]), y, teamName);
-				y = y + yOffset;
 			}
-
-		} else if (page == 2) {
-			for (int i = 0; i < 2; i++) {
-				GuiUtil.drawCosts(this, Utilities.GetResourceValuesforUnitID(pageUnitTypes[i]), y, teamName);
-				y = y + yOffset;
-			}
-
+			y = y + yOffset;
 		}
+
 		GL11.glPopMatrix();
 	}
 
@@ -121,6 +116,11 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 	private void clearButtons() {
 		this.buttons.clear();
 		this.children.clear();
+
+		for (int i = 0; i < pageUnitTypes.length; i++) {
+			pageUnitTypes[i] = null;
+		}
+
 	}
 
 	private void addButtonsForPage() {
