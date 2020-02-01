@@ -5,6 +5,7 @@ import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModBlocks;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.reference.Reference.STRUCTURE_TYPE;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 import com.projectreddog.tsrts.tileentity.interfaces.ITEGuiButtonHandler;
 import com.projectreddog.tsrts.utilities.MapStructureUtilities;
 import com.projectreddog.tsrts.utilities.ResourceValues;
@@ -42,7 +43,7 @@ public class BarracksTileEntity extends OwnedCooldownTileEntity implements IName
 						if (Utilities.hasNeededResourcesForResourceValues(getTeam().getName(), rv)) {
 							Utilities.spendResourcesForResourceValues(getTeam().getName(), rv);
 //check if we have the building reuqired for "SOME" units
-							if (((TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_ADVANCED_KNIGHT || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_KNIGHT) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getArmory() > 0) || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_MINION || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == Reference.UNIT_ID_PIKEMAN) {
+							if (((TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == UNIT_TYPES.ADVANCED_KNIGHT || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == UNIT_TYPES.KNIGHT) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(getTeam().getName())].getArmory() > 0) || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == UNIT_TYPES.MINION || TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0) == UNIT_TYPES.PIKEMAN) {
 								TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].AddToProperQueue(TSRTS.TeamQueues[TeamEnum.getIDFromName(getTeam().getName())].getBarracks().get(0));
 							}
 						} else {

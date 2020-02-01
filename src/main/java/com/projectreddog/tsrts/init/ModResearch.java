@@ -30,7 +30,7 @@ public class ModResearch {
 		// registerResearchTopic("marketplace", "townhall", false, Config.CONFIG_RESEARCH_COSTS_MARKETPLACE, 100, 1, 1);
 		registerResearchTopic("wall", "townhall", false, Config.CONFIG_RESEARCH_COSTS_WALL, 100, 9, 0);
 		registerResearchTopic("siegeworkshop", "townhall", false, Config.CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP, 100, 3, 1);
-		// registerResearchTopic("crossbow", "archer", false, Config.CONFIG_RESEARCH_COSTS_CROSSBOW, 100, 1, 1);
+		registerResearchTopic("crossbows", "archer", false, Config.CONFIG_RESEARCH_COSTS_CROSSBOW, 100, 1, 1);
 		registerResearchTopic("advcedarmor", "armor", false, Config.CONFIG_RESEARCH_COSTS_ADVCEDARMOR, 100, 1, 5);
 		registerResearchTopic("watchtower", "wall", false, Config.CONFIG_RESEARCH_COSTS_WATCHTOWER, 100, 0, 1);
 		// registerResearchTopic("batteringrams", null, false, Config.CONFIG_RESEARCH_COSTS_BATTERINGRAMS, 100, 1, 1);
@@ -186,7 +186,7 @@ public class ModResearch {
 			return research_topics.get(key);
 		} else {
 			TSRTS.LOGGER.error("ERROR tried to get research with invaid key:" + key);
-			throw new IllegalArgumentException("loooking for an invalid research topic KEY!");
+			throw new IllegalArgumentException("loooking for an invalid research topic KEY! :" + key);
 		}
 	}
 

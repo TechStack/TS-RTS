@@ -16,6 +16,7 @@ import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
 import com.projectreddog.tsrts.network.SendMapDataPacketToClient;
 import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.TownHallTileEntity;
 import com.projectreddog.tsrts.utilities.MapStructureUtilities;
@@ -107,7 +108,7 @@ public class ServerEvents {
 
 			if (target != null) {
 				for (int i = 0; i < ((int) (wavertsWaveCount * wavertsWaveCount * .5)); i++) {
-					Utilities.SpawnUnitForTeam(Reference.UNIT_ID_MINION, Reference.WAVE_SURVIAL_AI_NAME, world, waveSurvivalSpawnPoint, WAVE_SURVIVAL_TEAM, target);
+					Utilities.SpawnUnitForTeam(UNIT_TYPES.MINION, Reference.WAVE_SURVIAL_AI_NAME, world, waveSurvivalSpawnPoint, WAVE_SURVIVAL_TEAM, target);
 				}
 			}
 			wavertsWaveCount++;
@@ -343,14 +344,14 @@ public class ServerEvents {
 	public static void WriteUnitStats(String teamName, TeamInfo ti) {
 		String delimiter = ",";
 		if (writeUnitHeader) {
-			TSRTS.LOGGER.info("UNITSTATUS-HEADER: Timestamp, TeamName, Minion , Archer, Lancer, Pikeman, Trebuchet, Knight, Advanced Knight, Sapper, Longbowmen, Crossbowmen");
+			TSRTS.LOGGER.info("UNITSTATUS-HEADER: Timestamp, TeamName" + ti.getUnitNameForStatsLog(delimiter));
 			writeUnitHeader = false;
 
 		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		String timeStamp = dtf.format(now);
-		String tmp = "UNITSTATUS: " + delimiter + timeStamp + delimiter + teamName + delimiter + ti.getUnitCountMinion() + delimiter + ti.getUnitCountArcher() + delimiter + ti.getUnitCountLancer() + delimiter + ti.getUnitCountPikeman() + delimiter + ti.getUnitCountTrebuchet() + delimiter + ti.getUnitCountKnight() + delimiter + ti.getUnitCountAdvancedKnight() + delimiter + ti.getUnitCountSapper() + delimiter + ti.getUnitCountLongbowmen() + delimiter + ti.getUnitCountCrossbowmen();
+		String tmp = "UNITSTATUS: " + delimiter + timeStamp + delimiter + teamName + ti.getUnitCountForStatsLog(delimiter);
 
 		TSRTS.LOGGER.info(tmp);
 
