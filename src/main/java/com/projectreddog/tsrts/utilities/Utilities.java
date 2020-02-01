@@ -336,7 +336,7 @@ public class Utilities {
 			// don't allow for null teams !
 			return false;
 		}
-		return ModResearch.getResearch("armor").isUnlocked(teamName);
+		return ModResearch.getResearch(researchName).isUnlocked(teamName);
 	}
 
 	public static void RecruitTroopHandler(UNIT_TYPES unitType, ServerPlayerEntity player) {
