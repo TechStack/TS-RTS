@@ -865,6 +865,21 @@ public class Utilities {
 			if (entityType == ModEntities.LONGBOWMAN) {
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.LONGBOW));
 			}
+			if (entityType == ModEntities.CROSSBOWMAN) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.CROSSBOW));
+				List<DyeItem> teamColorList = Lists.newArrayList();
+				if (ue.getTeam() != null) {
+					teamColorList = getDyeListForTeam(ue.getTeam().getName());
+				}
+
+				ItemStack is = new ItemStack(ModItems.TEAM_IRON_ARMOR_HELMET);
+				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+				ue.setItemStackToSlot(EquipmentSlotType.HEAD, is);
+
+				is = new ItemStack(ModItems.TEAM_IRON_ARMOR_LEGGINGS);
+				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+				ue.setItemStackToSlot(EquipmentSlotType.LEGS, is);
+			}
 
 			if (entityType == ModEntities.MOUNTED_ENTITY) {
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.LANCEITEM));
