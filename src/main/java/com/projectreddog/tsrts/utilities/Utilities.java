@@ -872,13 +872,22 @@ public class Utilities {
 					teamColorList = getDyeListForTeam(ue.getTeam().getName());
 				}
 
-				ItemStack is = new ItemStack(ModItems.TEAM_IRON_ARMOR_HELMET);
+				ItemStack is = new ItemStack(Items.LEATHER_HELMET);
 				is = IDyeableArmorItem.dyeItem(is, teamColorList);
 				ue.setItemStackToSlot(EquipmentSlotType.HEAD, is);
 
-				is = new ItemStack(ModItems.TEAM_IRON_ARMOR_LEGGINGS);
+				is = new ItemStack(Items.LEATHER_LEGGINGS);
 				is = IDyeableArmorItem.dyeItem(is, teamColorList);
 				ue.setItemStackToSlot(EquipmentSlotType.LEGS, is);
+
+				is = new ItemStack(Items.LEATHER_BOOTS);
+				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+				ue.setItemStackToSlot(EquipmentSlotType.FEET, is);
+
+				is = new ItemStack(Items.LEATHER_CHESTPLATE);
+				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+				ue.setItemStackToSlot(EquipmentSlotType.CHEST, is);
+
 			}
 
 			if (entityType == ModEntities.MOUNTED_ENTITY) {
