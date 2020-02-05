@@ -297,8 +297,8 @@ public class Config {
 		CONFIG_RESEARCH_COSTS_MARKETPLACE_STRING = COMMON_BUILDER.comment("Defines the cost For the marketplace").define("marketplaceResearchCosts", "100,100,100,100,250,250,0");
 		CONFIG_RESEARCH_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the wall").define("wallResearchCosts", "300,100,750,100,50,100,0");
 		CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the siegeworkshop").define("siegeworkshopResearchCosts", "250,500,100,100,50,50,0");
-		CONFIG_RESEARCH_COSTS_CROSSBOW_STRING = COMMON_BUILDER.comment("Defines the cost For the crossbow").define("crossbowResearchCosts", "250,1000,0,250,100,100,0");
-		CONFIG_RESEARCH_COSTS_ADVCEDARMOR_STRING = COMMON_BUILDER.comment("Defines the cost For the advcedarmor").define("advcedarmorResearchCosts", "250,0,0,200,50,250,0");
+		CONFIG_RESEARCH_COSTS_CROSSBOW_STRING = COMMON_BUILDER.comment("Defines the cost For the crossbow").define("crossbowResearchCosts", "1400,1500,0,800,100,400,0");
+		CONFIG_RESEARCH_COSTS_ADVCEDARMOR_STRING = COMMON_BUILDER.comment("Defines the cost For the advcedarmor").define("advcedarmorResearchCosts", "1000,200,200,200,600,500,0");
 		CONFIG_RESEARCH_COSTS_WATCHTOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the watchtower").define("watchtowerResearchCosts", "300,500,800,100,100,250,0");
 		CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING = COMMON_BUILDER.comment("Defines the cost For the batteringrams").define("batteringramsResearchCosts", "250,500,100,50,50,50,0");
 		CONFIG_RESEARCH_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("trebuchetResearchCosts", "250,1000,200,100,100,100,0");

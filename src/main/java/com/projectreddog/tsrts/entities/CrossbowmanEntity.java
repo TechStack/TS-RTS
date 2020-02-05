@@ -19,24 +19,60 @@ import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RangedBowAttackGoal;
+import net.minecraft.entity.ai.goal.RangedCrossbowAttackGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class CrossbowmanEntity extends UnitEntity implements IRangedAttackMob, ICrossbowUser {
+
+	private static final DataParameter<Boolean> DATA_CHARGING_STATE = EntityDataManager.createKey(UnitEntity.class, DataSerializers.BOOLEAN);
+
+	public enum ArmState {
+		HOLDING, CHARGING, NONE
+	}
 
 	public CrossbowmanEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
 		// this.world.getScoreboard().addPlayerToTeam(this.getCachedUniqueIdString(), scoreplayerteam);
 		// Minecraft.getInstance().player.getTeam()
+	}
+
+	protected void registerData() {
+		super.registerData();
+		this.dataManager.register(DATA_CHARGING_STATE, false);
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public boolean isCharging() {
+		return this.dataManager.get(DATA_CHARGING_STATE);
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public ArmState getArmState() {
+
+		if (this.isHolding(Items.CROSSBOW)) {
+			if (this.isCharging()) {
+				return ArmState.CHARGING;
+			} else {
+				return ArmState.HOLDING;
+			}
+		} else {
+			return ArmState.NONE;
+		}
+
 	}
 
 	public Reference.UNIT_TYPES getUnitType() {
@@ -47,7 +83,8 @@ public class CrossbowmanEntity extends UnitEntity implements IRangedAttackMob, I
 		// this.goalSelector.addGoal(4, new ZombieEntity.AttackTurtleEggGoal(this, 1.0D, 3));
 		this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-		this.goalSelector.addGoal(2, new RangedBowAttackGoal(this, 1.0D, 20, 24.0F));
+		this.goalSelector.addGoal(2, new RangedCrossbowAttackGoal<>(this, 1.0D, 32.0F));
+
 		// this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new MoveToOwnerSpecifiedLocation(this, 1.1D, 32));
 
@@ -133,7 +170,7 @@ public class CrossbowmanEntity extends UnitEntity implements IRangedAttackMob, I
 
 	@Override
 	public void setCharging(boolean p_213671_1_) {
-		// TODO Auto-generated method stub
+		this.dataManager.set(DATA_CHARGING_STATE, p_213671_1_);
 
 	}
 
