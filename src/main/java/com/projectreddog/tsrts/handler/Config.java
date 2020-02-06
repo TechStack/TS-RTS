@@ -427,7 +427,7 @@ public class Config {
 		CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ARCHER. Atttributes are ").define("unit_archer_attributes", "10.0,0.0,0.37,2.0,0.0,0.0,3.0,24.0");
 
 		CONFIG_UNIT_LONGBOWMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the LONGBOWMAN. Atttributes are ").define("unit_longbowman_attributes", "15.0,0.0,0.37,2.0,0.0,0.0,4.5,24.0");
-		CONFIG_UNIT_CROSSBOWMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the CROSSBOWMAN. Atttributes are ").define("unit_crossbowman_attributes", "15.0,0.0,0.37,2.0,0.0,0.0,4.5,24.0");
+		CONFIG_UNIT_CROSSBOWMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the CROSSBOWMAN. Atttributes are ").define("unit_crossbowman_attributes", "15.0,0.0,0.37,2.0,0.0,0.0,5.5,24.0");
 		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "15.0,5.0,0.40,2.0,0.0,0.0,3.0,24.0");
 		CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are ").define("unit_pikeman_attributes", "15.0,0,0.33,1.5,0.0,0.0,2.0,24.0");
 		CONFIG_UNIT_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the KNIGHT. Atttributes are ").define("unit_knight_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
