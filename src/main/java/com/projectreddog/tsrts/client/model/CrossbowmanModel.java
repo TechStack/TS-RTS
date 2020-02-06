@@ -17,6 +17,7 @@ public class CrossbowmanModel extends BipedModel<CrossbowmanEntity> {
 	}
 
 	public void setRotationAngles(CrossbowmanEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+		super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
 		ArmState armState = entityIn.getArmState();
 		if (armState == ArmState.HOLDING) {
 			this.bipedRightArm.rotateAngleY = -0.3F + this.bipedHead.rotateAngleY;
