@@ -121,6 +121,7 @@ public class CrossbowmanEntity extends UnitEntity implements IRangedAttackMob, I
 	public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
 		ItemStack itemstack = this.findAmmo(this.getHeldItem(ProjectileHelper.getHandWith(this, Items.CROSSBOW)));
 		AbstractArrowEntity abstractarrowentity = ProjectileHelper.func_221272_a(this, itemstack, distanceFactor);
+		abstractarrowentity.setDamage(abstractarrowentity.getDamage() * 2);
 		if (this.getHeldItemMainhand().getItem() instanceof LongBow)
 			abstractarrowentity = ((LongBow) this.getHeldItemMainhand().getItem()).customeArrow(abstractarrowentity);
 		double d0 = target.posX - this.posX;
