@@ -294,6 +294,8 @@ public class Utilities {
 		case LONGBOWMEN:
 			return Config.CONFIG_UNIT_COSTS_LONGBOWMEN;
 
+		case CROSSBOWMEN:
+			return Config.CONFIG_UNIT_COSTS_CROSSBOWMEN;
 		default:
 			throw new IllegalArgumentException("case Cost Type not handled");
 		}

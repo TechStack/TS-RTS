@@ -237,11 +237,18 @@ public class ClientPacketHandler {
 			break;
 		case ARMORY:
 			Config.CONFIG_BUILDING_COSTS_ARMORY = rv;
+			break;
+
 		case SAPPER:
 			Config.CONFIG_UNIT_COSTS_SAPPER = rv;
+			break;
+
 		case LONGBOWMEN:
 			Config.CONFIG_UNIT_COSTS_LONGBOWMEN = rv;
+			break;
 
+		case CROSSBOWMEN:
+			Config.CONFIG_UNIT_COSTS_CROSSBOWMEN = rv;
 			break;
 		default:
 			throw new IllegalArgumentException("Case not handled");
