@@ -41,6 +41,7 @@ import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.reference.Reference.RTS_COSTS;
 import com.projectreddog.tsrts.reference.Reference.STRUCTURE_TYPE;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.tileentity.WallTileEntity;
@@ -299,28 +300,63 @@ public class Utilities {
 		}
 	}
 
-	public static ResourceValues GetResourceValuesforUnitID(int unitID) {
+	public static ResourceValues GetResourceValuesforUnitID(UNIT_TYPES unitID) {
 		switch (unitID) {
-		case Reference.UNIT_ID_MINION:
+		case MINION:
 			return Config.CONFIG_UNIT_COSTS_MINION;
-		case Reference.UNIT_ID_ARCHER:
+		case ARCHER:
 			return Config.CONFIG_UNIT_COSTS_ARCHER;
-		case Reference.UNIT_ID_LANCER:
+		case LANCER:
 			return Config.CONFIG_UNIT_COSTS_LANCER;
-		case Reference.UNIT_ID_PIKEMAN:
+		case PIKEMAN:
 			return Config.CONFIG_UNIT_COSTS_PIKEMAN;
-		case Reference.UNIT_ID_TREBUCHET:
+		case TREBUCHET:
 			return Config.CONFIG_UNIT_COSTS_TREBUCHET;
-		case Reference.UNIT_ID_KNIGHT:
+		case KNIGHT:
 			return Config.CONFIG_UNIT_COSTS_KNIGHT;
-		case Reference.UNIT_ID_ADVANCED_KNIGHT:
+		case ADVANCED_KNIGHT:
 			return Config.CONFIG_UNIT_COSTS_ADVANCED_KNIGHT;
-		case Reference.UNIT_ID_SAPPER:
+		case SAPPER:
 			return Config.CONFIG_UNIT_COSTS_SAPPER;
-		case Reference.UNIT_ID_LONGBOWMAN:
+		case LONGBOWMAN:
 			return Config.CONFIG_UNIT_COSTS_LONGBOWMEN;
+
+		case CROSSBOWMAN:
+			return Config.CONFIG_UNIT_COSTS_CROSSBOWMEN;
 		}
 		return null;
+	}
+
+	public static boolean isResearchUnlockedOrNull(String researchName, String teamName) {
+		// returns true if research name is null
+		if (researchName == null) {
+			return true;
+		}
+		if (teamName == null) {
+			// don't allow for null teams !
+			return false;
+		}
+		return ModResearch.getResearch(researchName).isUnlocked(teamName);
+	}
+
+	public static void RecruitTroopHandler(UNIT_TYPES unitType, ServerPlayerEntity player) {
+		String teamName = "";
+		// TODO: RESEARCH UPDATE WITH RESEARCH UNLOCKS AS NEEDED
+		if (player.getTeam() != null) {
+			teamName = player.getTeam().getName();
+		}
+
+		if (isResearchUnlockedOrNull(unitType.getResearchKeyRequiredToBuy(), teamName) && (!unitType.IsArmoryRquired() || TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].getArmory() > 0)) {
+
+			if (player.getTeam() != null) {
+				String team = player.getTeam().getName();
+				ResourceValues rv = GetResourceValuesforUnitID(unitType);
+				if (hasNeededResourcesForResourceValues(team, rv)) {
+					spendResourcesForResourceValues(team, rv);
+					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(unitType);
+				}
+			}
+		}
 	}
 
 	public static void TownHallGuiHandler(int buttonId, ServerPlayerEntity player) {
@@ -374,102 +410,6 @@ public class Utilities {
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARMORY) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.ARMORYBUILDERITEM));
-
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_MINION) {
-
-			if (player.getTeam() != null) {
-				String team = player.getTeam().getName();
-				ResourceValues rv = Config.CONFIG_UNIT_COSTS_MINION;
-				if (hasNeededResourcesForResourceValues(team, rv)) {
-					spendResourcesForResourceValues(team, rv);
-					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_MINION);
-				}
-			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_KNIGHT && ModResearch.getResearch("armor").isUnlocked(teamName) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].getArmory() > 0) {
-
-			if (player.getTeam() != null) {
-				String team = player.getTeam().getName();
-				ResourceValues rv = Config.CONFIG_UNIT_COSTS_KNIGHT;
-				if (hasNeededResourcesForResourceValues(team, rv)) {
-					spendResourcesForResourceValues(team, rv);
-					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_KNIGHT);
-				}
-			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_DIAMOND_KNIGHT && ModResearch.getResearch("advcedarmor").isUnlocked(teamName) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].getArmory() > 0) {
-
-			if (player.getTeam() != null) {
-				String team = player.getTeam().getName();
-				ResourceValues rv = Config.CONFIG_UNIT_COSTS_ADVANCED_KNIGHT;
-				if (hasNeededResourcesForResourceValues(team, rv)) {
-					spendResourcesForResourceValues(team, rv);
-					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_ADVANCED_KNIGHT);
-				}
-			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_SAPPER && ModResearch.getResearch("siegeworkshop").isUnlocked(teamName)) {
-
-			if (player.getTeam() != null) {
-				String team = player.getTeam().getName();
-				ResourceValues rv = Config.CONFIG_UNIT_COSTS_SAPPER;
-				if (hasNeededResourcesForResourceValues(team, rv)) {
-					spendResourcesForResourceValues(team, rv);
-					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_SAPPER);
-				}
-			}
-		}
-
-		else if (buttonId == Reference.GUI_BUTTON_BUY_LONGBOWMEN && ModResearch.getResearch("longbows").isUnlocked(teamName)) {
-
-			if (player.getTeam() != null) {
-				String team = player.getTeam().getName();
-				ResourceValues rv = Config.CONFIG_UNIT_COSTS_LONGBOWMEN;
-				if (hasNeededResourcesForResourceValues(team, rv)) {
-					spendResourcesForResourceValues(team, rv);
-					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_LONGBOWMAN);
-				}
-			}
-		}
-
-		else if (buttonId == Reference.GUI_BUTTON_BUY_ARCHER && ModResearch.getResearch("archer").isUnlocked(teamName)) {
-
-			if (player.getTeam() != null) {
-				String team = player.getTeam().getName();
-				ResourceValues rv = Config.CONFIG_UNIT_COSTS_ARCHER;
-				if (hasNeededResourcesForResourceValues(team, rv)) {
-					spendResourcesForResourceValues(team, rv);
-					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_ARCHER);
-				}
-			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_LANCER && ModResearch.getResearch("lancer").isUnlocked(teamName)) {
-
-			if (player.getTeam() != null) {
-				String team = player.getTeam().getName();
-				ResourceValues rv = Config.CONFIG_UNIT_COSTS_LANCER;
-				if (hasNeededResourcesForResourceValues(team, rv)) {
-					spendResourcesForResourceValues(team, rv);
-					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_LANCER);
-				}
-			}
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_PIKEMAN && ModResearch.getResearch("pikeman").isUnlocked(teamName) && TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].getArmory() > 0) {
-
-			if (player.getTeam() != null) {
-				String team = player.getTeam().getName();
-				ResourceValues rv = Config.CONFIG_UNIT_COSTS_PIKEMAN;
-				if (hasNeededResourcesForResourceValues(team, rv)) {
-					spendResourcesForResourceValues(team, rv);
-					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_PIKEMAN);
-				}
-			}
-
-		} else if (buttonId == Reference.GUI_BUTTON_BUY_TREBUCHET) {// && ModResearch.getResearch("trebuchet").isUnlocked(teamName)) {
-
-			if (player.getTeam() != null) {
-				String team = player.getTeam().getName();
-				ResourceValues rv = Config.CONFIG_UNIT_COSTS_TREBUCHET;
-				if (hasNeededResourcesForResourceValues(team, rv)) {
-					spendResourcesForResourceValues(team, rv);
-					TSRTS.TeamQueues[TeamEnum.getIDFromName(team)].AddToProperQueue(Reference.UNIT_ID_TREBUCHET);
-				}
-			}
 
 		}
 
@@ -784,67 +724,41 @@ public class Utilities {
 		}
 	}
 
-	public static EntityType getEntityTypeForUnitID(int unitID) {
+	public static EntityType getEntityTypeForUnitID(UNIT_TYPES unitID) {
 		switch (unitID) {
-		case Reference.UNIT_ID_MINION:
+		case MINION:
 			return ModEntities.MINION;
-		case Reference.UNIT_ID_KNIGHT:
+		case KNIGHT:
 			return ModEntities.KNIGHT;
-		case Reference.UNIT_ID_ADVANCED_KNIGHT:
+		case ADVANCED_KNIGHT:
 			return ModEntities.ADVANCED_KNIGHT;
-		case Reference.UNIT_ID_ARCHER:
+		case ARCHER:
 			return ModEntities.ARCHER_MINION;
-		case Reference.UNIT_ID_LANCER:
+		case LANCER:
 			return ModEntities.MOUNTED_ENTITY;
-		case Reference.UNIT_ID_PIKEMAN:
+		case PIKEMAN:
 			return ModEntities.PIKEMAN_ENTITY;
-		case Reference.UNIT_ID_TREBUCHET:
+		case TREBUCHET:
 			return ModEntities.TREBUCHET_ENTITY;
-		case Reference.UNIT_ID_SAPPER:
+		case SAPPER:
 			return ModEntities.SAPPER;
-		case Reference.UNIT_ID_LONGBOWMAN:
+		case LONGBOWMAN:
 			return ModEntities.LONGBOWMAN;
+
+		case CROSSBOWMAN:
+			return ModEntities.CROSSBOWMAN;
 		default:
 			return null;
 		}
 	}
 
-	public static void AddToUnitCounts(int unitID, String teamName) {
-		switch (unitID) {
-		case Reference.UNIT_ID_MINION:
-			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountMinion();
-			break;
-		case Reference.UNIT_ID_ARCHER:
-			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountArcher();
-			break;
-		case Reference.UNIT_ID_LANCER:
-			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountLancer();
-			break;
-		case Reference.UNIT_ID_PIKEMAN:
-			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountPikeman();
-			break;
-		case Reference.UNIT_ID_TREBUCHET:
-			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountTrebuchet();
-			break;
-		case Reference.UNIT_ID_KNIGHT:
-			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountKnight();
-			break;
-		case Reference.UNIT_ID_ADVANCED_KNIGHT:
-			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountAdvancedKnight();
-			break;
-		case Reference.UNIT_ID_SAPPER:
-			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountSapper();
-			break;
+	public static void AddToUnitCounts(UNIT_TYPES unitID, String teamName) {
 
-		case Reference.UNIT_ID_LONGBOWMAN:
-			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCountLongbowmen();
-			break;
-		default:
-			break;
-		}
+		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCount(unitID);
+
 	}
 
-	public static void SpawnUnitForTeam(int unitID, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
+	public static void SpawnUnitForTeam(UNIT_TYPES unitID, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
 		EntityType et = getEntityTypeForUnitID(unitID);
 		Entity e = SpawnUnit(et, Owner, world, pos, rallyPoint, unitID);
 		if (team != null) {
@@ -886,7 +800,7 @@ public class Utilities {
 		return dyes;
 	}
 
-	public static Entity SpawnUnit(EntityType entityType, String Owner, World world, BlockPos pos, BlockPos rallyPoint, int unitID) {
+	public static Entity SpawnUnit(EntityType entityType, String Owner, World world, BlockPos pos, BlockPos rallyPoint, UNIT_TYPES unitID) {
 		Entity e = entityType.spawn(world, null, null, pos, SpawnReason.TRIGGERED, true, true);
 		if (e instanceof UnitEntity) {
 			UnitEntity ue = (UnitEntity) e;
@@ -895,7 +809,7 @@ public class Utilities {
 				ue.ownerControlledDestination = rallyPoint;
 			}
 
-			if (unitID == Reference.UNIT_ID_KNIGHT) {
+			if (unitID == UNIT_TYPES.KNIGHT) {
 				List<DyeItem> teamColorList = Lists.newArrayList();
 				if (ue.getTeam() != null) {
 					teamColorList = getDyeListForTeam(ue.getTeam().getName());
@@ -919,7 +833,7 @@ public class Utilities {
 				is = IDyeableArmorItem.dyeItem(is, teamColorList);
 				ue.setItemStackToSlot(EquipmentSlotType.FEET, is);
 
-			} else if (unitID == Reference.UNIT_ID_ADVANCED_KNIGHT) {
+			} else if (unitID == UNIT_TYPES.ADVANCED_KNIGHT) {
 				List<DyeItem> teamColorList = Lists.newArrayList();
 				if (ue.getTeam() != null) {
 					teamColorList = getDyeListForTeam(ue.getTeam().getName());
@@ -950,6 +864,30 @@ public class Utilities {
 
 			if (entityType == ModEntities.LONGBOWMAN) {
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.LONGBOW));
+			}
+			if (entityType == ModEntities.CROSSBOWMAN) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.CROSSBOW));
+				List<DyeItem> teamColorList = Lists.newArrayList();
+				if (ue.getTeam() != null) {
+					teamColorList = getDyeListForTeam(ue.getTeam().getName());
+				}
+
+				ItemStack is = new ItemStack(Items.LEATHER_HELMET);
+				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+				ue.setItemStackToSlot(EquipmentSlotType.HEAD, is);
+
+				is = new ItemStack(Items.LEATHER_LEGGINGS);
+				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+				ue.setItemStackToSlot(EquipmentSlotType.LEGS, is);
+
+				is = new ItemStack(Items.LEATHER_BOOTS);
+				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+				ue.setItemStackToSlot(EquipmentSlotType.FEET, is);
+
+				is = new ItemStack(Items.LEATHER_CHESTPLATE);
+				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+				ue.setItemStackToSlot(EquipmentSlotType.CHEST, is);
+
 			}
 
 			if (entityType == ModEntities.MOUNTED_ENTITY) {

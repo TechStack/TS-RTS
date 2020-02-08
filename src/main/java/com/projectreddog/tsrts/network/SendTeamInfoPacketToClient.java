@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.util.function.Supplier;
 
 import com.projectreddog.tsrts.client.network.ClientPacketHandler;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 import com.projectreddog.tsrts.utilities.TeamInfo;
 
 import net.minecraft.network.PacketBuffer;
@@ -20,15 +21,7 @@ public class SendTeamInfoPacketToClient {
 	private int fullResearchWorkRemaining;
 	private int teamPopulationCap;
 
-	private int unitCountMinion = 0;
-	private int unitCountArcher = 0;
-	private int unitCountLancer = 0;
-	private int unitCountPikeman = 0;
-	private int unitCountTrebuchet = 0;
-	private int unitCountKnight = 0;
-	private int unitCountAdvancedKnight = 0;
-	private int unitCountSapper = 0;
-	private int unitCountLongbowmen = 0;
+	private int[] unitCount = new int[UNIT_TYPES.values().length];
 
 	public SendTeamInfoPacketToClient(PacketBuffer buf) {
 		// DECODE
@@ -45,15 +38,10 @@ public class SendTeamInfoPacketToClient {
 
 		this.teamPopulationCap = buf.readInt();
 
-		this.unitCountMinion = buf.readInt();
-		this.unitCountArcher = buf.readInt();
-		this.unitCountLancer = buf.readInt();
-		this.unitCountPikeman = buf.readInt();
-		this.unitCountTrebuchet = buf.readInt();
-		this.unitCountKnight = buf.readInt();
-		this.unitCountAdvancedKnight = buf.readInt();
-		this.unitCountSapper = buf.readInt();
-		this.unitCountLongbowmen = buf.readInt();
+		for (int i = 0; i < unitCount.length; i++) {
+			unitCount[i] = buf.readInt();
+		}
+
 	}
 
 	public SendTeamInfoPacketToClient(TeamInfo ti, String teamName) {
@@ -66,15 +54,9 @@ public class SendTeamInfoPacketToClient {
 		this.currentResearchWorkRemaining = ti.getCurrenResearchWorkRemaining();
 		this.fullResearchWorkRemaining = ti.getFullResearchWorkRemaining();
 		this.teamPopulationCap = ti.getTeamPopulationCap();
-		this.unitCountMinion = ti.getUnitCountMinion();
-		this.unitCountArcher = ti.getUnitCountArcher();
-		this.unitCountLancer = ti.getUnitCountLancer();
-		this.unitCountPikeman = ti.getUnitCountPikeman();
-		this.unitCountTrebuchet = ti.getUnitCountTrebuchet();
-		this.unitCountKnight = ti.getUnitCountKnight();
-		this.unitCountAdvancedKnight = ti.getUnitCountAdvancedKnight();
-		this.unitCountSapper = ti.getUnitCountSapper();
-		this.unitCountLongbowmen = ti.getUnitCountLongbowmen();
+		for (int i = 0; i < unitCount.length; i++) {
+			unitCount[i] = ti.getUnitCount(UNIT_TYPES.values()[i]);
+		}
 
 	}
 
@@ -95,21 +77,16 @@ public class SendTeamInfoPacketToClient {
 		buf.writeInt(this.fullResearchWorkRemaining);
 		buf.writeInt(this.teamPopulationCap);
 
-		buf.writeInt(this.unitCountMinion);
-		buf.writeInt(this.unitCountArcher);
-		buf.writeInt(this.unitCountLancer);
-		buf.writeInt(this.unitCountPikeman);
-		buf.writeInt(this.unitCountTrebuchet);
-		buf.writeInt(this.unitCountKnight);
-		buf.writeInt(this.unitCountAdvancedKnight);
-		buf.writeInt(this.unitCountSapper);
-		buf.writeInt(this.unitCountLongbowmen);
+		for (int i = 0; i < unitCount.length; i++) {
+			buf.writeInt(unitCount[i]);
+		}
+
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		// TODO Auto-generated method stub
 		ctx.get().enqueueWork(() -> {
-			ClientPacketHandler.SendTeamInfoPacketToClient(resourceAmt, teamName, CurrenResearchKey, currentResearchWorkRemaining, fullResearchWorkRemaining, teamPopulationCap, unitCountMinion, unitCountArcher, unitCountLancer, unitCountPikeman, unitCountTrebuchet, unitCountKnight, unitCountAdvancedKnight, unitCountSapper, unitCountLongbowmen);
+			ClientPacketHandler.SendTeamInfoPacketToClient(resourceAmt, teamName, CurrenResearchKey, currentResearchWorkRemaining, fullResearchWorkRemaining, teamPopulationCap, unitCount);
 
 		});
 		ctx.get().setPacketHandled(true);

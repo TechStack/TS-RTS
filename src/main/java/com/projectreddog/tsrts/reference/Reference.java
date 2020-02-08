@@ -17,6 +17,7 @@ public class Reference {
 	public static final int UNIT_ID_ADVANCED_KNIGHT = 7;
 	public static final int UNIT_ID_SAPPER = 8;
 	public static final int UNIT_ID_LONGBOWMAN = 9;
+	public static final int UNIT_ID_CROSSBOWMAN = 10;
 
 	// Block registry names
 	public static final String REIGSTRY_NAME_BARRACKS_BLOCK = "barracksblock";
@@ -110,6 +111,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY = "advancedknight";
 	public static final String REIGSTRY_NAME_SAPPER_ENTITY = "sapper";
 	public static final String REIGSTRY_NAME_LONGBOWMAN_ENTITY = "longbowman";
+	public static final String REIGSTRY_NAME_CROSSBOWMAN_ENTITY = "crossbowman";
+
 	// GUI BUTTONS
 
 	public static final int GUI_BUTTON_DEBUG_TESTERYELLOW = 99999;
@@ -130,27 +133,27 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_STABLES = 10;
 	public static final int GUI_BUTTON_BUY_WALL = 11;
 	public static final int GUI_BUTTON_BUY_WATCH_TOWER = 12;
-	public static final int GUI_BUTTON_BUY_MINION = 13;
-	public static final int GUI_BUTTON_BUY_ARCHER = 14;
-	public static final int GUI_BUTTON_BUY_LANCER = 15;
-	public static final int GUI_BUTTON_BUY_PIKEMAN = 16;
+//	public static final int GUI_BUTTON_BUY_MINION = 13;
+//	public static final int GUI_BUTTON_BUY_ARCHER = 14;
+//	public static final int GUI_BUTTON_BUY_LANCER = 15;
+	// public static final int GUI_BUTTON_BUY_PIKEMAN = 16;
 
 	public static final int GUI_BUTTON_BUY_GATE = 17;
 
 	public static final int GUI_BUTTON_BUY_WALL_STEPS = 18;
 	public static final int GUI_BUTTON_BUY_RESEARCH_CENTER = 19;
 
-	public static final int GUI_BUTTON_BUY_TREBUCHET = 20;
-	public static final int GUI_BUTTON_BUY_KNIGHT = 21;
-
-	public static final int GUI_BUTTON_BUY_DIAMOND_KNIGHT = 22;
+	// public static final int GUI_BUTTON_BUY_TREBUCHET = 20;
+//	public static final int GUI_BUTTON_BUY_KNIGHT = 21;
+	// public static final int GUI_BUTTON_BUY_DIAMOND_KNIGHT = 22;
 
 	public static final int GUI_BUTTON_BUY_ARMORY = 23;
 
 	public static final int GUI_BUTTON_BUY_SIEGE_WORKSHOP = 24;
 
-	public static final int GUI_BUTTON_BUY_SAPPER = 25;
-	public static final int GUI_BUTTON_BUY_LONGBOWMEN = 26;
+//	public static final int GUI_BUTTON_BUY_SAPPER = 25;
+//	public static final int GUI_BUTTON_BUY_LONGBOWMEN = 26;
+//	public static final int GUI_BUTTON_BUY_CROSSBOWMEN = 27;
 
 	// GENERIC GUI BUTTON IDs
 	public static final int GUI_BUTTON_LOBBY_RED = 4;
@@ -187,7 +190,42 @@ public class Reference {
 	}
 
 	public static enum UNIT_TYPES {
-		MINION, ARCHER, LANCER, PIKEMAN, KNIGHT, ADVANCED_KNIGHT, SAPPER, TREBUCHET, LONGBOWMAN
+		MINION("Minion", null, false, 0, 3), ARCHER("Archer", "archer", false, 1, 3), LANCER("Lancer", "lancer", false, 2, 3), PIKEMAN("Pikeman", "pikeman", true, 3, 3), KNIGHT("Knight", "armor", true, 5, 3), ADVANCED_KNIGHT("AdvancedKnight", "advcedarmor", true, 6, 3), SAPPER("Sapper", "siegeworkshop", false, 4, 1), TREBUCHET("Trebuchet", null, false, 0, 0), LONGBOWMAN("Longbowmen", "longbows", false, 5, 1), CROSSBOWMAN("Crossbowmen", "crossbows", false, 6, 1);
+
+		private String Name;
+		private String ResearchKeyRequiredToBuy;
+		private boolean ArmoryRequired = false;
+		private int buttonImageX;
+		private int buttonImageY;
+
+		private UNIT_TYPES(String Name, String ResearchKeyRequiredToBuy, boolean ArmoryRequired, int buttonImageX, int buttonImageY) {
+			this.Name = Name;
+			this.ResearchKeyRequiredToBuy = ResearchKeyRequiredToBuy;
+			this.ArmoryRequired = ArmoryRequired;
+			this.buttonImageX = buttonImageX;
+			this.buttonImageY = buttonImageY;
+		}
+
+		public int getButtonImageY() {
+			return buttonImageY;
+		}
+
+		public int getButtonImageX() {
+			return buttonImageX;
+		}
+
+		public String getResearchKeyRequiredToBuy() {
+			return ResearchKeyRequiredToBuy;
+		}
+
+		public String getName() {
+			return Name;
+		}
+
+		public boolean IsArmoryRquired() {
+			return ArmoryRequired;
+		}
+
 	}
 
 }

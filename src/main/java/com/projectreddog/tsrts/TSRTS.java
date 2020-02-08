@@ -21,6 +21,7 @@ import com.projectreddog.tsrts.proxy.ClientProxy;
 import com.projectreddog.tsrts.proxy.IProxy;
 import com.projectreddog.tsrts.proxy.ServerProxy;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
@@ -96,7 +97,7 @@ public class TSRTS {
 		MinecraftForge.EVENT_BUS.register(ServerEvents.class);
 
 		for (int i = 0; i < TeamQueues.length; i++) {
-			TeamQueues[i] = new UnitQueues(new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<Integer>(), false, false, false, false);
+			TeamQueues[i] = new UnitQueues(new ArrayList<UNIT_TYPES>(), new ArrayList<UNIT_TYPES>(), new ArrayList<UNIT_TYPES>(), new ArrayList<UNIT_TYPES>(), false, false, false, false);
 		}
 
 		ModResearch.init();
