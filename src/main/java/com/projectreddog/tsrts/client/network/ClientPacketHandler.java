@@ -177,7 +177,7 @@ public class ClientPacketHandler {
 			Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER = rv;
 			break;
 		case RESEARCH_CROSSBOW:
-			ModResearch.getResearch("crossbow").setRv(rv);
+			ModResearch.getResearch("crossbows").setRv(rv);
 			break;
 		case RESEARCH_LANCER:
 			ModResearch.getResearch("lancer").setRv(rv);
