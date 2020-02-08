@@ -11,6 +11,7 @@ import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.reference.Reference.RTS_COSTS;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.AlertToastBackgroundType;
 import com.projectreddog.tsrts.utilities.MapStructureUtilities;
@@ -54,7 +55,7 @@ public class ClientPacketHandler {
 		ModResearch.getResearch(key).setUnlocked(unLocked, TeamEnum.getIDFromName(teamName));
 	}
 
-	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount, int teamPopulationCap, int unitCountMinion, int unitCountArcher, int unitCountLancer, int unitCountPikeman, int unitCountTrebuchet, int unitCountKnight, int unitCountAdvancedKnight, int unitCountSapper, int unitCountLongbowmen, int unitCountCrossbowmen) {
+	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount, int teamPopulationCap, int[] unitCount) {
 		// TSRTS.LOGGER.info("Client recieved team packet of resource info for team: " + teamName + " resource ord 0 :" + resourceAmt[0]);
 		// should be on CLIENT !
 		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)] == null) {
@@ -67,17 +68,10 @@ public class ClientPacketHandler {
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setFullResearchWorkRemaining(fullWorkAmount);
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setTeamPopulationCap(teamPopulationCap);
 
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountMinion(unitCountMinion);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountArcher(unitCountArcher);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountLancer(unitCountLancer);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountPikeman(unitCountPikeman);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountTrebuchet(unitCountTrebuchet);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountKnight(unitCountKnight);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountAdvancedKnight(unitCountAdvancedKnight);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountSapper(unitCountSapper);
+		for (int i = 0; i < unitCount.length; i++) {
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCount(UNIT_TYPES.values()[i], unitCount[i]);
 
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountLongbowmen(unitCountLongbowmen);
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].setUnitCountCrossbowmen(unitCountCrossbowmen);
+		}
 
 	}
 
@@ -92,7 +86,7 @@ public class ClientPacketHandler {
 		}
 	}
 
-	public static void UnitQueueChangedPacketToClient(int teamOrd, List<Integer> barrcksQueue, List<Integer> archeryRangeQueue, List<Integer> stablesQueue, List<Integer> siegeWorkshopQueue, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue) {
+	public static void UnitQueueChangedPacketToClient(int teamOrd, List<UNIT_TYPES> barrcksQueue, List<UNIT_TYPES> archeryRangeQueue, List<UNIT_TYPES> stablesQueue, List<UNIT_TYPES> siegeWorkshopQueue, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue) {
 		TSRTS.TeamQueues[teamOrd] = new UnitQueues(barrcksQueue, archeryRangeQueue, stablesQueue, siegeWorkshopQueue, infinateBarracksQueue, infinateArcheryRangeQueue, infinateStablesQueue, infinateSiegeWorkshopQueue);
 	}
 

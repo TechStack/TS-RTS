@@ -3,13 +3,13 @@ package com.projectreddog.tsrts.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 
 public class UnitQueues {
-	private List<Integer> Barracks;
-	private List<Integer> Stables;
-	private List<Integer> ArcheryRange;
-	private List<Integer> SiegeWorkshop;
+	private List<UNIT_TYPES> Barracks;
+	private List<UNIT_TYPES> Stables;
+	private List<UNIT_TYPES> ArcheryRange;
+	private List<UNIT_TYPES> SiegeWorkshop;
 
 	private boolean infinateBarracksQueue;
 	private boolean infinateStablesQueue;
@@ -18,61 +18,62 @@ public class UnitQueues {
 
 	public boolean hasChanged;
 
-	public void AddToProperQueue(int ID) {
+	public void AddToProperQueue(UNIT_TYPES ID) {
 		switch (ID) {
-		case Reference.UNIT_ID_MINION:
+		case MINION:
 			AddToBarracksQueue(ID);
 			break;
-		case Reference.UNIT_ID_ADVANCED_KNIGHT:
+		case ADVANCED_KNIGHT:
 			AddToBarracksQueue(ID);
 			break;
 
-		case Reference.UNIT_ID_KNIGHT:
+		case KNIGHT:
 			AddToBarracksQueue(ID);
 			break;
-		case Reference.UNIT_ID_ARCHER:
+		case ARCHER:
 			AddToArcheryRangeQueue(ID);
 			break;
-		case Reference.UNIT_ID_LANCER:
+		case LANCER:
 			AddToStablesQueue(ID);
 			break;
-		case Reference.UNIT_ID_PIKEMAN:
+		case PIKEMAN:
 			AddToBarracksQueue(ID);
 			break;
-		case Reference.UNIT_ID_TREBUCHET:
+		case TREBUCHET:
 			AddToSiegeWorkshopQueue(ID);
 			break;
-		case Reference.UNIT_ID_SAPPER:
+		case SAPPER:
 			AddToSiegeWorkshopQueue(ID);
 			break;
-		case Reference.UNIT_ID_LONGBOWMAN:
+		case LONGBOWMAN:
 			AddToArcheryRangeQueue(ID);
+			break;
 
-		case Reference.UNIT_ID_CROSSBOWMAN:
+		case CROSSBOWMAN:
 			AddToArcheryRangeQueue(ID);
 		default:
 			break;
 		}
 	}
 
-	private void AddToSiegeWorkshopQueue(int ID) {
+	private void AddToSiegeWorkshopQueue(UNIT_TYPES ID) {
 		getSiegeWorkshop().add(ID);
 		// TSRTS.LOGGER.info("Added :" + ID + " to the siegeWorkshop QUEUE");
 		hasChanged = true;
 	}
 
-	private void AddToBarracksQueue(int ID) {
+	private void AddToBarracksQueue(UNIT_TYPES ID) {
 		getBarracks().add(ID);
 		// TSRTS.LOGGER.info("Added :" + ID + " to the barraks QUEUE");
 		hasChanged = true;
 	}
 
-	private void AddToArcheryRangeQueue(int ID) {
+	private void AddToArcheryRangeQueue(UNIT_TYPES ID) {
 		getArcheryRange().add(ID);
 		hasChanged = true;
 	}
 
-	private void AddToStablesQueue(int ID) {
+	private void AddToStablesQueue(UNIT_TYPES ID) {
 		getStables().add(ID);
 		hasChanged = true;
 	}
@@ -106,7 +107,7 @@ public class UnitQueues {
 		}
 	}
 
-	public UnitQueues(List<Integer> barracks, List<Integer> archeryRange, List<Integer> stables, List<Integer> siegeWorkshop, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue) {
+	public UnitQueues(List<UNIT_TYPES> barracks, List<UNIT_TYPES> archeryRange, List<UNIT_TYPES> stables, List<UNIT_TYPES> siegeWorkshop, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue) {
 		super();
 		Barracks = barracks;
 		Stables = stables;
@@ -119,31 +120,31 @@ public class UnitQueues {
 		this.infinateSiegeWorkshopQueue = infinateSiegeWorkshopQueue;
 	}
 
-	public List<Integer> getBarracks() {
+	public List<UNIT_TYPES> getBarracks() {
 		if (Barracks == null) {
-			Barracks = new ArrayList<Integer>();
+			Barracks = new ArrayList<UNIT_TYPES>();
 		}
 		return Barracks;
 
 	}
 
-	public List<Integer> getStables() {
+	public List<UNIT_TYPES> getStables() {
 		if (Stables == null) {
-			Stables = new ArrayList<Integer>();
+			Stables = new ArrayList<UNIT_TYPES>();
 		}
 		return Stables;
 	}
 
-	public List<Integer> getArcheryRange() {
+	public List<UNIT_TYPES> getArcheryRange() {
 		if (ArcheryRange == null) {
-			ArcheryRange = new ArrayList<Integer>();
+			ArcheryRange = new ArrayList<UNIT_TYPES>();
 		}
 		return ArcheryRange;
 	}
 
-	public List<Integer> getSiegeWorkshop() {
+	public List<UNIT_TYPES> getSiegeWorkshop() {
 		if (SiegeWorkshop == null) {
-			SiegeWorkshop = new ArrayList<Integer>();
+			SiegeWorkshop = new ArrayList<UNIT_TYPES>();
 		}
 		return SiegeWorkshop;
 	}
