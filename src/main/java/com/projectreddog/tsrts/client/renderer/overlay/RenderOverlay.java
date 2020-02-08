@@ -11,6 +11,7 @@ import com.projectreddog.tsrts.handler.ClientEvents;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 import com.projectreddog.tsrts.utilities.ClientUtilities;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
@@ -319,7 +320,7 @@ public class RenderOverlay extends Screen {
 
 		if (TSRTS.TeamQueues[teamOrd].getBarracks() != null) {
 			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getBarracks().size() && i < 30; i++) {
-				int id = TSRTS.TeamQueues[teamOrd].getBarracks().get(i);
+				UNIT_TYPES id = TSRTS.TeamQueues[teamOrd].getBarracks().get(i);
 
 //				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
 				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, y + 2);
@@ -329,7 +330,7 @@ public class RenderOverlay extends Screen {
 
 		if (TSRTS.TeamQueues[teamOrd].getArcheryRange() != null) {
 			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getArcheryRange().size() && i < 30; i++) {
-				int id = TSRTS.TeamQueues[teamOrd].getArcheryRange().get(i);
+				UNIT_TYPES id = TSRTS.TeamQueues[teamOrd].getArcheryRange().get(i);
 
 //				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
 				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, y + 22);
@@ -339,7 +340,7 @@ public class RenderOverlay extends Screen {
 
 		if (TSRTS.TeamQueues[teamOrd].getStables() != null) {
 			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getStables().size() && i < 30; i++) {
-				int id = TSRTS.TeamQueues[teamOrd].getStables().get(i);
+				UNIT_TYPES id = TSRTS.TeamQueues[teamOrd].getStables().get(i);
 
 //				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
 				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, y + 42);
@@ -349,7 +350,7 @@ public class RenderOverlay extends Screen {
 
 		if (TSRTS.TeamQueues[teamOrd].getSiegeWorkshop() != null) {
 			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getSiegeWorkshop().size() && i < 30; i++) {
-				int id = TSRTS.TeamQueues[teamOrd].getSiegeWorkshop().get(i);
+				UNIT_TYPES id = TSRTS.TeamQueues[teamOrd].getSiegeWorkshop().get(i);
 
 //				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
 				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, y + 62);

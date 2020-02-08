@@ -1,5 +1,7 @@
 package com.projectreddog.tsrts.utilities;
 
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
@@ -27,16 +29,7 @@ public class TeamInfo {
 	private int gates = 0;
 	private int wallsteps = 0;
 
-	private int unitCountMinion = 0;
-	private int unitCountArcher = 0;
-	private int unitCountLancer = 0;
-	private int unitCountPikeman = 0;
-	private int unitCountTrebuchet = 0;
-	private int unitCountKnight = 0;
-	private int unitCountAdvancedKnight = 0;
-	private int unitCountSapper = 0;
-	private int unitCountLongbowmen = 0;
-	private int unitCountCrossbowmen = 0;
+	private int[] unitCount = new int[UNIT_TYPES.values().length];
 
 	private String CurrenResearchKey;
 	private int teamPopulationCap;
@@ -50,9 +43,28 @@ public class TeamInfo {
 		CurrenResearchKey = "";
 	}
 
-	public int getCurrentPopulation() {
+	public String getUnitNameForStatsLog(String delimeter) {
+		String returnValue = "";
+		for (int i = 0; i < UNIT_TYPES.values().length; i++) {
+			returnValue = delimeter + UNIT_TYPES.values()[i].getName();
+		}
+		return returnValue;
+	}
 
-		return unitCountMinion + unitCountArcher + unitCountLancer + unitCountPikeman + unitCountTrebuchet + unitCountKnight + unitCountAdvancedKnight + unitCountSapper;
+	public String getUnitCountForStatsLog(String delimeter) {
+		String returnValue = "";
+		for (int i = 0; i < unitCount.length; i++) {
+			returnValue = delimeter + unitCount[i];
+		}
+		return returnValue;
+	}
+
+	public int getCurrentPopulation() {
+		int count = 0;
+		for (int i = 0; i < unitCount.length; i++) {
+			count = count + unitCount[i];
+		}
+		return count;
 	}
 
 	public int[] getResourceAmt() {
@@ -320,164 +332,20 @@ public class TeamInfo {
 		this.wallsteps = wallsteps;
 	}
 
-	public int getUnitCountMinion() {
-		return unitCountMinion;
+	public int getUnitCount(UNIT_TYPES type) {
+		return unitCount[type.ordinal()];
 	}
 
-	public void AddOneUnitCountMinion() {
-		this.unitCountMinion++;
+	public void AddOneUnitCount(UNIT_TYPES type) {
+		unitCount[type.ordinal()]++;
 	}
 
-	public int getUnitCountSapper() {
-		return unitCountSapper;
+	public void RemoveOneUnitCount(UNIT_TYPES type) {
+		unitCount[type.ordinal()]--;
 	}
 
-	public void AddOneUnitCountSapper() {
-		this.unitCountSapper++;
-	}
-
-	public int getUnitCountLongbowmen() {
-		return unitCountLongbowmen;
-	}
-
-	public void AddOneUnitCountLongbowmen() {
-		this.unitCountLongbowmen++;
-	}
-
-	public int getUnitCountCrossbowmen() {
-		return unitCountCrossbowmen;
-	}
-
-	public void AddOneUnitCountCrossbowmen() {
-		this.unitCountCrossbowmen++;
-	}
-
-	public int getUnitCountKnight() {
-		return unitCountKnight;
-	}
-
-	public void AddOneUnitCountKnight() {
-		this.unitCountKnight++;
-	}
-
-	public int getUnitCountAdvancedKnight() {
-		return unitCountAdvancedKnight;
-	}
-
-	public void AddOneUnitCountAdvancedKnight() {
-		this.unitCountAdvancedKnight++;
-	}
-
-	public void AddOneUnitCountArcher() {
-		this.unitCountArcher++;
-	}
-
-	public void AddOneUnitCountLancer() {
-		this.unitCountLancer++;
-	}
-
-	public void AddOneUnitCountPikeman() {
-		this.unitCountPikeman++;
-	}
-
-	public void AddOneUnitCountTrebuchet() {
-		this.unitCountTrebuchet++;
-	}
-
-	public void RemoveOneUnitCountMinion() {
-		this.unitCountMinion--;
-	}
-
-	public void RemoveOneUnitCountSapper() {
-		this.unitCountSapper--;
-	}
-
-	public void RemoveOneUnitCountLongbowmen() {
-		this.unitCountLongbowmen--;
-	}
-
-	public void RemoveOneUnitCountCrossbowmen() {
-		this.unitCountCrossbowmen--;
-	}
-
-	public void RemoveOneUnitCountKnight() {
-		this.unitCountKnight--;
-	}
-
-	public void RemoveOneUnitCountAdvancedKnight() {
-		this.unitCountAdvancedKnight--;
-	}
-
-	public void RemoveOneUnitCountArcher() {
-		this.unitCountArcher--;
-	}
-
-	public void RemoveOneUnitCountLancer() {
-		this.unitCountLancer--;
-	}
-
-	public void RemoveOneUnitCountPikeman() {
-		this.unitCountPikeman--;
-	}
-
-	public void RemoveOneUnitCountTrebuchet() {
-		this.unitCountTrebuchet--;
-	}
-
-	public void setUnitCountMinion(int unitCountMinion) {
-		this.unitCountMinion = unitCountMinion;
-	}
-
-	public void setUnitCountSapper(int unitCountSapper) {
-		this.unitCountSapper = unitCountSapper;
-	}
-
-	public void setUnitCountLongbowmen(int unitCountLongbowmen) {
-		this.unitCountLongbowmen = unitCountLongbowmen;
-	}
-
-	public void setUnitCountCrossbowmen(int unitCountCrossbowmen) {
-		this.unitCountCrossbowmen = unitCountCrossbowmen;
-	}
-
-	public void setUnitCountKnight(int unitCountKnight) {
-		this.unitCountKnight = unitCountKnight;
-	}
-
-	public void setUnitCountAdvancedKnight(int unitCountAdvancedKnight) {
-		this.unitCountAdvancedKnight = unitCountAdvancedKnight;
-	}
-
-	public int getUnitCountArcher() {
-		return unitCountArcher;
-	}
-
-	public void setUnitCountArcher(int unitCountArcher) {
-		this.unitCountArcher = unitCountArcher;
-	}
-
-	public int getUnitCountLancer() {
-		return unitCountLancer;
-	}
-
-	public void setUnitCountLancer(int unitCountLancer) {
-		this.unitCountLancer = unitCountLancer;
-	}
-
-	public int getUnitCountPikeman() {
-		return unitCountPikeman;
-	}
-
-	public void setUnitCountPikeman(int unitCountPikeman) {
-		this.unitCountPikeman = unitCountPikeman;
-	}
-
-	public int getUnitCountTrebuchet() {
-		return unitCountTrebuchet;
-	}
-
-	public void setUnitCountTrebuchet(int unitCountTrebuchet) {
-		this.unitCountTrebuchet = unitCountTrebuchet;
+	public void setUnitCount(UNIT_TYPES type, int newUnitCount) {
+		unitCount[type.ordinal()] = newUnitCount;
 	}
 
 	public int getTeamPopulationCap() {
