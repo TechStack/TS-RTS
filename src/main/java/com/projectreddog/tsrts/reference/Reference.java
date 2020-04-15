@@ -45,6 +45,8 @@ public class Reference {
 
 	// CONTAINER ONLY NO BLOCK
 	public static final String REIGSTRY_NAME_LOBBY_CONTAINER = "lobbycontiner";
+	public static final String REIGSTRY_NAME_OPTIONS_CONTAINER = "optionscontiner";
+
 	public static final String REIGSTRY_NAME_BASIC_CONTAINER = "basiccontiner";
 	public static final String REIGSTRY_NAME_MAIN_MENU_CONTAINER = "mainmenucontiner";
 	public static final String REIGSTRY_NAME_ECO_BUILDINGS_CONTAINER = "ecobulidingscontiner";
@@ -163,6 +165,15 @@ public class Reference {
 	public static final int GUI_BUTTON_LOBBY_READY = 8;
 	public static final int GUI_BUTTON_LOBBY_START = 9;
 	public static final int GUI_BUTTON_LOBBY_SEPECTATE = 14;
+	public static final int GUI_BUTTON_LOBBY_OPTIONS = 17;
+
+	public static final int GUI_BUTTON_OPTIONS_BACK = 18;
+	public static final int GUI_BUTTON_OPTIONS_SPEED_PLUS = 19;
+	public static final int GUI_BUTTON_OPTIONS_SPEED_MINUS = 20;
+
+	public static final int GUI_BUTTON_OPTIONS_WEATHER_OFF = 21;
+
+	public static final int GUI_BUTTON_OPTIONS_WEATHER_ON = 22;
 
 	public static final int GUI_BUTTON_MAIN_MENU_ECO = 10;
 	public static final int GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS = 11;

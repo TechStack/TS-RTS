@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.containers.DefensiveBuildingsContainer;
 import com.projectreddog.tsrts.containers.EcoBuildingsContainer;
 import com.projectreddog.tsrts.containers.LobbyContainer;
 import com.projectreddog.tsrts.containers.MainMenuContainer;
+import com.projectreddog.tsrts.containers.OptionsContainer;
 import com.projectreddog.tsrts.containers.ResearchContainer;
 import com.projectreddog.tsrts.containers.TeamOptionsContainer;
 import com.projectreddog.tsrts.containers.TroopBuildingsContainer;
@@ -47,6 +48,9 @@ public class ModContainers {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LOBBY_CONTAINER)
 	public static ContainerType<LobbyContainer> LOBBY_CONTAINER;
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_OPTIONS_CONTAINER)
+	public static ContainerType<OptionsContainer> OPTIONS_CONTAINER;
+
 	public static void RegisterContainers(final RegistryEvent.Register<ContainerType<?>> event) {
 
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
@@ -61,6 +65,10 @@ public class ModContainers {
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
 			return new LobbyContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
 		}).setRegistryName(Reference.REIGSTRY_NAME_LOBBY_CONTAINER));
+
+		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+			return new OptionsContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
+		}).setRegistryName(Reference.REIGSTRY_NAME_OPTIONS_CONTAINER));
 
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
 			return new MainMenuContainer(windowId, TSRTS.proxy.getClientWorld(), inv);

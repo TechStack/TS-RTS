@@ -14,6 +14,7 @@ import com.projectreddog.tsrts.reference.Reference.RTS_COSTS;
 import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 import com.projectreddog.tsrts.tileentity.OwnedTileEntity;
 import com.projectreddog.tsrts.utilities.AlertToastBackgroundType;
+import com.projectreddog.tsrts.utilities.GameOptions;
 import com.projectreddog.tsrts.utilities.MapStructureUtilities;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.ResourceValues;
@@ -53,6 +54,12 @@ public class ClientPacketHandler {
 
 	public static void SendResearchUnlockToClient(String key, String teamName, boolean unLocked) {
 		ModResearch.getResearch(key).setUnlocked(unLocked, TeamEnum.getIDFromName(teamName));
+	}
+
+	public static void SendGameOptionPacketToClient(int speedEffectAmount, boolean weatherEnabled) {
+		GameOptions.speedEffectAmount = speedEffectAmount;
+		GameOptions.weatherEnabled = weatherEnabled;
+
 	}
 
 	public static void SendTeamInfoPacketToClient(int[] resourceAmt, String teamName, String currentResearchKey, int currentWorkAmount, int fullWorkAmount, int teamPopulationCap, int[] unitCount) {
