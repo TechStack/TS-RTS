@@ -47,13 +47,13 @@ public class OptionsScreen extends ContainerScreen<OptionsContainer> {
 		this.blit(x, y, 0, 0, this.xSize, this.ySize);
 
 		int OptionNameColumnPosition = x + 5;
-		int OptionValueColumnPosition = x + 222;
+		int OptionValueColumnPosition = x + 223;
 
 		Minecraft.getInstance().fontRenderer.drawString(new TranslationTextComponent("gui.options.option").getUnformattedComponentText(), OptionNameColumnPosition, y + 5, 4210752);
 		y = y + 25;
 		Minecraft.getInstance().fontRenderer.drawString(new TranslationTextComponent("gui.options.speedeffect").getUnformattedComponentText(), OptionNameColumnPosition, y + 5, 4210752);
 //TODO: PACKETS ARE NEEDED !
-		Minecraft.getInstance().fontRenderer.drawString("" + GameOptions.speedEffectAmount, OptionValueColumnPosition, y + 5, 4210752);
+		Minecraft.getInstance().fontRenderer.drawString("" + GameOptions.speedEffectAmount, OptionValueColumnPosition + 5, y + 5, 4210752);
 
 		y = y + 25;
 		Minecraft.getInstance().fontRenderer.drawString(new TranslationTextComponent("gui.options.weathercycle").getUnformattedComponentText(), OptionNameColumnPosition, y + 5, 4210752);

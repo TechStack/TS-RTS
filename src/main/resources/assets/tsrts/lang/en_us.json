@@ -250,8 +250,9 @@ Trained in: Barracks",
 
 
 
-"gui.options.option":"Options",
+"gui.options.option":"Game Options",
 "gui.options.speedeffect":"Player Speed Boost Amount:",
+"gui.options.weathercycle":"Weather Cycle:",
 
 "_comment":"End here"
 }

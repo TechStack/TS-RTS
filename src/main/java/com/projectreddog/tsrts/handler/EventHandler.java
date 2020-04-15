@@ -16,6 +16,7 @@ import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
 import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
+import com.projectreddog.tsrts.utilities.GameOptions;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
 import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.TeamInfo;
@@ -26,6 +27,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
@@ -61,7 +64,9 @@ public class EventHandler {
 					// player not on a team
 					pe.setGameType(GameType.SPECTATOR);
 				}
-
+				if (GameOptions.speedEffectAmount > 0) {
+					pe.addPotionEffect(new EffectInstance(Effects.SPEED, 99999999, GameOptions.speedEffectAmount - 1));
+				}
 			}
 
 			if (!TSRTS.playerSelections.containsKey(pe.getScoreboardName())) {

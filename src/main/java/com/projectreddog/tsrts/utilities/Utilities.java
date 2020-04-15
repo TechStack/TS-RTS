@@ -38,6 +38,7 @@ import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
 import com.projectreddog.tsrts.network.ResearchUnlockedPacketToClient;
+import com.projectreddog.tsrts.network.SendGameOptionPacketToClient;
 import com.projectreddog.tsrts.network.SendTeamInfoPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.reference.Reference.RTS_COSTS;
@@ -69,6 +70,8 @@ import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -496,14 +499,32 @@ public class Utilities {
 			}
 			break;
 		case Reference.GUI_BUTTON_LOBBY_OPTIONS:
+			ModNetwork.SendToALLPlayers(new SendGameOptionPacketToClient(GameOptions.speedEffectAmount, GameOptions.weatherEnabled));
+
 			NetworkHooks.openGui(player, new OptionsContinerProvider());
 
+			break;
+
+		case Reference.GUI_BUTTON_OPTIONS_SPEED_MINUS:
+			GameOptions.SpeedMinus();
+			ModNetwork.SendToALLPlayers(new SendGameOptionPacketToClient(GameOptions.speedEffectAmount, GameOptions.weatherEnabled));
+			break;
+		case Reference.GUI_BUTTON_OPTIONS_SPEED_PLUS:
+			GameOptions.SpeedPlus();
+			ModNetwork.SendToALLPlayers(new SendGameOptionPacketToClient(GameOptions.speedEffectAmount, GameOptions.weatherEnabled));
+			break;
+		case Reference.GUI_BUTTON_OPTIONS_WEATHER_OFF:
+			GameOptions.DisableWeather(player.world);
+			ModNetwork.SendToALLPlayers(new SendGameOptionPacketToClient(GameOptions.speedEffectAmount, GameOptions.weatherEnabled));
+			break;
+		case Reference.GUI_BUTTON_OPTIONS_WEATHER_ON:
+			GameOptions.EnableWeather(player.world);
+			ModNetwork.SendToALLPlayers(new SendGameOptionPacketToClient(GameOptions.speedEffectAmount, GameOptions.weatherEnabled));
 			break;
 
 		case Reference.GUI_BUTTON_OPTIONS_BACK:
 			NetworkHooks.openGui(player, new LobbyContinerProvider());
 			break;
-
 		case Reference.GUI_BUTTON_MAIN_MENU_ECO:
 			NetworkHooks.openGui(player, new EcoBuildingsContinerProvider());
 			break;
@@ -549,6 +570,10 @@ public class Utilities {
 			// close the gui's
 
 			playerEntity.closeScreen();
+
+			if (GameOptions.speedEffectAmount > 0) {
+				playerEntity.addPotionEffect(new EffectInstance(Effects.SPEED, 99999999, GameOptions.speedEffectAmount - 1));
+			}
 
 			if (playerEntity.getTeam() != null && !playerEntity.isSpectator()) {
 				String teamName = playerEntity.getTeam().getName();
