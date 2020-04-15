@@ -15,6 +15,7 @@ import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
+import com.projectreddog.tsrts.containers.provider.OptionsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.ResearchContinerProvider;
 import com.projectreddog.tsrts.containers.provider.TeamOptionsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.TroopBuildingsContinerProvider;
@@ -493,6 +494,14 @@ public class Utilities {
 				player.posY = player.posY + .75f;
 
 			}
+			break;
+		case Reference.GUI_BUTTON_LOBBY_OPTIONS:
+			NetworkHooks.openGui(player, new OptionsContinerProvider());
+
+			break;
+
+		case Reference.GUI_BUTTON_OPTIONS_BACK:
+			NetworkHooks.openGui(player, new LobbyContinerProvider());
 			break;
 
 		case Reference.GUI_BUTTON_MAIN_MENU_ECO:

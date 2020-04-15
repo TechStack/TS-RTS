@@ -248,5 +248,10 @@ Trained in: Barracks",
 "gui.loby.team":"Team",
 "gui.loby.ready":"Ready",
 
+
+
+"gui.options.option":"Options",
+"gui.options.speedeffect":"Player Speed Boost Amount:",
+
 "_comment":"End here"
 }

@@ -32,6 +32,8 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 	Button btnReady;
 	Button btnStart;
 	Button btnSpectate;
+	Button btnOptions;
+
 	PlayerEntity playerEntity;
 
 	public LobbyScreen(LobbyContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
@@ -167,6 +169,11 @@ public class LobbyScreen extends ContainerScreen<LobbyContainer> {
 
 		btnSpectate = addButton(new Button(x, y + 21, 48, 20, "Spectate", (button) -> {
 			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_SEPECTATE));
+
+		}));
+
+		btnOptions = addButton(new Button(x + 147, y + 21, 48, 20, "Options", (button) -> {
+			ModNetwork.SendToServer(new GenericGuiButtonClickedPacketToServer(Reference.GUI_BUTTON_LOBBY_OPTIONS));
 
 		}));
 

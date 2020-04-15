@@ -5,6 +5,7 @@ import com.projectreddog.tsrts.client.gui.DefensiveBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.EcoBuildingsScreen;
 import com.projectreddog.tsrts.client.gui.LobbyScreen;
 import com.projectreddog.tsrts.client.gui.MainMenuScreen;
+import com.projectreddog.tsrts.client.gui.OptionsScreen;
 import com.projectreddog.tsrts.client.gui.ResearchScreen;
 import com.projectreddog.tsrts.client.gui.TeamOptionsScreen;
 import com.projectreddog.tsrts.client.gui.TroopBuildingsScreen;
@@ -68,6 +69,8 @@ public class ClientProxy implements IProxy {
 		ScreenManager.registerFactory(ModContainers.BASIC_CONTAINER, BasicScreen::new);
 		ScreenManager.registerFactory(ModContainers.DEFENSIVE_BUILDINGS_CONTAINER, DefensiveBuildingsScreen::new);
 		ScreenManager.registerFactory(ModContainers.LOBBY_CONTAINER, LobbyScreen::new);
+		ScreenManager.registerFactory(ModContainers.OPTIONS_CONTAINER, OptionsScreen::new);
+
 		ScreenManager.registerFactory(ModContainers.MAIN_MENU_CONTAINER, MainMenuScreen::new);
 		ScreenManager.registerFactory(ModContainers.ECO_BUILDINGS_CONTAINER, EcoBuildingsScreen::new);
 		ScreenManager.registerFactory(ModContainers.TROOP_BUILDINGS_CONTAINER, TroopBuildingsScreen::new);
