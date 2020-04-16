@@ -14,21 +14,21 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public class MarketplaceBuilderItem extends BuilderItem {
-	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "gate_red_100");
+	protected ResourceLocation templateNameRed100 = new ResourceLocation(Reference.MODID + ":" + "market_red_100");
 	protected ResourceLocation templateNameRed50 = null;
-	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "gate_red_0");
+	protected ResourceLocation templateNameRed0 = new ResourceLocation(Reference.MODID + ":" + "market_red_0");
 
-	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "gate_yellow_100");
+	protected ResourceLocation templateNameYellow100 = new ResourceLocation(Reference.MODID + ":" + "market_yellow_100");
 	protected ResourceLocation templateNameYellow50 = null;
-	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "gate_yellow_0");
+	protected ResourceLocation templateNameYellow0 = new ResourceLocation(Reference.MODID + ":" + "market_yellow_0");
 
-	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "gate_green_100");
+	protected ResourceLocation templateNameGreen100 = new ResourceLocation(Reference.MODID + ":" + "market_green_100");
 	protected ResourceLocation templateNameGreen50 = null;
-	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "gate_green_0");
+	protected ResourceLocation templateNameGreen0 = new ResourceLocation(Reference.MODID + ":" + "market_green_0");
 
-	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "gate_blue_100");
+	protected ResourceLocation templateNameBlue100 = new ResourceLocation(Reference.MODID + ":" + "market_blue_100");
 	protected ResourceLocation templateNameBlue50 = null;
-	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "gate_blue_0");
+	protected ResourceLocation templateNameBlue0 = new ResourceLocation(Reference.MODID + ":" + "market_blue_0");
 
 	public MarketplaceBuilderItem() {
 		super(new Item.Properties().group(ModItemGroups.weaponsItemGroup));
@@ -76,7 +76,7 @@ public class MarketplaceBuilderItem extends BuilderItem {
 
 	public Vec3i getSize() {
 
-		return new Vec3i(5, 6, 5);
+		return new Vec3i(7, 5, 7);
 	}
 
 	@Override
