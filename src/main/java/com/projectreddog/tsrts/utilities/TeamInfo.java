@@ -46,7 +46,7 @@ public class TeamInfo {
 	public String getUnitNameForStatsLog(String delimeter) {
 		String returnValue = "";
 		for (int i = 0; i < UNIT_TYPES.values().length; i++) {
-			returnValue = delimeter + UNIT_TYPES.values()[i].getName();
+			returnValue = returnValue + delimeter + UNIT_TYPES.values()[i].getName();
 		}
 		return returnValue;
 	}
@@ -54,7 +54,7 @@ public class TeamInfo {
 	public String getUnitCountForStatsLog(String delimeter) {
 		String returnValue = "";
 		for (int i = 0; i < unitCount.length; i++) {
-			returnValue = delimeter + unitCount[i];
+			returnValue = returnValue + delimeter + unitCount[i];
 		}
 		return returnValue;
 	}
