@@ -181,6 +181,7 @@ public class Reference {
 	public static final int GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT = 13;
 	public static final int GUI_BUTTON_MAIN_MENU_RESEARCH = 15;
 	public static final int GUI_BUTTON_MAIN_MENU_TEAM_OPTIONS = 16;
+	public static final int GUI_BUTTON_MAIN_MENU_MARKET = 23;
 
 	public static final int GUI_BUTTON_ENABLE_TE = 8000;
 	public static final int GUI_BUTTON_DISABLE_TE = 8001;

@@ -20,7 +20,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiUtil {
-	private static final ResourceLocation TABS = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
+	private static final ResourceLocation TABS = new ResourceLocation(Reference.MODID + ":" + "textures/gui/tabs.png");
 	public static final ResourceLocation BUTTON_TEXTURE = new ResourceLocation(Reference.MODID + ":" + "textures/gui/buttonimages.png");
 	public static final int TOP_BUTTON_OFFSET = 20;
 	public static final int LEFT_BUTTON_OFFSET = 20;
@@ -34,7 +34,7 @@ public class GuiUtil {
 	 * public static final int GUI_BUTTON_MAIN_MENU_ECO = 10; public static final int GUI_BUTTON_MAIN_MENU_TROOP_BUILDINGS = 11; public static final int GUI_BUTTON_MAIN_MENU_DEFENSE_BUILDINGS = 12; public static final int GUI_BUTTON_MAIN_MENU_UNIT_RECRUITMENT = 13; public static final int GUI_BUTTON_MAIN_MENU_RESEARCH = 15;
 	 */
 
-	private static final int TAB_COUNT = 6;
+	private static final int TAB_COUNT = 7;
 
 	public static int tabIndexToGUiID(int tabIndex) {
 		switch (tabIndex) {
@@ -50,6 +50,8 @@ public class GuiUtil {
 			return Reference.GUI_BUTTON_MAIN_MENU_RESEARCH;
 		case 5:
 			return Reference.GUI_BUTTON_MAIN_MENU_TEAM_OPTIONS;
+		case 6:
+			return Reference.GUI_BUTTON_MAIN_MENU_MARKET;
 		default:
 			return -1;
 		}
@@ -89,6 +91,8 @@ public class GuiUtil {
 			return new ItemStack(Items.WRITABLE_BOOK);
 		case 5:
 			return new ItemStack(Items.PAPER);
+		case 6:
+			return new ItemStack(Items.EMERALD);
 		default:
 			return ItemStack.EMPTY;
 		}
@@ -128,6 +132,9 @@ public class GuiUtil {
 			return toolTip;
 		case 5:
 			toolTip.add("Team Options");
+			return toolTip;
+		case 6:
+			toolTip.add("Market");
 			return toolTip;
 		default:
 			return toolTip;
