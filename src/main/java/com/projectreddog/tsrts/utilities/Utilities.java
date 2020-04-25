@@ -625,6 +625,7 @@ public class Utilities {
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.RALLYPOINTTOOLITEM));
 		GivePlayerItemStack(playerEntity, new ItemStack(Items.COOKED_BEEF, 64));
 		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.TOWNHALLBUILDERITEM));
+		GivePlayerItemStack(playerEntity, new ItemStack(ModItems.WATCHTOWERBUILDERITEM, 3));
 
 	}
 
