@@ -28,7 +28,7 @@ public class TroopBuildingsScreen extends ContainerScreen<TroopBuildingsContaine
 		super(screenContainer, inv, titleIn);
 		// TABS Code set the width , height and left top!
 
-		this.xSize = 168;
+		this.xSize = 196;
 		this.ySize = 167;
 		this.guiLeft = (this.width - this.xSize) / 2;
 		this.guiTop = (this.height - this.ySize) / 2;

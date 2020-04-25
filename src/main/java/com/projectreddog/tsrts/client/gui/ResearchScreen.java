@@ -38,7 +38,7 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 
 	double mouseClickStartX = 0;
 	double mouseClickStartY = 0;
-	double currentScrollAmountX = 0;
+	double currentScrollAmountX = -20;// set for astetics the left edge is on screen
 	double PrevcurrentScrollAmountX = 0;
 	double currentScrollAmountY = 0;
 	double PrevcurrentScrollAmountY = 0;
@@ -50,7 +50,7 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 		player = inv.player;
 		// TABS Code set the width , height and left top!
 
-		this.xSize = 168;
+		this.xSize = 196;
 		this.ySize = 167;
 		this.guiLeft = (this.width - this.xSize) / 2;
 		this.guiTop = (this.height - this.ySize) / 2;
@@ -60,7 +60,7 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 
-		int left = (this.xSize - 152) / 2;
+		int left = (this.xSize - 152) / 2 - 28;
 		int top = 10;
 		int yOffset = 10;
 		int bottom = top + 150;
@@ -112,12 +112,12 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 					int startY = (int) ((yOffset - currentScrollAmountY) + rb.offsetY) + 10;
 					int endY = (int) ((yOffset - currentScrollAmountY) + rb.parentOffsetY) + 10;
 
-					if (end < left) {
-						end = left;
+					if (end < left + 14) {
+						end = left + 14;
 						distance = (start - end) / 2;
 					}
-					if (start > right) {
-						start = right;
+					if (start > right + 28 + 14) {
+						start = right + 28 + 14;
 						distance = (start - end) / 2;
 					}
 					if (distance > 0) {
@@ -157,9 +157,9 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 
 					} else {
 						// only draw if both points are below the top (10=top in this case)
-						if (end + distance > left) {
+						if (end + distance > left + 14) {
 							// only draw if within the left edge
-							if (end + distance < right) {
+							if (end + distance < right + 28 + 14) {
 								// only draw if within the right edge
 								this.vLine(end + distance, startY, endY, -1);
 							}
@@ -235,17 +235,17 @@ public class ResearchScreen extends ContainerScreen<ResearchContainer> {
 		// this.blit(this.guiLeft + xOffset + (int) currentScrollAmount, this.guiTop + this.ySize - 13 - 5, 0, 0, 15, 12);
 
 		// research area
-		this.blit(this.guiLeft + xOffset + -1, this.guiTop + yOffset, 0, 38, 152, 152);
+		this.blit(this.guiLeft + xOffset + -1 - 14, this.guiTop + yOffset, 0, 38, 152 + 28, 152);
 
 		for (Widget button : this.buttons) {
 			if (button instanceof ResearchButton) {
 				ResearchButton rb = (ResearchButton) button;
 
-				rb.x = (int) (this.guiLeft + xOffset - currentScrollAmountX) + rb.offsetX;
+				rb.x = (int) (this.guiLeft + xOffset - currentScrollAmountX) + rb.offsetX - 28;
 
 				rb.y = (int) (this.guiTop + yOffset - currentScrollAmountY) + rb.offsetY;
 
-				rb.Cull(this.guiLeft + xOffset, this.guiTop + yOffset, this.guiLeft + xOffset + 150, this.guiTop + yOffset + 151);
+				rb.Cull(this.guiLeft + xOffset - 14, this.guiTop + yOffset, this.guiLeft + xOffset + 150 + 14, this.guiTop + yOffset + 151);
 
 			}
 		}
