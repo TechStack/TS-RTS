@@ -15,6 +15,7 @@ import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
+import com.projectreddog.tsrts.containers.provider.MarketplaceContinerProvider;
 import com.projectreddog.tsrts.containers.provider.OptionsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.ResearchContinerProvider;
 import com.projectreddog.tsrts.containers.provider.TeamOptionsContinerProvider;
@@ -546,6 +547,10 @@ public class Utilities {
 
 		case Reference.GUI_BUTTON_MAIN_MENU_TEAM_OPTIONS:
 			NetworkHooks.openGui(player, new TeamOptionsContinerProvider());
+			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_MARKET:
+			NetworkHooks.openGui(player, new MarketplaceContinerProvider());
 			break;
 		}
 		TSRTS.LOGGER.info("TEAM:" + player.getTeam().getName());

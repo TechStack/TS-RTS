@@ -55,6 +55,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_UNIT_RECRUITMENT_CONTAINER = "unitrecruitmentcontiner";
 	public static final String REIGSTRY_NAME_RESEARCH_CONTAINER = "researchcontiner";
 	public static final String REIGSTRY_NAME_TEAM_OPTIONS_CONTAINER = "teamoptionscontiner";
+	public static final String REIGSTRY_NAME_MARKETPLACE_CONTAINER = "marketplacecontiner";
 
 	// Item Registry Names
 	public static final String REIGSTRY_NAME_SAMPLE_ITEM = "sampleitem";
@@ -152,6 +153,20 @@ public class Reference {
 	public static final int GUI_BUTTON_BUY_ARMORY = 23;
 
 	public static final int GUI_BUTTON_BUY_SIEGE_WORKSHOP = 24;
+
+	public static final int GUI_BUTTON_MARKET_SELL_FOOD = 25;
+	public static final int GUI_BUTTON_MARKET_SELL_WOOD = 26;
+	public static final int GUI_BUTTON_MARKET_SELL_STONE = 27;
+	public static final int GUI_BUTTON_MARKET_SELL_IRON = 28;
+	public static final int GUI_BUTTON_MARKET_SELL_GOLD = 29;
+	public static final int GUI_BUTTON_MARKET_SELL_DIAMOND = 30;
+
+	public static final int GUI_BUTTON_MARKET_BUY_FOOD = 31;
+	public static final int GUI_BUTTON_MARKET_BUY_WOOD = 32;
+	public static final int GUI_BUTTON_MARKET_BUY_STONE = 33;
+	public static final int GUI_BUTTON_MARKET_BUY_IRON = 34;
+	public static final int GUI_BUTTON_MARKET_BUY_GOLD = 35;
+	public static final int GUI_BUTTON_MARKET_BUY_DIAMOND = 36;
 
 //	public static final int GUI_BUTTON_BUY_SAPPER = 25;
 //	public static final int GUI_BUTTON_BUY_LONGBOWMEN = 26;
