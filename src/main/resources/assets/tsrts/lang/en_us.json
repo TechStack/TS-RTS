@@ -179,6 +179,9 @@ A building needed to make melee weapons and armor.",
 ",
 "gui.eco.diamond.description":"Generates diamond
 ",
+"gui.eco.marketplace.description":"A place to buy & sell resources
+",
+
 
 "gui.troopbuilding.barracks.description":"Melee troop production
 Types: Minions, Pikeman, Knight, Advanced Knight
@@ -253,6 +256,25 @@ Trained in: Barracks",
 "gui.options.option":"Game Options",
 "gui.options.speedeffect":"Player Speed Boost Amount:",
 "gui.options.weathercycle":"Weather Cycle:",
+
+"gui.market.buy":"Buy",
+"gui.market.sell":"Sell",
+
+"gui.market.sell.food":"Sell Food",
+"gui.market.sell.wood":"Sell Wood",
+"gui.market.sell.stone":"Sell Stone",
+"gui.market.sell.iron":"Sell Iron",
+"gui.market.sell.gold":"Sell Gold",
+"gui.market.sell.diamond":"Sell Diamond",
+
+"gui.market.buy.food":"Buy Food",
+"gui.market.buy.wood":"Buy Wood",
+"gui.market.buy.stone":"Buy Stone",
+"gui.market.buy.iron":"Buy Iron",
+"gui.market.buy.gold":"Buy Gold",
+"gui.market.buy.diamond":"Buy Diamond",
+
+
 
 "_comment":"End here"
 }

@@ -23,6 +23,7 @@ import com.projectreddog.tsrts.utilities.TeamInfo;
 import com.projectreddog.tsrts.utilities.UnitQueues;
 import com.projectreddog.tsrts.utilities.Utilities;
 import com.projectreddog.tsrts.utilities.data.MapStructureData;
+import com.projectreddog.tsrts.utilities.data.MarketRates;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -80,6 +81,15 @@ public class ClientPacketHandler {
 
 		}
 
+	}
+
+	public static void MarketRatesPacketToClient(int food, int wood, int stone, int iron, int gold, int diamond) {
+		MarketRates.foodRate = food;
+		MarketRates.woodRate = wood;
+		MarketRates.stoneRate = stone;
+		MarketRates.ironRate = iron;
+		MarketRates.goldRate = gold;
+		MarketRates.diamondRate = diamond;
 	}
 
 	public static void TEOwnerChangedPacketToClient(int posX, int posY, int posZ, String ownerName) {

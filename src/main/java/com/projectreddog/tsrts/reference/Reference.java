@@ -168,6 +168,8 @@ public class Reference {
 	public static final int GUI_BUTTON_MARKET_BUY_GOLD = 35;
 	public static final int GUI_BUTTON_MARKET_BUY_DIAMOND = 36;
 
+	public static final int GUI_BUTTON_BUY_MARKET_PLACE = 37;
+
 //	public static final int GUI_BUTTON_BUY_SAPPER = 25;
 //	public static final int GUI_BUTTON_BUY_LONGBOWMEN = 26;
 //	public static final int GUI_BUTTON_BUY_CROSSBOWMEN = 27;

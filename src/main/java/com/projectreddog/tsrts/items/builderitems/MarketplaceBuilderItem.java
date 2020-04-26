@@ -91,7 +91,7 @@ public class MarketplaceBuilderItem extends BuilderItem {
 
 	@Override
 	public boolean spreadHealthAroundTargets() {
-		return false;
+		return true;
 	}
 
 	@Override

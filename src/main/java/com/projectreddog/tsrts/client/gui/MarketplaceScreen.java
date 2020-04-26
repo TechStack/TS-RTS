@@ -4,10 +4,11 @@ import org.lwjgl.opengl.GL11;
 
 import com.projectreddog.tsrts.client.gui.widget.HoverImageButton;
 import com.projectreddog.tsrts.containers.MarketplaceContainer;
-import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.TownHallButtonClickedPacketToServer;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.utilities.TeamInfo;
+import com.projectreddog.tsrts.utilities.data.MarketRates;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -65,12 +66,28 @@ public class MarketplaceScreen extends ContainerScreen<MarketplaceContainer> {
 
 	protected void drawResourceIcons() {
 		GL11.glPushMatrix();
-		GL11.glScalef(.5f, .5f, .5f);
 
 		int yOffset = GuiUtil.GetResourceCostYOffsetValue();
 		int y = GuiUtil.GetResourceCostYStartValue(this);
-		GuiUtil.drawResourceIconHeaders(this);
-		GuiUtil.drawCosts(this, ModItems.WALLBUILDERITEM, y, teamName);
+		GuiUtil.drawMarketHeaders(this);
+		GL11.glScalef(.5f, .5f, .5f);
+
+		GuiUtil.drawMarketLine(this, TeamInfo.Resources.FOOD, MarketRates.foodRate, y, teamName);
+		y = y + yOffset;
+
+		GuiUtil.drawMarketLine(this, TeamInfo.Resources.WOOD, MarketRates.woodRate, y, teamName);
+		y = y + yOffset;
+
+		GuiUtil.drawMarketLine(this, TeamInfo.Resources.STONE, MarketRates.stoneRate, y, teamName);
+		y = y + yOffset;
+
+		GuiUtil.drawMarketLine(this, TeamInfo.Resources.IRON, MarketRates.ironRate, y, teamName);
+		y = y + yOffset;
+
+		GuiUtil.drawMarketLine(this, TeamInfo.Resources.GOLD, MarketRates.goldRate, y, teamName);
+		y = y + yOffset;
+
+		GuiUtil.drawMarketLine(this, TeamInfo.Resources.DIAMOND, MarketRates.diamondRate, y, teamName);
 		y = y + yOffset;
 
 		GL11.glPopMatrix();
@@ -97,64 +114,64 @@ public class MarketplaceScreen extends ContainerScreen<MarketplaceContainer> {
 //wall
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_SELL_FOOD));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.sell.food"));
+		}, "gui.market.sell.food", this, null, "gui.market.sell.food"));
 		y = y + 20;
 //steps
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_SELL_WOOD));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.sell.wood"));
+		}, "gui.market.sell.wood", this, null, "gui.market.sell.wood"));
 		y = y + 20;
 //gate
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_SELL_STONE));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.sell.stone"));
+		}, "gui.market.sell.stone", this, null, "gui.market.sell.stone"));
 		y = y + 20;
 // watch tower
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_SELL_IRON));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.sell.iron"));
+		}, "gui.market.sell.iron", this, null, "gui.market.sell.iron"));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(4), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_SELL_GOLD));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.sell.gold"));
+		}, "gui.market.sell.gold", this, null, "gui.market.sell.gold"));
 		y = y + 20;
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(5), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_SELL_DIAMOND));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.sell.diamond"));
+		}, "gui.market.sell.diamond", this, null, "gui.market.sell.diamond"));
 		y = y + 20;
 
 		y = this.guiTop + GuiUtil.TOP_BUTTON_OFFSET;
 
-		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 100, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 140, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_BUY_FOOD));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.buy.food"));
+		}, "gui.market.buy.food", this, null, "gui.market.buy.food"));
 		y = y + 20;
 //steps
-		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 100, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 140, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(1), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_BUY_WOOD));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.buy.wood"));
+		}, "gui.market.buy.wood", this, null, "gui.market.buy.wood"));
 		y = y + 20;
 //gate
-		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 100, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 140, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(2), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_BUY_STONE));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.buy.stone"));
+		}, "gui.market.buy.stone", this, null, "gui.market.buy.stone"));
 		y = y + 20;
 // watch tower
-		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 100, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 140, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(3), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_BUY_IRON));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.buy.iron"));
+		}, "gui.market.buy.iron", this, null, "gui.market.buy.iron"));
 		y = y + 20;
 
-		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 100, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(4), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 140, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(4), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_BUY_GOLD));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.buy.gold"));
+		}, "gui.market.buy.gold", this, null, "gui.market.buy.gold"));
 		y = y + 20;
 
-		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 100, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(5), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 140, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(5), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_MARKET_BUY_DIAMOND));
-		}, ModItems.WALLBUILDERITEM.getTranslationKey(), this, null, "gui.market.buy.diamond"));
+		}, "gui.market.buy.diamond", this, null, "gui.market.buy.diamond"));
 		y = y + 20;
 
 	}
