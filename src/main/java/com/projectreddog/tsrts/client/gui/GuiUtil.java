@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class GuiUtil {
 	private static final ResourceLocation TABS = new ResourceLocation(Reference.MODID + ":" + "textures/gui/tabs.png");
@@ -188,6 +189,64 @@ public class GuiUtil {
 
 	private static int GetResourceXCord(ContainerScreen screen) {
 		return ((screen.width - screen.getXSize() - (TeamInfo.Resources.values().length * (xtextOffset + xTextWidth)))) + 280 + LEFT_BUTTON_OFFSET;
+	}
+
+	public static void drawMarketHeaders(ContainerScreen screen) {
+		int color = 16777215;
+		int x = GetResourceXCord(screen) - 15;
+		int y = GetResourceCostYStartValue(screen) - 50;
+		x = x / 2;
+		y = y / 2;
+		TranslationTextComponent buyttc = new TranslationTextComponent("gui.market.buy");
+
+		TranslationTextComponent sellttc = new TranslationTextComponent("gui.market.sell");
+
+		Minecraft.getInstance().fontRenderer.drawStringWithShadow(sellttc.getUnformattedComponentText(), x, y + ytextOffset, color);
+
+		Minecraft.getInstance().fontRenderer.drawStringWithShadow(buyttc.getUnformattedComponentText(), x + 100, y + ytextOffset, color);
+
+	}
+
+	public static void drawMarketLine(ContainerScreen screen, TeamInfo.Resources commodity, int currentRate, int y, String teamName) {
+		int x = GetResourceXCord(screen) - 8;
+		int colorWhite = 16777215;
+		int colorRed = 11141120;
+		int color = colorWhite;
+		int emeraldColor = colorWhite;
+
+		x = x + xtextOffset;
+
+		if (Utilities.hasNeededResource(teamName, commodity, currentRate)) {
+			color = colorWhite;
+		} else {
+			color = colorRed;
+		}
+
+		if (Utilities.hasNeededResource(teamName, TeamInfo.Resources.EMERALD, 1)) {
+			emeraldColor = colorWhite;
+		} else {
+			emeraldColor = colorRed;
+		}
+
+		// sell side
+		Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + currentRate, x, y + ytextOffset, color);
+		Minecraft.getInstance().fontRenderer.drawStringWithShadow("= " + 1, x + 25, y + ytextOffset, colorWhite);
+		drawEmeraldIcon(screen, x + 45, y + ytextOffset - 5);
+		// Buy side
+		x = x + 170;
+		drawEmeraldIcon(screen, x, y + ytextOffset - 5);
+
+		Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + 1 + " = ", x + 20, y + ytextOffset, emeraldColor);
+
+		Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + (currentRate - 5), x + 40, y + ytextOffset, colorWhite);
+	}
+
+	public static void drawEmeraldIcon(ContainerScreen screen, int x, int y) {
+
+		RenderHelper.enableGUIStandardItemLighting();
+
+		Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, TeamInfo.GetRenderItemStack(TeamInfo.Resources.EMERALD), x, y);
+
 	}
 
 	public static void drawCosts(ContainerScreen screen, ResourceValues rv, int y, String teamName) {

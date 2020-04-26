@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.containers.DefensiveBuildingsContainer;
 import com.projectreddog.tsrts.containers.EcoBuildingsContainer;
 import com.projectreddog.tsrts.containers.LobbyContainer;
 import com.projectreddog.tsrts.containers.MainMenuContainer;
+import com.projectreddog.tsrts.containers.MarketplaceContainer;
 import com.projectreddog.tsrts.containers.OptionsContainer;
 import com.projectreddog.tsrts.containers.ResearchContainer;
 import com.projectreddog.tsrts.containers.TeamOptionsContainer;
@@ -32,6 +33,9 @@ public class ModContainers {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_ECO_BUILDINGS_CONTAINER)
 	public static ContainerType<EcoBuildingsContainer> ECO_BUILDINGS_CONTAINER;
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MARKETPLACE_CONTAINER)
+	public static ContainerType<MarketplaceContainer> MARKETPLACE_CONTAINER;
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TROOP_BUILDINGS_CONTAINER)
 	public static ContainerType<TroopBuildingsContainer> TROOP_BUILDINGS_CONTAINER;
@@ -77,6 +81,10 @@ public class ModContainers {
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
 			return new EcoBuildingsContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
 		}).setRegistryName(Reference.REIGSTRY_NAME_ECO_BUILDINGS_CONTAINER));
+
+		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+			return new MarketplaceContainer(windowId, TSRTS.proxy.getClientWorld(), inv);
+		}).setRegistryName(Reference.REIGSTRY_NAME_MARKETPLACE_CONTAINER));
 
 		event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
 			return new TroopBuildingsContainer(windowId, TSRTS.proxy.getClientWorld(), inv);

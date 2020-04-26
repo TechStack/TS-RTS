@@ -15,6 +15,7 @@ import com.projectreddog.tsrts.blocks.OwnedBlock;
 import com.projectreddog.tsrts.containers.provider.DefensiveBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.EcoBuildingsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
+import com.projectreddog.tsrts.containers.provider.MarketplaceContinerProvider;
 import com.projectreddog.tsrts.containers.provider.OptionsContinerProvider;
 import com.projectreddog.tsrts.containers.provider.ResearchContinerProvider;
 import com.projectreddog.tsrts.containers.provider.TeamOptionsContinerProvider;
@@ -34,6 +35,7 @@ import com.projectreddog.tsrts.init.ModResearch;
 import com.projectreddog.tsrts.items.builderitems.BuilderItem;
 import com.projectreddog.tsrts.network.AlertToastToClient;
 import com.projectreddog.tsrts.network.CostsPacketToClient;
+import com.projectreddog.tsrts.network.MarketRatesPacketToClient;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
@@ -50,6 +52,7 @@ import com.projectreddog.tsrts.tileentity.WallTileEntity;
 import com.projectreddog.tsrts.tileentity.interfaces.ResourceGenerator;
 import com.projectreddog.tsrts.utilities.TeamInfo.Resources;
 import com.projectreddog.tsrts.utilities.data.MapStructureData;
+import com.projectreddog.tsrts.utilities.data.MarketRates;
 import com.projectreddog.tsrts.utilities.data.Research;
 
 import net.minecraft.block.BlockState;
@@ -417,6 +420,47 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_ARMORY) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.ARMORYBUILDERITEM));
 
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_BUY_FOOD) {
+			Utilities.PlayerBuysResources(player, TeamInfo.Resources.FOOD);
+
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_BUY_WOOD) {
+			Utilities.PlayerBuysResources(player, TeamInfo.Resources.WOOD);
+
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_BUY_STONE) {
+			Utilities.PlayerBuysResources(player, TeamInfo.Resources.STONE);
+
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_BUY_IRON) {
+			Utilities.PlayerBuysResources(player, TeamInfo.Resources.IRON);
+
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_BUY_GOLD) {
+			Utilities.PlayerBuysResources(player, TeamInfo.Resources.GOLD);
+
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_BUY_DIAMOND) {
+			Utilities.PlayerBuysResources(player, TeamInfo.Resources.DIAMOND);
+
+		}
+
+		else if (buttonId == Reference.GUI_BUTTON_MARKET_SELL_FOOD) {
+			Utilities.PlayerSellsResources(player, TeamInfo.Resources.FOOD);
+
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_SELL_WOOD) {
+			Utilities.PlayerSellsResources(player, TeamInfo.Resources.WOOD);
+
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_SELL_STONE) {
+			Utilities.PlayerSellsResources(player, TeamInfo.Resources.STONE);
+
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_SELL_IRON) {
+			Utilities.PlayerSellsResources(player, TeamInfo.Resources.IRON);
+
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_SELL_GOLD) {
+			Utilities.PlayerSellsResources(player, TeamInfo.Resources.GOLD);
+
+		} else if (buttonId == Reference.GUI_BUTTON_MARKET_SELL_DIAMOND) {
+			Utilities.PlayerSellsResources(player, TeamInfo.Resources.DIAMOND);
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_MARKET_PLACE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.MARKETPLACEITEM));
+
 		}
 
 	}
@@ -547,6 +591,10 @@ public class Utilities {
 		case Reference.GUI_BUTTON_MAIN_MENU_TEAM_OPTIONS:
 			NetworkHooks.openGui(player, new TeamOptionsContinerProvider());
 			break;
+
+		case Reference.GUI_BUTTON_MAIN_MENU_MARKET:
+			NetworkHooks.openGui(player, new MarketplaceContinerProvider());
+			break;
 		}
 		TSRTS.LOGGER.info("TEAM:" + player.getTeam().getName());
 
@@ -640,6 +688,99 @@ public class Utilities {
 		ti.SetResource(Resources.EMERALD, Config.CONFIG_START_AMT.getEMERALD());
 
 		return ti.GetResourceArray();
+	}
+
+	public static int GetMarketRateForResource(TeamInfo.Resources resource) {
+		switch (resource) {
+		case FOOD:
+			return MarketRates.foodRate;
+		case WOOD:
+			return MarketRates.foodRate;
+		case STONE:
+			return MarketRates.stoneRate;
+		case IRON:
+			return MarketRates.ironRate;
+		case GOLD:
+			return MarketRates.goldRate;
+		case DIAMOND:
+			return MarketRates.diamondRate;
+		}
+		return 0;
+
+	}
+
+	public static void UpdateMarketRateForResource(TeamInfo.Resources resource, int newAmount) {
+		switch (resource) {
+		case FOOD:
+			MarketRates.foodRate = newAmount;
+			break;
+		case WOOD:
+			MarketRates.foodRate = newAmount;
+			break;
+		case STONE:
+			MarketRates.stoneRate = newAmount;
+			break;
+		case IRON:
+			MarketRates.ironRate = newAmount;
+			break;
+		case GOLD:
+			MarketRates.goldRate = newAmount;
+			break;
+		case DIAMOND:
+			MarketRates.diamondRate = newAmount;
+			break;
+		}
+		SendMarketRatesToClient();
+	}
+
+	public static void PlayerSellsResources(PlayerEntity player, TeamInfo.Resources resource) {
+
+		String teamName = player.getTeam().getName();
+		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].getMarketplace() > 0) {
+			int rate = GetMarketRateForResource(resource);
+
+			boolean result = true;
+			result = result && Utilities.hasNeededResource(teamName, resource, rate);
+			if (result) {
+
+				result = result && Utilities.SpendResourcesFromTeam(teamName, resource, rate);
+				SendTeamToClient(teamName);
+
+				if (result) {
+					Utilities.AddResourcesToTeam(teamName, TeamInfo.Resources.EMERALD, 1);
+					SendTeamToClient(teamName);
+					Utilities.UpdateMarketRateForResource(resource, rate + 1);
+
+				}
+
+			}
+		}
+
+	}
+
+	public static void PlayerBuysResources(PlayerEntity player, TeamInfo.Resources resource) {
+
+		String teamName = player.getTeam().getName();
+		if (TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].getMarketplace() > 0) {
+			int rate = GetMarketRateForResource(resource) - 5;
+
+			boolean result = true;
+			result = result && Utilities.hasNeededResource(teamName, TeamInfo.Resources.EMERALD, 1);
+			if (result) {
+
+				result = result && Utilities.SpendResourcesFromTeam(teamName, TeamInfo.Resources.EMERALD, 1);
+				SendTeamToClient(teamName);
+
+				if (result) {
+					Utilities.AddResourcesToTeam(teamName, resource, rate);
+					SendTeamToClient(teamName);
+
+					Utilities.UpdateMarketRateForResource(resource, rate - 1 + 5);
+				}
+
+			}
+		}
+
 	}
 
 	public static void PlayerBuysItem(PlayerEntity player, ItemStack itemStack) {
@@ -1163,6 +1304,11 @@ public class Utilities {
 				break;
 			}
 		}
+	}
+
+	public static void SendMarketRatesToClient() {
+		ModNetwork.SendToALLPlayers(new MarketRatesPacketToClient(MarketRates.foodRate, MarketRates.woodRate, MarketRates.stoneRate, MarketRates.ironRate, MarketRates.goldRate, MarketRates.diamondRate));
+
 	}
 
 	public static void SendTeamToClient(String teamName) {

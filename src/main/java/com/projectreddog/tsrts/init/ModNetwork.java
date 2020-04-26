@@ -5,6 +5,7 @@ import com.projectreddog.tsrts.network.CostsPacketToClient;
 import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.network.GenericGuiButtonClickedPacketToServer;
 import com.projectreddog.tsrts.network.GuiRequestPacketToServer;
+import com.projectreddog.tsrts.network.MarketRatesPacketToClient;
 import com.projectreddog.tsrts.network.PlayerReadyUpPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToClient;
 import com.projectreddog.tsrts.network.PlayerSelectionChangedPacketToServer;
@@ -59,6 +60,8 @@ public class ModNetwork {
 		simpleChannel.registerMessage(MessageId++, SendMapDataPacketToClient.class, SendMapDataPacketToClient::encode, SendMapDataPacketToClient::new, SendMapDataPacketToClient::handle);
 		simpleChannel.registerMessage(MessageId++, RecruitTroopButtonClickedPacketToServer.class, RecruitTroopButtonClickedPacketToServer::encode, RecruitTroopButtonClickedPacketToServer::new, RecruitTroopButtonClickedPacketToServer::handle);
 		simpleChannel.registerMessage(MessageId++, SendGameOptionPacketToClient.class, SendGameOptionPacketToClient::encode, SendGameOptionPacketToClient::new, SendGameOptionPacketToClient::handle);
+		simpleChannel.registerMessage(MessageId++, MarketRatesPacketToClient.class, MarketRatesPacketToClient::encode, MarketRatesPacketToClient::new, MarketRatesPacketToClient::handle);
+
 	}
 
 	public static <MSG> void SendToPlayer(ServerPlayerEntity player, MSG message) {

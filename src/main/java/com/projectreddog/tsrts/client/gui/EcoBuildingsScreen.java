@@ -94,7 +94,8 @@ public class EcoBuildingsScreen extends ContainerScreen<EcoBuildingsContainer> {
 
 		GuiUtil.drawCosts(this, ModItems.MINESITEDIAMONDBUILDERITEM, y, teamName);
 		y = y + yOffset;
-
+		GuiUtil.drawCosts(this, ModItems.MARKETPLACEITEM, y, teamName);
+		y = y + yOffset;
 		GL11.glPopMatrix();
 	}
 
@@ -147,6 +148,11 @@ public class EcoBuildingsScreen extends ContainerScreen<EcoBuildingsContainer> {
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(8), GuiUtil.GetYStartForButtonImageXYIndex(0), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MINE_SITE_DIAMOND));
 		}, ModItems.MINESITEDIAMONDBUILDERITEM.getTranslationKey(), this, null, "gui.eco.diamond.description"));
+		y = y + 20;
+
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(6), GuiUtil.GetYStartForButtonImageXYIndex(4), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_MARKET_PLACE));
+		}, ModItems.MARKETPLACEITEM.getTranslationKey(), this, null, "gui.eco.marketplace.description"));
 		y = y + 20;
 
 	}
