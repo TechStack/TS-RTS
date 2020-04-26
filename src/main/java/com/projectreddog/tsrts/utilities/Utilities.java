@@ -695,7 +695,7 @@ public class Utilities {
 		case FOOD:
 			return MarketRates.foodRate;
 		case WOOD:
-			return MarketRates.foodRate;
+			return MarketRates.woodRate;
 		case STONE:
 			return MarketRates.stoneRate;
 		case IRON:
@@ -715,7 +715,7 @@ public class Utilities {
 			MarketRates.foodRate = newAmount;
 			break;
 		case WOOD:
-			MarketRates.foodRate = newAmount;
+			MarketRates.woodRate = newAmount;
 			break;
 		case STONE:
 			MarketRates.stoneRate = newAmount;
