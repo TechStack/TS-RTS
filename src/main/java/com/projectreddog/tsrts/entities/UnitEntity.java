@@ -6,6 +6,7 @@ import com.projectreddog.tsrts.network.EntityOwnerChangedPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.utilities.Utilities;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -72,10 +73,13 @@ public class UnitEntity extends MonsterEntity {
 		if (this.world.isRemote) {
 			// client code
 
-			if (TSRTS.playerSelections.containsKey(ownerName)) {
+			// HERE change OwnerName to instead be the players name of the currently playing player :D
 
-				if (TSRTS.playerSelections.get(ownerName).selectedUnits != null) {
-					if (TSRTS.playerSelections.get(ownerName).selectedUnits.contains(getEntityId())) {
+			String PlayerName = Minecraft.getInstance().player.getScoreboardName();
+			if (TSRTS.playerSelections.containsKey(PlayerName)) {
+
+				if (TSRTS.playerSelections.get(PlayerName).selectedUnits != null) {
+					if (TSRTS.playerSelections.get(PlayerName).selectedUnits.contains(getEntityId())) {
 						return true;
 					}
 				}
