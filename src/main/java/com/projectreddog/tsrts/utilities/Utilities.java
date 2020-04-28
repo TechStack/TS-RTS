@@ -2129,7 +2129,7 @@ public class Utilities {
 					}
 
 				}
-				if (octe != null) {
+				if (setHealth && octe != null) {
 					octe.setHealth(health);
 
 					// TSRTS.LOGGER.info("Health set to :" + health);
