@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.client.renderer;
 
 import javax.annotation.Nullable;
 
+import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.projectreddog.tsrts.client.model.MountedMinionModel;
 import com.projectreddog.tsrts.client.model.MountedModel;
@@ -61,7 +62,6 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 
 			f2 = f1 - f;
 		}
-
 		this.bindEntityTexture(entity);
 
 		GlStateManager.pushMatrix();
@@ -88,7 +88,22 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 			GlStateManager.rotatef(deadamt * 90f, 0, 0.0F, 1F);
 
 		}
-		mountedModel.render(entity, f6, f5, 1, 1, 1, .1f, partialTicks);
+
+		if (this.renderOutlines) {
+			boolean flag = this.setScoreTeamColor(entity);
+			GlStateManager.enableColorMaterial();
+			GlStateManager.setupSolidRenderingTextureCombine(this.getTeamColor(entity));
+			mountedModel.render(entity, f6, f5, 1, 1, 1, .1f, partialTicks);
+
+			GlStateManager.tearDownSolidRenderingTextureCombine();
+			GlStateManager.disableColorMaterial();
+			if (flag) {
+				this.unsetScoreTeamColor();
+			}
+		} else {
+			mountedModel.render(entity, f6, f5, 1, 1, 1, .1f, partialTicks);
+
+		}
 
 		if (((MountedEntity) entity).hurtTime > 0) {
 
@@ -121,16 +136,39 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 		float headPitch = MathHelper.lerp(partialTicks, entity.prevRotationPitch, entity.rotationPitch);
 //render(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scaleIn);
 		if (entity.deathTime == 0) {
-			riderMinionModel.render(entity, 1, 1, 1, headYaw, headPitch, 1);
-			// render held item
-			if (entity.getHeldItemMainhand() != null) {
-				GlStateManager.scalef(18.181818181818181818181818181818F, 18.181818181818181818181818181818F, 18.181818181818181818181818181818F);
-				GlStateManager.translatef(-.13f, .725f, -.3f);
-				GlStateManager.rotatef(15f, 1.0F, 0.0F, 0.0F);
 
-				Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entity, entity.getHeldItemMainhand(), ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, false);
+			if (this.renderOutlines) {
+				boolean flag = this.setScoreTeamColor(entity);
+				GlStateManager.enableColorMaterial();
+				GlStateManager.setupSolidRenderingTextureCombine(this.getTeamColor(entity));
+				riderMinionModel.render(entity, 1, 1, 1, headYaw, headPitch, 1);
+				// render held item
+				if (entity.getHeldItemMainhand() != null) {
+					GlStateManager.scalef(18.181818181818181818181818181818F, 18.181818181818181818181818181818F, 18.181818181818181818181818181818F);
+					GlStateManager.translatef(-.13f, .725f, -.3f);
+					GlStateManager.rotatef(15f, 1.0F, 0.0F, 0.0F);
 
+					Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entity, entity.getHeldItemMainhand(), ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, false);
+
+				}
+				GlStateManager.tearDownSolidRenderingTextureCombine();
+				GlStateManager.disableColorMaterial();
+				if (flag) {
+					this.unsetScoreTeamColor();
+				}
+			} else {
+				riderMinionModel.render(entity, 1, 1, 1, headYaw, headPitch, 1);
+				// render held item
+				if (entity.getHeldItemMainhand() != null) {
+					GlStateManager.scalef(18.181818181818181818181818181818F, 18.181818181818181818181818181818F, 18.181818181818181818181818181818F);
+					GlStateManager.translatef(-.13f, .725f, -.3f);
+					GlStateManager.rotatef(15f, 1.0F, 0.0F, 0.0F);
+
+					Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entity, entity.getHeldItemMainhand(), ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, false);
+
+				}
 			}
+
 		}
 
 		if (((MountedEntity) entity).hurtTime > 0) {
@@ -154,6 +192,21 @@ public class MountedRenderer extends EntityRenderer<MountedEntity> {
 
 		// body of character
 
+	}
+
+	protected boolean setScoreTeamColor(MountedEntity entityLivingBaseIn) {
+		GlStateManager.disableLighting();
+		GlStateManager.activeTexture(GLX.GL_TEXTURE1);
+		GlStateManager.disableTexture();
+		GlStateManager.activeTexture(GLX.GL_TEXTURE0);
+		return true;
+	}
+
+	protected void unsetScoreTeamColor() {
+		GlStateManager.enableLighting();
+		GlStateManager.activeTexture(GLX.GL_TEXTURE1);
+		GlStateManager.enableTexture();
+		GlStateManager.activeTexture(GLX.GL_TEXTURE0);
 	}
 
 	@Nullable
