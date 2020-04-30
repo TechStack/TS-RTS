@@ -3,6 +3,8 @@ package com.projectreddog.tsrts.handler;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -169,20 +171,20 @@ public class ClientEvents {
 								if (e instanceof UnitEntity) {
 									UnitEntity ue = (UnitEntity) e;
 									if (ue instanceof AdvancedKnightEntity) {
-										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), AdvancedKnightEntity.class);
+										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), AdvancedKnightEntity.class, ue.getUnitType());
 									} else if (ue instanceof KnightEntity) {
-										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), KnightEntity.class);
+										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), KnightEntity.class, ue.getUnitType());
 									} else if (ue instanceof MinionEntity) {
-										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), MinionEntity.class);
+										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), MinionEntity.class, ue.getUnitType());
 									} else {
 
-										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), ue.getClass());
+										SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), ue.getClass(), ue.getUnitType());
 									}
 								}
 							}
 						}
 					} else {
-						SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), UnitEntity.class);
+						SelectUnitsInBoundingBox(Minecraft.getInstance().player.getBoundingBox().grow(16, 3, 16), UnitEntity.class, null);
 					}
 
 				}
@@ -215,7 +217,7 @@ public class ClientEvents {
 
 								AxisAlignedBB bb = new AxisAlignedBB(xMin, yMin, zMin, xMax, yMax, zMax);
 
-								SelectUnitsInBoundingBox(bb.grow(0, 1, 0), UnitEntity.class);
+								SelectUnitsInBoundingBox(bb.grow(0, 1, 0), UnitEntity.class, null);
 							}
 
 						}
@@ -230,7 +232,7 @@ public class ClientEvents {
 		}
 	}
 
-	public static void SelectUnitsInBoundingBox(AxisAlignedBB boxIn, Class<? extends UnitEntity> class1) {
+	public static void SelectUnitsInBoundingBox(AxisAlignedBB boxIn, Class<? extends UnitEntity> class1, @Nullable Reference.UNIT_TYPES unitType) {
 
 		List<UnitEntity> uel = Minecraft.getInstance().player.world.getEntitiesWithinAABB(class1, boxIn);
 		Team team = Minecraft.getInstance().player.getTeam();
@@ -241,17 +243,34 @@ public class ClientEvents {
 
 			if (unitEntity.getTeam() != null && !unitEntity.getTeam().isSameTeam(team)) {
 				size = size - 1;
+			} else if (unitType != null && unitType != unitEntity.getUnitType()) {
+				size = size - 1;
 			}
 		}
 
 		int[] tmp = new int[size];
-		// TODO CONSIDER TEAMS!
-		for (int i = 0; i < tmp.length; i++) {
-			if (uel.get(i).getTeam() != null && uel.get(i).getTeam().isSameTeam(team)) {
-				tmp[i] = uel.get(i).getEntityId();
-			}
 
+		int i = 0;
+
+		for (Iterator iterator = uel.iterator(); iterator.hasNext();) {
+			UnitEntity unitEntity = (UnitEntity) iterator.next();
+
+			if (uel.get(i).getTeam() != null && unitEntity.getTeam().isSameTeam(team)) {
+				// still nope
+				if ((unitType == null ? unitEntity.getUnitType() : unitType) == unitEntity.getUnitType()) {
+					// yes this troop
+					tmp[i] = unitEntity.getEntityId();
+					i = i + 1;
+				}
+			}
 		}
+//
+//		for (int i = 0; i < tmp.length; i++) {
+//			if (uel.get(i).getTeam() != null && uel.get(i).getTeam().isSameTeam(team) && (unitType == null ? uel.get(i).getUnitType() : unitType) == uel.get(i).getUnitType()) {
+//				tmp[i] = uel.get(i).getEntityId();
+//			}
+//
+//		}
 
 		ModNetwork.SendToServer(new PlayerSelectionChangedPacketToServer(tmp));
 	}
