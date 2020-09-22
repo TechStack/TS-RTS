@@ -84,6 +84,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -775,7 +776,7 @@ public class Utilities {
 					Utilities.AddResourcesToTeam(teamName, resource, rate);
 					SendTeamToClient(teamName);
 
-					Utilities.UpdateMarketRateForResource(resource, rate - 1 + 5);
+					Utilities.UpdateMarketRateForResource(resource, MathHelper.clamp(rate - 1 + 5, 10, Integer.MAX_VALUE));
 				}
 
 			}
