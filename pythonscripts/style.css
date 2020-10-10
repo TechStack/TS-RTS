@@ -15,3 +15,9 @@
     display: table;
     clear: both;
   }
+
+  .comparecolumn{
+    float: left;
+    
+    padding: 10px;
+  }

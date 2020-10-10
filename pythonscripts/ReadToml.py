@@ -62,24 +62,32 @@ def createPageHeader(doc):
             img(src="banner.png")
 
 
-def createPageNavBar(doc, Units):
+def createPageNavBar(doc, Units, Buildings):
     with doc:
         with div(id="NavBar", cls="column" ):
+            h3("")
+            with ul():
+                li(   a("Home", href="Index.html")  )
             h3("Units:")
             with ul():
                 for U in Units:
                     li(a(   Units[U]["Name"], href="Unit_"+Units[U]["Name"]+".html"  ) )
+            h3("Buildings:")
+            with ul():
+                for B in Buildings:
+                    li(a(   Buildings[B]["Name"], href="Building_"+Buildings[B]["Name"]+".html"  ) )
+
                         
 
 
-def processUnits(config, Units):
+def processUnits(config, Units,buildings):
 
     for U in Units:
         #Create a page for this unit.
         doc = dominate.document(Units[U]["Name"])
         createPageHeader(doc)
         div(id="row", cls="row" )
-        createPageNavBar(doc, Units)
+        createPageNavBar(doc, Units,buildings)
         with doc:
             with div(id="Text" , cls="column"):
                 GetUnitText(config, Units[U]["Description"])
@@ -123,6 +131,9 @@ def GetUnitAttributes(config, UnitName,doc):
                 with tr():                        
                     td("Knock back resistance:")
                     td(getKnock_Back_Resistance(config['unit_attributes']["unit_"+UnitName+"_attributes"]))
+                with tr():
+                    td("Movement Speed:")
+                    td(getMovement_Speed(config['unit_attributes']["unit_"+UnitName+"_attributes"]))
                 with tr():                        
                     td("Armor: ")
                     td(getArmor(config['unit_attributes']["unit_"+UnitName+"_attributes"]))
@@ -201,17 +212,83 @@ def GetUnitCosts(config ,UnitName,doc):
     # print ( "Diamond: " +  getDiamond(config['unit_cost']["unitCosts"+UnitName] ))
     # print ( "Emerald: " +  getEmerald(config['unit_cost']["unitCosts"+UnitName] ))
 
-def pharseConfig(FileName, Units):
-    config = toml.load(FileName)
 
+
+def compareUnits(config, Units, buildings):
 
     
+    doc = dominate.document("Unit Comparision")
+    createPageHeader(doc)  
+    div(id="row", cls="row" )
+    createPageNavBar(doc, Units,buildings)
+   
+    with doc:
+        div(id="comparerow", cls="row" )
+        for U in Units:
+            with div(id="unitDetail",  cls="comparecolumn" ):
+                h1("Unit: "+ Units[U]["Name"] )
+                img(src="./img/" +Units[U]["Name"]  + ".gif")
+                print (Units[U]["Name"])
+                GetUnitCosts(config ,Units[U]["Name"], doc)
+                GetUnitAttributes (config, Units[U]["AttributeName"],doc)
 
-    processUnits(config, Units)
-  
-      
+    with open( 'Unit_comparison.html'  , 'w') as file:
+        file.write(doc.render())
+    print ("")
 
 
+
+def pharseConfig(FileName, Units, Buildings):
+    config = toml.load(FileName)
+ 
+
+    processUnits(config, Units, Buildings)
+    processBulidings(config,Units, Buildings)
+
+    compareUnits(config , Units, Buildings)
+
+
+
+def processBulidings(config,Units, Buildings):
+    for B in Buildings:
+        #Create a page for this unit.
+        doc = dominate.document(Buildings[B]["Name"])
+        createPageHeader(doc)
+        div(id="row", cls="row" )
+        createPageNavBar(doc, Units,Buildings)
+        with doc:
+            with div(id="Text" , cls="column"):
+                GetUnitText(config, Buildings[B]["Description"])
+        with doc:
+            with div(id="buildingDetail",  cls="column" ):
+                h1("Unit: "+ Buildings[B]["Name"] )
+                img(src="./img/" +Buildings[B]["Name"]  + ".gif")
+                print (Buildings[B]["Name"])
+                # GetUnitCosts(config ,Buildings[B]["Name"], doc)
+                # GetUnitAttributes (config, Buildings[B]["AttributeName"],doc)
+
+        with open( 'Building_'+ Buildings[B]["Name"] +'.html'  , 'w') as file:
+            file.write(doc.render())
+        print ("")
+
+
+
+def getBuildingDict():
+    buildings={
+        "Building1":{
+            "Name":"Town Hall",
+            "building_cost_key":"",
+            "structure_health_key":"buildingHealthTownHall",
+            "Description":"The town hall is important"
+        },
+        "Building2":{
+            "Name":"Farm",
+            "building_cost_key":"farmBulidingCosts",
+            "structure_health_key":"buildingHealthFarm",
+            "Description":"Farm desc"
+        }
+    }
+    return buildings
 
 def getUnitDict():
     units={
@@ -282,8 +359,19 @@ def getUnitDict():
     }
     return units
 
-
-
+def BuildIndexPage(Units, Buildings):
+    doc = dominate.document("RSTCraft Mod - Home")
+    createPageHeader(doc)
+    div(id="row", cls="row" )
+    createPageNavBar(doc, Units,Buildings)
+    with open( 'Index.html'  , 'w') as file:
+        file.write(doc.render())
 #main code
 
-pharseConfig("..\\run\\config\\tsrts-common.toml", getUnitDict())
+
+Units=getUnitDict()
+Buildings=getBuildingDict()
+
+BuildIndexPage( Units,Buildings)
+pharseConfig("..\\run\\config\\tsrts-common.toml",Units,Buildings)
+
