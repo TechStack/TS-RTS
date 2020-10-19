@@ -354,6 +354,14 @@ def getUnitDict():
         "Description":"A meele unit armed with a pike"
         ,
         "Type":"Meele"
+        },
+        "Unit11":
+        {
+        "Name":"Cleric",
+        "AttributeName":"cleric",
+        "Description":"A Healer unit."
+        ,
+        "Type":"Healer" 
         }
         
     }

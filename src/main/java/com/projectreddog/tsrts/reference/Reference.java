@@ -113,6 +113,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_KNIGHT_ENTITY = "knight";
 	public static final String REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY = "advancedknight";
 	public static final String REIGSTRY_NAME_SAPPER_ENTITY = "sapper";
+	public static final String REIGSTRY_NAME_CLERIC_ENTITY = "cleric";
+
 	public static final String REIGSTRY_NAME_LONGBOWMAN_ENTITY = "longbowman";
 	public static final String REIGSTRY_NAME_CROSSBOWMAN_ENTITY = "crossbowman";
 
@@ -215,11 +217,12 @@ public class Reference {
 	}
 
 	public static enum RTS_COSTS {
-		ARMORY, MINION, ARCHER, LANCER, PIKEMAN, FARM, LUMBER_YARD, MARKETPLACE, MINE_STONE, MINE_IRON, MINE_GOLD, MINE_DIAMOND, MINE_EMERALD, BARRACKS, ARCHERY_RANGE, WALL, WALL_STEPS, GATE, RESEARCH_CENTER, STABLES, WATCH_TOWER, RESEARCH_TOWNHALL, RESEARCH_MINION, RESEARCH_ARCHER, RESEARCH_PIKEMAN, RESEARCH_LANCER, RESEARCH_BLACKSMITHING, RESEARCH_ARMOR, RESEARCH_MARKETPLACE, RESEARCH_WALL, RESEARCH_SIEGE_WORKSHOP, RESEARCH_CROSSBOW, RESEARCH_ADVANCED_ARMOR, RESEARCH_WATCHTOWER, RESEARCH_BATTERING_RAM, RESEARCH_TREBUCHET, SIEGE_WORKSHOP, SAPPER, LONGBOWMEN, CROSSBOWMEN
+		ARMORY, MINION, ARCHER, LANCER, PIKEMAN, FARM, LUMBER_YARD, MARKETPLACE, MINE_STONE, MINE_IRON, MINE_GOLD, MINE_DIAMOND, MINE_EMERALD, BARRACKS, ARCHERY_RANGE, WALL, WALL_STEPS, GATE, RESEARCH_CENTER, STABLES, WATCH_TOWER, RESEARCH_TOWNHALL, RESEARCH_MINION, RESEARCH_ARCHER, RESEARCH_PIKEMAN, RESEARCH_LANCER, RESEARCH_BLACKSMITHING, RESEARCH_ARMOR, RESEARCH_MARKETPLACE, RESEARCH_WALL, RESEARCH_SIEGE_WORKSHOP, RESEARCH_CROSSBOW, RESEARCH_ADVANCED_ARMOR, RESEARCH_WATCHTOWER, RESEARCH_BATTERING_RAM, RESEARCH_TREBUCHET, SIEGE_WORKSHOP, SAPPER, LONGBOWMEN, CROSSBOWMEN, CLERIC
 	}
 
 	public static enum UNIT_TYPES {
-		MINION("Minion", null, false, 0, 3), ARCHER("Archer", "archer", false, 1, 3), LANCER("Lancer", "lancer", false, 2, 3), PIKEMAN("Pikeman", "pikeman", true, 3, 3), KNIGHT("Knight", "armor", true, 5, 3), ADVANCED_KNIGHT("AdvancedKnight", "advcedarmor", true, 6, 3), SAPPER("Sapper", "siegeworkshop", false, 4, 1), TREBUCHET("Trebuchet", null, false, 0, 0), LONGBOWMAN("Longbowmen", "longbows", false, 5, 1), CROSSBOWMAN("Crossbowmen", "crossbows", false, 6, 1);
+
+		MINION("Minion", null, false, 0, 3), ARCHER("Archer", "archer", false, 1, 3), LANCER("Lancer", "lancer", false, 2, 3), PIKEMAN("Pikeman", "pikeman", true, 3, 3), KNIGHT("Knight", "armor", true, 5, 3), ADVANCED_KNIGHT("AdvancedKnight", "advcedarmor", true, 6, 3), SAPPER("Sapper", "siegeworkshop", false, 4, 1), TREBUCHET("Trebuchet", null, false, 0, 0), LONGBOWMAN("Longbowmen", "longbows", false, 5, 1), CROSSBOWMAN("Crossbowmen", "crossbows", false, 6, 1), CLERIC("Cleric", null, false, 7, 1);
 
 		private String Name;
 		private String ResearchKeyRequiredToBuy;

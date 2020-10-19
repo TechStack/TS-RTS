@@ -377,6 +377,8 @@ public class RenderOverlay extends Screen {
 			return new ItemStack(ModItems.PIKEITEM);
 		case SAPPER:
 			return new ItemStack(Items.CREEPER_HEAD);
+		case CLERIC:
+			return new ItemStack(Items.TOTEM_OF_UNDYING);
 		case TREBUCHET:
 			return new ItemStack(Items.FIRE_CHARGE);
 

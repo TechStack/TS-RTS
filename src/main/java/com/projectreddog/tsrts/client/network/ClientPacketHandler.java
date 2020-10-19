@@ -142,6 +142,9 @@ public class ClientPacketHandler {
 		case ARCHER:
 			Config.CONFIG_UNIT_COSTS_ARCHER = rv;
 			break;
+		case CLERIC:
+			Config.CONFIG_UNIT_COSTS_CLERIC = rv;
+			break;
 		case ARCHERY_RANGE:
 			Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE = rv;
 			break;

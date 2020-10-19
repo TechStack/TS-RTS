@@ -45,6 +45,9 @@ public class UnitQueues {
 		case SAPPER:
 			AddToSiegeWorkshopQueue(ID);
 			break;
+		case CLERIC:
+			AddToSiegeWorkshopQueue(ID);
+			break;
 		case LONGBOWMAN:
 			AddToArcheryRangeQueue(ID);
 			break;
