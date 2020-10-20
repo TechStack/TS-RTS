@@ -36,7 +36,7 @@ public class NearestHealableTargetGoal<T extends LivingEntity> extends TargetGoa
 		this.targetClass = targetClassIn;
 		this.targetChance = targetChanceIn;
 		this.setMutexFlags(EnumSet.of(Goal.Flag.TARGET));
-		Predicate<LivingEntity> isOnSameTeamAndDamaged = (le) -> le.getMaxHealth() > le.getHealth() && le.getTeam().isSameTeam(this.goalOwner.getTeam()) && (this.goalOwner.getAttackTarget() == null || this.goalOwner.getAttackTarget().getActivePotionEffect(Effects.REGENERATION) == null);
+		Predicate<LivingEntity> isOnSameTeamAndDamaged = (le) -> le.getMaxHealth() > le.getHealth() && le.getTeam() != null && le.getTeam().isSameTeam(this.goalOwner.getTeam()) && le.getActivePotionEffect(Effects.REGENERATION) == null;
 
 		this.targetEntitySelector = (new EntityPredicate()).allowFriendlyFire().setSkipAttackChecks().setDistance(this.getTargetDistance()).setCustomPredicate(isOnSameTeamAndDamaged);
 	}

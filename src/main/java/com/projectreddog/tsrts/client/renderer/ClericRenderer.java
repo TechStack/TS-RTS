@@ -13,11 +13,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class ClericRenderer extends BipedRenderer<ClericEntity, ClericModel> {
 
-	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/minion_yellow.png");
-	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/minion_yellow.png");
-	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation(Reference.MODID, "textures/entity/minion_blue.png");
-	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation(Reference.MODID, "textures/entity/minion_green.png");
-	private static ResourceLocation TEXTURE_RED = new ResourceLocation(Reference.MODID, "textures/entity/minion_red.png");
+	private static ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/cleric_yellow.png");
+	private static ResourceLocation TEXTURE_YELLOW = new ResourceLocation(Reference.MODID, "textures/entity/cleric_yellow.png");
+	private static ResourceLocation TEXTURE_BLUE = new ResourceLocation(Reference.MODID, "textures/entity/cleric_blue.png");
+	private static ResourceLocation TEXTURE_GREEN = new ResourceLocation(Reference.MODID, "textures/entity/cleric_green.png");
+	private static ResourceLocation TEXTURE_RED = new ResourceLocation(Reference.MODID, "textures/entity/cleric_red.png");
 
 	public ClericRenderer(EntityRendererManager manager) {
 		super(manager, new ClericModel(), .5f);
