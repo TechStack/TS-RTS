@@ -15,10 +15,13 @@ public class UnitQueueChangedPacketToClient {
 	List<UNIT_TYPES> archeryRangeQueue;
 	List<UNIT_TYPES> stablesQueue;
 	List<UNIT_TYPES> siegeWorkshopQueue;
+	List<UNIT_TYPES> templeQueue;
+
 	Boolean infinateBarracksQueue;
 	Boolean infinateArcheryRangeQueue;
 	Boolean infinateStablesQueue;
 	Boolean infinateSiegeWorkshopQueue;
+	Boolean infinateTempleQueue;
 	int teamOrd;
 
 	public UnitQueueChangedPacketToClient(PacketBuffer buf) {
@@ -38,6 +41,9 @@ public class UnitQueueChangedPacketToClient {
 
 		if (siegeWorkshopQueue == null) {
 			siegeWorkshopQueue = new ArrayList<UNIT_TYPES>();
+		}
+		if (templeQueue == null) {
+			templeQueue = new ArrayList<UNIT_TYPES>();
 		}
 
 		teamOrd = buf.readInt();
@@ -62,24 +68,31 @@ public class UnitQueueChangedPacketToClient {
 			int tmp = buf.readInt();
 			siegeWorkshopQueue.add(UNIT_TYPES.values()[tmp]);
 		}
-
+		size = buf.readInt();
+		for (int i = 0; i < size; i++) {
+			int tmp = buf.readInt();
+			templeQueue.add(UNIT_TYPES.values()[tmp]);
+		}
 		infinateBarracksQueue = buf.readBoolean();
 		infinateArcheryRangeQueue = buf.readBoolean();
 		infinateStablesQueue = buf.readBoolean();
 		infinateSiegeWorkshopQueue = buf.readBoolean();
+		infinateTempleQueue = buf.readBoolean();
 	}
 
-	public UnitQueueChangedPacketToClient(List<UNIT_TYPES> barracksQueue, List<UNIT_TYPES> archeryRangeQueue, List<UNIT_TYPES> stablesQueue, List<UNIT_TYPES> siegeWorkshopQueue, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue, int teamOrd) {
+	public UnitQueueChangedPacketToClient(List<UNIT_TYPES> barracksQueue, List<UNIT_TYPES> archeryRangeQueue, List<UNIT_TYPES> stablesQueue, List<UNIT_TYPES> siegeWorkshopQueue, List<UNIT_TYPES> templeQueue, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue, boolean infinateTempleQueue, int teamOrd) {
 		super();
 		this.barracksQueue = barracksQueue;
 		this.archeryRangeQueue = archeryRangeQueue;
 		this.stablesQueue = stablesQueue;
 		this.teamOrd = teamOrd;
 		this.siegeWorkshopQueue = siegeWorkshopQueue;
+		this.templeQueue = templeQueue;
 		this.infinateBarracksQueue = infinateBarracksQueue;
 		this.infinateArcheryRangeQueue = infinateArcheryRangeQueue;
 		this.infinateStablesQueue = infinateStablesQueue;
 		this.infinateSiegeWorkshopQueue = infinateSiegeWorkshopQueue;
+		this.infinateTempleQueue = infinateTempleQueue;
 
 	}
 
@@ -129,6 +142,17 @@ public class UnitQueueChangedPacketToClient {
 
 		}
 
+		if (templeQueue != null) {
+			buf.writeInt(templeQueue.size());
+			for (int i = 0; i < templeQueue.size(); i++) {
+
+				buf.writeInt(templeQueue.get(i).ordinal());
+			}
+		} else {
+			buf.writeInt(0);
+
+		}
+
 		buf.writeBoolean(infinateBarracksQueue);
 		buf.writeBoolean(infinateArcheryRangeQueue);
 		buf.writeBoolean(infinateStablesQueue);
@@ -140,7 +164,7 @@ public class UnitQueueChangedPacketToClient {
 		// TODO Auto-generated method stub
 		ctx.get().enqueueWork(() -> {
 
-			ClientPacketHandler.UnitQueueChangedPacketToClient(teamOrd, barracksQueue, archeryRangeQueue, stablesQueue, siegeWorkshopQueue, infinateBarracksQueue, infinateArcheryRangeQueue, infinateStablesQueue, infinateSiegeWorkshopQueue);
+			ClientPacketHandler.UnitQueueChangedPacketToClient(teamOrd, barracksQueue, archeryRangeQueue, stablesQueue, siegeWorkshopQueue, templeQueue, infinateBarracksQueue, infinateArcheryRangeQueue, infinateStablesQueue, infinateSiegeWorkshopQueue, infinateTempleQueue);
 
 		});
 		ctx.get().setPacketHandled(true);

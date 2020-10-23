@@ -26,6 +26,7 @@ import com.projectreddog.tsrts.items.builderitems.MinesiteStoneBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.ResearchCenterBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.SiegeWorkshopBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.StablesBuilderItem;
+import com.projectreddog.tsrts.items.builderitems.TempleBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.TownHallBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WallBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WallStepsBuilderItem;
@@ -72,6 +73,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SIEGE_WORKSHOP_BUILDER_ITEM)
 	public static SiegeWorkshopBuilderItem SIEGEWORKSHOPBUILDERITEM = new SiegeWorkshopBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TEMPLE_BUILDER_ITEM)
+	public static TempleBuilderItem TEMPLEBUILDERITEM = new TempleBuilderItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_BUILDER_ITEM)
 	public static WallBuilderItem WALLBUILDERITEM = new WallBuilderItem();
@@ -180,6 +184,7 @@ public class ModItems {
 		RegisterItem(event, ModItems.ARMORYBUILDERITEM);
 
 		RegisterItem(event, ModItems.SIEGEWORKSHOPBUILDERITEM);
+		RegisterItem(event, ModItems.TEMPLEBUILDERITEM);
 
 		RegisterItem(event, ModItems.TEAM_IRON_ARMOR_HELMET);
 		RegisterItem(event, ModItems.TEAM_IRON_ARMOR_CHESTPLATE);

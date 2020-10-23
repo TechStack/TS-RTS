@@ -322,7 +322,7 @@ public class ServerEvents {
 
 					int i = 0; i < TeamEnum.values().length; i++) {
 				if (TSRTS.TeamQueues[i].hasChanged) {
-					ModNetwork.SendToALLPlayers(new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), TSRTS.TeamQueues[i].getSiegeWorkshop(), TSRTS.TeamQueues[i].isInfinateBarracksQueue(), TSRTS.TeamQueues[i].isInfinateArcheryRangeQueue(), TSRTS.TeamQueues[i].isInfinateStablesQueue(), TSRTS.TeamQueues[i].isInfinateSiegeWorkshopQueue(), i));
+					ModNetwork.SendToALLPlayers(new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), TSRTS.TeamQueues[i].getSiegeWorkshop(), TSRTS.TeamQueues[i].getTemple(), TSRTS.TeamQueues[i].isInfinateBarracksQueue(), TSRTS.TeamQueues[i].isInfinateArcheryRangeQueue(), TSRTS.TeamQueues[i].isInfinateStablesQueue(), TSRTS.TeamQueues[i].isInfinateSiegeWorkshopQueue(), TSRTS.TeamQueues[i].isInfinateTempleQueue(), i));
 
 					TSRTS.TeamQueues[i].hasChanged = false;
 				}
@@ -360,14 +360,14 @@ public class ServerEvents {
 	public static void WriteBuildingStats(String teamName, TeamInfo ti) {
 		String delimiter = ",";
 		if (writeBuildingHeader) {
-			TSRTS.LOGGER.info("BUILDINGSTATS-HEADER: Timestamp, TeamName, Archeryrange , Armory , Baracks , Farms , Gates , LumberYard , MineSiteDiamond , MineSiteEmerald ,  MineSiteGold , MineSiteIron ,  MineSiteStone , ResearchCenter , Siegeworkshop , Stables , TownHalls , Walls , Wallsteps , Watchtowers");
+			TSRTS.LOGGER.info("BUILDINGSTATS-HEADER: Timestamp, TeamName, Archeryrange , Armory , Baracks , Farms , Gates , LumberYard , MineSiteDiamond , MineSiteEmerald ,  MineSiteGold , MineSiteIron ,  MineSiteStone , ResearchCenter , Siegeworkshop , Stables , TownHalls , Walls , Wallsteps , Watchtowers, Temple");
 			writeBuildingHeader = false;
 
 		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		String timeStamp = dtf.format(now);
-		String tmp = "BUILDINGSTATS: " + delimiter + timeStamp + delimiter + teamName + delimiter + ti.getArcheryrange() + delimiter + ti.getArmory() + delimiter + ti.getBaracks() + delimiter + ti.getFarms() + delimiter + ti.getGates() + delimiter + ti.getLumberYard() + delimiter + ti.getMineSiteDiamond() + delimiter + ti.getMineSiteEmerald() + delimiter + ti.getMineSiteGold() + delimiter + ti.getMineSiteIron() + delimiter + ti.getMineSiteStone() + delimiter + ti.getResearchCenter() + delimiter + ti.getSiegeworkshop() + delimiter + ti.getStables() + delimiter + ti.getTownHalls() + delimiter + ti.getWalls() + delimiter + ti.getWallsteps() + delimiter + ti.getWatchtowers();
+		String tmp = "BUILDINGSTATS: " + delimiter + timeStamp + delimiter + teamName + delimiter + ti.getArcheryrange() + delimiter + ti.getArmory() + delimiter + ti.getBaracks() + delimiter + ti.getFarms() + delimiter + ti.getGates() + delimiter + ti.getLumberYard() + delimiter + ti.getMineSiteDiamond() + delimiter + ti.getMineSiteEmerald() + delimiter + ti.getMineSiteGold() + delimiter + ti.getMineSiteIron() + delimiter + ti.getMineSiteStone() + delimiter + ti.getResearchCenter() + delimiter + ti.getSiegeworkshop() + delimiter + ti.getStables() + delimiter + ti.getTownHalls() + delimiter + ti.getWalls() + delimiter + ti.getWallsteps() + delimiter + ti.getWatchtowers() + delimiter + ti.getTemple();
 
 		TSRTS.LOGGER.info(tmp);
 

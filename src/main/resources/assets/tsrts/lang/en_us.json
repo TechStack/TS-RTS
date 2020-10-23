@@ -100,6 +100,7 @@
 "tsrts.destroy.wallsteps":"Wall Steps Destroyed!",
 "tsrts.alerttoast.alert":"Alert!",
 "tsrts.destroy.siegeworkshop":"Siege Workshop Destroyed!",
+"tsrts.destroy.temple":"Temple Destroyed!",
 
 "_comment":"Gui Unit Recruitment",
 
@@ -161,6 +162,8 @@ A building needed to make meele weapons and armor.",
 "gui.options.infinite.archeryrange":"Archery Range queue infinite mode",
 "gui.options.infinite.stables":"Stables queue infinite mode",
 "gui.options.infinite.siegeworkshop":"Siege Workshop queue infinite mode",
+"gui.options.infinite.temple":"Temple queue infinite mode",
+
 
 "gui.research.blacksmithing.description":"Unlocks: Armory
 A building needed to make melee weapons and armor.",

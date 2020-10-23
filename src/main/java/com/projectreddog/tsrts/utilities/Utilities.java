@@ -420,6 +420,9 @@ public class Utilities {
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_SIEGE_WORKSHOP && ModResearch.getResearch("siegeworkshop").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.SIEGEWORKSHOPBUILDERITEM));
 
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_TEMPLE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.TEMPLEBUILDERITEM));
+
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_RESEARCH_CENTER) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.RESEARCHCENTERBUILDERITEM));
 
@@ -875,7 +878,9 @@ public class Utilities {
 		case RESEARCH_CENTER:
 			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER;
 		case SIEGE_WORKSHOP:
-			return null;
+			return Config.CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP;
+		case TEMPLE:
+			return Config.CONFIG_BUILDING_COSTS_TEMPLE;
 		case STABLES:
 			return Config.CONFIG_BUILDING_COSTS_STABLES;
 		case TOWN_HALL:

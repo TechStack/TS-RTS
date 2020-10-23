@@ -67,6 +67,8 @@ public class TeamOptionsScreen extends ContainerScreen<TeamOptionsContainer> {
 			Minecraft.getInstance().fontRenderer.drawStringWithShadow(TSRTS.TeamQueues[teamIndex].isInfinateSiegeWorkshopQueue() ? "On" : "Off", this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 30, y + 5, 16777215);
 			y = y + 20;
 
+			Minecraft.getInstance().fontRenderer.drawStringWithShadow(TSRTS.TeamQueues[teamIndex].isInfinateTempleQueue() ? "On" : "Off", this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET + 30, y + 5, 16777215);
+			y = y + 20;
 		}
 
 	}
@@ -122,6 +124,9 @@ public class TeamOptionsScreen extends ContainerScreen<TeamOptionsContainer> {
 			ModNetwork.SendToServer(new TeamOptionButtonToServer(TEAM_OPTION_BUTTONS.INFINANTE_SIEGE_WORKSHOP_QUEUE));
 		}, "gui.options.infinite.siegeworkshop", this, null));
 		y = y + 20;
-
+		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(0), GuiUtil.GetYStartForButtonImageXYIndex(2), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
+			ModNetwork.SendToServer(new TeamOptionButtonToServer(TEAM_OPTION_BUTTONS.INFINANTE_TEMPLE_QUEUE));
+		}, "gui.options.infinite.temple", this, null));
+		y = y + 20;
 	}
 }

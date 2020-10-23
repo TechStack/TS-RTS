@@ -39,6 +39,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_LUMBER_YARD_BLOCK = "lumberyardblock";
 	public static final String REIGSTRY_NAME_ARMORY_BLOCK = "armoryblock";
 	public static final String REIGSTRY_NAME_SIEGE_WORKSHOP_BLOCK = "siegeworkshopblock";
+	public static final String REIGSTRY_NAME_TEMPLE_BLOCK = "templeblock";
 
 	public static final String REIGSTRY_NAME_STABLES_BLOCK = "stablesblock";
 	public static final String REIGSTRY_NAME_RESERACH_CENTER_BLOCK = "researchcenterblock";
@@ -90,6 +91,7 @@ public class Reference {
 
 	public static final String REIGSTRY_NAME_ARMORY_BUILDER_ITEM = "armorybuilderitem";
 	public static final String REIGSTRY_NAME_SIEGE_WORKSHOP_BUILDER_ITEM = "siegeworkshopbuilderitem";
+	public static final String REIGSTRY_NAME_TEMPLE_BUILDER_ITEM = "templebuilderitem";
 
 	public static final String REIGSTRY_NAME_TEAM_IRON_ARMOR_HELMET = "teamironarmorhelmetitem";
 	public static final String REIGSTRY_NAME_TEAM_IRON_ARMOR_CHESTPLATE = "teamironarmorchestplateitem";
@@ -172,6 +174,8 @@ public class Reference {
 
 	public static final int GUI_BUTTON_BUY_MARKET_PLACE = 37;
 
+	public static final int GUI_BUTTON_BUY_TEMPLE = 38;
+
 //	public static final int GUI_BUTTON_BUY_SAPPER = 25;
 //	public static final int GUI_BUTTON_BUY_LONGBOWMEN = 26;
 //	public static final int GUI_BUTTON_BUY_CROSSBOWMEN = 27;
@@ -209,11 +213,11 @@ public class Reference {
 	public static final int GUI_ID_MAIN_MENU = 2;
 
 	public static enum TEAM_OPTION_BUTTONS {
-		INFINATE_BARRACKS_QUEUE, INFINANTE_ARCHERY_RANGE_QUEUE, INFINANTE_STABLES_QUEUE, INFINANTE_SIEGE_WORKSHOP_QUEUE
+		INFINATE_BARRACKS_QUEUE, INFINANTE_ARCHERY_RANGE_QUEUE, INFINANTE_STABLES_QUEUE, INFINANTE_SIEGE_WORKSHOP_QUEUE, INFINANTE_TEMPLE_QUEUE
 	}
 
 	public static enum STRUCTURE_TYPE {
-		ARCHERY_RANGE, ARMORY, BARRACKS, FARM, GATE, LUMBER_YARD, MARKETPLACE, MINE_SITE_STONE, MINE_SITE_IRON, MINE_SITE_GOLD, MINE_SITE_DIAMOND, MINE_SITE_EMERALD, RESEARCH_CENTER, SIEGE_WORKSHOP, STABLES, TOWN_HALL, WALL_STEPS, WALL, WATCH_TOWER
+		ARCHERY_RANGE, ARMORY, BARRACKS, FARM, GATE, LUMBER_YARD, MARKETPLACE, MINE_SITE_STONE, MINE_SITE_IRON, MINE_SITE_GOLD, MINE_SITE_DIAMOND, MINE_SITE_EMERALD, RESEARCH_CENTER, SIEGE_WORKSHOP, STABLES, TOWN_HALL, TEMPLE, WALL_STEPS, WALL, WATCH_TOWER
 	}
 
 	public static enum RTS_COSTS {

@@ -10,12 +10,13 @@ public class UnitQueues {
 	private List<UNIT_TYPES> Stables;
 	private List<UNIT_TYPES> ArcheryRange;
 	private List<UNIT_TYPES> SiegeWorkshop;
+	private List<UNIT_TYPES> Temple;
 
 	private boolean infinateBarracksQueue;
 	private boolean infinateStablesQueue;
 	private boolean infinateArcheryRangeQueue;
 	private boolean infinateSiegeWorkshopQueue;
-
+	private boolean infinateTempleQueue;
 	public boolean hasChanged;
 
 	public void AddToProperQueue(UNIT_TYPES ID) {
@@ -46,7 +47,7 @@ public class UnitQueues {
 			AddToSiegeWorkshopQueue(ID);
 			break;
 		case CLERIC:
-			AddToSiegeWorkshopQueue(ID);
+			AddToTempleQueue(ID);
 			break;
 		case LONGBOWMAN:
 			AddToArcheryRangeQueue(ID);
@@ -61,6 +62,12 @@ public class UnitQueues {
 
 	private void AddToSiegeWorkshopQueue(UNIT_TYPES ID) {
 		getSiegeWorkshop().add(ID);
+		// TSRTS.LOGGER.info("Added :" + ID + " to the siegeWorkshop QUEUE");
+		hasChanged = true;
+	}
+
+	private void AddToTempleQueue(UNIT_TYPES ID) {
+		getTemple().add(ID);
 		// TSRTS.LOGGER.info("Added :" + ID + " to the siegeWorkshop QUEUE");
 		hasChanged = true;
 	}
@@ -110,17 +117,26 @@ public class UnitQueues {
 		}
 	}
 
-	public UnitQueues(List<UNIT_TYPES> barracks, List<UNIT_TYPES> archeryRange, List<UNIT_TYPES> stables, List<UNIT_TYPES> siegeWorkshop, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue) {
+	public void RemoveFirstFromTempleQueue() {
+		if (Temple.size() > 0) {
+			Temple.remove(0);
+			hasChanged = true;
+		}
+	}
+
+	public UnitQueues(List<UNIT_TYPES> barracks, List<UNIT_TYPES> archeryRange, List<UNIT_TYPES> stables, List<UNIT_TYPES> siegeWorkshop, List<UNIT_TYPES> temple, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue, boolean infinateTempleQueue) {
 		super();
 		Barracks = barracks;
 		Stables = stables;
 		ArcheryRange = archeryRange;
 		hasChanged = true;
 		SiegeWorkshop = siegeWorkshop;
+		Temple = temple;
 		this.infinateBarracksQueue = infinateBarracksQueue;
 		this.infinateArcheryRangeQueue = infinateArcheryRangeQueue;
 		this.infinateStablesQueue = infinateStablesQueue;
 		this.infinateSiegeWorkshopQueue = infinateSiegeWorkshopQueue;
+		this.infinateTempleQueue = infinateTempleQueue;
 	}
 
 	public List<UNIT_TYPES> getBarracks() {
@@ -150,6 +166,13 @@ public class UnitQueues {
 			SiegeWorkshop = new ArrayList<UNIT_TYPES>();
 		}
 		return SiegeWorkshop;
+	}
+
+	public List<UNIT_TYPES> getTemple() {
+		if (Temple == null) {
+			Temple = new ArrayList<UNIT_TYPES>();
+		}
+		return Temple;
 	}
 
 	public boolean isInfinateBarracksQueue() {
@@ -182,6 +205,14 @@ public class UnitQueues {
 
 	public void setInfinateSiegeWorkshopQueue(boolean infinateSiegeWorkshopQueue) {
 		this.infinateSiegeWorkshopQueue = infinateSiegeWorkshopQueue;
+	}
+
+	public boolean isInfinateTempleQueue() {
+		return infinateTempleQueue;
+	}
+
+	public void setInfinateTempleQueue(boolean infinateTempleQueue) {
+		this.infinateTempleQueue = infinateTempleQueue;
 	}
 
 }

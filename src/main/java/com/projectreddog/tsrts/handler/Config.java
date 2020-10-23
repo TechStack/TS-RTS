@@ -139,6 +139,9 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_TEMPLE_STRING;
+	public static ResourceValues CONFIG_BUILDING_COSTS_TEMPLE;
+
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_STABLES_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_STABLES;
 
@@ -212,6 +215,8 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WALL_STEPS;
 
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_SIEGE_WORKSHOP;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_TEMPLE;
+
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_ARMORY;
 
 	public static ForgeConfigSpec.IntValue CONFIG_RATE_GENRATE_FOOD;
@@ -330,6 +335,7 @@ public class Config {
 
 		CONFIG_STRCTURE_TOTAL_HEALTH_MARKETPLACE = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMarketplace", 40, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_SIEGE_WORKSHOP = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthSiegeWorkshop", 160, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_TEMPLE = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthTemple", 160, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_STABLES = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthStables", 160, 0, 1024);
 
 		CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthTownHall", 500, 0, 1024);
@@ -405,6 +411,7 @@ public class Config {
 		CONFIG_BUILDING_COSTS_RESEARCH_CENTER = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING.get()));
 
 		CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING.get()));
+		CONFIG_BUILDING_COSTS_TEMPLE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_TEMPLE_STRING.get()));
 
 		CONFIG_BUILDING_COSTS_STABLES = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_STABLES_STRING.get()));
 		CONFIG_BUILDING_COSTS_ARMORY = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_ARMORY_STRING.get()));
@@ -496,6 +503,8 @@ public class Config {
 
 		CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING = COMMON_BUILDER.comment("Defines the cost For the Research Center").define("researchCenterBulidingCosts", "300,650,350,200,100,100,0");
 		CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the Siege Workshop").define("siegeWorkshopBulidingCosts", "100,250,100,25,25,50,0");
+		CONFIG_BUILDING_COSTS_TEMPLE_STRING = COMMON_BUILDER.comment("Defines the cost For the Temple").define("siegeTempleCosts", "100,250,100,25,25,50,0");
+
 		CONFIG_BUILDING_COSTS_STABLES_STRING = COMMON_BUILDER.comment("Defines the cost For the Stables").define("stablesBulidingCosts", "240,500,120,120,140,0,0");
 		CONFIG_BUILDING_COSTS_ARMORY_STRING = COMMON_BUILDER.comment("Defines the cost For the Armory").define("stablesBulidingArmory", "500,800,250,200,100,0,0");
 

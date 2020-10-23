@@ -97,7 +97,7 @@ public class TSRTS {
 		MinecraftForge.EVENT_BUS.register(ServerEvents.class);
 
 		for (int i = 0; i < TeamQueues.length; i++) {
-			TeamQueues[i] = new UnitQueues(new ArrayList<UNIT_TYPES>(), new ArrayList<UNIT_TYPES>(), new ArrayList<UNIT_TYPES>(), new ArrayList<UNIT_TYPES>(), false, false, false, false);
+			TeamQueues[i] = new UnitQueues(new ArrayList<UNIT_TYPES>(), new ArrayList<UNIT_TYPES>(), new ArrayList<UNIT_TYPES>(), new ArrayList<UNIT_TYPES>(), new ArrayList<UNIT_TYPES>(), false, false, false, false, false);
 		}
 
 		ModResearch.init();

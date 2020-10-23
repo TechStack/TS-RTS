@@ -24,6 +24,7 @@ public class TeamInfo {
 	private int marketplace = 0;
 	private int armory = 0;
 	private int siegeworkshop = 0;
+	private int temple = 0;
 	private int walls = 0;
 	private int watchtowers = 0;
 	private int gates = 0;
@@ -298,6 +299,14 @@ public class TeamInfo {
 
 	public void setSiegeworkshop(int siegeworkshop) {
 		this.siegeworkshop = siegeworkshop;
+	}
+
+	public int getTemple() {
+		return temple;
+	}
+
+	public void setTemple(int temple) {
+		this.temple = temple;
 	}
 
 	public int getWalls() {

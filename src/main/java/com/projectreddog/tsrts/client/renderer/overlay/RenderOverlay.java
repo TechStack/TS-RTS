@@ -79,6 +79,7 @@ public class RenderOverlay extends Screen {
 	private ResourceLocation TEXTURE_QUEUES = new ResourceLocation(Reference.MODID, "textures/gui/overlay/queuebg.png");
 	private ResourceLocation STABLES_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/stablesblock_yellow_top.png");
 	private ResourceLocation SIEGE_WORKSHOP_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/siegeworkshopblock_yellow_top.png");
+	private ResourceLocation SIEGE_TEMPLE_QUEUE_ICON = new ResourceLocation(Reference.MODID, "textures/block/templeblock_yellow_top.png");
 
 	// private ResourceLocation POP_CAP_ICON = new ResourceLocation(Reference.MODID, "textures/gui/overlay/popcapicon.png");
 
@@ -170,7 +171,7 @@ public class RenderOverlay extends Screen {
 
 								}
 							}
-							RenderUnitQueues(team, event.getWindow().getScaledHeight() * 2 - 90);
+							RenderUnitQueues(team, event.getWindow().getScaledHeight() * 2 - 110);
 
 							if (unitCounts == null || (TSRTS.playerSelections.containsKey(Minecraft.getInstance().player.getScoreboardName()) && TSRTS.playerSelections.get(Minecraft.getInstance().player.getScoreboardName()).hasChanged)) {
 
@@ -317,6 +318,8 @@ public class RenderOverlay extends Screen {
 		ClientUtilities.renderTexture(1, y + 42, 16, 16);
 		Minecraft.getInstance().textureManager.bindTexture(SIEGE_WORKSHOP_QUEUE_ICON);
 		ClientUtilities.renderTexture(1, y + 62, 16, 16);
+		Minecraft.getInstance().textureManager.bindTexture(SIEGE_TEMPLE_QUEUE_ICON);
+		ClientUtilities.renderTexture(1, y + 82, 16, 16);
 
 		if (TSRTS.TeamQueues[teamOrd].getBarracks() != null) {
 			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getBarracks().size() && i < 30; i++) {
@@ -354,6 +357,16 @@ public class RenderOverlay extends Screen {
 
 //				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
 				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, y + 62);
+
+			}
+		}
+
+		if (TSRTS.TeamQueues[teamOrd].getTemple() != null) {
+			for (int i = 0; i < TSRTS.TeamQueues[teamOrd].getTemple().size() && i < 30; i++) {
+				UNIT_TYPES id = TSRTS.TeamQueues[teamOrd].getTemple().get(i);
+
+//				Minecraft.getInstance().fontRenderer.drawStringWithShadow("" + id, 0 + i * 5, 500, 14737632);
+				Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(null, getUnitRenderItemIcon(id), 18 + i * 5, y + 82);
 
 			}
 		}
