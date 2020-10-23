@@ -2,6 +2,7 @@ package com.projectreddog.tsrts.init;
 
 import com.projectreddog.tsrts.entities.AdvancedKnightEntity;
 import com.projectreddog.tsrts.entities.ArcherMinionEntity;
+import com.projectreddog.tsrts.entities.ClericEntity;
 import com.projectreddog.tsrts.entities.CrossbowmanEntity;
 import com.projectreddog.tsrts.entities.KnightEntity;
 import com.projectreddog.tsrts.entities.LongBowmanEntity;
@@ -53,6 +54,9 @@ public class ModEntities {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_SAPPER_ENTITY)
 	public static EntityType<SapperEntity> SAPPER;
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_CLERIC_ENTITY)
+	public static EntityType<ClericEntity> CLERIC;
+
 	public static void RegisterEntites(final RegistryEvent.Register<EntityType<?>> event) {
 		event.getRegistry().register(EntityType.Builder.create(MinionEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_MINION_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_MINION_ENTITY));
 		event.getRegistry().register(EntityType.Builder.create(ArcherMinionEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_ARCHER_MINION_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_ARCHER_MINION_ENTITY));
@@ -69,6 +73,7 @@ public class ModEntities {
 		event.getRegistry().register(EntityType.Builder.create(KnightEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_KNIGHT_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_KNIGHT_ENTITY));
 		event.getRegistry().register(EntityType.Builder.create(AdvancedKnightEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY));
 		event.getRegistry().register(EntityType.Builder.create(SapperEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_SAPPER_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_SAPPER_ENTITY));
+		event.getRegistry().register(EntityType.Builder.create(ClericEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_CLERIC_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_CLERIC_ENTITY));
 
 	}
 

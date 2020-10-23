@@ -55,11 +55,16 @@ public class TeamOptionButtonToServer {
 					TSRTS.TeamQueues[teamID].setInfinateSiegeWorkshopQueue(!TSRTS.TeamQueues[teamID].isInfinateSiegeWorkshopQueue());
 
 					break;
+
+				case INFINANTE_TEMPLE_QUEUE:
+					TSRTS.TeamQueues[teamID].setInfinateTempleQueue(!TSRTS.TeamQueues[teamID].isInfinateTempleQueue());
+
+					break;
 				default:
 					break;
 				}
 
-				ModNetwork.SendToALLPlayers(new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[teamID].getBarracks(), TSRTS.TeamQueues[teamID].getArcheryRange(), TSRTS.TeamQueues[teamID].getStables(), TSRTS.TeamQueues[teamID].getSiegeWorkshop(), TSRTS.TeamQueues[teamID].isInfinateBarracksQueue(), TSRTS.TeamQueues[teamID].isInfinateArcheryRangeQueue(), TSRTS.TeamQueues[teamID].isInfinateStablesQueue(), TSRTS.TeamQueues[teamID].isInfinateSiegeWorkshopQueue(), teamID));
+				ModNetwork.SendToALLPlayers(new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[teamID].getBarracks(), TSRTS.TeamQueues[teamID].getArcheryRange(), TSRTS.TeamQueues[teamID].getStables(), TSRTS.TeamQueues[teamID].getSiegeWorkshop(), TSRTS.TeamQueues[teamID].getTemple(), TSRTS.TeamQueues[teamID].isInfinateBarracksQueue(), TSRTS.TeamQueues[teamID].isInfinateArcheryRangeQueue(), TSRTS.TeamQueues[teamID].isInfinateStablesQueue(), TSRTS.TeamQueues[teamID].isInfinateSiegeWorkshopQueue(), TSRTS.TeamQueues[teamID].isInfinateTempleQueue(), teamID));
 
 			}
 		});

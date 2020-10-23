@@ -103,8 +103,8 @@ public class ClientPacketHandler {
 		}
 	}
 
-	public static void UnitQueueChangedPacketToClient(int teamOrd, List<UNIT_TYPES> barrcksQueue, List<UNIT_TYPES> archeryRangeQueue, List<UNIT_TYPES> stablesQueue, List<UNIT_TYPES> siegeWorkshopQueue, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue) {
-		TSRTS.TeamQueues[teamOrd] = new UnitQueues(barrcksQueue, archeryRangeQueue, stablesQueue, siegeWorkshopQueue, infinateBarracksQueue, infinateArcheryRangeQueue, infinateStablesQueue, infinateSiegeWorkshopQueue);
+	public static void UnitQueueChangedPacketToClient(int teamOrd, List<UNIT_TYPES> barrcksQueue, List<UNIT_TYPES> archeryRangeQueue, List<UNIT_TYPES> stablesQueue, List<UNIT_TYPES> siegeWorkshopQueue, List<UNIT_TYPES> templeQueue, boolean infinateBarracksQueue, boolean infinateArcheryRangeQueue, boolean infinateStablesQueue, boolean infinateSiegeWorkshopQueue, boolean infinateTempleQueue) {
+		TSRTS.TeamQueues[teamOrd] = new UnitQueues(barrcksQueue, archeryRangeQueue, stablesQueue, siegeWorkshopQueue, templeQueue, infinateBarracksQueue, infinateArcheryRangeQueue, infinateStablesQueue, infinateSiegeWorkshopQueue, infinateTempleQueue);
 	}
 
 	public static void PlayerSelectionChangedPacketToClient(int[] entityIds) {
@@ -141,6 +141,9 @@ public class ClientPacketHandler {
 		switch (costsType) {
 		case ARCHER:
 			Config.CONFIG_UNIT_COSTS_ARCHER = rv;
+			break;
+		case CLERIC:
+			Config.CONFIG_UNIT_COSTS_CLERIC = rv;
 			break;
 		case ARCHERY_RANGE:
 			Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE = rv;

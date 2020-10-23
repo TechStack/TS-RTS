@@ -63,6 +63,9 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_CROSSBOWMEN_STRING;
 	public static ResourceValues CONFIG_UNIT_COSTS_CROSSBOWMEN;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_CLERIC_STRING;
+	public static ResourceValues CONFIG_UNIT_COSTS_CLERIC;
+
 	// archers
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_COSTS_ARCHER_STRING;
@@ -136,6 +139,9 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_TEMPLE_STRING;
+	public static ResourceValues CONFIG_BUILDING_COSTS_TEMPLE;
+
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_BUILDING_COSTS_STABLES_STRING;
 	public static ResourceValues CONFIG_BUILDING_COSTS_STABLES;
 
@@ -170,6 +176,9 @@ public class Config {
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_CROSSBOWMAN_ATTRIBUTES_STRING;
 	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_CROSSBOWMAN;
+
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_CLERIC_ATTRIBUTES_STRING;
+	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_CLERIC;
 
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING;
 	public static UnitAttributes CONFIG_UNIT_ATTRIBUTES_MOUNTED;
@@ -206,6 +215,8 @@ public class Config {
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_WALL_STEPS;
 
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_SIEGE_WORKSHOP;
+	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_TEMPLE;
+
 	public static ForgeConfigSpec.IntValue CONFIG_STRCTURE_TOTAL_HEALTH_ARMORY;
 
 	public static ForgeConfigSpec.IntValue CONFIG_RATE_GENRATE_FOOD;
@@ -324,6 +335,7 @@ public class Config {
 
 		CONFIG_STRCTURE_TOTAL_HEALTH_MARKETPLACE = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthMarketplace", 40, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_SIEGE_WORKSHOP = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthSiegeWorkshop", 160, 0, 1024);
+		CONFIG_STRCTURE_TOTAL_HEALTH_TEMPLE = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthTemple", 160, 0, 1024);
 		CONFIG_STRCTURE_TOTAL_HEALTH_STABLES = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthStables", 160, 0, 1024);
 
 		CONFIG_STRCTURE_TOTAL_HEALTH_TOWN_HALL = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute modifier in order for the LANCE").defineInRange("buildingHealthTownHall", 500, 0, 1024);
@@ -355,6 +367,8 @@ public class Config {
 		CONFIG_UNIT_ATTRIBUTES_ARCHER = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_ARCHER_ATTRIBUTES_STRING.get()));
 		CONFIG_UNIT_ATTRIBUTES_LONGBOWMAN = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_LONGBOWMAN_ATTRIBUTES_STRING.get()));
 		CONFIG_UNIT_ATTRIBUTES_CROSSBOWMAN = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_CROSSBOWMAN_ATTRIBUTES_STRING.get()));
+		CONFIG_UNIT_ATTRIBUTES_CLERIC = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_CLERIC_ATTRIBUTES_STRING.get()));
+
 		CONFIG_UNIT_ATTRIBUTES_MOUNTED = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING.get()));
 		CONFIG_UNIT_ATTRIBUTES_PIKEMAN = new UnitAttributes(StringToFloatArray(CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING.get()));
 
@@ -379,6 +393,8 @@ public class Config {
 		CONFIG_UNIT_COSTS_LONGBOWMEN = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_LONGBOWMEN_STRING.get()));
 		CONFIG_UNIT_COSTS_CROSSBOWMEN = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_CROSSBOWMEN_STRING.get()));
 		CONFIG_BUILDING_COSTS_FARM = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_FARM_STRING.get()));
+		CONFIG_UNIT_COSTS_CLERIC = new ResourceValues(StringToIntArray(CONFIG_UNIT_COSTS_CLERIC_STRING.get()));
+
 		CONFIG_BUILDING_COSTS_LUMBER_YARD = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_LUMBER_YARD_STRING.get()));
 		CONFIG_BUILDING_COSTS_MINESITE_STONE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_MINESITE_STONE_STRING.get()));
 		CONFIG_BUILDING_COSTS_MINESITE_IRON = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_MINESITE_IRON_STRING.get()));
@@ -395,6 +411,7 @@ public class Config {
 		CONFIG_BUILDING_COSTS_RESEARCH_CENTER = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING.get()));
 
 		CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING.get()));
+		CONFIG_BUILDING_COSTS_TEMPLE = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_TEMPLE_STRING.get()));
 
 		CONFIG_BUILDING_COSTS_STABLES = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_STABLES_STRING.get()));
 		CONFIG_BUILDING_COSTS_ARMORY = new ResourceValues(StringToIntArray(CONFIG_BUILDING_COSTS_ARMORY_STRING.get()));
@@ -428,10 +445,12 @@ public class Config {
 
 		CONFIG_UNIT_LONGBOWMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the LONGBOWMAN. Atttributes are ").define("unit_longbowman_attributes", "15.0,0.0,0.37,2.0,0.0,0.0,4.5,24.0");
 		CONFIG_UNIT_CROSSBOWMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the CROSSBOWMAN. Atttributes are ").define("unit_crossbowman_attributes", "15.0,0.0,0.37,2.0,0.0,0.0,5.5,24.0");
+		CONFIG_UNIT_CLERIC_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the CLERIC. Atttributes are ").define("unit_cleric_attributes", "15.0,0.0,0.37,2.0,0.0,0.0,5.5,24.0");
+
 		CONFIG_UNIT_MOUNTED_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MOUNTED. Atttributes are ").define("unit_mounted_attributes", "15.0,5.0,0.40,2.0,0.0,0.0,3.0,24.0");
 		CONFIG_UNIT_PIKEMAN_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the PIKEMAN. Atttributes are ").define("unit_pikeman_attributes", "15.0,0,0.33,1.5,0.0,0.0,2.0,24.0");
-		CONFIG_UNIT_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the KNIGHT. Atttributes are ").define("unit_knight_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
-		CONFIG_UNIT_ADVANCED_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ADVANCED KNIGHT. Atttributes are ").define("unit_advanced_knight_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the KNIGHT. Atttributes are ").define("unit_knight_attributes", "15.0,0.0,0.31,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_ADVANCED_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ADVANCED KNIGHT. Atttributes are ").define("unit_advanced_knight_attributes", "15.0,0.0,0.30,2.0,0.0,0.0,3.0,24.0");
 
 		CONFIG_UNIT_TREBUCHET_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
 
@@ -484,6 +503,8 @@ public class Config {
 
 		CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING = COMMON_BUILDER.comment("Defines the cost For the Research Center").define("researchCenterBulidingCosts", "300,650,350,200,100,100,0");
 		CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the Siege Workshop").define("siegeWorkshopBulidingCosts", "100,250,100,25,25,50,0");
+		CONFIG_BUILDING_COSTS_TEMPLE_STRING = COMMON_BUILDER.comment("Defines the cost For the Temple").define("siegeTempleCosts", "100,250,100,25,25,50,0");
+
 		CONFIG_BUILDING_COSTS_STABLES_STRING = COMMON_BUILDER.comment("Defines the cost For the Stables").define("stablesBulidingCosts", "240,500,120,120,140,0,0");
 		CONFIG_BUILDING_COSTS_ARMORY_STRING = COMMON_BUILDER.comment("Defines the cost For the Armory").define("stablesBulidingArmory", "500,800,250,200,100,0,0");
 
@@ -507,6 +528,8 @@ public class Config {
 		CONFIG_UNIT_COSTS_LONGBOWMEN_STRING = COMMON_BUILDER.comment("Defines the cost For the longbowmen").define("unitCostsLongbowmen", "10,8,2,6,8,0,0");
 
 		CONFIG_UNIT_COSTS_CROSSBOWMEN_STRING = COMMON_BUILDER.comment("Defines the cost For the crossbowmen").define("unitCostsCrossbowmen", "10,7,2,7,9,0,0");
+		CONFIG_UNIT_COSTS_CLERIC_STRING = COMMON_BUILDER.comment("Defines the cost For the cleric").define("unitCostsCleric", "10,7,2,7,9,0,0");
+
 		COMMON_BUILDER.pop();
 	}
 

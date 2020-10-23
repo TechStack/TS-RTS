@@ -86,7 +86,7 @@ public class EventHandler {
 
 			// send team queues to players to "Clear" them
 			for (int i = 0; i < TeamEnum.values().length; i++) {
-				ModNetwork.SendToPlayer((ServerPlayerEntity) pe, new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), TSRTS.TeamQueues[i].getSiegeWorkshop(), TSRTS.TeamQueues[i].isInfinateBarracksQueue(), TSRTS.TeamQueues[i].isInfinateArcheryRangeQueue(), TSRTS.TeamQueues[i].isInfinateStablesQueue(), TSRTS.TeamQueues[i].isInfinateSiegeWorkshopQueue(), i));
+				ModNetwork.SendToPlayer((ServerPlayerEntity) pe, new UnitQueueChangedPacketToClient(TSRTS.TeamQueues[i].getBarracks(), TSRTS.TeamQueues[i].getArcheryRange(), TSRTS.TeamQueues[i].getStables(), TSRTS.TeamQueues[i].getSiegeWorkshop(), TSRTS.TeamQueues[i].getTemple(), TSRTS.TeamQueues[i].isInfinateBarracksQueue(), TSRTS.TeamQueues[i].isInfinateArcheryRangeQueue(), TSRTS.TeamQueues[i].isInfinateStablesQueue(), TSRTS.TeamQueues[i].isInfinateSiegeWorkshopQueue(), TSRTS.TeamQueues[i].isInfinateTempleQueue(), i));
 			}
 
 			if (TSRTS.CURRENT_GAME_STATE != GAMESTATE.RUNNINNG) {

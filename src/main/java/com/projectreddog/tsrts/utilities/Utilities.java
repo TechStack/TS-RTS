@@ -194,6 +194,8 @@ public class Utilities {
 		switch (costs) {
 		case ARCHER:
 			return Config.CONFIG_UNIT_COSTS_ARCHER;
+		case CLERIC:
+			return Config.CONFIG_UNIT_COSTS_CLERIC;
 
 		case ARCHERY_RANGE:
 			return Config.CONFIG_BUILDING_COSTS_ARCHERY_RANGE;
@@ -328,11 +330,14 @@ public class Utilities {
 			return Config.CONFIG_UNIT_COSTS_ADVANCED_KNIGHT;
 		case SAPPER:
 			return Config.CONFIG_UNIT_COSTS_SAPPER;
+
 		case LONGBOWMAN:
 			return Config.CONFIG_UNIT_COSTS_LONGBOWMEN;
 
 		case CROSSBOWMAN:
 			return Config.CONFIG_UNIT_COSTS_CROSSBOWMEN;
+		case CLERIC:
+			return Config.CONFIG_UNIT_COSTS_CLERIC;
 		}
 		return null;
 	}
@@ -414,6 +419,9 @@ public class Utilities {
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_SIEGE_WORKSHOP && ModResearch.getResearch("siegeworkshop").isUnlocked(teamName)) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.SIEGEWORKSHOPBUILDERITEM));
+
+		} else if (buttonId == Reference.GUI_BUTTON_BUY_TEMPLE) {
+			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.TEMPLEBUILDERITEM));
 
 		} else if (buttonId == Reference.GUI_BUTTON_BUY_RESEARCH_CENTER) {
 			Utilities.PlayerBuysItem(player, new ItemStack(ModItems.RESEARCHCENTERBUILDERITEM));
@@ -870,7 +878,9 @@ public class Utilities {
 		case RESEARCH_CENTER:
 			return Config.CONFIG_BUILDING_COSTS_RESEARCH_CENTER;
 		case SIEGE_WORKSHOP:
-			return null;
+			return Config.CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP;
+		case TEMPLE:
+			return Config.CONFIG_BUILDING_COSTS_TEMPLE;
 		case STABLES:
 			return Config.CONFIG_BUILDING_COSTS_STABLES;
 		case TOWN_HALL:
@@ -921,6 +931,8 @@ public class Utilities {
 			return ModEntities.TREBUCHET_ENTITY;
 		case SAPPER:
 			return ModEntities.SAPPER;
+		case CLERIC:
+			return ModEntities.CLERIC;
 		case LONGBOWMAN:
 			return ModEntities.LONGBOWMAN;
 
