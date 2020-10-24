@@ -307,7 +307,7 @@ public class RenderOverlay extends Screen {
 		int y = yValue;
 		Minecraft.getInstance().textureManager.bindTexture(TEXTURE_QUEUES);
 
-		ClientUtilities.renderTexture(0, y, 180, 80);
+		ClientUtilities.renderTexture(0, y, 180, 100);
 		int x = 5;
 
 		Minecraft.getInstance().textureManager.bindTexture(BARRACKS_QUEUE_ICON);
