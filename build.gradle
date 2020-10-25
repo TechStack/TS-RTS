@@ -13,7 +13,12 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.14-1.0-Build-' + System.getenv("BUILD_NUMBER")
+ext {
+    minecraftVersion = "1.14.4"
+    rtsVersion = "1"
+}
+
+version = minecraftVersion + "-" + rtsVersion + "-" + getLatestGitHash() + isDirty()
 group = 'com.projectreddog.tsrts' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'tsrts'
 
@@ -89,7 +94,7 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.0'
+    minecraft "net.minecraftforge:forge:$minecraftVersion-28.1.0"
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
@@ -146,4 +151,29 @@ publishing {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+static def getLatestGitHash() {
+    def processCurrentCommit = "git rev-parse --short HEAD".execute()
+    def version = processCurrentCommit.text.toString().trim()
+    if (System.getenv("VERSION")) {
+        println "I'm running on CI server in release"
+        def processMessage = "git log --oneline -1".execute()
+        version = processMessage.text.toString().trim().split(" ")[0]
+    } else if (System.getenv("CI")) {
+        println "I'm running on CI server, so we need parent sha1"
+        // on CI there is a speculative merge commit, we have to ignore it because it's just temporary
+        def processMessage = "git log -1 --pretty=%B".execute()
+        version = processMessage.text.toString().trim().split(" ")[1].take(8)
+    }
+    return version
+}
+
+static def isDirty() {
+    // with local un-commited changes a -DIRTY is added
+    def processChanges = "git diff-index --name-only HEAD --".execute()
+    def dirty = ""
+    if (!processChanges.text.toString().trim().isEmpty())
+        dirty = "-DIRTY"
+    return dirty
 }
