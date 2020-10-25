@@ -129,7 +129,7 @@
 "gui.research.siegeworkshop.name":"Siege Workshop",
 "gui.research.longbows.name":"Longbows",
 "gui.research.crossbows.name":"Crossbows",
-
+"gui.research.faith.name":"Faith",
 
 "gui.research.longbows.description":"Unlocks: Longbowmen
 A ranged unit carrying a longbow that has more health, range and attack damage than an archer.",
@@ -158,7 +158,8 @@ A knight in Diamond gear.",
 A defensive building that can shoot arrows at aproching troops",
 "gui.research.blacksmithing.description":"Unlocks: Armory
 A building needed to make meele weapons and armor.",
-
+"gui.research.faith.description":"Unlocks: Cleric 
+A support unit that heals friendly troops",
 
 "gui.options.infinite.barracks":"Barracks queue infinite mode",
 "gui.options.infinite.archeryrange":"Archery Range queue infinite mode",

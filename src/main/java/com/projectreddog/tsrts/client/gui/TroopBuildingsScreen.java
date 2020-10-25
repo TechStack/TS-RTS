@@ -86,7 +86,7 @@ public class TroopBuildingsScreen extends ContainerScreen<TroopBuildingsContaine
 		y = y + yOffset;
 		GuiUtil.drawCosts(this, ModItems.SIEGEWORKSHOPBUILDERITEM, y, teamName);
 		y = y + yOffset;
-		GuiUtil.drawCosts(this, ModItems.SIEGEWORKSHOPBUILDERITEM, y, teamName);
+		GuiUtil.drawCosts(this, ModItems.TEMPLEBUILDERITEM, y, teamName);
 		y = y + yOffset;
 		GL11.glPopMatrix();
 	}
@@ -131,7 +131,7 @@ public class TroopBuildingsScreen extends ContainerScreen<TroopBuildingsContaine
 
 		addButton(new HoverImageButton(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, y, 20, 18, GuiUtil.GetXStartForButtonImageXYIndex(7), GuiUtil.GetYStartForButtonImageXYIndex(1), 19, GuiUtil.BUTTON_TEXTURE, (button) -> {
 			ModNetwork.SendToServer(new TownHallButtonClickedPacketToServer(Reference.GUI_BUTTON_BUY_TEMPLE));
-		}, ModItems.TEMPLEBUILDERITEM.getTranslationKey(), this, null, "gui.troopbuilding.temple.description"));
+		}, ModItems.TEMPLEBUILDERITEM.getTranslationKey(), this, ModResearch.getResearch("faith"), "gui.troopbuilding.temple.description"));
 		y = y + 20;
 
 	}

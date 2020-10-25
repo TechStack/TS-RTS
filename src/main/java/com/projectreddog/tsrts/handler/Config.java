@@ -249,6 +249,10 @@ public class Config {
 	public static ResourceValues CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP;
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_CROSSBOW_STRING;
 	public static ResourceValues CONFIG_RESEARCH_COSTS_CROSSBOW;
+
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_FAITH_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_FAITH;
+
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ADVCEDARMOR_STRING;
 	public static ResourceValues CONFIG_RESEARCH_COSTS_ADVCEDARMOR;
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_WATCHTOWER_STRING;
@@ -309,6 +313,8 @@ public class Config {
 		CONFIG_RESEARCH_COSTS_WALL_STRING = COMMON_BUILDER.comment("Defines the cost For the wall").define("wallResearchCosts", "300,100,350,100,50,50,0");
 		CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the siegeworkshop").define("siegeworkshopResearchCosts", "250,500,100,100,50,50,0");
 		CONFIG_RESEARCH_COSTS_CROSSBOW_STRING = COMMON_BUILDER.comment("Defines the cost For the crossbow").define("crossbowResearchCosts", "1400,1500,0,800,100,400,0");
+		CONFIG_RESEARCH_COSTS_FAITH_STRING = COMMON_BUILDER.comment("Defines the cost For the faith").define("faithResearchCosts", "300,0,0,100,200,100,0");
+
 		CONFIG_RESEARCH_COSTS_ADVCEDARMOR_STRING = COMMON_BUILDER.comment("Defines the cost For the advcedarmor").define("advcedarmorResearchCosts", "1000,200,200,200,600,500,0");
 		CONFIG_RESEARCH_COSTS_WATCHTOWER_STRING = COMMON_BUILDER.comment("Defines the cost For the watchtower").define("watchtowerResearchCosts", "300,500,800,100,100,250,0");
 		CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING = COMMON_BUILDER.comment("Defines the cost For the batteringrams").define("batteringramsResearchCosts", "250,500,100,50,50,50,0");
@@ -430,6 +436,9 @@ public class Config {
 		CONFIG_RESEARCH_COSTS_WALL = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_WALL_STRING.get()));
 		CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_SIEGEWORKSHOP_STRING.get()));
 		CONFIG_RESEARCH_COSTS_CROSSBOW = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_CROSSBOW_STRING.get()));
+
+		CONFIG_RESEARCH_COSTS_FAITH = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_FAITH_STRING.get()));
+
 		CONFIG_RESEARCH_COSTS_ADVCEDARMOR = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ADVCEDARMOR_STRING.get()));
 		CONFIG_RESEARCH_COSTS_WATCHTOWER = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_WATCHTOWER_STRING.get()));
 		CONFIG_RESEARCH_COSTS_BATTERINGRAMS = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING.get()));
@@ -503,7 +512,7 @@ public class Config {
 
 		CONFIG_BUILDING_COSTS_RESEARCH_CENTER_STRING = COMMON_BUILDER.comment("Defines the cost For the Research Center").define("researchCenterBulidingCosts", "300,650,350,200,100,100,0");
 		CONFIG_BUILDING_COSTS_SIEGE_WORKSHOP_STRING = COMMON_BUILDER.comment("Defines the cost For the Siege Workshop").define("siegeWorkshopBulidingCosts", "100,250,100,25,25,50,0");
-		CONFIG_BUILDING_COSTS_TEMPLE_STRING = COMMON_BUILDER.comment("Defines the cost For the Temple").define("siegeTempleCosts", "100,250,100,25,25,50,0");
+		CONFIG_BUILDING_COSTS_TEMPLE_STRING = COMMON_BUILDER.comment("Defines the cost For the Temple").define("templeCosts", "100,250,50,0,50,0,0");
 
 		CONFIG_BUILDING_COSTS_STABLES_STRING = COMMON_BUILDER.comment("Defines the cost For the Stables").define("stablesBulidingCosts", "240,500,120,120,140,0,0");
 		CONFIG_BUILDING_COSTS_ARMORY_STRING = COMMON_BUILDER.comment("Defines the cost For the Armory").define("stablesBulidingArmory", "500,800,250,200,100,0,0");
@@ -528,7 +537,7 @@ public class Config {
 		CONFIG_UNIT_COSTS_LONGBOWMEN_STRING = COMMON_BUILDER.comment("Defines the cost For the longbowmen").define("unitCostsLongbowmen", "10,8,2,6,8,0,0");
 
 		CONFIG_UNIT_COSTS_CROSSBOWMEN_STRING = COMMON_BUILDER.comment("Defines the cost For the crossbowmen").define("unitCostsCrossbowmen", "10,7,2,7,9,0,0");
-		CONFIG_UNIT_COSTS_CLERIC_STRING = COMMON_BUILDER.comment("Defines the cost For the cleric").define("unitCostsCleric", "10,7,2,7,9,0,0");
+		CONFIG_UNIT_COSTS_CLERIC_STRING = COMMON_BUILDER.comment("Defines the cost For the cleric").define("unitCostsCleric", "10,0,0,0,10,0,0");
 
 		COMMON_BUILDER.pop();
 	}
