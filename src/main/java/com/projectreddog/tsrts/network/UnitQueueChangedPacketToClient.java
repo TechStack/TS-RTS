@@ -157,6 +157,7 @@ public class UnitQueueChangedPacketToClient {
 		buf.writeBoolean(infinateArcheryRangeQueue);
 		buf.writeBoolean(infinateStablesQueue);
 		buf.writeBoolean(infinateSiegeWorkshopQueue);
+		buf.writeBoolean(infinateTempleQueue);
 
 	}
 
