@@ -461,7 +461,7 @@ public class Config {
 		CONFIG_UNIT_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the KNIGHT. Atttributes are ").define("unit_knight_attributes", "15.0,0.0,0.31,2.0,0.0,0.0,3.0,24.0");
 		CONFIG_UNIT_ADVANCED_KNIGHT_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the ADVANCED KNIGHT. Atttributes are ").define("unit_advanced_knight_attributes", "15.0,0.0,0.30,2.0,0.0,0.0,3.0,24.0");
 
-		CONFIG_UNIT_TREBUCHET_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the MINION. Atttributes are ").define("unit_minion_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,24.0");
+		CONFIG_UNIT_TREBUCHET_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the TREBUCHET. Atttributes are ").define("unit_trebuchet_attributes", "15.0,0.0,0.35,2.0,0.0,0.0,3.0,48.0");
 
 		CONFIG_UNIT_SAPPER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the SAPPER. Atttributes are ").define("unit_sapper_attributes", "5.0,0.0,0.37,0,0.0,0.0,0.0,24.0");
 		COMMON_BUILDER.pop();
