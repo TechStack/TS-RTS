@@ -36,6 +36,7 @@ public class ModResearch {
 		// registerResearchTopic("trebuchet", "batteringrams", false, Config.CONFIG_RESEARCH_COSTS_TREBUCHET, 100, 1, 1);
 		registerResearchTopic("longbows", "archer", false, Config.CONFIG_RESEARCH_COSTS_LONGBOWS, 100, 5, 1);
 		registerResearchTopic("crossbows", "longbows", false, Config.CONFIG_RESEARCH_COSTS_CROSSBOW, 100, 6, 1);
+		registerResearchTopic("faith", "townhall", false, Config.CONFIG_RESEARCH_COSTS_FAITH, 100, 7, 1);
 
 		updateAllCalcs();
 

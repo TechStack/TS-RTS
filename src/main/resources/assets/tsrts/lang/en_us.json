@@ -16,7 +16,7 @@
 "block.tsrts.researchcenterblock":"Research Center Block",
 "block.tsrts.siegeworkshopblock":"Siege Workshop Control Block",
 "block.tsrts.marketplaceblock":"Marketplace Control Block",
-
+"block.tsrts.templeblock":"Temple Control Block",
 
 "_comment":"Feedback messages here",
 "message.attackingbuildingsasplayerdisabled":"Attacking enemy Buildings as a player is disabled on this server use your Troops!",
@@ -75,7 +75,7 @@
 "item.tsrts.researchcenterbuilderitem":"Research Center",
 "item.tsrts.siegeworkshopbuilderitem":"Siege Workshop",
 "item.tsrts.marketplacebuilderitem":"Marketplace",
-
+"item.tsrts.templebuilderitem":"Temple",
 
 "_comment":"custom messages here",
 
@@ -113,6 +113,8 @@
 "gui.units.sapper":"Sapper",
 "gui.units.longbowmen":"Longbowmen",
 "gui.units.crossbowmen":"Crossbowmen",
+"gui.units.cleric":"Cleric",
+
 
 "gui.research.minion.name":"Minions",
 "gui.research.townhall.name":"Town Hall",
@@ -127,7 +129,7 @@
 "gui.research.siegeworkshop.name":"Siege Workshop",
 "gui.research.longbows.name":"Longbows",
 "gui.research.crossbows.name":"Crossbows",
-
+"gui.research.faith.name":"Faith",
 
 "gui.research.longbows.description":"Unlocks: Longbowmen
 A ranged unit carrying a longbow that has more health, range and attack damage than an archer.",
@@ -156,7 +158,8 @@ A knight in Diamond gear.",
 A defensive building that can shoot arrows at aproching troops",
 "gui.research.blacksmithing.description":"Unlocks: Armory
 A building needed to make meele weapons and armor.",
-
+"gui.research.faith.description":"Unlocks: Cleric 
+A support unit that heals friendly troops",
 
 "gui.options.infinite.barracks":"Barracks queue infinite mode",
 "gui.options.infinite.archeryrange":"Archery Range queue infinite mode",
@@ -199,6 +202,9 @@ Reserch Required: Cavalry",
 "gui.troopbuilding.siegeworkshop.description":"Siege troop & machine production
 Types: Sappers
 Reserch Required: Siege Workshop",
+"gui.troopbuilding.temple.description":"With Faith Healing is possible
+Types: Cleric
+Reserch Required: Faith",
 
 "gui.miscbuildings.wall.description":"A fortification used to keep out the enemies
 Reserch Required: Walls",
@@ -245,7 +251,9 @@ Trained in: Barracks",
 Reserch Required: Advanced Armor
 Required Buildings: Armory
 Trained in: Barracks",
-
+"gui.troop.cleric.description":"A peaceful man of faith who can heal friendly troops
+Reserch Required: Faith
+Trained in: Temple",
 
 "gui.overlay.in":"In",
 "gui.overlay.out":"Out",
