@@ -29,23 +29,23 @@ jobs:
           fetch-depth: 0
       - name: prepare client
         run:  ./gradlew prepareRunClient
-  prepareServer:
-    name: prepare server
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2.3.2
-        with:
-          fetch-depth: 0
-      - name: prepare server
-        run:  ./gradlew prepareRunServer
-  prepareData:
-    name: prepare Data
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2.3.2
-        with:
-          fetch-depth: 0
-      - name: prepare Data
-        run:  ./gradlew prepareRunData
+#  prepareServer:
+#    name: prepare server
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2.3.2
+#        with:
+#          fetch-depth: 0
+#      - name: prepare server
+#        run:  ./gradlew prepareRunServer
+#  prepareData:
+#    name: prepare Data
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2.3.2
+#        with:
+#          fetch-depth: 0
+#      - name: prepare Data
+#        run:  ./gradlew prepareRunData
