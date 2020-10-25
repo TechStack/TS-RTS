@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Publish release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.2.0
+        with:
+          fetch-depth: 0
+      - name: git log
+        run: git log --oneline -15
+      - name: Build project
+        run: ./gradlew build
+        env:
+          VERSION: ${{ github.ref }}
+      - run: |
+          assetsAAR=$(find build/libs -name *.jar | while read -r asset ; do echo "-a $asset" ; done)
+          VERSION=$(echo $VERSION | cut -d'/' -f3)
+          tag_name="${GITHUB_REF##*/}"
+          hub release create ${assetsAAR} -m "$tag_name" "$tag_name"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ github.ref }}
