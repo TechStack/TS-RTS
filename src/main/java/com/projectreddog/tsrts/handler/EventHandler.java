@@ -13,6 +13,7 @@ import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.init.ModItems;
 import com.projectreddog.tsrts.init.ModNetwork;
 import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
+import com.projectreddog.tsrts.network.SendMapDataPacketToClient;
 import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
@@ -90,6 +91,9 @@ public class EventHandler {
 			}
 
 			if (TSRTS.CURRENT_GAME_STATE != GAMESTATE.RUNNINNG) {
+// Should send the current map to the client so it knows where the buildings are and can keep playing the game if it crashed and reconnected.
+				ModNetwork.SendToPlayer((ServerPlayerEntity) pe, new SendMapDataPacketToClient());
+
 				if (Config.CONFIG_GAME_MODE.get() == Modes.WAVESURVIVAL) {
 					if (!TSRTS.WAVE_MODE_DATA.isTownhallGiven()) {
 						// this is the chosen one give them the town hall and set them to team YELLOW!
