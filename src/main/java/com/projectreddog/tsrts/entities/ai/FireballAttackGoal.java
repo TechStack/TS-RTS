@@ -26,6 +26,9 @@ public class FireballAttackGoal extends Goal {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
+		if (this.controllingEntity.getSetupStep() < TrebuchetEntity.MAX_STEUP_STEP_COUNT) {
+			return false;
+		}
 		LivingEntity livingentity = this.controllingEntity.getAttackTarget();
 		return livingentity != null && livingentity.isAlive() && this.controllingEntity.canAttack(livingentity);
 	}
@@ -48,6 +51,9 @@ public class FireballAttackGoal extends Goal {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void tick() {
+		if (!shouldExecute()) {
+			return;
+		}
 		--this.attackTime;
 
 		LivingEntity livingentity = this.controllingEntity.getAttackTarget();

@@ -19,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.World;
 
 public class TrebuchetEntity extends UnitEntity {
@@ -26,10 +27,16 @@ public class TrebuchetEntity extends UnitEntity {
 	public static final EntityPredicate VISION_NOT_REQUIRED = new EntityPredicate().setLineOfSiteRequired();
 	private FireballAttackGoal fbag = new FireballAttackGoal(this);
 	private static final DataParameter<Float> ATTACK_STEP = EntityDataManager.createKey(TrebuchetEntity.class, DataSerializers.FLOAT);
-
+	private static final DataParameter<Float> SETUP_STEP = EntityDataManager.createKey(TrebuchetEntity.class, DataSerializers.FLOAT);
+	public static final int MAX_STEUP_STEP_COUNT = 7;
 	public float attackStep = 0;
 
 	public float lastAttackStep = 0;
+	public float setupStep = 0;
+	public float lastSetupStep = 0;
+
+	private float tickCount = 0;
+	private int particleTimer;
 
 	public Reference.UNIT_TYPES getUnitType() {
 		return UNIT_TYPES.TREBUCHET;
@@ -43,11 +50,28 @@ public class TrebuchetEntity extends UnitEntity {
 
 	@Override
 	public void tick() {
-
+		tickCount++;
 		super.tick();
 		if (lastAttackStep != attackStep) {
 			this.dataManager.set(ATTACK_STEP, attackStep);
 			lastAttackStep = attackStep;
+		}
+
+		if (lastSetupStep != setupStep) {
+			this.dataManager.set(SETUP_STEP, setupStep);
+			lastSetupStep = setupStep;
+		}
+		if (setupStep < TrebuchetEntity.MAX_STEUP_STEP_COUNT) {
+
+			particleTimer++;
+			if (this.particleTimer % 2 == 0) {
+				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.posX + (double) (this.rand.nextFloat() * this.getWidth() * 10f) - (this.getWidth() * 10f / 2), this.posY + (this.rand.nextFloat() * 5), this.posZ + (double) (this.rand.nextFloat() * this.getWidth() * 10f) - (this.getWidth() * 10f / 2), this.rand.nextFloat() * .01d - .005d, -.01d, this.rand.nextFloat() * .01d - .005d);
+
+			}
+			if (tickCount > 60) {
+				tickCount = 0;
+				setupStep++;
+			}
 		}
 
 	}
@@ -55,6 +79,8 @@ public class TrebuchetEntity extends UnitEntity {
 	protected void registerData() {
 		super.registerData();
 		this.dataManager.register(ATTACK_STEP, (float) 0);
+		this.dataManager.register(SETUP_STEP, (float) 0);
+
 	}
 
 	protected void registerGoals() {
@@ -91,5 +117,9 @@ public class TrebuchetEntity extends UnitEntity {
 
 	public float getAttackStep() {
 		return this.dataManager.get(ATTACK_STEP);
+	}
+
+	public float getSetupStep() {
+		return this.dataManager.get(SETUP_STEP);
 	}
 }
