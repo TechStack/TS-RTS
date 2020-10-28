@@ -37,6 +37,7 @@ public class TrebuchetEntity extends UnitEntity {
 
 	private float tickCount = 0;
 	private int particleTimer;
+	private boolean aiActivated = false;
 
 	public Reference.UNIT_TYPES getUnitType() {
 		return UNIT_TYPES.TREBUCHET;
@@ -72,6 +73,13 @@ public class TrebuchetEntity extends UnitEntity {
 				tickCount = 0;
 				setupStep++;
 			}
+		} else {
+			if (!aiActivated) {
+
+				this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+				this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+				aiActivated = true;
+			}
 		}
 
 	}
@@ -85,11 +93,10 @@ public class TrebuchetEntity extends UnitEntity {
 
 	protected void registerGoals() {
 		// this.goalSelector.addGoal(4, new ZombieEntity.AttackTurtleEggGoal(this, 1.0D, 3));
-		fbag = new FireballAttackGoal(this);
-		this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-		this.goalSelector.addGoal(2, fbag);
+
 		// this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+		fbag = new FireballAttackGoal(this);
+		this.goalSelector.addGoal(2, fbag);
 
 		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true, true));
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, UnitEntity.class, true, true));
