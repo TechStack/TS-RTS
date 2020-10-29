@@ -7,6 +7,7 @@ import com.projectreddog.tsrts.items.PikeItem;
 import com.projectreddog.tsrts.items.RallyPointToolItem;
 import com.projectreddog.tsrts.items.RetreateScepterItem;
 import com.projectreddog.tsrts.items.SampleItem;
+import com.projectreddog.tsrts.items.TrebuchetItem;
 import com.projectreddog.tsrts.items.armor.TeamDiamond;
 import com.projectreddog.tsrts.items.armor.TeamDiamondArmor;
 import com.projectreddog.tsrts.items.armor.TeamIron;
@@ -49,6 +50,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_LANCE_ITEM)
 	public static LanceItem LANCEITEM = new LanceItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TREBUCHET_ITEM)
+	public static TrebuchetItem TREBUCHETITEM = new TrebuchetItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_PIKE_ITEM)
 	public static PikeItem PIKEITEM = new PikeItem();
@@ -164,6 +168,7 @@ public class ModItems {
 		RegisterItem(event, ModItems.RETREATESEPTERITEM);
 
 		RegisterItem(event, ModItems.LANCEITEM);
+		RegisterItem(event, ModItems.TREBUCHETITEM);
 
 		RegisterItem(event, ModItems.PIKEITEM);
 		RegisterItem(event, ModItems.LONGBOW);

@@ -1,0 +1,39 @@
+{
+    "parent": "item/handheld",
+
+	"credit": "Made with Blockbench",
+	"textures": {
+		"layer0": "tsrts:item/trebuchet",
+		"particle": "tsrts:item/trebuchet"
+	},
+	
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, -270, -38],
+			"translation": [0, 1.5, -6]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, -180, 0],
+			"translation": [0, 1.25, -6.25]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, -180, 0],
+			"translation": [-1.25, 4, -0.75]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -180, 0],
+			"translation": [-1.25, 4, -0.75]
+		},
+		"gui": {
+			"rotation": [0, 45, 0]
+		},
+		"head": {
+			"rotation": [0, -180, 0],
+			"translation": [0, 0, -7.5]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0]
+		}
+	}
+}
+}
