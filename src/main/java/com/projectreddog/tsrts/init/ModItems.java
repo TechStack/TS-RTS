@@ -1,5 +1,6 @@
 package com.projectreddog.tsrts.init;
 
+import com.projectreddog.tsrts.items.BuilderHammerItem;
 import com.projectreddog.tsrts.items.CreeperBagItem;
 import com.projectreddog.tsrts.items.LanceItem;
 import com.projectreddog.tsrts.items.LongBow;
@@ -53,6 +54,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TREBUCHET_ITEM)
 	public static TrebuchetItem TREBUCHETITEM = new TrebuchetItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_BUILDER_HAMMER_ITEM)
+	public static BuilderHammerItem BUILDERHAMMERITEM = new BuilderHammerItem();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_PIKE_ITEM)
 	public static PikeItem PIKEITEM = new PikeItem();
@@ -169,6 +173,7 @@ public class ModItems {
 
 		RegisterItem(event, ModItems.LANCEITEM);
 		RegisterItem(event, ModItems.TREBUCHETITEM);
+		RegisterItem(event, ModItems.BUILDERHAMMERITEM);
 
 		RegisterItem(event, ModItems.PIKEITEM);
 		RegisterItem(event, ModItems.LONGBOW);

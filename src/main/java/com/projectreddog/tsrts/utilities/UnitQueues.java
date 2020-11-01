@@ -43,6 +43,9 @@ public class UnitQueues {
 		case TREBUCHET:
 			AddToSiegeWorkshopQueue(ID);
 			break;
+		case TREBUCHETBUILDER:
+			AddToSiegeWorkshopQueue(ID);
+			break;
 		case SAPPER:
 			AddToSiegeWorkshopQueue(ID);
 			break;

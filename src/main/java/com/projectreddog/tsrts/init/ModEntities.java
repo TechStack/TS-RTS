@@ -11,6 +11,7 @@ import com.projectreddog.tsrts.entities.MountedEntity;
 import com.projectreddog.tsrts.entities.PikemanEntity;
 import com.projectreddog.tsrts.entities.SapperEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
+import com.projectreddog.tsrts.entities.TrebuchetBuilderEntity;
 import com.projectreddog.tsrts.entities.TrebuchetEntity;
 import com.projectreddog.tsrts.reference.Reference;
 
@@ -48,6 +49,9 @@ public class ModEntities {
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TREBUCHET_ENTITY)
 	public static EntityType<TrebuchetEntity> TREBUCHET_ENTITY;
 
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_TREBUCHETBUILDER_ENTITY)
+	public static EntityType<TrebuchetBuilderEntity> TREBUCHETBUILDER_ENTITY;
+
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_PIKEMAN_ENTITY)
 	public static EntityType<PikemanEntity> PIKEMAN_ENTITY;
 
@@ -69,6 +73,7 @@ public class ModEntities {
 		event.getRegistry().register(EntityType.Builder.create(MountedEntity::new, EntityClassification.MONSTER).size(.5F, 1.75F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_MOUNTED_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_MOUNTED_ENTITY));
 		event.getRegistry().register(EntityType.Builder.create(PikemanEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_PIKEMAN_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_PIKEMAN_ENTITY));
 		event.getRegistry().register(EntityType.Builder.create(TrebuchetEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_TREBUCHET_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_TREBUCHET_ENTITY));
+		event.getRegistry().register(EntityType.Builder.create(TrebuchetBuilderEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_TREBUCHETBUILDER_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_TREBUCHETBUILDER_ENTITY));
 
 		event.getRegistry().register(EntityType.Builder.create(KnightEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_KNIGHT_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_KNIGHT_ENTITY));
 		event.getRegistry().register(EntityType.Builder.create(AdvancedKnightEntity::new, EntityClassification.MONSTER).size(0.751F, 1.95F).setShouldReceiveVelocityUpdates(false).build(Reference.REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY).setRegistryName(Reference.MODID, Reference.REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY));

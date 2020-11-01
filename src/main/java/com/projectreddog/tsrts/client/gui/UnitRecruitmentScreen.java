@@ -176,6 +176,10 @@ public class UnitRecruitmentScreen extends ContainerScreen<UnitRecruitmentContai
 			addUnitButton(UNIT_TYPES.CLERIC, y, index);
 			y = y + 20;
 			index++;
+
+			addUnitButton(UNIT_TYPES.TREBUCHETBUILDER, y, index);
+			y = y + 20;
+			index++;
 		}
 
 		Button back = addButton(new Button(this.guiLeft + GuiUtil.LEFT_BUTTON_OFFSET, this.guiTop + GuiUtil.TOP_BUTTON_OFFSET + 20 * 6, 20, 20, "<", (button) -> {
