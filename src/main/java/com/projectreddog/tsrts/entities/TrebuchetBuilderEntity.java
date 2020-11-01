@@ -31,13 +31,20 @@ public class TrebuchetBuilderEntity extends UnitEntity {
 	public float buildPhase = 0;
 
 	public float lastBuildPhase = 0;
-	private int spawnedTrebEntityId = -1;
+	public int spawnedTrebEntityId = -1;
 	private float tickCount = 0;
 	private int particleTimer;
 	private boolean aiActivated = false;
 
 	public Reference.UNIT_TYPES getUnitType() {
 		return UNIT_TYPES.TREBUCHETBUILDER;
+	}
+
+	@Override
+	public void remove() {
+
+		super.remove();
+
 	}
 
 	public TrebuchetBuilderEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
@@ -75,6 +82,7 @@ public class TrebuchetBuilderEntity extends UnitEntity {
 						if (e instanceof TrebuchetEntity) {
 							TrebuchetEntity t = (TrebuchetEntity) e;
 							if (t.getSetupStep() == TrebuchetEntity.MAX_STEUP_STEP_COUNT) {
+								buildPhase = 2;
 								this.remove();
 							}
 						}
@@ -87,9 +95,10 @@ public class TrebuchetBuilderEntity extends UnitEntity {
 			this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0);
 
 		} else {
-			buildPhase = 0;
-			this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getMOVEMENT_SPEED());
-
+			// buildPhase = 0;
+			if (buildPhase == 0) {
+				this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Config.CONFIG_UNIT_ATTRIBUTES_ARCHER.getMOVEMENT_SPEED());
+			}
 		}
 
 		if (lastBuildPhase != buildPhase) {

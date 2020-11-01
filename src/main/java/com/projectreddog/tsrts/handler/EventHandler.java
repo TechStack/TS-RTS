@@ -8,6 +8,8 @@ import com.projectreddog.tsrts.TSRTS.GAMESTATE;
 import com.projectreddog.tsrts.containers.provider.LobbyContinerProvider;
 import com.projectreddog.tsrts.entities.SapperEntity;
 import com.projectreddog.tsrts.entities.TargetEntity;
+import com.projectreddog.tsrts.entities.TrebuchetBuilderEntity;
+import com.projectreddog.tsrts.entities.TrebuchetEntity;
 import com.projectreddog.tsrts.entities.UnitEntity;
 import com.projectreddog.tsrts.handler.Config.Modes;
 import com.projectreddog.tsrts.init.ModItems;
@@ -215,6 +217,22 @@ public class EventHandler {
 
 		}
 		Utilities.removeDeadEntityFromControlGroups(event.getEntity().getEntityId());
+
+		// check for trebs builders and kill the treb if the builder dies before it has completed building
+		if (event.getEntity() instanceof TrebuchetBuilderEntity) {
+			TrebuchetBuilderEntity tbe = (TrebuchetBuilderEntity) event.getEntity();
+			if (tbe.buildPhase == 1) {
+				// build phase 1 = it is being built now.
+				if (tbe.spawnedTrebEntityId > 0) {
+					Entity e = tbe.world.getEntityByID(tbe.spawnedTrebEntityId);
+					if (e instanceof TrebuchetEntity) {
+						TrebuchetEntity t = (TrebuchetEntity) e;
+						t.setHealth(0);
+
+					}
+				}
+			}
+		}
 	}
 
 	@SubscribeEvent

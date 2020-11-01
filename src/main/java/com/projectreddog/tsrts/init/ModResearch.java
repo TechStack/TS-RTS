@@ -33,7 +33,7 @@ public class ModResearch {
 		registerResearchTopic("advcedarmor", "armor", false, Config.CONFIG_RESEARCH_COSTS_ADVCEDARMOR, 100, 1, 5);
 		registerResearchTopic("watchtower", "wall", false, Config.CONFIG_RESEARCH_COSTS_WATCHTOWER, 100, 0, 1);
 		// registerResearchTopic("batteringrams", null, false, Config.CONFIG_RESEARCH_COSTS_BATTERINGRAMS, 100, 1, 1);
-		// registerResearchTopic("trebuchet", "batteringrams", false, Config.CONFIG_RESEARCH_COSTS_TREBUCHET, 100, 1, 1);
+		registerResearchTopic("trebuchet", "siegeworkshop", false, Config.CONFIG_RESEARCH_COSTS_TREBUCHET, 100, 3, 1);
 		registerResearchTopic("longbows", "archer", false, Config.CONFIG_RESEARCH_COSTS_LONGBOWS, 100, 5, 1);
 		registerResearchTopic("crossbows", "longbows", false, Config.CONFIG_RESEARCH_COSTS_CROSSBOW, 100, 6, 1);
 		registerResearchTopic("faith", "townhall", false, Config.CONFIG_RESEARCH_COSTS_FAITH, 100, 7, 1);

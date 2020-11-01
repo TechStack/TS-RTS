@@ -230,7 +230,7 @@ public class Reference {
 
 	public static enum UNIT_TYPES {
 
-		MINION("Minion", null, false, 0, 3), ARCHER("Archer", "archer", false, 1, 3), LANCER("Lancer", "lancer", false, 2, 3), PIKEMAN("Pikeman", "pikeman", true, 3, 3), KNIGHT("Knight", "armor", true, 5, 3), ADVANCED_KNIGHT("AdvancedKnight", "advcedarmor", true, 6, 3), SAPPER("Sapper", "siegeworkshop", false, 4, 1), TREBUCHET("Trebuchet", null, false, 0, 0), LONGBOWMAN("Longbowmen", "longbows", false, 5, 1), CROSSBOWMAN("Crossbowmen", "crossbows", false, 6, 1), CLERIC("Cleric", "faith", false, 7, 1), TREBUCHETBUILDER("TrebuchetBuilder", null, false, 3, 1);
+		MINION("Minion", null, false, 0, 3), ARCHER("Archer", "archer", false, 1, 3), LANCER("Lancer", "lancer", false, 2, 3), PIKEMAN("Pikeman", "pikeman", true, 3, 3), KNIGHT("Knight", "armor", true, 5, 3), ADVANCED_KNIGHT("AdvancedKnight", "advcedarmor", true, 6, 3), SAPPER("Sapper", "siegeworkshop", false, 4, 1), TREBUCHET("Trebuchet", null, false, 0, 0), LONGBOWMAN("Longbowmen", "longbows", false, 5, 1), CROSSBOWMAN("Crossbowmen", "crossbows", false, 6, 1), CLERIC("Cleric", "faith", false, 7, 1), TREBUCHETBUILDER("TrebuchetBuilder", "trebuchet", false, 3, 1);
 
 		private String Name;
 		private String ResearchKeyRequiredToBuy;
