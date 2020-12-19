@@ -324,6 +324,8 @@ public class Utilities {
 			return Config.CONFIG_UNIT_COSTS_PIKEMAN;
 		case TREBUCHET:
 			return Config.CONFIG_UNIT_COSTS_TREBUCHET;
+		case TREBUCHETBUILDER:
+			return Config.CONFIG_UNIT_COSTS_TREBUCHET;
 		case KNIGHT:
 			return Config.CONFIG_UNIT_COSTS_KNIGHT;
 		case ADVANCED_KNIGHT:
@@ -929,6 +931,8 @@ public class Utilities {
 			return ModEntities.PIKEMAN_ENTITY;
 		case TREBUCHET:
 			return ModEntities.TREBUCHET_ENTITY;
+		case TREBUCHETBUILDER:
+			return ModEntities.TREBUCHETBUILDER_ENTITY;
 		case SAPPER:
 			return ModEntities.SAPPER;
 		case CLERIC:
@@ -949,7 +953,7 @@ public class Utilities {
 
 	}
 
-	public static void SpawnUnitForTeam(UNIT_TYPES unitID, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
+	public static int SpawnUnitForTeam(UNIT_TYPES unitID, String Owner, World world, BlockPos pos, ScorePlayerTeam team, @Nullable BlockPos rallyPoint) {
 		EntityType et = getEntityTypeForUnitID(unitID);
 		Entity e = SpawnUnit(et, Owner, world, pos, rallyPoint, unitID);
 		if (team != null) {
@@ -957,6 +961,7 @@ public class Utilities {
 
 			world.getScoreboard().addPlayerToTeam(e.getCachedUniqueIdString(), team);
 		}
+		return e.getEntityId();
 
 	}
 
@@ -1087,6 +1092,9 @@ public class Utilities {
 
 			if (entityType == ModEntities.PIKEMAN_ENTITY) {
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.PIKEITEM));
+			}
+			if (entityType == ModEntities.TREBUCHETBUILDER_ENTITY) {
+				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.BUILDERHAMMERITEM));
 			}
 			//
 //			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));

@@ -66,6 +66,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_PIKE_ITEM = "pikeitem";
 	public static final String REIGSTRY_NAME_LONGBOW_ITEM = "longbowitem";
 	public static final String REIGSTRY_NAME_TREBUCHET_ITEM = "trebuchetitem";
+	public static final String REIGSTRY_NAME_BUILDER_HAMMER_ITEM = "builderhammeritem";
 
 	public static final String REIGSTRY_NAME_CREEPER_BAG_ITEM = "creeperbag";
 
@@ -113,6 +114,8 @@ public class Reference {
 	public static final String REIGSTRY_NAME_MOUNTED_ENTITY = "mountedentity";
 	public static final String REIGSTRY_NAME_PIKEMAN_ENTITY = "pikemanentity";
 	public static final String REIGSTRY_NAME_TREBUCHET_ENTITY = "trebuchetentity";
+	public static final String REIGSTRY_NAME_TREBUCHETBUILDER_ENTITY = "trebuchetbuilderentity";
+
 	public static final String REIGSTRY_NAME_KNIGHT_ENTITY = "knight";
 	public static final String REIGSTRY_NAME_ADVANCED_KNIGHT_ENTITY = "advancedknight";
 	public static final String REIGSTRY_NAME_SAPPER_ENTITY = "sapper";
@@ -227,7 +230,7 @@ public class Reference {
 
 	public static enum UNIT_TYPES {
 
-		MINION("Minion", null, false, 0, 3), ARCHER("Archer", "archer", false, 1, 3), LANCER("Lancer", "lancer", false, 2, 3), PIKEMAN("Pikeman", "pikeman", true, 3, 3), KNIGHT("Knight", "armor", true, 5, 3), ADVANCED_KNIGHT("AdvancedKnight", "advcedarmor", true, 6, 3), SAPPER("Sapper", "siegeworkshop", false, 4, 1), TREBUCHET("Trebuchet", null, false, 0, 0), LONGBOWMAN("Longbowmen", "longbows", false, 5, 1), CROSSBOWMAN("Crossbowmen", "crossbows", false, 6, 1), CLERIC("Cleric", "faith", false, 7, 1);
+		MINION("Minion", null, false, 0, 3), ARCHER("Archer", "archer", false, 1, 3), LANCER("Lancer", "lancer", false, 2, 3), PIKEMAN("Pikeman", "pikeman", true, 3, 3), KNIGHT("Knight", "armor", true, 5, 3), ADVANCED_KNIGHT("AdvancedKnight", "advcedarmor", true, 6, 3), SAPPER("Sapper", "siegeworkshop", false, 4, 1), TREBUCHET("Trebuchet", null, false, 0, 0), LONGBOWMAN("Longbowmen", "longbows", false, 5, 1), CROSSBOWMAN("Crossbowmen", "crossbows", false, 6, 1), CLERIC("Cleric", "faith", false, 7, 1), TREBUCHETBUILDER("TrebuchetBuilder", "trebuchet", false, 3, 1);
 
 		private String Name;
 		private String ResearchKeyRequiredToBuy;

@@ -76,7 +76,8 @@
 "item.tsrts.siegeworkshopbuilderitem":"Siege Workshop",
 "item.tsrts.marketplacebuilderitem":"Marketplace",
 "item.tsrts.templebuilderitem":"Temple",
-"item.tsrts.trebuchetritem":"Trebuchet",
+"item.tsrts.trebuchetitem":"Trebuchet",
+
 
 "_comment":"custom messages here",
 
@@ -115,7 +116,7 @@
 "gui.units.longbowmen":"Longbowmen",
 "gui.units.crossbowmen":"Crossbowmen",
 "gui.units.cleric":"Cleric",
-
+"gui.units.trebuchetbuilder":"Trebuchet Builder",
 
 "gui.research.minion.name":"Minions",
 "gui.research.townhall.name":"Town Hall",
@@ -131,6 +132,7 @@
 "gui.research.longbows.name":"Longbows",
 "gui.research.crossbows.name":"Crossbows",
 "gui.research.faith.name":"Faith",
+"gui.research.trebuchet.name":"Trebuchet",
 
 "gui.research.longbows.description":"Unlocks: Longbowmen
 A ranged unit carrying a longbow that has more health, range and attack damage than an archer.",
@@ -161,6 +163,9 @@ A defensive building that can shoot arrows at aproching troops",
 A building needed to make meele weapons and armor.",
 "gui.research.faith.description":"Unlocks: Cleric 
 A support unit that heals friendly troops",
+"gui.research.trebuchet.description":"Unlocks: Trebuchet Builders
+A carpenter unit that can build 1 trebuchet",
+
 
 "gui.options.infinite.barracks":"Barracks queue infinite mode",
 "gui.options.infinite.archeryrange":"Archery Range queue infinite mode",
@@ -255,6 +260,9 @@ Trained in: Barracks",
 "gui.troop.cleric.description":"A peaceful man of faith who can heal friendly troops
 Reserch Required: Faith
 Trained in: Temple",
+"gui.troop.trebuchetbuilder.description":"A carpenter with the skills needed to construct a trebuchet
+Reserch Required: Trebuchet
+Trained in: Siege Workshop",
 
 "gui.overlay.in":"In",
 "gui.overlay.out":"Out",

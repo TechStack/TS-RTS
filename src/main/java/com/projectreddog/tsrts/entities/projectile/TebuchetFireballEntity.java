@@ -6,8 +6,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public class TebuchetFireballEntity extends AbstractFireballEntity {
@@ -16,11 +19,11 @@ public class TebuchetFireballEntity extends AbstractFireballEntity {
 	}
 
 	public TebuchetFireballEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-		super(EntityType.SMALL_FIREBALL, shooter, accelX, accelY, accelZ, worldIn);
+		super(EntityType.FIREBALL, shooter, accelX, accelY, accelZ, worldIn);
 	}
 
 	public TebuchetFireballEntity(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-		super(EntityType.SMALL_FIREBALL, x, y, z, accelX, accelY, accelZ, worldIn);
+		super(EntityType.FIREBALL, x, y, z, accelX, accelY, accelZ, worldIn);
 	}
 
 	/**
@@ -34,12 +37,18 @@ public class TebuchetFireballEntity extends AbstractFireballEntity {
 					int i = entity.getFireTimer();
 					entity.setFire(5);
 					boolean flag = entity.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 50.0F);
+					entity.world.createExplosion(this, DamageSource.causeExplosionDamage(this.shootingEntity), entity.posX, entity.posY, entity.posZ, 2f, false, Explosion.Mode.NONE);
 					if (flag) {
 						this.applyEnchantments(this.shootingEntity, entity);
 					} else {
 						entity.setFireTimer(i);
 					}
 				}
+			} else if (result.getType() == RayTraceResult.Type.BLOCK) {
+				BlockPos bp = ((BlockRayTraceResult) result).getPos();
+
+				this.world.createExplosion(this, DamageSource.causeExplosionDamage(this.shootingEntity), bp.getX(), bp.getY(), bp.getZ(), 2f, false, Explosion.Mode.NONE);
+
 			}
 
 			this.remove();
