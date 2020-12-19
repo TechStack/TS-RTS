@@ -73,7 +73,7 @@ public class TrebuchetBuilderEntity extends UnitEntity {
 					buildPhase = 1;
 					// Spawn the trebuchet in !
 
-					spawnedTrebEntityId = Utilities.SpawnUnitForTeam(UNIT_TYPES.TREBUCHET, this.getScoreboardName(), this.world, this.getPosition(), getTeam(), null);
+					spawnedTrebEntityId = Utilities.SpawnUnitForTeam(UNIT_TYPES.TREBUCHET, this.getOwnerName(), this.world, this.getPosition(), getTeam(), null);
 
 				} else {
 
