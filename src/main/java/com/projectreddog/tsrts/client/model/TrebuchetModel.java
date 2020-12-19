@@ -94,6 +94,56 @@ public class TrebuchetModel extends EntityModel<TrebuchetEntity> {
 	@Override
 	public void render(TrebuchetEntity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		setRotationsForAttackStep(entity);
+		// if (entity.getSetupStep() < TrebuchetEntity.MAX_STEUP_STEP_COUNT) {
+		base.isHidden = true;
+
+		sideLegL.isHidden = false;
+		sideLegR.isHidden = false;
+
+		frontLegs.isHidden = false;
+		backLegs.isHidden = false;
+
+		PivotPoint.isHidden = false;
+
+		slingAttach.isHidden = false;
+
+		slingEnd.isHidden = false;
+
+		counterWeightAttachment.isHidden = false;
+		counterWeightEnd.isHidden = false;
+
+		base.isHidden = false;
+		if (entity.getSetupStep() <= 0) {
+			sideLegL.isHidden = true;
+			sideLegR.isHidden = true;
+		}
+		if (entity.getSetupStep() <= 1) {
+
+			frontLegs.isHidden = true;
+			backLegs.isHidden = true;
+		}
+		if (entity.getSetupStep() <= 2) {
+
+			PivotPoint.isHidden = true;
+		}
+		if (entity.getSetupStep() <= 3) {
+
+			slingAttach.isHidden = true;
+		}
+
+		if (entity.getSetupStep() <= 4) {
+
+			slingEnd.isHidden = true;
+		}
+
+		if (entity.getSetupStep() <= 5) {
+			counterWeightAttachment.isHidden = true;
+		}
+		if (entity.getSetupStep() <= 6) {
+			counterWeightEnd.isHidden = true;
+		}
+
+		// }
 		parent.render(f5);
 //		entity.attackStep++;
 //		if (entity.attackStep > 12) {

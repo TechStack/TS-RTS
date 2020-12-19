@@ -394,7 +394,8 @@ public class RenderOverlay extends Screen {
 			return new ItemStack(Items.TOTEM_OF_UNDYING);
 		case TREBUCHET:
 			return new ItemStack(Items.FIRE_CHARGE);
-
+		case TREBUCHETBUILDER:
+			return new ItemStack(Items.FIRE_CHARGE);
 		case LONGBOWMAN:
 			return new ItemStack(ModItems.LONGBOW);
 		case CROSSBOWMAN:

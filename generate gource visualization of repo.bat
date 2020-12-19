@@ -1,0 +1,1 @@
+gource --title "RTSCraft" --disable-bloom --file-idle-time 0 --auto-skip-seconds 1 --seconds-per-day 2 -f -1280x1080 --user-image-dir .git/avatar/ --hide date -o "D:\ALL\Video Out\Gource\gource.ppm" -f
