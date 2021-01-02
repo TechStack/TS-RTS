@@ -105,7 +105,7 @@ public class TrebuchetEntity extends UnitEntity {
 	}
 
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
-		return 0.93F;
+		return 15F;
 	}
 
 	protected void registerAttributes() {
