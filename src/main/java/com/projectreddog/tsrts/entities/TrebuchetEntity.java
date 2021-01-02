@@ -53,35 +53,38 @@ public class TrebuchetEntity extends UnitEntity {
 	public void tick() {
 		tickCount++;
 		super.tick();
-		if (lastAttackStep != attackStep) {
-			this.dataManager.set(ATTACK_STEP, attackStep);
-			lastAttackStep = attackStep;
-		}
-
-		if (lastSetupStep != setupStep) {
-			this.dataManager.set(SETUP_STEP, setupStep);
-			lastSetupStep = setupStep;
-		}
-		if (setupStep < TrebuchetEntity.MAX_STEUP_STEP_COUNT) {
-
-			particleTimer++;
-			if (this.particleTimer % 2 == 0) {
-				this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.posX + (double) (this.rand.nextFloat() * this.getWidth() * 10f) - (this.getWidth() * 10f / 2), this.posY + (this.rand.nextFloat() * 5), this.posZ + (double) (this.rand.nextFloat() * this.getWidth() * 10f) - (this.getWidth() * 10f / 2), this.rand.nextFloat() * .01d - .005d, -.01d, this.rand.nextFloat() * .01d - .005d);
-
+		if (!this.world.isRemote) {
+			// server
+			if (lastAttackStep != attackStep) {
+				this.dataManager.set(ATTACK_STEP, attackStep);
+				lastAttackStep = attackStep;
 			}
-			if (tickCount > 60) {
-				tickCount = 0;
-				setupStep++;
-			}
-		} else {
-			if (!aiActivated) {
 
-				this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-				this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-				aiActivated = true;
+			if (lastSetupStep != setupStep) {
+				this.dataManager.set(SETUP_STEP, setupStep);
+				lastSetupStep = setupStep;
+			}
+
+			if (setupStep < TrebuchetEntity.MAX_STEUP_STEP_COUNT) {
+
+				particleTimer++;
+				if (this.particleTimer % 2 == 0) {
+					this.world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.posX + (double) (this.rand.nextFloat() * this.getWidth() * 10f) - (this.getWidth() * 10f / 2), this.posY + (this.rand.nextFloat() * 5), this.posZ + (double) (this.rand.nextFloat() * this.getWidth() * 10f) - (this.getWidth() * 10f / 2), this.rand.nextFloat() * .01d - .005d, -.01d, this.rand.nextFloat() * .01d - .005d);
+
+				}
+				if (tickCount > 60) {
+					tickCount = 0;
+					setupStep++;
+				}
+			} else {
+				if (!aiActivated) {
+
+					this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+					this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+					aiActivated = true;
+				}
 			}
 		}
-
 	}
 
 	protected void registerData() {
