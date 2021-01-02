@@ -229,6 +229,13 @@ public class EventHandler {
 						TrebuchetEntity t = (TrebuchetEntity) e;
 						t.setHealth(0);
 
+						UnitEntity ue = (UnitEntity) t;
+						if (ue.getTeam() != null) {
+							String teamName = ue.getTeam().getName();
+
+							TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCount(ue.getUnitType());
+
+						}
 					}
 				}
 			}

@@ -1,10 +1,12 @@
 package com.projectreddog.tsrts.entities;
 
+import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.entities.ai.MoveToOwnerSpecifiedLocation;
 import com.projectreddog.tsrts.entities.ai.RetreatToOwnerSpecifiedLocation;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.reference.Reference;
 import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
+import com.projectreddog.tsrts.utilities.TeamEnum;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.Entity;
@@ -84,6 +86,14 @@ public class TrebuchetBuilderEntity extends UnitEntity {
 							if (t.getSetupStep() == TrebuchetEntity.MAX_STEUP_STEP_COUNT) {
 								buildPhase = 2;
 								this.remove();
+
+								UnitEntity ue = (UnitEntity) t;
+								if (ue.getTeam() != null) {
+									String teamName = ue.getTeam().getName();
+
+									TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCount(ue.getUnitType());
+
+								}
 							}
 						}
 					}
