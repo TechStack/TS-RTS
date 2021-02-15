@@ -32,6 +32,10 @@ public class UnitEntity extends MonsterEntity {
 		return null;
 	}
 
+	public boolean isGarrisonable() {
+		return false;
+	}
+
 	@Override
 	public void tick() {
 

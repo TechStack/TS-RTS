@@ -1,13 +1,16 @@
 package com.projectreddog.tsrts.items;
 
+import com.projectreddog.tsrts.entities.TargetEntity;
 import com.projectreddog.tsrts.init.ModItemGroups;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.tileentity.WallTileEntity;
 import com.projectreddog.tsrts.utilities.Utilities;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -34,6 +37,28 @@ public class RetreateScepterItem extends Item {
 		}, 1024);
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		if (entityraytraceresult != null) {
+			if (!worldIn.isRemote) {
+				// on server
+				if (entityraytraceresult.getEntity() instanceof TargetEntity) {
+
+					TargetEntity targetEntity = (TargetEntity) entityraytraceresult.getEntity();
+
+					// found a target check if its the same team!
+					if (targetEntity.getTeam().isSameTeam(playerIn.getTeam())) {
+						// SAME TEAM !
+						// get the owning TE
+						TileEntity te = worldIn.getTileEntity(targetEntity.getOwningTePos());
+						// check that TE if it is a wall
+						if (te instanceof WallTileEntity) {
+							Utilities.GarrisonSelectedUnits(worldIn, (WallTileEntity) te, playerIn.getScoreboardName(), playerIn);
+
+						}
+
+					}
+
+				}
+
+			}
 
 		} else {
 			// NO ENTITY FOUND so instead look for a block move
