@@ -81,6 +81,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
 import net.minecraft.util.Rotation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -1372,6 +1374,57 @@ public class Utilities {
 	public static void AddResourcesToTeam(String teamName, TeamInfo.Resources res, int amt) {
 		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddResource(res, amt);
 
+	}
+
+	public static List<BlockPos> SetGarrisonPoint(World world, WallTileEntity wall, int size, Direction direction) {
+		List<BlockPos> lbp = new ArrayList<BlockPos>();
+		// Find the top of the wall 1 block "forward" and 1 to right and left and start to TP selected untis to it !
+
+		BlockPos bp = wall.getPos().up(3); // up four may /may not be correct
+
+		for (int i = -1; i < 2; i++) {
+			BlockPos suggetedPos = FindLocationAboveSolid(world, bp.offset(direction).offset(direction.rotateY(), i), bp);
+			lbp.add(suggetedPos);
+		}
+
+		return lbp;
+	}
+
+	public static void GarrisonSelectedUnits(World world, WallTileEntity wall, String ownerName, PlayerEntity player) {
+		if (TSRTS.playerSelections.containsKey(ownerName)) {
+			// found the player in the hasmap get and loop thru the enitties 1
+			int count = TSRTS.playerSelections.get(ownerName).selectedUnits.size();
+
+			// its a wall and our team ..
+			// Find the top of the wall 1 block "forward" and 1 to right and left and start to TP selected untis to it !
+
+			List<BlockPos> lbp = SetGarrisonPoint(world, wall, count, Direction.getFacingFromVector(player.getLookVec().getX(), 0, player.getLookVec().getZ()));
+
+			if (lbp != null && lbp.size() > 0) {
+				int currentPosIndex = 0;
+				for (int i = 0; i < TSRTS.playerSelections.get(ownerName).selectedUnits.size(); i++) {
+					if (currentPosIndex < lbp.size()) {
+						UnitEntity ue = (UnitEntity) world.getEntityByID(TSRTS.playerSelections.get(ownerName).selectedUnits.get(i));
+						if (ue.isGarrisonable()) {
+							if (ue != null) {
+								if (ue.getDistanceSq(lbp.get(currentPosIndex).getX() + .5, lbp.get(currentPosIndex).getY(), lbp.get(currentPosIndex).getZ() + .5) <= 32 * 32) {
+									if (ue.attemptTeleport(lbp.get(currentPosIndex).getX() + .5, lbp.get(currentPosIndex).getY(), lbp.get(currentPosIndex).getZ() + .5, true)) {
+										world.playSound((PlayerEntity) null, lbp.get(currentPosIndex).getX(), lbp.get(currentPosIndex).getY(), lbp.get(currentPosIndex).getZ(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
+										ue.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+										ue.ownerControlledDestination = lbp.get(currentPosIndex);
+										currentPosIndex++;
+										/// context.getPos();
+										// TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
+										ue.isRetreating = true;
+										ue.isHoldingGround = true;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public static void SelectedUnitsMoveToBlock(World world, BlockPos target, String ownerName, PlayerEntity player, boolean isRetreatMove, boolean isHoldingGround) {

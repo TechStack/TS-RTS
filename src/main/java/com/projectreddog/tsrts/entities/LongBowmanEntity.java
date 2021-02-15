@@ -38,6 +38,11 @@ public class LongBowmanEntity extends UnitEntity implements IRangedAttackMob {
 		// Minecraft.getInstance().player.getTeam()
 	}
 
+	@Override
+	public boolean isGarrisonable() {
+		return true;
+	}
+
 	public Reference.UNIT_TYPES getUnitType() {
 		return UNIT_TYPES.LONGBOWMAN;
 	}
