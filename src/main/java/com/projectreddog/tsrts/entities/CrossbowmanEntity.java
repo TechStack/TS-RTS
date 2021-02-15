@@ -44,6 +44,11 @@ public class CrossbowmanEntity extends UnitEntity implements IRangedAttackMob, I
 		HOLDING, CHARGING, NONE
 	}
 
+	@Override
+	public boolean isGarrisonable() {
+		return true;
+	}
+
 	public CrossbowmanEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
 		// this.world.getScoreboard().addPlayerToTeam(this.getCachedUniqueIdString(), scoreplayerteam);
