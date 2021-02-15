@@ -1013,21 +1013,21 @@ public class Utilities {
 
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.IRON_SWORD));
 
-				ItemStack is = new ItemStack(ModItems.TEAM_IRON_ARMOR_HELMET);
-				is = IDyeableArmorItem.dyeItem(is, teamColorList);
-				ue.setItemStackToSlot(EquipmentSlotType.HEAD, is);
+//				ItemStack is = new ItemStack(ModItems.TEAM_IRON_ARMOR_HELMET);
+//				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+//				ue.setItemStackToSlot(EquipmentSlotType.HEAD, is);
 
-				is = new ItemStack(ModItems.TEAM_IRON_ARMOR_CHESTPLATE);
+				ItemStack is = new ItemStack(ModItems.TEAM_IRON_ARMOR_CHESTPLATE);
 				is = IDyeableArmorItem.dyeItem(is, teamColorList);
 				ue.setItemStackToSlot(EquipmentSlotType.CHEST, is);
 
-				is = new ItemStack(ModItems.TEAM_IRON_ARMOR_LEGGINGS);
-				is = IDyeableArmorItem.dyeItem(is, teamColorList);
-				ue.setItemStackToSlot(EquipmentSlotType.LEGS, is);
+//				is = new ItemStack(ModItems.TEAM_IRON_ARMOR_LEGGINGS);
+//				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+//				ue.setItemStackToSlot(EquipmentSlotType.LEGS, is);
 
-				is = new ItemStack(ModItems.TEAM_IRON_ARMOR_BOOTS);
-				is = IDyeableArmorItem.dyeItem(is, teamColorList);
-				ue.setItemStackToSlot(EquipmentSlotType.FEET, is);
+//				is = new ItemStack(ModItems.TEAM_IRON_ARMOR_BOOTS);
+//				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+//				ue.setItemStackToSlot(EquipmentSlotType.FEET, is);
 
 			} else if (unitID == UNIT_TYPES.ADVANCED_KNIGHT) {
 				List<DyeItem> teamColorList = Lists.newArrayList();
@@ -1037,21 +1037,21 @@ public class Utilities {
 
 				ue.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.DIAMOND_SWORD));
 
-				ItemStack is = new ItemStack(ModItems.TEAM_DIAMOND_ARMOR_HELMET);
-				is = IDyeableArmorItem.dyeItem(is, teamColorList);
-				ue.setItemStackToSlot(EquipmentSlotType.HEAD, is);
+//				ItemStack is = new ItemStack(ModItems.TEAM_DIAMOND_ARMOR_HELMET);
+//				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+//				ue.setItemStackToSlot(EquipmentSlotType.HEAD, is);
 
-				is = new ItemStack(ModItems.TEAM_DIAMOND_ARMOR_CHESTPLATE);
+				ItemStack is = new ItemStack(ModItems.TEAM_DIAMOND_ARMOR_CHESTPLATE);
 				is = IDyeableArmorItem.dyeItem(is, teamColorList);
 				ue.setItemStackToSlot(EquipmentSlotType.CHEST, is);
 
-				is = new ItemStack(ModItems.TEAM_DIAMOND_ARMOR_LEGGINGS);
-				is = IDyeableArmorItem.dyeItem(is, teamColorList);
-				ue.setItemStackToSlot(EquipmentSlotType.LEGS, is);
+//				is = new ItemStack(ModItems.TEAM_DIAMOND_ARMOR_LEGGINGS);
+//				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+//				ue.setItemStackToSlot(EquipmentSlotType.LEGS, is);
 
-				is = new ItemStack(ModItems.TEAM_DIAMOND_ARMOR_BOOTS);
-				is = IDyeableArmorItem.dyeItem(is, teamColorList);
-				ue.setItemStackToSlot(EquipmentSlotType.FEET, is);
+//				is = new ItemStack(ModItems.TEAM_DIAMOND_ARMOR_BOOTS);
+//				is = IDyeableArmorItem.dyeItem(is, teamColorList);
+//				ue.setItemStackToSlot(EquipmentSlotType.FEET, is);
 
 			}
 			if (entityType == ModEntities.ARCHER_MINION) {

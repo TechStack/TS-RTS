@@ -86,6 +86,8 @@ public class FireballAttackGoal extends Goal {
 					this.attackTime = 70;
 				}
 
+			} else {
+				this.controllingEntity.setAttackTarget(null);
 			}
 
 			this.controllingEntity.getLookController().setLookPositionWithEntity(livingentity, 10.0F, 10.0F);
