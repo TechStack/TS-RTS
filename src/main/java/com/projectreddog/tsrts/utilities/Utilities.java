@@ -1397,9 +1397,10 @@ public class Utilities {
 
 			// its a wall and our team ..
 			// Find the top of the wall 1 block "forward" and 1 to right and left and start to TP selected untis to it !
-
-			List<BlockPos> lbp = SetGarrisonPoint(world, wall, count, Direction.getFacingFromVector(player.getLookVec().getX(), 0, player.getLookVec().getZ()));
-
+			Direction d = Direction.getFacingFromVector(player.getLookVec().getX(), 0, player.getLookVec().getZ());
+			List<BlockPos> lbp = SetGarrisonPoint(world, wall, count, d);
+			double xFactor = d.getXOffset() * .45d;
+			double zFactor = d.getZOffset() * .45d;
 			if (lbp != null && lbp.size() > 0) {
 				int currentPosIndex = 0;
 				for (int i = 0; i < TSRTS.playerSelections.get(ownerName).selectedUnits.size(); i++) {
@@ -1407,8 +1408,8 @@ public class Utilities {
 						UnitEntity ue = (UnitEntity) world.getEntityByID(TSRTS.playerSelections.get(ownerName).selectedUnits.get(i));
 						if (ue.isGarrisonable()) {
 							if (ue != null) {
-								if (ue.getDistanceSq(lbp.get(currentPosIndex).getX() + .5, lbp.get(currentPosIndex).getY(), lbp.get(currentPosIndex).getZ() + .5) <= 32 * 32) {
-									if (ue.attemptTeleport(lbp.get(currentPosIndex).getX() + .5, lbp.get(currentPosIndex).getY(), lbp.get(currentPosIndex).getZ() + .5, true)) {
+								if (ue.getDistanceSq(lbp.get(currentPosIndex).getX() + .5 + xFactor, lbp.get(currentPosIndex).getY(), lbp.get(currentPosIndex).getZ() + .5 + zFactor) <= 32 * 32) {
+									if (ue.attemptTeleport(lbp.get(currentPosIndex).getX() + .5 + xFactor, lbp.get(currentPosIndex).getY(), lbp.get(currentPosIndex).getZ() + .5 + zFactor, true)) {
 										world.playSound((PlayerEntity) null, lbp.get(currentPosIndex).getX(), lbp.get(currentPosIndex).getY(), lbp.get(currentPosIndex).getZ(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
 										ue.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 										ue.ownerControlledDestination = lbp.get(currentPosIndex);
