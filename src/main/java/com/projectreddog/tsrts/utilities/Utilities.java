@@ -1413,6 +1413,8 @@ public class Utilities {
 										world.playSound((PlayerEntity) null, lbp.get(currentPosIndex).getX(), lbp.get(currentPosIndex).getY(), lbp.get(currentPosIndex).getZ(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
 										ue.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 										ue.ownerControlledDestination = lbp.get(currentPosIndex);
+										Utilities.serverDeSelectUnit(player, player.getScoreboardName(), ue.getEntityId());
+
 										currentPosIndex++;
 										/// context.getPos();
 										// TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
