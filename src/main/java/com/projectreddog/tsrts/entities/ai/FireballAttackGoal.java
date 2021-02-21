@@ -61,7 +61,7 @@ public class FireballAttackGoal extends Goal {
 			boolean flag = this.controllingEntity.getEntitySenses().canSee(livingentity);
 
 			double d0 = this.controllingEntity.getDistanceSq(livingentity);
-			if (d0 < this.getFollowDistance() * this.getFollowDistance() && flag) {
+			if (d0 < this.getFollowDistance() * this.getFollowDistance() && flag && d0 > 100) {
 				double d1 = livingentity.posX - this.controllingEntity.posX;
 				double d2 = livingentity.getBoundingBox().minY + (double) (livingentity.getHeight() / 2.0F) - (this.controllingEntity.posY + (double) (this.controllingEntity.getHeight() / 2.0F) + 12.5f);
 				double d3 = livingentity.posZ - this.controllingEntity.posZ;
@@ -83,7 +83,7 @@ public class FireballAttackGoal extends Goal {
 				}
 				if (this.controllingEntity.attackStep == 12) {
 					this.controllingEntity.attackStep = 0;
-					this.attackTime = 70;
+					this.attackTime = 160;
 				}
 
 			} else {
