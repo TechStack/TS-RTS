@@ -23,8 +23,8 @@ public class BackpackLayer extends LayerRenderer<SapperEntity, SapperModel> {
 	public void render(SapperEntity entityIn, float p_212842_2_, float p_212842_3_, float p_212842_4_, float p_212842_5_, float p_212842_6_, float p_212842_7_, float p_212842_8_) {
 
 		GlStateManager.pushMatrix();
-		GlStateManager.scalef(-1, -1, -1);
-		GlStateManager.translatef(0, -.70f, .07f);
+		GlStateManager.scalef(-2, -2, -2);
+		GlStateManager.translatef(0, -.00f, .07f);
 
 		Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entityIn, new ItemStack(ModItems.CREEPERBAGITEM), ItemCameraTransforms.TransformType.NONE, false);
 		GlStateManager.popMatrix();

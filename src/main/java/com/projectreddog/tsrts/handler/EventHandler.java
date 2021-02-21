@@ -163,7 +163,7 @@ public class EventHandler {
 					EntityDamageSource eds = (EntityDamageSource) event.getSource();
 
 					if (eds.getTrueSource() instanceof SapperEntity && event.getSource().damageType.equals("explosion.player")) {
-						event.setAmount(MathHelper.clamp(event.getAmount() * 4, 25, 100));
+						event.setAmount(MathHelper.clamp(event.getAmount() * 64, 25, 100));
 
 					}
 				}
