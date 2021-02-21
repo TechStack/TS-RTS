@@ -91,7 +91,7 @@ public class TrebuchetBuilderEntity extends UnitEntity {
 								if (ue.getTeam() != null) {
 									String teamName = ue.getTeam().getName();
 
-									TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCount(this.getUnitType());
+									TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveAmtUnitCount(this.getUnitType(), Reference.TREBUCHET_POPULATION_AMT);
 
 								}
 							}

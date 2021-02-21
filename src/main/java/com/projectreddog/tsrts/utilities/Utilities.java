@@ -951,7 +951,12 @@ public class Utilities {
 
 	public static void AddToUnitCounts(UNIT_TYPES unitID, String teamName) {
 
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCount(unitID);
+		if (unitID == UNIT_TYPES.TREBUCHET || unitID == UNIT_TYPES.TREBUCHETBUILDER) {
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddAmtUnitCount(unitID, Reference.TREBUCHET_POPULATION_AMT);
+
+		} else {
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCount(unitID);
+		}
 
 	}
 

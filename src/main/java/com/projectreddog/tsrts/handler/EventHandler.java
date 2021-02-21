@@ -18,6 +18,7 @@ import com.projectreddog.tsrts.network.RequestOwnerInfoToServer;
 import com.projectreddog.tsrts.network.SendMapDataPacketToClient;
 import com.projectreddog.tsrts.network.UnitQueueChangedPacketToClient;
 import com.projectreddog.tsrts.reference.Reference;
+import com.projectreddog.tsrts.reference.Reference.UNIT_TYPES;
 import com.projectreddog.tsrts.tileentity.OwnedCooldownTileEntity;
 import com.projectreddog.tsrts.utilities.GameOptions;
 import com.projectreddog.tsrts.utilities.PlayerSelections;
@@ -210,9 +211,11 @@ public class EventHandler {
 			UnitEntity ue = (UnitEntity) event.getEntity();
 			if (ue.getTeam() != null) {
 				String teamName = ue.getTeam().getName();
-
-				TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCount(ue.getUnitType());
-
+				if (ue.getUnitType() == UNIT_TYPES.TREBUCHET || ue.getUnitType() == UNIT_TYPES.TREBUCHETBUILDER) {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveAmtUnitCount(ue.getUnitType(), Reference.TREBUCHET_POPULATION_AMT);
+				} else {
+					TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].RemoveOneUnitCount(ue.getUnitType());
+				}
 			}
 
 		}
