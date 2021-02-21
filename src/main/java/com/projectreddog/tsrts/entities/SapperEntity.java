@@ -58,7 +58,12 @@ public class SapperEntity extends UnitEntity {
 	}
 
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
-		return 0.93F;
+		return 1.78F;
+	}
+
+	@Override
+	public boolean isChild() {
+		return false;
 	}
 
 	@Override

@@ -349,6 +349,14 @@ public class TeamInfo {
 		unitCount[type.ordinal()]++;
 	}
 
+	public void AddAmtUnitCount(UNIT_TYPES type, int amt) {
+		unitCount[type.ordinal()] = unitCount[type.ordinal()] + amt;
+	}
+
+	public void RemoveAmtUnitCount(UNIT_TYPES type, int amt) {
+		unitCount[type.ordinal()] = unitCount[type.ordinal()] - amt;
+	}
+
 	public void RemoveOneUnitCount(UNIT_TYPES type) {
 		unitCount[type.ordinal()]--;
 	}

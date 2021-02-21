@@ -216,6 +216,8 @@ public class Reference {
 	public static final int GUI_ID_TOWN_HALL = 1;
 	public static final int GUI_ID_MAIN_MENU = 2;
 
+	public static final int TREBUCHET_POPULATION_AMT = 5;
+
 	public static enum TEAM_OPTION_BUTTONS {
 		INFINATE_BARRACKS_QUEUE, INFINANTE_ARCHERY_RANGE_QUEUE, INFINANTE_STABLES_QUEUE, INFINANTE_SIEGE_WORKSHOP_QUEUE, INFINANTE_TEMPLE_QUEUE
 	}

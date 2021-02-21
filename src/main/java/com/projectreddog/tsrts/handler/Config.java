@@ -463,7 +463,7 @@ public class Config {
 
 		CONFIG_UNIT_TREBUCHET_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the TREBUCHET. Atttributes are ").define("unit_trebuchet_attributes", "15.0,5,0.35,2.0,0.0,0.0,3.0,48.0");
 
-		CONFIG_UNIT_SAPPER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the SAPPER. Atttributes are ").define("unit_sapper_attributes", "5.0,0.0,0.37,0,0.0,0.0,0.0,24.0");
+		CONFIG_UNIT_SAPPER_ATTRIBUTES_STRING = COMMON_BUILDER.comment("Defines a comma separted list of values for each attribute in order for the SAPPER. Atttributes are ").define("unit_sapper_attributes", "100.0,0.0,0.20,0,0.0,0.0,0.0,24.0");
 		COMMON_BUILDER.pop();
 
 	}
@@ -529,11 +529,11 @@ public class Config {
 		CONFIG_UNIT_COSTS_LANCER_STRING = COMMON_BUILDER.comment("Defines the cost For the lancer").define("unitCostsLancer", "10,6,0,1,6,0,0");
 		CONFIG_UNIT_COSTS_PIKEMAN_STRING = COMMON_BUILDER.comment("Defines the cost For the pikeman").define("unitCostsPikeman", "8,8,0,8,8,0,0");
 
-		CONFIG_UNIT_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("unitCostsTrebuchet", "15,20,0,5,15,20,0");
+		CONFIG_UNIT_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("unitCostsTrebuchet", "50,400,0,50,100,40,0");
 
 		CONFIG_UNIT_COSTS_KNIGHT_STRING = COMMON_BUILDER.comment("Defines the cost For the knight").define("unitCostsKnight", "6,4,4,10,10,0,0");
 		CONFIG_UNIT_COSTS_ADVANCED_KNIGHT_STRING = COMMON_BUILDER.comment("Defines the cost For the Advanced Knight").define("unitCostsAdvancedKnight", "6,4,4,10,10,10,0");
-		CONFIG_UNIT_COSTS_SAPPER_STRING = COMMON_BUILDER.comment("Defines the cost For the sapper").define("unitCostsSapper", "5,4,4,0,15,20,0");
+		CONFIG_UNIT_COSTS_SAPPER_STRING = COMMON_BUILDER.comment("Defines the cost For the sapper").define("unitCostsSapper", "50,4,4,0,30,20,0");
 		CONFIG_UNIT_COSTS_LONGBOWMEN_STRING = COMMON_BUILDER.comment("Defines the cost For the longbowmen").define("unitCostsLongbowmen", "10,8,2,6,8,0,0");
 
 		CONFIG_UNIT_COSTS_CROSSBOWMEN_STRING = COMMON_BUILDER.comment("Defines the cost For the crossbowmen").define("unitCostsCrossbowmen", "10,7,2,7,9,0,0");

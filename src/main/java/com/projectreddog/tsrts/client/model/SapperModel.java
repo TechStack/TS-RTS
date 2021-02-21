@@ -25,13 +25,13 @@ public class SapperModel extends BipedModel<SapperEntity> {
 		GlStateManager.pushMatrix();
 
 		float f = 2.0F;
-		GlStateManager.scalef(0.75F, 0.75F, 0.75F);
-		GlStateManager.translatef(0.0F, 16.0F * scale, 0.0F);
+		GlStateManager.scalef(1.25F, 1.25F, 1.25F);
+		GlStateManager.translatef(0.0F, 0.0F * scale, 0.0F);
 		this.bipedHead.render(scale);
 		GlStateManager.popMatrix();
 		GlStateManager.pushMatrix();
-		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-		GlStateManager.translatef(0.0F, 24.0F * scale, 0.0F);
+		GlStateManager.scalef(1F, 1F, 1F);
+		GlStateManager.translatef(0.0F, 0.0F * scale, 0.0F);
 		this.bipedBody.render(scale);
 		this.bipedRightArm.render(scale);
 		this.bipedLeftArm.render(scale);

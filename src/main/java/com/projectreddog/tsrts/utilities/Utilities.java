@@ -951,7 +951,12 @@ public class Utilities {
 
 	public static void AddToUnitCounts(UNIT_TYPES unitID, String teamName) {
 
-		TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCount(unitID);
+		if (unitID == UNIT_TYPES.TREBUCHET || unitID == UNIT_TYPES.TREBUCHETBUILDER) {
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddAmtUnitCount(unitID, Reference.TREBUCHET_POPULATION_AMT);
+
+		} else {
+			TSRTS.teamInfoArray[TeamEnum.getIDFromName(teamName)].AddOneUnitCount(unitID);
+		}
 
 	}
 
@@ -1413,6 +1418,8 @@ public class Utilities {
 										world.playSound((PlayerEntity) null, lbp.get(currentPosIndex).getX(), lbp.get(currentPosIndex).getY(), lbp.get(currentPosIndex).getZ(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
 										ue.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 										ue.ownerControlledDestination = lbp.get(currentPosIndex);
+										Utilities.serverDeSelectUnit(player, player.getScoreboardName(), ue.getEntityId());
+
 										currentPosIndex++;
 										/// context.getPos();
 										// TSRTS.LOGGER.info("Destination set to:" + ue.ownerControlledDestination);
