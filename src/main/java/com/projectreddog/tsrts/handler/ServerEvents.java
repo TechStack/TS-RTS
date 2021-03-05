@@ -258,6 +258,9 @@ public class ServerEvents {
 						if (TSRTS.teamInfoArray[i].getCurrenResearchKey() != "") {
 							ModResearch.getResearch(TSRTS.teamInfoArray[i].getCurrenResearchKey()).setUnlocked(true, i);
 							ModNetwork.SendToALLPlayers(new ResearchUnlockedPacketToClient(TSRTS.teamInfoArray[i].getCurrenResearchKey(), TeamEnum.values()[i].getName(), ModResearch.getResearch(TSRTS.teamInfoArray[i].getCurrenResearchKey()).isUnlocked(i)));
+							if (ModResearch.getResearch(TSRTS.teamInfoArray[i].getCurrenResearchKey()).isHasEvent()) {
+								ModResearch.FireEvent(server.getWorld(DimensionType.OVERWORLD), TSRTS.teamInfoArray[i].getCurrenResearchKey(), TeamEnum.values()[i].getName());
+							}
 
 							TSRTS.teamInfoArray[i].setCurrenResearchKey("");
 							TSRTS.teamInfoArray[i].setCurrenResearchWorkRemaining(0);

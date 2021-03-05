@@ -6,7 +6,12 @@ import java.util.Map;
 import com.projectreddog.tsrts.TSRTS;
 import com.projectreddog.tsrts.handler.Config;
 import com.projectreddog.tsrts.utilities.ResourceValues;
+import com.projectreddog.tsrts.utilities.Utilities;
 import com.projectreddog.tsrts.utilities.data.Research;
+
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.world.server.ServerWorld;
 
 public class ModResearch {
 
@@ -37,9 +42,65 @@ public class ModResearch {
 		registerResearchTopic("longbows", "archer", false, Config.CONFIG_RESEARCH_COSTS_LONGBOWS, 100, 5, 1);
 		registerResearchTopic("crossbows", "longbows", false, Config.CONFIG_RESEARCH_COSTS_CROSSBOW, 100, 6, 1);
 		registerResearchTopic("faith", "townhall", false, Config.CONFIG_RESEARCH_COSTS_FAITH, 100, 7, 1);
+		registerResearchTopic("armorrefinement1", "advcedarmor", false, Config.CONFIG_RESEARCH_COSTS_ARMORREFINEMENT1, 100, 1, 5, true);
+		registerResearchTopic("armorrefinement2", "armorrefinement1", false, Config.CONFIG_RESEARCH_COSTS_ARMORREFINEMENT2, 100, 1, 5, true);
+		registerResearchTopic("armorrefinement3", "armorrefinement2", false, Config.CONFIG_RESEARCH_COSTS_ARMORREFINEMENT3, 100, 1, 5, true);
+		registerResearchTopic("armorrefinement4", "armorrefinement3", false, Config.CONFIG_RESEARCH_COSTS_ARMORREFINEMENT4, 100, 1, 5, true);
+		registerResearchTopic("armorrefinement5", "armorrefinement4", false, Config.CONFIG_RESEARCH_COSTS_ARMORREFINEMENT5, 100, 1, 5, true);
+		registerResearchTopic("armorrefinement6", "armorrefinement5", false, Config.CONFIG_RESEARCH_COSTS_ARMORREFINEMENT6, 100, 1, 5, true);
+		registerResearchTopic("armorrefinement7", "armorrefinement6", false, Config.CONFIG_RESEARCH_COSTS_ARMORREFINEMENT7, 100, 1, 5, true);
+		registerResearchTopic("armorrefinement8", "armorrefinement7", false, Config.CONFIG_RESEARCH_COSTS_ARMORREFINEMENT8, 100, 1, 5, true);
+		registerResearchTopic("armorrefinement9", "armorrefinement8", false, Config.CONFIG_RESEARCH_COSTS_ARMORREFINEMENT9, 100, 1, 5, true);
+		registerResearchTopic("armorrefinement10", "armorrefinement9", false, Config.CONFIG_RESEARCH_COSTS_ARMORREFINEMENT10, 100, 1, 5, true);
 
 		updateAllCalcs();
 
+	}
+
+	public static void FireEvent(ServerWorld world, String key, String teamName) {
+		ScorePlayerTeam team = world.getScoreboard().getTeam(teamName);
+		switch (key) {
+		case "armorrefinement1":
+			Utilities.EnchantAllCurrentUnitsOnTeam(world, team, Enchantments.PROTECTION, 1);
+			break;
+		case "armorrefinement2":
+			Utilities.EnchantAllCurrentUnitsOnTeam(world, team, Enchantments.PROTECTION, 2);
+
+			break;
+		case "armorrefinement3":
+			Utilities.EnchantAllCurrentUnitsOnTeam(world, team, Enchantments.PROTECTION, 3);
+
+			break;
+		case "armorrefinement4":
+			Utilities.EnchantAllCurrentUnitsOnTeam(world, team, Enchantments.PROTECTION, 4);
+
+			break;
+		case "armorrefinement5":
+			Utilities.EnchantAllCurrentUnitsOnTeam(world, team, Enchantments.PROTECTION, 5);
+
+			break;
+		case "armorrefinement6":
+			Utilities.EnchantAllCurrentUnitsOnTeam(world, team, Enchantments.PROTECTION, 6);
+
+			break;
+		case "armorrefinement7":
+			Utilities.EnchantAllCurrentUnitsOnTeam(world, team, Enchantments.PROTECTION, 7);
+
+			break;
+		case "armorrefinement8":
+			Utilities.EnchantAllCurrentUnitsOnTeam(world, team, Enchantments.PROTECTION, 8);
+
+			break;
+		case "armorrefinement9":
+			Utilities.EnchantAllCurrentUnitsOnTeam(world, team, Enchantments.PROTECTION, 9);
+
+			break;
+		case "armorrefinement10":
+			Utilities.EnchantAllCurrentUnitsOnTeam(world, team, Enchantments.PROTECTION, 10);
+
+			break;
+
+		}
 	}
 
 	public static void updateAllCalcs() {
@@ -170,6 +231,11 @@ public class ModResearch {
 	}
 
 	private static void registerResearchTopic(String key, String parentKey, boolean unlocked, ResourceValues rv, int workRequired, int buttonIndexX, int buttonIndexY) {
+		registerResearchTopic(key, parentKey, unlocked, rv, workRequired, buttonIndexX, buttonIndexY, false);
+
+	}
+
+	private static void registerResearchTopic(String key, String parentKey, boolean unlocked, ResourceValues rv, int workRequired, int buttonIndexX, int buttonIndexY, boolean hasEvent) {
 
 		if (parentKey != null) {
 			// has parent so check it
@@ -179,7 +245,7 @@ public class ModResearch {
 				throw new IllegalArgumentException("Tried to add key:" + key + " with a parent of:" + parentKey + " but the parent was not found!");
 			}
 		}
-		research_topics.put(key, new Research(key, parentKey, unlocked, rv, workRequired, buttonIndexX, buttonIndexY));
+		research_topics.put(key, new Research(key, parentKey, unlocked, rv, workRequired, buttonIndexX, buttonIndexY, hasEvent));
 
 	}
 

@@ -58,6 +58,7 @@ import com.projectreddog.tsrts.utilities.data.Research;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -2522,5 +2523,28 @@ public class Utilities {
 			}
 
 		}
+	}
+
+	public static void EnchantArmorOnUnit(UnitEntity u, Enchantment enchant, int level) {
+
+		u.getItemStackFromSlot(EquipmentSlotType.HEAD).addEnchantment(enchant, level);
+		u.getItemStackFromSlot(EquipmentSlotType.CHEST).addEnchantment(enchant, level);
+		u.getItemStackFromSlot(EquipmentSlotType.LEGS).addEnchantment(enchant, level);
+		u.getItemStackFromSlot(EquipmentSlotType.FEET).addEnchantment(enchant, level);
+
+	}
+
+	public static void EnchantAllCurrentUnitsOnTeam(ServerWorld world, ScorePlayerTeam team, Enchantment enchant, int level) {
+		world.getEntities().forEach(e -> {
+			if (e instanceof UnitEntity) {
+				UnitEntity u = (UnitEntity) e;
+				if (u.getTeam().isSameTeam(team)) {
+
+					EnchantArmorOnUnit(u, enchant, level);
+				}
+			}
+
+		});
+
 	}
 }

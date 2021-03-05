@@ -16,10 +16,10 @@ public class Research {
 	private double currentX;
 	private double currentY;
 	private int TreeNodeValue;
-
+	private boolean hasEvent;
 	private int calculatedLevel;
 
-	public Research(String key, String parentKey, boolean isStartupUnlockedValue, ResourceValues rv, int workRequired, int buttonIndexX, int buttonIndexY) {
+	public Research(String key, String parentKey, boolean isStartupUnlockedValue, ResourceValues rv, int workRequired, int buttonIndexX, int buttonIndexY, boolean hasEvent) {
 		super();
 		for (int i = 0; i < TeamEnum.values().length; i++) {
 			this.isUnlocked[i] = isStartupUnlockedValue;
@@ -30,6 +30,7 @@ public class Research {
 		this.workRequired = workRequired;
 		this.buttonIndexX = buttonIndexX;
 		this.buttonIndexY = buttonIndexY;
+		this.hasEvent = hasEvent;
 	}
 
 	public int getTreeNodeValue() {
@@ -159,6 +160,14 @@ public class Research {
 
 	public void setButtonIndexY(int buttonIndexY) {
 		this.buttonIndexY = buttonIndexY;
+	}
+
+	public boolean isHasEvent() {
+		return hasEvent;
+	}
+
+	public void setHasEvent(boolean hasEvent) {
+		this.hasEvent = hasEvent;
 	}
 
 }

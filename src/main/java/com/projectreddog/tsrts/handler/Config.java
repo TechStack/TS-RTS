@@ -264,6 +264,27 @@ public class Config {
 	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_LONGBOWS_STRING;
 	public static ResourceValues CONFIG_RESEARCH_COSTS_LONGBOWS;
 
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORREFINEMENT1_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORREFINEMENT1;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORREFINEMENT2_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORREFINEMENT2;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORREFINEMENT3_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORREFINEMENT3;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORREFINEMENT4_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORREFINEMENT4;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORREFINEMENT5_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORREFINEMENT5;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORREFINEMENT6_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORREFINEMENT6;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORREFINEMENT7_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORREFINEMENT7;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORREFINEMENT8_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORREFINEMENT8;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORREFINEMENT9_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORREFINEMENT9;
+	public static ForgeConfigSpec.ConfigValue<String> CONFIG_RESEARCH_COSTS_ARMORREFINEMENT10_STRING;
+	public static ResourceValues CONFIG_RESEARCH_COSTS_ARMORREFINEMENT10;
+
 	// OPTIONS
 	public static ForgeConfigSpec.BooleanValue CONFIG_PLAYERS_CAN_ATTACK_BUILDINGS;
 	public static ForgeConfigSpec.IntValue CONFIG_SERVER_MAX_POPULATION;
@@ -320,6 +341,16 @@ public class Config {
 		CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING = COMMON_BUILDER.comment("Defines the cost For the batteringrams").define("batteringramsResearchCosts", "250,500,100,50,50,50,0");
 		CONFIG_RESEARCH_COSTS_TREBUCHET_STRING = COMMON_BUILDER.comment("Defines the cost For the trebuchet").define("trebuchetResearchCosts", "250,1000,200,100,100,100,0");
 		CONFIG_RESEARCH_COSTS_LONGBOWS_STRING = COMMON_BUILDER.comment("Defines the cost For the longbows").define("longbowsResearchCosts", "700,1300,0,400,100,250,0");
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT1_STRING = COMMON_BUILDER.comment("Defines the cost For the armorrefinement1").define("armorrefinement1ResearchCosts", "1000,200,200,200,600,500,0");
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT2_STRING = COMMON_BUILDER.comment("Defines the cost For the armorrefinement2").define("armorrefinement2ResearchCosts", "1000,200,200,200,600,500,0");
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT3_STRING = COMMON_BUILDER.comment("Defines the cost For the armorrefinement3").define("armorrefinement3ResearchCosts", "1000,200,200,200,600,500,0");
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT4_STRING = COMMON_BUILDER.comment("Defines the cost For the armorrefinement4").define("armorrefinement4ResearchCosts", "1000,200,200,200,600,500,0");
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT5_STRING = COMMON_BUILDER.comment("Defines the cost For the armorrefinement5").define("armorrefinement5ResearchCosts", "1000,200,200,200,600,500,0");
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT6_STRING = COMMON_BUILDER.comment("Defines the cost For the armorrefinement6").define("armorrefinement6ResearchCosts", "1000,200,200,200,600,500,0");
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT7_STRING = COMMON_BUILDER.comment("Defines the cost For the armorrefinement7").define("armorrefinement7ResearchCosts", "1000,200,200,200,600,500,0");
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT8_STRING = COMMON_BUILDER.comment("Defines the cost For the armorrefinement8").define("armorrefinement8ResearchCosts", "1000,200,200,200,600,500,0");
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT9_STRING = COMMON_BUILDER.comment("Defines the cost For the armorrefinement9").define("armorrefinement9ResearchCosts", "1000,200,200,200,600,500,0");
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT10_STRING = COMMON_BUILDER.comment("Defines the cost For the armorrefinement10").define("armorrefinement10ResearchCosts", "1000,200,200,200,600,500,0");
 		COMMON_BUILDER.pop();
 	}
 
@@ -444,6 +475,18 @@ public class Config {
 		CONFIG_RESEARCH_COSTS_BATTERINGRAMS = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_BATTERINGRAMS_STRING.get()));
 		CONFIG_RESEARCH_COSTS_TREBUCHET = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_TREBUCHET_STRING.get()));
 		CONFIG_RESEARCH_COSTS_LONGBOWS = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_LONGBOWS_STRING.get()));
+
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT1 = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORREFINEMENT1_STRING.get()));
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT2 = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORREFINEMENT2_STRING.get()));
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT3 = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORREFINEMENT3_STRING.get()));
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT4 = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORREFINEMENT4_STRING.get()));
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT5 = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORREFINEMENT5_STRING.get()));
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT6 = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORREFINEMENT6_STRING.get()));
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT7 = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORREFINEMENT7_STRING.get()));
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT8 = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORREFINEMENT8_STRING.get()));
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT9 = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORREFINEMENT9_STRING.get()));
+		CONFIG_RESEARCH_COSTS_ARMORREFINEMENT10 = new ResourceValues(StringToIntArray(CONFIG_RESEARCH_COSTS_ARMORREFINEMENT10_STRING.get()));
+
 	}
 
 	private static void setupUnitAttributeConfig() {
