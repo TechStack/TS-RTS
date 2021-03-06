@@ -59,6 +59,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -77,6 +78,7 @@ import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Team;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -1108,7 +1110,7 @@ public class Utilities {
 //			ue.setItemStackToSlot(EquipmentSlotType.OFFHAND, new ItemStack(Items.SHIELD));
 			// ue.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.DIAMOND_HELMET));
 //			ue.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.IRON_LEGGINGS));
-
+			applyEnchantsOnSpawn(ue);
 		}
 
 		return e;
@@ -2525,7 +2527,51 @@ public class Utilities {
 		}
 	}
 
+	public static void applyEnchantsOnSpawn(UnitEntity u) {
+		ApplyArmorEncantsOnSpawn(u);
+	}
+
+	public static void ApplyArmorEncantsOnSpawn(UnitEntity u) {
+		int level = GetProtectionLevel(u);
+		if (level > 0) {
+			EnchantArmorOnUnit(u, Enchantments.PROTECTION, level);
+
+		}
+	}
+
+	public static int GetProtectionLevel(UnitEntity u) {
+		Team team = u.getTeam();
+		if (team != null) {
+			if (ModResearch.getResearch("armorrefinement1").isUnlocked(team.getName())) {
+				// apply enchant for this level
+				return 1;
+			} else if (ModResearch.getResearch("armorrefinement2").isUnlocked(team.getName())) {
+				return 2;
+			} else if (ModResearch.getResearch("armorrefinement3").isUnlocked(team.getName())) {
+				return 3;
+			} else if (ModResearch.getResearch("armorrefinement4").isUnlocked(team.getName())) {
+				return 4;
+			} else if (ModResearch.getResearch("armorrefinement5").isUnlocked(team.getName())) {
+				return 5;
+			} else if (ModResearch.getResearch("armorrefinement6").isUnlocked(team.getName())) {
+				return 6;
+			} else if (ModResearch.getResearch("armorrefinement7").isUnlocked(team.getName())) {
+				return 7;
+			} else if (ModResearch.getResearch("armorrefinement8").isUnlocked(team.getName())) {
+				return 8;
+			} else if (ModResearch.getResearch("armorrefinement9").isUnlocked(team.getName())) {
+				return 9;
+			}
+		}
+		return 0;
+	}
+
 	public static void EnchantArmorOnUnit(UnitEntity u, Enchantment enchant, int level) {
+
+		u.getItemStackFromSlot(EquipmentSlotType.HEAD).getTag().remove("Enchantments");
+		u.getItemStackFromSlot(EquipmentSlotType.CHEST).getTag().remove("Enchantments");
+		u.getItemStackFromSlot(EquipmentSlotType.LEGS).getTag().remove("Enchantments");
+		u.getItemStackFromSlot(EquipmentSlotType.FEET).getTag().remove("Enchantments");
 
 		u.getItemStackFromSlot(EquipmentSlotType.HEAD).addEnchantment(enchant, level);
 		u.getItemStackFromSlot(EquipmentSlotType.CHEST).addEnchantment(enchant, level);

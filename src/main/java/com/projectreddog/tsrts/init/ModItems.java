@@ -33,6 +33,7 @@ import com.projectreddog.tsrts.items.builderitems.TownHallBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WallBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WallStepsBuilderItem;
 import com.projectreddog.tsrts.items.builderitems.WatchTowerBuilderItem;
+import com.projectreddog.tsrts.items.debug.MoneyStick;
 import com.projectreddog.tsrts.reference.Reference;
 
 import net.minecraft.inventory.EquipmentSlotType;
@@ -96,6 +97,9 @@ public class ModItems {
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_WALL_STEPS_BUILDER_ITEM)
 	public static WallStepsBuilderItem WALLSTEPSBUILDERITEM = new WallStepsBuilderItem();
+
+	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_MONEY_STICK_ITEM)
+	public static MoneyStick MONEYSTICKITEM = new MoneyStick();
 
 	@ObjectHolder(Reference.MODID + ":" + Reference.REIGSTRY_NAME_GATE_BUILDER_ITEM)
 	public static GateBuilderItem GATEBUILDERITEM = new GateBuilderItem();
@@ -206,6 +210,7 @@ public class ModItems {
 		RegisterItem(event, ModItems.TEAM_DIAMOND_ARMOR_LEGGINGS);
 		RegisterItem(event, ModItems.TEAM_DIAMOND_ARMOR_BOOTS);
 
+		RegisterItem(event, ModItems.MONEYSTICKITEM);
 	}
 
 	// Called to register every item.

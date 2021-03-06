@@ -67,6 +67,7 @@ public class Reference {
 	public static final String REIGSTRY_NAME_LONGBOW_ITEM = "longbowitem";
 	public static final String REIGSTRY_NAME_TREBUCHET_ITEM = "trebuchetitem";
 	public static final String REIGSTRY_NAME_BUILDER_HAMMER_ITEM = "builderhammeritem";
+	public static final String REIGSTRY_NAME_MONEY_STICK_ITEM = "moneystickitem";
 
 	public static final String REIGSTRY_NAME_CREEPER_BAG_ITEM = "creeperbag";
 
