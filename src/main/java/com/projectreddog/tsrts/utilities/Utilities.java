@@ -2568,15 +2568,32 @@ public class Utilities {
 
 	public static void EnchantArmorOnUnit(UnitEntity u, Enchantment enchant, int level) {
 
-		u.getItemStackFromSlot(EquipmentSlotType.HEAD).getTag().remove("Enchantments");
-		u.getItemStackFromSlot(EquipmentSlotType.CHEST).getTag().remove("Enchantments");
-		u.getItemStackFromSlot(EquipmentSlotType.LEGS).getTag().remove("Enchantments");
-		u.getItemStackFromSlot(EquipmentSlotType.FEET).getTag().remove("Enchantments");
+		if (u.getItemStackFromSlot(EquipmentSlotType.HEAD) != null) {
+			if (u.getItemStackFromSlot(EquipmentSlotType.HEAD).getTag() != null) {
+				u.getItemStackFromSlot(EquipmentSlotType.HEAD).getTag().remove("Enchantments");
+			}
+			u.getItemStackFromSlot(EquipmentSlotType.HEAD).addEnchantment(enchant, level);
+		}
 
-		u.getItemStackFromSlot(EquipmentSlotType.HEAD).addEnchantment(enchant, level);
-		u.getItemStackFromSlot(EquipmentSlotType.CHEST).addEnchantment(enchant, level);
-		u.getItemStackFromSlot(EquipmentSlotType.LEGS).addEnchantment(enchant, level);
-		u.getItemStackFromSlot(EquipmentSlotType.FEET).addEnchantment(enchant, level);
+		if (u.getItemStackFromSlot(EquipmentSlotType.CHEST) != null) {
+			if (u.getItemStackFromSlot(EquipmentSlotType.CHEST).getTag() != null) {
+				u.getItemStackFromSlot(EquipmentSlotType.CHEST).getTag().remove("Enchantments");
+			}
+			u.getItemStackFromSlot(EquipmentSlotType.CHEST).addEnchantment(enchant, level);
+		}
+		if (u.getItemStackFromSlot(EquipmentSlotType.LEGS) != null) {
+			if (u.getItemStackFromSlot(EquipmentSlotType.LEGS).getTag() != null) {
+				u.getItemStackFromSlot(EquipmentSlotType.LEGS).getTag().remove("Enchantments");
+			}
+			u.getItemStackFromSlot(EquipmentSlotType.LEGS).addEnchantment(enchant, level);
+		}
+
+		if (u.getItemStackFromSlot(EquipmentSlotType.FEET) != null) {
+			if (u.getItemStackFromSlot(EquipmentSlotType.FEET).getTag() != null) {
+				u.getItemStackFromSlot(EquipmentSlotType.FEET).getTag().remove("Enchantments");
+			}
+			u.getItemStackFromSlot(EquipmentSlotType.FEET).addEnchantment(enchant, level);
+		}
 
 	}
 

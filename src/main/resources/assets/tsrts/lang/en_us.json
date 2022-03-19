@@ -133,6 +133,19 @@
 "gui.research.crossbows.name":"Crossbows",
 "gui.research.faith.name":"Faith",
 "gui.research.trebuchet.name":"Trebuchet",
+"gui.research.armorrefinement1.name":"Armor Refinement Level 1",
+"gui.research.armorrefinement2.name":"Armor Refinement Level 2",
+"gui.research.armorrefinement3.name":"Armor Refinement Level 3",
+"gui.research.armorrefinement4.name":"Armor Refinement Level 4",
+"gui.research.armorrefinement5.name":"Armor Refinement Level 5",
+"gui.research.armorrefinement6.name":"Armor Refinement Level 6",
+"gui.research.armorrefinement7.name":"Armor Refinement Level 7",
+"gui.research.armorrefinement8.name":"Armor Refinement Level 8",
+"gui.research.armorrefinement9.name":"Armor Refinement Level 9",
+"gui.research.armorrefinement10.name":"Armor Refinement Level 10",
+
+
+
 
 "gui.research.longbows.description":"Unlocks: Longbowmen
 A ranged unit carrying a longbow that has more health, range and attack damage than an archer.",
@@ -166,6 +179,36 @@ A support unit that heals friendly troops",
 "gui.research.trebuchet.description":"Unlocks: Trebuchet Builders
 A carpenter unit that can build 1 trebuchet",
 
+"gui.research.armorrefinement1.description":"Unlocks: Armor enchantment
+Applies Protection 1 to Armor.",
+
+"gui.research.armorrefinement2.description":"Unlocks: Armor enchantment
+Applies Protection 2 to Armor.",
+
+
+"gui.research.armorrefinement3.description":"Unlocks: Armor enchantment
+Applies Protection 3 to Armor.",
+
+"gui.research.armorrefinement4.description":"Unlocks: Armor enchantment
+Applies Protection 4 to Armor.",
+
+"gui.research.armorrefinement5.description":"Unlocks: Armor enchantment
+Applies Protection 5 to Armor.",
+
+"gui.research.armorrefinement6.description":"Unlocks: Armor enchantment
+Applies Protection 6 to Armor.",
+
+"gui.research.armorrefinement7.description":"Unlocks: Armor enchantment
+Applies Protection 7 to Armor.",
+
+"gui.research.armorrefinement8.description":"Unlocks: Armor enchantment
+Applies Protection 8 to Armor.",
+
+"gui.research.armorrefinement9.description":"Unlocks: Armor enchantment
+Applies Protection 9 to Armor.",
+
+"gui.research.armorrefinement10.description":"Unlocks: Armor enchantment
+Applies Protection 10 to Armor.",
 
 "gui.options.infinite.barracks":"Barracks queue infinite mode",
 "gui.options.infinite.archeryrange":"Archery Range queue infinite mode",
